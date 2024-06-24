@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bike</fullName>
+                <default>false</default>
+                <label>Bike</label>
+            </value>
+            <value>
+                <fullName>PCAService</fullName>
+                <default>false</default>
+                <label>PCA - Service</label>
+            </value>
+            <value>
+                <fullName>Service Package</fullName>
+                <default>false</default>
+                <label>Service Package</label>
+            </value>
+            <value>
+                <fullName>Warranty</fullName>
+                <default>false</default>
+                <label>Warranty</label>
+            </value>
+            <value>
+                <fullName>Recall</fullName>
+                <default>false</default>
+                <label>Recall</label>
+            </value>
+            <value>
+                <fullName>Internal Service</fullName>
+                <default>false</default>
+                <label>Internal Service</label>
+            </value>
+            <value>
+                <fullName>Standard Pricebook</fullName>
+                <default>true</default>
+                <label>Standard Pricebook</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

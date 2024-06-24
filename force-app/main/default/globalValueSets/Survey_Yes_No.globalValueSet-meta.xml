@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Yes</fullName>
+        <default>false</default>
+        <label>Yes</label>
+    </customValue>
+    <customValue>
+        <fullName>No</fullName>
+        <default>false</default>
+        <label>No</label>
+    </customValue>
+    <customValue>
+        <fullName>Có</fullName>
+        <default>false</default>
+        <label>Có</label>
+    </customValue>
+    <customValue>
+        <fullName>Không</fullName>
+        <default>false</default>
+        <label>Không</label>
+    </customValue>
+    <masterLabel>Survey Yes No</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

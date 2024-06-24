@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SG_All_Services_complete</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Order_No__c</columns>
+    <columns>DO_DL__c</columns>
+    <columns>Order_Number__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>Frame_No1__c</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>Paid_Amount__c</columns>
+    <columns>Invoice_Date__c</columns>
+    <columns>Mechanic__c</columns>
+    <columns>Detailing_Staff__c</columns>
+    <columns>ORDER.RECORDTYPE</columns>
+    <columns>Campaign__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DO_DL__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR SAI GON</value>
+    </filters>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Free_Coupon,Order.Free_Service_Order,Order.External_Service,Order.Warranty</value>
+    </filters>
+    <filters>
+        <field>ORDERS.STATUS</field>
+        <operation>equals</operation>
+        <value>Completed</value>
+    </filters>
+    <label>SG- All Services</label>
+    <sharedTo>
+        <group>Service_HCM</group>
+        <group>Storeman_HCM</group>
+    </sharedTo>
+</ListView>

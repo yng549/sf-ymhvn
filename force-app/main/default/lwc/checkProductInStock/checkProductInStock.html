@@ -1,0 +1,95 @@
+<template>
+    <div >
+        <div class="slds-header">
+            <h1 id="heading-01" class="slds-hyphenate">
+                <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-salesforce1">
+                          <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                          </svg>
+                        </span>
+                      </div>
+                    <div class="slds-media__body" style="padding-left:50%;">
+                        <h2 class="slds-truncate" title="Einstein (10+)">
+                            <span class="slds-text-heading_small">Check Product In Stock</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+            </h1>
+        </div>
+        <div class="slds__content slds-p-around_medium slds-scrollable_y" id="content-id-1">
+            <lightning-layout multiple-rows="true" vertical-align="end">
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="12"
+                    padding="around-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="text" onchange={handleFilter} data-name="searchProd" label="Enter Product Name" placeholder="Search Product"> </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout><br />
+            <div if:true={isShowSpinner} class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading..." variant="brand">
+                </lightning-spinner>
+            </div>
+            <table class="slds-scrollable_y" style="margin:5px;">
+                <thead>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Product Name</th>
+                        <th>Color Name</th>
+                        <th>Sale Price</th>
+                        <th>Status In Stock</th>
+                        <th>QoH</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template if:true={allFilteredClients}>
+                        <template for:each={allFilteredClients} for:item="item" for:index="index">
+                            <tr key={item.Id}>
+                                <td>
+                                    <a style="color:rgba(6, 142, 233, 0.719)" title={item.URLWareHouse}  href={item.URLWareHouse} target="_blank">{item.ProductCode}</a>
+                                </td>
+                                <td>{item.ProductNameVN}</td>
+                                <td>{item.ColorType}</td>
+                                <td>
+                                    <lightning-input variant="label-hidden" type=number formatter="currency" read-only=true
+                                        value={item.Price} style="width:170px;">
+                            </lightning-input> 
+                                </td>
+                                <td>
+                                    <template if:true={item.QoH}>
+                                        <lightning-icon icon-name="utility:success" alternative-text="Success!" variant="success"
+                                        title="success variant small" size="small"></lightning-icon>
+                                    </template>
+                                    <template if:false={item.QoH}>
+                                        <lightning-icon icon-name="utility:error" alternative-text="Error!" variant="error"
+                                            title="error variant small" size="small"></lightning-icon>
+                                    </template>
+                                </td>
+                                <td>{item.QoH}</td>
+                            </tr>
+                        </template>   
+                    </template>    
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- <div class="slds-modal__footer">
+            
+                <template if:true={isShowSpinner}>
+                    <lightning-button label="Searching" disabled="true">
+                    </lightning-button>
+                </template>
+                <template if:false={isShowSpinner}>
+                    <button class="slds-button slds-button_brand"  style="background-color:#2565AE;"
+                        onclick={handleFilter}>
+                        Searching
+                    </button>
+                </template>
+        </div> -->
+
+    </div>
+</template>

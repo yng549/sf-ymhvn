@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apply_to_Role__c</fullName>
+    <externalId>false</externalId>
+    <label>Apply to Role</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bike Sales KPI by position:</fullName>
+                <default>false</default>
+                <label>Bike Sales KPI by position:</label>
+            </value>
+            <value>
+                <fullName>Sales supervisor (Also conduct direct sales)</fullName>
+                <default>false</default>
+                <label>Sales supervisor (Also conduct direct sales)</label>
+            </value>
+            <value>
+                <fullName>Sales AM/Manager (NOT conduct direct sales)</fullName>
+                <default>false</default>
+                <label>Sales AM/Manager (NOT conduct direct sales)</label>
+            </value>
+            <value>
+                <fullName>Service consultant (Conduct direct service sales)</fullName>
+                <default>false</default>
+                <label>Service consultant (Conduct direct service sales)</label>
+            </value>
+            <value>
+                <fullName>ALL Technician (Chief, Advance, Technician, Detailing Expert, Detailing specialist)</fullName>
+                <default>false</default>
+                <label>ALL Technician (Chief, Advance, Technician, Detailing Expert, Detailing specialist)</label>
+            </value>
+            <value>
+                <fullName>Service AM/Sup</fullName>
+                <default>false</default>
+                <label>Service AM/Sup</label>
+            </value>
+            <value>
+                <fullName>PCA Sales consultant</fullName>
+                <default>false</default>
+                <label>PCA Sales consultant</label>
+            </value>
+            <value>
+                <fullName>PCA Supervisor</fullName>
+                <default>false</default>
+                <label>PCA Supervisor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

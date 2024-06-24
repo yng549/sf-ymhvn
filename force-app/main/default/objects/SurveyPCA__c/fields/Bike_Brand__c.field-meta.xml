@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bike_Brand__c</fullName>
+    <externalId>false</externalId>
+    <label>Bike Brand</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yamaha</fullName>
+                <default>false</default>
+                <label>Yamaha</label>
+            </value>
+            <value>
+                <fullName>Honda</fullName>
+                <default>false</default>
+                <label>Honda</label>
+            </value>
+            <value>
+                <fullName>Triumph</fullName>
+                <default>false</default>
+                <label>Triumph</label>
+            </value>
+            <value>
+                <fullName>Kawasaki</fullName>
+                <default>false</default>
+                <label>Kawasaki</label>
+            </value>
+            <value>
+                <fullName>Suzuki</fullName>
+                <default>false</default>
+                <label>Suzuki</label>
+            </value>
+            <value>
+                <fullName>KTM</fullName>
+                <default>false</default>
+                <label>KTM</label>
+            </value>
+            <value>
+                <fullName>Harley</fullName>
+                <default>false</default>
+                <label>Harley</label>
+            </value>
+            <value>
+                <fullName>Ducati</fullName>
+                <default>false</default>
+                <label>Ducati</label>
+            </value>
+            <value>
+                <fullName>Royal Enfield</fullName>
+                <default>false</default>
+                <label>Royal Enfield</label>
+            </value>
+            <value>
+                <fullName>Beneli</fullName>
+                <default>false</default>
+                <label>Beneli</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

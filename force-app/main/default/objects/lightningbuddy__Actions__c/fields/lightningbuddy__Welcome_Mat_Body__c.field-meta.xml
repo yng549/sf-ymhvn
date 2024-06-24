@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>lightningbuddy__Welcome_Mat_Body__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Welcome Mat Body</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

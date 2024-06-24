@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Term_MegaPay_Detail__c</fullName>
+    <externalId>false</externalId>
+    <label>Payment Term MegaPay Detail</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Thanh toán thẻ ATM nội địa</fullName>
+                <default>false</default>
+                <label>Thanh toán thẻ ATM nội địa</label>
+            </value>
+            <value>
+                <fullName>Thanh toán  thẻ quốc tế (VISA/MASTER/JCB)</fullName>
+                <default>false</default>
+                <label>Thanh toán  thẻ quốc tế (VISA/MASTER/JCB)</label>
+            </value>
+            <value>
+                <fullName>Ví điện tử (Momo,  ZaloPay, Moca)</fullName>
+                <default>false</default>
+                <label>Ví điện tử (Momo,  ZaloPay, Moca)</label>
+            </value>
+            <value>
+                <fullName>Trả góp 0% qua thẻ</fullName>
+                <default>false</default>
+                <label>Trả góp 0% qua thẻ</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

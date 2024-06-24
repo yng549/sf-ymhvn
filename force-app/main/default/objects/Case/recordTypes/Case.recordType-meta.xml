@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case</fullName>
+    <active>true</active>
+    <businessProcess>Case</businessProcess>
+    <label>Case</label>
+    <picklistValues>
+        <picklist>Chanel_Receive__c</picklist>
+        <values>
+            <fullName>Hotline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trực tiếp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web-form</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Review__c</picklist>
+        <values>
+            <fullName>KH chưa hài lòng lắm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KH hoàn toàn chưa hài lòng</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KH hài lòng</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KH rất hài lòng</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Details_Case__c</picklist>
+        <values>
+            <fullName>Delivery time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feature Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>First time complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lack of Follow-ups</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi-media complaint %28Facebook%2C Chat box%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Others</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Products %28A%26A%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Products %28Motorcycle%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quality of Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serial complaint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Group__c</picklist>
+        <values>
+            <fullName>Bike</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Others</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Extremely High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Complex functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions not clear</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Showroom__c</picklist>
+        <values>
+            <fullName>Hà Nội</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hồ Chí Minh</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Feature Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Question</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_Request__c</picklist>
+        <values>
+            <fullName>Dịch vụ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Khiếu nại</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Khác</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phụ tùng</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trang phục%2C phụ kiện</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Xe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Case CS Resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case Complain %28Website%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Way_to_solve__c</picklist>
+        <values>
+            <fullName>In implementation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No satisfaction achieved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satisfaction Achieved</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Stock_Out_Of_Month__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Stock Out Of Month</label>
+    <summarizedField>History_Stock_Product_Detail__c.Stock_Out__c</summarizedField>
+    <summaryForeignKey>History_Stock_Product_Detail__c.History_Stock_Product__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

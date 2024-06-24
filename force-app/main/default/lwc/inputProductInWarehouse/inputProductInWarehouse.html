@@ -1,0 +1,474 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-salesforce1">
+                              <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                              </svg>
+                            </span>
+                          </div>
+                        <div class="slds-media__body" style="padding-left:50%;">
+                            <h2 class="slds-truncate" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">Input Product In Warehouse</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                </h1>
+            </div>
+            
+            <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                <lightning-card  title="Add Product" style="margin:5px;">
+                    <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+                        <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+                    </div>
+                    <div class="tableFixHead">
+                        
+                        <lightning-progress-indicator current-step={currentStep} type="base" variant="base">
+                            <lightning-progress-step label="Step 1" value="1" onclick={handleOnStepClick}></lightning-progress-step>
+                            <lightning-progress-step label="Step 2" value="2" onclick={handleOnStepClick}></lightning-progress-step>
+                        </lightning-progress-indicator>
+                        <lightning-layout multiple-rows="true" vertical-align="end">
+                            <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="12"
+                                padding="around-small">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <lightning-input type="text" data-id="searchProd" label="Enter Product Name"
+                                            onchange={handleSearch} placeholder="Search Product"> </lightning-input>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout><br />
+                        <div style="margin-right:10px; margin-left:10px;">
+                            <div style="float:left;">
+                                <span style="font-weight: bold;">Total Record: ({totalRecord})</span>
+                            </div>
+                            <div style="float:right;">
+                                <a onclick={viewResultSelected} style="font-weight: bold;">Record Selected: ({totalNumberSelected})</a>
+                            </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="slds-table--header-fixed_container" style="height:450px;">
+                            <div class="slds-scrollable_y" style="height:100%;margin:5px;">
+                                <template if:true={isStepOne}>
+                                    <div class="slds-scrollable_x">
+                                        <br />
+                                        <table class="slds-table slds-table_bordered slds-table--header-fixed">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th class="" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate">
+                                                            #
+                                                        </div>
+                                                    </th>
+                                                    <th class="" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate">
+                                                           Order By
+                                                        </div>
+                                                    </th>
+                                                    <th class="" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate">
+                                                            Product Code
+                                                        </div>
+                                                    </th>
+                                                    <th class="" style="max-width: 350px;" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate" >
+                                                            Product Name
+                                                        </div>
+                                                    </th>
+                                                    <th class="" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate" >
+                                                            Model Name
+                                                        </div>
+                                                    </th>
+                                                    <th class="" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate" >
+                                                            Model Code
+                                                        </div>
+                                                    </th>
+                                                    <template if:true={flagDataHeder}>
+                                                        <template if:true={dataTranHeader.From_Warehouse_Location__c}>
+                                                            <th class="" scope="col">
+                                                                <div style="padding-left:5px;" class="slds-truncate" >
+                                                                    QoH
+                                                                </div>
+                                                            </th>
+                                                        </template>
+                                                    </template>
+                                                    
+                                                    <th class="" scope="col">
+                                                        <div style="padding-left:5px;" class="slds-truncate" >
+                                                            RecordType Name
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template if:true={viewSelected}>
+                                                    <template for:each={items} for:item="obj" for:index="index">
+                                                        <tr key={obj.Id}>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <lightning-input type="checkbox" name={obj.Id} onchange={setBoxes}
+                                                                        value={obj.Id} data-id={obj.Id} checked={obj.Ischecked}>
+                                                                    </lightning-input>
+                                                                </div>
+                                                            </th>
+                                                            <th  scope="col">
+                                                                <div style="margin-left:10px;">
+                                                                    {obj.OrderBy}
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col" style="max-width: 350px;">
+                                                                <div  title={obj.ProductCode} style="max-width: 350px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                                    <a title={obj.ProductCode} href={obj.URLProduct2} target="_blank">{obj.ProductCode}</a>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div><a href={obj.URLProduct2} target="_blank">{obj.ProductName}</a></div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div >{obj.ProductModelName}</div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div >{obj.ProductModelCode}</div>
+                                                            </th>
+                                                            <template if:true={flagDataHeder}>
+                                                                <template if:true={dataTranHeader.From_Warehouse_Location__c}>
+                                                                    <th scope="col">
+                                                                        <div >{obj.QoH}</div>
+                                                                    </th>
+                                                                </template>
+                                                            </template>
+                                                            <th scope="col">
+                                                                <div >{obj.RecordTypeName}</div>
+                                                            </th>
+                                                        </tr>
+                                                    </template>
+                                                </template>
+                                                <template if:false={viewSelected}>
+                                                    <template for:each={lstStrPriceBook} for:item="obj" for:index="index">
+                                                        <tr key={obj.Id}>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <lightning-input type="checkbox" name={obj.Id} onchange={setBoxes}
+                                                                        value={obj.Id} data-id={obj.Id} checked={obj.Ischecked}>
+                                                                    </lightning-input>
+                                                                </div>
+                                                            </th>
+                                                            <th  scope="col">
+                                                                <div style="margin-left:10px;">
+                                                                    {obj.number}
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col" style="max-width: 350px;">
+                                                                <div  title={obj.ProductCode} style="max-width: 350px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                                    <a title={obj.ProductCode} href={obj.URLProduct2} target="_blank">{obj.ProductCode}</a>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div><a href={obj.URLProduct2} target="_blank">{obj.ProductName}</a></div>
+                                                            </th>
+                                                            
+                                                            <th scope="col">
+                                                                <div >{obj.ProductModelName}</div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div >{obj.ProductModelCode}</div>
+                                                            </th>
+
+                                                            <template if:true={flagDataHeder}>
+                                                                <template if:true={dataTranHeader.From_Warehouse_Location__c}>
+                                                                    <th scope="col">
+                                                                        <div >{obj.QoH}</div>
+                                                                    </th>
+                                                                </template>
+                                                            </template>
+                                                            <th scope="col">
+                                                                <div >{obj.RecordTypeName}</div>
+                                                            </th>
+                                                        </tr>
+                                                    </template>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </template>
+                    
+                    
+                    
+                    
+                    
+                                <template if:true={isStepTwo}>
+                                    <div>
+                                        <div>
+                                            <lightning-card >
+                                                <!-- <div class="slds-grid slds-gutters">
+                                                    <div class="slds-col">
+                                                        <span>
+                                                            <div class="slds-form-element">
+                                                                <div class="slds-form-element__control">
+                                                                    <div class="slds-combobox_container">
+                                                                        <div id="box" class={boxClass} aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                                                                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                                                                <template if:true={isValueSelected}>
+                                                                                    <div id="lookup-pill" class="slds-pill-container">
+                                                                                        <lightning-pill class="pillSize" label={selectedName} name={selectedName} onremove={handleRemovePill} href={href}>
+                                                                                            <lightning-icon icon-name={iconName} alternative-text="acc" ></lightning-icon>
+                                                                                        </lightning-pill>
+                                                                                    </div>
+                                                                                </template>
+                                                                                <template if:false={isValueSelected}>
+                                                                                    <div class="slds-p-top_none">
+                                                                                        <lightning-input class={inputClass} type="search" id="input" value={searchTerm}
+                                                                                                         onclick={handleClick} onblur={onBlur} onchange={onChange}
+                                                                                                         variant="label-hidden" autocomplete="off" placeholder={searchPlaceholder}>
+                                                                                        </lightning-input>
+                                                                                    </div>
+                                                                                </template>
+                                                                            </div>
+                                                                            <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                                                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                                                    <template for:each={records} for:item="record">
+                                                                                        <li key={record.Id} onclick={onSelect} data-id={record.Id} role="presentation" data-name={record.Name}>
+                                                                                            <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                                                                                <lightning-icon class="slds-icon slds-icon--small slds-icon-text-default" icon-name={iconName} alternative-text={objName} size="small"></lightning-icon>
+                                                                                                <span class="slds-truncate">{record.Name}</span>
+                                                                                            </span>
+                                                                                        </li>
+                                                                                    </template>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </div><br /> -->
+                                                <div>
+                                                    <div class="slds-scrollable" style="height: 25rem;">
+                                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                                            <thead>
+                                                                <tr class="slds-line-height_reset">
+                                                                    <th class="" scope="col">
+                                                                        <div style="float:right;" class="slds-truncate">
+                                                                            
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div style="float:right;" class="slds-truncate">
+                                                                            #
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Product Code.
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Product Name.
+                                                                        </div>
+                                                                    </th>
+                                                                    <template if:true={flagDataHeder}>
+                                                                        <template if:true={dataTranHeader.From_Warehouse_Location__c}>
+                                                                            <th class="" scope="col">
+                                                                                <div style="padding-left:5px;" class="slds-truncate" >
+                                                                                    QoH
+                                                                                </div>
+                                                                            </th>
+                                                                        </template>
+                                                                    </template>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Qty
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Unit price
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            VAT
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Note
+                                                                        </div>
+                                                                    </th>
+                                                                    <!-- <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                           Batch or Serial Type
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Batch #
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="" scope="col">
+                                                                        <div class="slds-truncate">
+                                                                            Serial #
+                                                                        </div>
+                                                                    </th> -->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <template for:each={productListSeleted} for:item="obj" for:index="index">
+                                                                    <tr key={obj.Id}> 
+                                                                        <th scope="col">
+                                                                            <div>
+                                                                                <lightning-input variant="label-hidden" data-id='index' onchange={handleChange}
+                                                                                    checked={obj.IsChecked} type="checkbox">
+                                                                                </lightning-input>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <div>
+                                                                                {obj.OrderBy}
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col" style="max-width: 350px;">
+                                                                            <div  title={obj.ProductCode} style="max-width: 350px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                                                <a title={obj.ProductCode} href={obj.URLProduct2} target="_blank">{obj.ProductCode}</a>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <a href={obj.URLProduct} target="_blank">{obj.ProductName}</a>
+                                                                        </th>
+                                                                        <template if:true={flagDataHeder}>
+                                                                            <template if:true={dataTranHeader.From_Warehouse_Location__c}>
+                                                                                <th scope="col">
+                                                                                    <div>
+                                                                                        {obj.QoH}
+                                                                                    </div>
+                                                                                </th>
+                                                                                
+                                                                            </template>
+                                                                        </template>
+                                                                        <th scope="col">
+                                                                            <div >
+                                                                                <lightning-input max={obj.Max} data-name="Quantity" type="number" variant="label-hidden"
+                                                                                     value={obj.Quantity} onchange={handleChange} data-id={obj.ProductId}></lightning-input>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <div>
+                                                                                <lightning-input min="0" 
+                                                                                data-name="PriceCost" class="currency"  variant="label-hidden" type=number formatter="currency"
+                                                                                value={obj.PriceCost} 
+                                                                                onchange={handleChange}
+                                                                                data-id={obj.ProductId}>
+                                                                            </lightning-input>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <div>
+                                                                                <lightning-input min="0"
+                                                                                max="100" 
+                                                                                data-name="VAT" variant="label-hidden" type=number formatter="percent-fixed"
+                                                                                value={obj.VAT} 
+                                                                                onchange={handleChange}
+                                                                                data-id={obj.ProductId}>
+                                                                            </lightning-input>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <div>
+                                                                                <lightning-input 
+                                                                                data-name="Note" variant="label-hidden" 
+                                                                                type="text" 
+                                                                                value={obj.Note} 
+                                                                                onchange={handleChange}
+                                                                                data-id={obj.ProductId}>
+                                                                            </lightning-input>
+                                                                            </div>
+                                                                        </th>
+                                                                        <!-- <th scope="col">
+                                                                            <div>
+                                                                                <lightning-combobox data-name="OptionBatchOrSerial" data-id={obj.ProductId} onchange={handleChange} style="width:170px;"
+                                                                                variant="label-hidden" required="true" options={obj.options}>
+                                                                            </lightning-combobox>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <div >
+                                                                                <lightning-input type="text" max-length="10" data-name="BatchNumber"  variant="label-hidden"
+                                                                                     value={obj.BatchNumber} onchange={handleChange} data-id={obj.ProductId}></lightning-input>
+                                                                            </div>
+                                                                        </th>
+                                                                        <th scope="col">
+                                                                            <div >
+                                                                                <lightning-input type="text" max-length="10" data-name="SerialNumber" variant="label-hidden"
+                                                                                     value={obj.SerialNumber} onchange={handleChange} data-id={obj.ProductId}></lightning-input>
+                                                                            </div>
+                                                                        </th> -->
+                                                                    </tr>
+                                                                </template>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    
+                                                </div>
+                    
+                                                <!--
+                                                    This modal box used to show the selected contacts
+                                                -->
+                    
+                    
+                                                <!-- <div if:true={searchData}>
+                                                <lightning-datatable data={searchData} 
+                                                                     columns={columns} 
+                                                                     key-field="id"></lightning-datatable>
+                                            </div> -->
+                                            </lightning-card>
+                                        </div>
+                                    </div>
+                                </template>
+                            
+                            </div>
+                        </div>
+                    
+                </lightning-card>
+            </div>
+            
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral"
+                    style="margin-right:10px;background-color:#8E0404;color:white;"
+                    onclick={closeQuickAction}>Cancel</button>
+                    <template if:true={isStepOne}>  
+                        <template if:false={disabledButtonStep1}>
+                                <button  class="slds-button slds-button_neutral"   onclick={handleNext1}>Next</button>
+                        </template>
+                        <template if:true={disabledButtonStep1}>
+                            <button disabled class="slds-button slds-button_neutral">Next</button>
+                        </template>
+                    </template>
+                    
+                    <template if:true={isStepTwo}>
+                        <template if:true={isEnablePrev}>
+                            <button variant="base" class="slds-button slds-button_neutral" onclick={handlePrev}>Back</button>
+                        </template> &nbsp;
+        
+                        <template if:false={isShowSpinner}>
+                            <button class="slds-button slds-button_brand" style="background-color:#2565AE;" variant="brand" onclick={handleNext2}>Save</button>
+                        </template>
+                        <template if:true={isShowSpinner}>
+                            <button  class="slds-button slds-button_brand" variant="brand" disabled>Save</button>
+                        </template>
+                    </template>
+            </div>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

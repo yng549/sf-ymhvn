@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Registration_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Registration Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Có Xe Có Chủ</fullName>
+                <default>false</default>
+                <label>Có Xe Có Chủ</label>
+            </value>
+            <value>
+                <fullName>Không Xe Không Chủ</fullName>
+                <default>false</default>
+                <label>Không Xe Không Chủ</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

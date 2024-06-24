@@ -1,0 +1,145 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-salesforce1">
+                              <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                              </svg>
+                            </span>
+                          </div>
+                        <div class="slds-media__body" style="padding-left:50%;">
+                            <h2 class="slds-truncate" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">Voucher Imei Cash</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                </h1>
+            </div>
+            
+            <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                <div style="margin-bottom:10px;" >
+                    <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+                        <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <span>
+                                    <lightning-input data-id="imei" onchange={changeValue} style="margin-left:10px;width:50%;"
+                                        default="0" required=true type="text" name="input8" label="Imei Voucher"></lightning-input>
+                                </span>
+                            </div>
+                            <div class="slds-col" style="padding-top:30px;">
+                                <span>
+                                    <template if:true={isData}>
+                                        <lightning-icon icon-name="utility:success" alternative-text="Success!" variant="success"
+                                        title="success variant small" size="small"></lightning-icon>
+                                    </template>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="slds-scrollable_x slds-scrollable_y" if:true={isData}>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th>Voucher Imei</th>
+                                    <th>Amount</th>
+                                    <th>Discount Amount</th>
+                                    <th>Service Apply</th>
+                                    <th>Status</th>
+            
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                <tr>
+                                    <th scope="col">
+                                        <a href={objVoucher.UrlVoucher} target="_blank">{objVoucher.VoucherName}</a>
+                                    </th>
+                                    <th scope="col">
+                                        <lightning-input value={objVoucher.Amount} type=number formatter="currency" disabled=true
+                                            variant="label-hidden">
+                                        </lightning-input>
+                                    </th>
+                                    <th scope="col">
+                                        <lightning-input value={objVoucher.DiscountAmount} type=number formatter="currency" disabled=true
+                                            variant="label-hidden">
+                                        </lightning-input>
+                                    </th>
+                                    <th>
+                                        {objVoucher.ServiceApply}
+                                    </th>
+                                    <th>
+                                        {objVoucher.Status}
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr/>
+
+                        <template if:true={objVoucher.objPromotionDTO}>
+                            <span style="color:rgba(255, 0, 0, 0.433);">Apply Voucher For Order When Promotion will be delete.</span>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th>Promotion Item Name</th>
+                                        <th>Promotion Item Code</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                
+                                <tbody>
+                                    <tr>
+                                        <th scope="col">
+                                           {objVoucher.objPromotionDTO.PromotionName}
+                                        </th>
+                                        <th scope="col">
+                                            {objVoucher.objPromotionDTO.PromotionItemCode}
+                                        </th>
+                                        <th scope="col">
+                                            <lightning-input value={objVoucher.objPromotionDTO.Amount}
+                                                type=number
+                                                 formatter="currency"
+                                                 disabled=true
+                                                variant="label-hidden">
+                                            </lightning-input>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slds-modal__footer">
+                <template if:true={disabledButton}>
+                    <button class="slds-button slds-button_brand" variant="brand" disabled>Check Imei</button>
+                </template>
+                <template if:false={disabledButton}>
+                    <template if:false={isShowSpinner}>
+                        <lightning-button onclick={checkImei} class="checkbutton" label="Check Imei">
+                        </lightning-button>
+                        <lightning-button if:true={isData} onclick={createPayment} class="applyButton" label="Apply Voucher">
+                        </lightning-button>
+                    </template>
+                    <template if:true={isShowSpinner}>
+                        <lightning-button  disabled style="float:right;margin-right:10px; " label="Check Imei">
+                        </lightning-button>
+                    </template>
+                </template>
+            </div>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+</template>

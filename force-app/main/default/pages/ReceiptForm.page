@@ -1,0 +1,401 @@
+<apex:page applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" renderAs="PDF"
+  contentType="text/html; charset=UTF-8" controller="ReceiptFormController">
+  <html>
+
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        counter-increment: page;
+        /* size:landscape; */
+        size: A5 landscape;
+        page-break-inside: avoid;
+        margin-top: 140px;
+        margin-left: 70px;
+        margin-right: 70px;
+        tr {
+          page-break-inside: avoid !important;
+        }
+
+        td {
+          page-break-inside: avoid !important;
+        }
+        @top-center {
+          content: element(header);
+        }
+
+        @bottom-center {
+          content: element(footer);
+        }
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      .row {
+        width: 100%;
+        /* margin: 0 auto; */
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-1 {
+        float: left;
+        width: 100%;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-2-of-3 {
+        float: left;
+        width: 66%;
+
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 33%;
+      }
+
+      .col-1-of-4 {
+        float: left;
+        width: 30%;
+      }
+
+      .col-1-of-4-c {
+        float: left;
+        width: 27%;
+
+      }
+
+      .col-1-of-4-c2 {
+        float: left;
+        width: 30%;
+      }
+
+      .col-2-of-4-c {
+        float: left;
+        width: 43%;
+      }
+
+      .col-1-of-4-c3 {
+        float: left;
+        width: 20%;
+      }
+
+      .col-3-of-4-c {
+        float: left;
+        width: 73%;
+      }
+
+
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      b {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      body {
+        font-family: Arial Unicode MS;
+        font-size: 11px;
+        box-sizing: border-box;
+      }
+
+      div.header {
+        display: block;
+        position: running(header);
+      }
+
+      .header-logo-box {
+        /* margin-left: 5px; */
+        margin-top: 20px;
+        margin-bottom: 0px;
+        width: 100%;
+      }
+
+      .header-logo-box::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .logo {
+        float: left;
+        margin-top: 3px;
+        width: 23%;
+      }
+
+      .header__subtext-box {
+        float: left;
+        margin-top: 2px;
+        /* margin-left: 15px; */
+        text-align: left;
+        width: 75%;
+        /* margin-left: 15px; */
+      }
+
+      .box {
+        min-height: 36px;
+        width: 100%;
+      }
+
+      div.footer {
+        margin:0px -40px;
+        position: running(footer);
+        text-align: center;
+
+        /* font-size: 11px; */
+      }
+
+      /* .container {
+        width: 100%;
+        text-align: center;
+      } */
+
+      .header__small-text span {
+        display: block;
+        font-size: 9px;
+      }
+
+      .header__text-box {
+        letter-spacing: 8px;
+        text-align: center;
+        margin-top: 15px;
+      }
+
+      .heading-primary {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .heading-secondary {
+        /* text-transform: uppercase; */
+        font-size: 10px;
+        /* font-family: sans-serif;
+        font-weight: bold;
+        font-style: italic; */
+      }
+
+
+      .header__info-box p {
+        margin-bottom: 5px;
+      }
+
+      /* footer {
+        position: running(footer);
+      } */
+
+      /* div.footer {
+        position: running(footer);
+        margin-bottom: 210px;
+      } */
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      .text-transform {
+        text-transform: capitalize;
+      }
+
+      .u-height-medium {
+        height: 30px;
+      }
+
+      .u-height-big {
+        height: 43px;
+      }
+
+      .u-p-0 {
+        padding: 0;
+      }
+
+      .u-p-r-small {
+        padding-right: 4px;
+      }
+
+      .u-p-r-medium {
+        padding-right: 15px;
+      }
+
+      .u-m-t-xsmall {
+        margin-top: 4px;
+      }
+
+      .u-m-t-small {
+        margin-top: 15px;
+      }
+
+      .u-m-t-medium {
+        margin-top: 30px;
+      }
+
+      .u-m-t-large {
+        margin-top: 100px;
+      }
+
+      .u-m-b-medium {
+        margin-bottom: 20px;
+      }
+
+      .u-m-r-small {
+        margin-right: 20px;
+      }
+
+      .u-m-tb-small {
+        margin: 3px 0px;
+      }
+
+      .u-align-center {
+        text-align: center;
+      }
+
+      .u-align-left {
+        text-align: left;
+      }
+
+      .u-align-right {
+        text-align: right;
+      }
+
+      .u-width-99 {
+        width: 99.5%;
+      }
+
+      .u-m-0 {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-logo-box">
+        <div class="logo">
+          <apex:image id="logo" value="{!$Resource[logo]}" width="135" height="45" />
+        </div>
+        <div class="header__subtext-box ">
+          <p class="header__small-text">
+            <span>
+              <b>{!objPayment.Opportunity__r.DODL_Create__r.Name}</b>
+            </span>
+            <span>Địa chỉ / Address: {!objPayment.Opportunity__r.DODL_Create__r.Address_logo__c}
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="header__text-box">
+        <p class="heading-primary">PHIẾU THU/RECEIPT</p>
+        <p class="heading-secondary ">
+          <div class="row">
+            <div class="col-1-of-2 u-align-right ">
+              <p class="u-p-r-small"> Ký hiệu (Series):
+                <br/>Ngày/Date:&nbsp;
+              </p>
+            </div>
+            <div class="col-1-of-2 u-align-left">
+              <p>{!objPayment.Payment_Code__c}
+                <br/>
+                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                  <apex:param value="{!objPayment.Payment_Date__c}" />
+                </apex:outputText>
+              </p>
+            </div>
+          </div>
+        </p>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+      <p>Thông tin chuyển khoản: {!currentOwner.Account.Bank_Account_Name__c} - STK: {!currentOwner.Account.Bank_Number2__c} - Ngân hàng: {!currentOwner.Account.Bank_Name__c}</p>
+    </div>
+    <!-- End footer -->
+    <div class="content u-m-t-small">
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Khách hàng/Customer's Name:</div>
+        <div class="col-1-of-4">{!objPayment.Account__r.Name}</div>
+        <div class="col-2-of-4-c">- Điện thoại/Phone No: {!objPayment.Account__r.PersonMobilePhone}</div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Công ty/Company: </div>
+        <div class="col-3-of-4-c">{!objPayment.Account__r.Company__c}</div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Địa chỉ/Address: </div>
+        <div class="col-3-of-4-c">{!objPayment.Account__r.Address_Full__c}</div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Thanh toán cho/Payment for: </div>
+        <div class="col-1-of-4-c2">{!objPayment.Payment_For__c}&nbsp;</div>
+        <div class="col-2-of-4-c">{!paymentType}</div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Số tiền/Amount: </div>
+        <div class="col-3-of-4-c">
+          <apex:outputText value="{0,number, ###,### ' VND'}">
+            <apex:param value="{!objPayment.Amount__c}" />
+          </apex:outputText>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Bằng chữ/In words: </div>
+        <div class="col-3-of-4-c text-transform">{!paymentText}</div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-4-c">- Hình thức thanh toán/Payments: </div>
+        <div class="col-1-of-4-c3 u-m-r-small">
+          Tiền mặt/Cash: &nbsp;
+          <apex:image rendered="{!if(paymentTerm == 'TM' ,true, false)}" value="{!$Resource.checkboxCheckedPDF}" width="8" height="8"
+          />
+          <apex:image rendered="{!if(paymentTerm != 'TM' ,true, false)}" value="{!$Resource.checkboxUncheckedPDF}" width="8" height="8"
+          />
+        </div>
+        <div class="col-1-of-4-c3">
+          Thẻ/Card:&nbsp;
+          <apex:image rendered="{!if(paymentTerm == 'CK' ,true, false)}" value="{!$Resource.checkboxCheckedPDF}" width="8" height="8"
+          />
+          <apex:image rendered="{!if(paymentTerm != 'CK' ,true, false)}" value="{!$Resource.checkboxUncheckedPDF}" width="8" height="8"
+          />
+        </div>
+        <div class="col-1-of-4-c3">
+          Chuyển khoản/transfer: &nbsp;
+          <apex:image rendered="{!if(paymentTerm == 'NH' ,true, false)}" value="{!$Resource.checkboxCheckedPDF}" width="8" height="8"
+          />
+          <apex:image rendered="{!if(paymentTerm != 'NH' ,true, false)}" value="{!$Resource.checkboxUncheckedPDF}" width="8" height="8"
+          />
+        </div>
+      </div>
+
+      <div class="row u-m-t-medium">
+        <div class="col-1-of-3 u-align-center">Người nộp tiền/Payer
+          <br/> (Signature, full name)</div>
+        <div class="col-1-of-3 u-align-center">Người lập phiếu/Prepared by
+          <br/> (Signature, full name)</div>
+        <div class="col-1-of-3 u-align-center">Quản Lý/Manager
+          <br/> (Signature, full name)</div>
+      </div>
+    </div>
+  </body>
+
+  </html>
+</apex:page>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warranty_0_Kilometer__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(RecordType.DeveloperName == &quot;Warranty&quot;, Mileage__c = 0), TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Warranty 0 Kilometer</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

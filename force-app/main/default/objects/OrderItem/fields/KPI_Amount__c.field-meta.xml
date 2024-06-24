@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KPI_Amount__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Product2.RecordType.Name =&apos;Service Jobs&apos;,ListPrice/ Origin_Labour_Hour__c * Labour_Hours__c * Quantity ,ListPrice *  Quantity)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>KPI Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

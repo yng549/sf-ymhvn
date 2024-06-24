@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_User__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Người sử dụng</description>
+    <externalId>false</externalId>
+    <label>The User</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Opportunities DO</relationshipLabel>
+    <relationshipName>Opportunities</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

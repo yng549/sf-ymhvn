@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Đặt hàng thành công</fullName>
+                <default>true</default>
+                <label>Đặt hàng thành công</label>
+            </value>
+            <value>
+                <fullName>DO/DL tiếp nhận thông tin</fullName>
+                <default>false</default>
+                <label>DO/DL tiếp nhận thông tin</label>
+            </value>
+            <value>
+                <fullName>Đang xử lý</fullName>
+                <default>false</default>
+                <label>Đang xử lý</label>
+            </value>
+            <value>
+                <fullName>Hoàn thành</fullName>
+                <default>false</default>
+                <label>Hoàn thành</label>
+            </value>
+            <value>
+                <fullName>Chưa thanh toán</fullName>
+                <default>false</default>
+                <label>Chưa thanh toán</label>
+            </value>
+            <value>
+                <fullName>Hủy thành công</fullName>
+                <default>false</default>
+                <label>Hủy thành công</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,63 @@
+<template>
+    
+        <div class="slds__content slds-p-around_medium slds-scrollable_y" id="content-id-1">
+       
+
+            <lightning-card title="Get Lead" icon-name="standard:lead" style="padding:10px;">
+                <h3 slot="title">
+                    <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+                    Display Dynamic Picklist in Lightning Web Components
+                </h3>
+                <div slot="footer">
+        
+                </div>
+                <lightning-combobox style="width:50%;" name={fieldLabel} label={fieldLabel} value={value} placeholder={fieldLabel}
+                    options={options} onchange={handleChange}></lightning-combobox>
+        
+                <p>Selected value is: {value}</p>
+                <br/>
+                <div style="width: auto;">
+                    <template if:true={data}>
+                        <lightning-datatable data={data}
+                                             columns={columns}
+                                             key-field="id"
+                                             sorted-by={sortBy}
+                                             sorted-direction={sortDirection}
+                                             onsort={doSorting}
+                                             hide-checkbox-column="true"
+                                             onrowaction={callRowAction}></lightning-datatable>
+                    </template>
+                </div>
+            </lightning-card>
+
+        </div>
+        
+        <template if:true={isModalOpen}>
+            <!-- Modal/Popup Box LWC starts here -->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div if:true={isLoading}>
+                        <lightning-spinner
+                            alternative-text="Loading..." variant="brand" class="slds-is-fixed">
+                        </lightning-spinner>
+                    </div>
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content modalBody">
+                        <template if:true={showLoading}>
+                            <lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass"></lightning-spinner>
+                        </template>
+                        <div class="slds-p-around_small">
+                            Get Lead for you.
+                        </div>
+                    </div>
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeQuickAction} title="Cancel">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+</template>

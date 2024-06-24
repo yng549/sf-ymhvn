@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Team_HCM_Task</fullName>
+    <columns>SUBJECT</columns>
+    <columns>WHO_NAME</columns>
+    <columns>WHAT_NAME</columns>
+    <columns>DUE_DATE</columns>
+    <columns>STATUS</columns>
+    <columns>PRIORITY</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>SUBJECT</field>
+        <operation>contains</operation>
+        <value>Service</value>
+    </filters>
+    <label>Service Team</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

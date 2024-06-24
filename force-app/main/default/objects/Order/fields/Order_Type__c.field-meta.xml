@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Order Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Free Service</fullName>
+                <default>false</default>
+                <label>Free Service</label>
+            </value>
+            <value>
+                <fullName>Quick Service</fullName>
+                <default>false</default>
+                <label>Quick Service</label>
+            </value>
+            <value>
+                <fullName>Order</fullName>
+                <default>false</default>
+                <label>Service Order</label>
+            </value>
+            <value>
+                <fullName>Service Package</fullName>
+                <default>false</default>
+                <label>Service Package</label>
+            </value>
+            <value>
+                <fullName>Free Coupon</fullName>
+                <default>false</default>
+                <label>Free Coupon</label>
+            </value>
+            <value>
+                <fullName>Warranty</fullName>
+                <default>false</default>
+                <label>Warranty</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

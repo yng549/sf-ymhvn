@@ -1,0 +1,60 @@
+<template>
+  <template if:true={initialized}>
+    <div class="slds-expression">
+      <h2 class="slds-expression__title">Rules</h2>
+      <template if:true={_helpMessage}>
+        <div id="help-text" data-help-text class="slds-form-element__help" aria-live="assertive">
+          {_helpMessage}
+        </div>
+      </template>
+      <div class="slds-expression__options">
+        <lightning-combobox
+          name="inputAction"
+          label="Take Action When"
+          value={inputAction}
+          options={_actionOptions}
+          onchange={handleInputChange}
+          required>
+        </lightning-combobox>
+      </div>
+      <template if:true={showCustomLogic}>
+        <div class="slds-expression__custom-logic">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="input-custom-logic">Custom Logic</label>
+            <div class="slds-form-element__control">
+              <input type="text" id="input-custom-logic" class="slds-input" value={getCustomLogic} name="inputCustomLogic" onchange={handleInputChange} />
+            </div>
+          </div>
+        </div>
+      </template>
+      <ul>
+        <template for:each={rules} for:item="item" for:index="itemIndex">
+          <c-assignment-rule-item
+            key={item.Sort_Order__c}
+            action-type={inputAction}
+            object-api-name={assignment.For_Object__c}
+            item={item}
+            item-index={itemIndex}
+            onremovecondition={handleDeleteCondition}>
+          </c-assignment-rule-item>
+        </template>
+      </ul>
+      <div class="slds-expression__buttons slds-grid">
+        <div class="slds-col">
+          <lightning-button label="Add Condition" title="Add more condition" icon-name="utility:add" class="slds-m-left_x-small" onclick={handleAddMoreCondition}></lightning-button>
+        </div>
+        <div class="slds-col slds-text-align_right">
+          <lightning-button-stateful
+            title="Save all change"
+            label-when-off="Save"
+            label-when-on="Saving"
+            icon-name-when-off="utility:save"
+            icon-name-when-on="utility:spinner"
+            selected={isLoading}
+            onclick={handleSave}>
+          </lightning-button-stateful>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>

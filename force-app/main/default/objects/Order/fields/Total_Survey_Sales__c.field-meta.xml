@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Survey_Sales__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Survey Sales</label>
+    <summaryFilterItems>
+        <field>SurveySales__c.Question_0__c</field>
+        <operation>equals</operation>
+        <value>Yes</value>
+    </summaryFilterItems>
+    <summaryForeignKey>SurveySales__c.Order__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

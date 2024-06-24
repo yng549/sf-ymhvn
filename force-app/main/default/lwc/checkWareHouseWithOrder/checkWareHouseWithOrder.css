@@ -1,0 +1,100 @@
+.tblConditionSearch td {
+	padding: 5px;
+}
+.tblConditionSearch .col3, .tblConditionSearch .col6 {
+	width: 10px;
+}
+.tblConditionSearch .col1 {
+	width: 10px;
+}
+.tblConditionSearch .col2 {
+	width: 20%;
+}
+.tblConditionSearch .col4 {
+	width: 15%;
+}
+.tblConditionSearch .col5 {
+	width: 17%;
+}
+.align-right {
+	text-align: right;
+}
+.align-button {
+	text-align: center;
+	padding-top: 20px !important;
+}
+.button1 {
+	margin-right: 10px;
+}
+.line-color {
+	background: #0070C0;
+	height: 3px;
+	margin-top: 3px;
+	margin-bottom: 15px;
+}
+.div-title {
+	font-weight: bold;
+}
+.tblConditionSearch .col1 {
+	width: 70px;
+}
+.tblConditionSearch.col2 {
+	width: 15%;
+}
+.tblConditionSearch .col3 {
+	width: 40%;
+}
+.checkbox-without-label .slds-form-element__label {
+	display: none !important;
+}
+.checkbox-without-label .slds-checkbox_faux {
+	margin-right: 0px !important;
+}
+.checkbox {
+	text-align: center;
+}
+.align-message {
+	padding-top: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+.div-tblProperty {
+	max-height: 400px;
+	overflow: auto;
+	height:380px;
+}
+.headerPadding {
+	padding-left: 0.5rem;
+}
+.slds-has-error .slds-form-element__help {
+	display: none;
+}
+.slds-spinner_container {
+	z-index: 10000;
+	position: fixed;
+}
+.conditionHead1 {
+	width: 210px;
+}
+.conditionHead2 {
+	width: 180px;
+}
+.conditionHead3 {
+	width: 320px;
+}
+ .conditionHead4 {
+	width: 240px;
+	margin-left: 20px;
+}
+.conditionHead5 {
+	width: 280px;
+	margin-left: 10px;
+}
+.THIS .labelConditionHead2 {
+	padding-left: 5px;
+	padding-right: 10px;
+	padding-top: 5px;
+}
+.THIS .inputDate {
+	width: 135px;
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Term__c</fullName>
+    <externalId>false</externalId>
+    <label>Payment Term</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bank Transfer</fullName>
+                <default>false</default>
+                <label>Bank Transfer</label>
+            </value>
+            <value>
+                <fullName>Cash</fullName>
+                <default>false</default>
+                <label>Cash</label>
+            </value>
+            <value>
+                <fullName>POS</fullName>
+                <default>false</default>
+                <label>POS</label>
+            </value>
+            <value>
+                <fullName>Refund Overcharge</fullName>
+                <default>false</default>
+                <label>Refund Overcharge</label>
+            </value>
+            <value>
+                <fullName>MegaPay</fullName>
+                <default>false</default>
+                <label>MegaPay</label>
+            </value>
+            <value>
+                <fullName>Voucher</fullName>
+                <default>false</default>
+                <label>Voucher</label>
+            </value>
+            <value>
+                <fullName>Tiki</fullName>
+                <default>false</default>
+                <label>Tiki</label>
+            </value>
+            <value>
+                <fullName>Momo</fullName>
+                <default>false</default>
+                <label>Momo</label>
+            </value>
+            <value>
+                <fullName>VNPAY</fullName>
+                <default>false</default>
+                <label>VNPAY</label>
+            </value>
+            <value>
+                <fullName>Trả góp</fullName>
+                <default>false</default>
+                <label>Trả góp</label>
+            </value>
+            <value>
+                <fullName>Cash Voucher</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cash Voucher</label>
+            </value>
+            <value>
+                <fullName>Refund Balance</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Refund Balance</label>
+            </value>
+            <value>
+                <fullName>Transfer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Transfer</label>
+            </value>
+            <value>
+                <fullName>mPOS</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>mPOS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

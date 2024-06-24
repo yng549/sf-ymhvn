@@ -1,0 +1,39 @@
+<template>
+    <!-- <template if:true={openSpinner}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template> -->
+
+    <div class="slds-grid slds-wrap slds-theme_default" style="padding:5px;">
+        <div class="slds-col slds-size_2-of-12">
+            <c-multiple-select-branch-booking-parent onselectoption={handelChangeDODL}> 
+            </c-multiple-select-branch-booking-parent>
+            <hr/>
+            <c-multiple-select-service-type-parent onselectoption={handelChangeServiceType}> 
+            </c-multiple-select-service-type-parent>
+            <hr/>
+            <c-multiple-select-staff-parent onselectoption={handelChangeEmployee}>
+            </c-multiple-select-staff-parent>
+            <div class="slds-col slds-size_1-of-1">
+                <lightning-button variant="brand" type="submit" label="Filter" class="btnFilter"
+                onclick={handleFilter}>
+                </lightning-button>
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size_10-of-12">
+            <template if:true={openSpinner}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <div class="slds-grid slds-wrap slds-theme_default">
+                <!-- fullcalendar sits in this div -->
+                <div class="scheduler-container-height">
+                    <div data-id="fullCalendarContainer" class="fullcalendarjs" lwc:dom="manual"></div>
+                </div>
+                <div lwc:dom="manual" data-id="popovercontent" class="popover-content"></div>
+                <template if:true={isLoading}>
+                    <lightning-spinner size="small"></lightning-spinner>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

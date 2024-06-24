@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Bike &gt; 400cc</fullName>
+        <default>false</default>
+        <label>Bike &gt; 400cc</label>
+    </customValue>
+    <customValue>
+        <fullName>Bike &lt; 400cc</fullName>
+        <default>false</default>
+        <label>Bike &lt; 400cc</label>
+    </customValue>
+    <masterLabel>Product Interest</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

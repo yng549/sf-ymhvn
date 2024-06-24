@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SG_FS_Coupon_Order</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Order_Number__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>Bike_Delivery_Date__c</columns>
+    <columns>Is_Bigbike__c</columns>
+    <columns>KPI_Date__c</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>YMHVN_Log__c</columns>
+    <columns>ORDERS.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Free_Coupon</value>
+    </filters>
+    <filters>
+        <field>DO_DL__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR SAI GON</value>
+    </filters>
+    <label>SG- FS Coupon Order</label>
+    <sharedTo>
+        <group>Service_HCM</group>
+        <group>Storeman_HCM</group>
+    </sharedTo>
+</ListView>

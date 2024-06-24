@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PO_CRM_DIRECT_INPUT</fullName>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Order_No__c</columns>
+    <columns>Order_Number__c</columns>
+    <columns>DO_DL__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>Supplier__c</columns>
+    <columns>Amount_PO__c</columns>
+    <columns>Amount__c</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>Contract_No__c</columns>
+    <columns>Document_Number__c</columns>
+    <columns>ORDERS.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Profomar_Order</value>
+    </filters>
+    <filters>
+        <field>SALES.ACCOUNT.NAME</field>
+        <operation>equals</operation>
+        <value>Revzone Yamaha Motor (PCA)</value>
+    </filters>
+    <label>PO CRM DIRECT INPUT</label>
+    <sharedTo>
+        <group>Storeman_HCM</group>
+        <group>Storeman_HN</group>
+    </sharedTo>
+</ListView>

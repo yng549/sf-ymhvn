@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BarCode__c</fullName>
+    <externalId>false</externalId>
+    <formula>IMAGE(&quot;http://www.barcodesinc.com/generator/image.php?code=&quot; &amp; Barcode_Number__c &amp; &quot;&amp;style=325&amp;type=C128B&amp;width=200&amp;height=50&amp;xres=1&amp;font=3&amp;fmt=pdf&quot;, &quot;Barcode&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>BarCode</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

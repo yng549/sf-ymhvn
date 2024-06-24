@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Brand__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub-Brand</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MT-10</fullName>
+                <default>false</default>
+                <label>MT-10</label>
+            </value>
+            <value>
+                <fullName>MT-09</fullName>
+                <default>false</default>
+                <label>MT-09</label>
+            </value>
+            <value>
+                <fullName>MT-07</fullName>
+                <default>false</default>
+                <label>MT-07</label>
+            </value>
+            <value>
+                <fullName>XRS 700</fullName>
+                <default>false</default>
+                <label>XRS 700</label>
+            </value>
+            <value>
+                <fullName>CBR-1000RR</fullName>
+                <default>false</default>
+                <label>CBR-1000RR</label>
+            </value>
+            <value>
+                <fullName>CB-1000</fullName>
+                <default>false</default>
+                <label>CB-1000</label>
+            </value>
+            <value>
+                <fullName>CBR-650</fullName>
+                <default>false</default>
+                <label>CBR-650</label>
+            </value>
+            <value>
+                <fullName>CBF-500</fullName>
+                <default>false</default>
+                <label>CBF-500</label>
+            </value>
+            <value>
+                <fullName>Ninja H2</fullName>
+                <default>false</default>
+                <label>Ninja H2</label>
+            </value>
+            <value>
+                <fullName>ZX-10R</fullName>
+                <default>false</default>
+                <label>ZX-10R</label>
+            </value>
+            <value>
+                <fullName>Z1000</fullName>
+                <default>false</default>
+                <label>Z1000</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

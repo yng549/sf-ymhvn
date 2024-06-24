@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case</fullName>
+    <isActive>true</isActive>
+    <values>
+        <fullName>1st Case Reassigned</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>2nd Case Reassigned</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Case Assigned to CS</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Complaint Received</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Implementation</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>No satisfaction achieved</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

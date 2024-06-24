@@ -1,0 +1,1648 @@
+<apex:page applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" renderAs="PDF"
+  contentType="text/html; charset=UTF-8" controller="ContractFormController">
+  <html>
+
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        counter-increment: page;
+        /* size:landscape; */
+        size: A4 portrait;
+        page-break-inside: avoid;
+        margin-left: 80px;
+        margin-right: 80px;
+        margin-bottom: 104x;
+        tr {
+          page-break-inside: avoid !important;
+        }
+
+        td {
+          page-break-inside: avoid !important;
+        }
+        @bottom-center {
+          content: counter(page);
+        }
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      .row {
+        width: 100%;
+        /* margin: 0 auto; */
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-1 {
+        float: left;
+        width: 100%;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-2-of-3 {
+        float: left;
+        width: 66%;
+
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 33%;
+      }
+
+      .col-1-of-10 {
+        float: left;
+        width: 10%;
+      }
+
+      .col-4_5-of-10 {
+        float: left;
+        width: 45%;
+      }
+
+      .col-4-of-10 {
+        float: left;
+        width: 40%;
+      }
+
+      .col-8-of-10 {
+        float: left;
+        width: 80%;
+      }
+
+      .col-9-of-10 {
+        float: left;
+        width: 90%;
+      }
+
+      .col-0_5-of-12 {
+        float: left;
+        width: 4.1665%;
+      }
+
+      .col-0_7-of-12 {
+        float: left;
+        width: 5.8331%;
+      }
+
+      .col-0_8-of-12 {
+        float: left;
+        width: 6.6664%;
+      }
+
+      .col-1-of-12 {
+        float: left;
+        width: 8.3333%;
+      }
+
+      .col-1_5-of-12 {
+        float: left;
+        width: 12.4995%;
+      }
+
+      .col-9-of-12 {
+        float: left;
+        width: 74.997%;
+      }
+
+      .col-9_5-of-12 {
+        float: left;
+        width: 79.1675%;
+      }
+
+      .col-2-of-12 {
+        float: left;
+        width: 16.666%;
+
+      }
+
+      .col-3-of-12 {
+        float: left;
+        width: 24.999%;
+
+      }
+
+      .col-4-of-12 {
+        float: left;
+        width: 33.332%;
+      }
+
+      .col-5-of-12 {
+        float: left;
+        width: 41.665%;
+      }
+
+      .col-6-of-12 {
+        float: left;
+        width: 49.9998%;
+      }
+
+      .col-5_5-of-12 {
+        float: left;
+        width: 45.8315%;
+
+      }
+
+      .col-10-of-12 {
+        float: left;
+        width: 83.33%
+      }
+
+      .col-10_5-of-12 {
+        float: left;
+        width: 87.4965%
+      }
+
+      .col-11-of-12 {
+        float: left;
+        width: 91.663%
+      }
+
+      .col-11_2-of-12 {
+        float: left;
+        width: 93.3296%
+      }
+
+      .col-11_3-of-12 {
+        float: left;
+        width: 94.1629%
+      }
+
+      .col-11_5-of-12 {
+        float: left;
+        width: 95.8295%
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      b {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      i {
+        font-family: sans-serif;
+        font-style: italic;
+        font-size: 12px;
+        font-weight: lighter;
+      }
+
+      body {
+        font-family: Arial Unicode MS;
+        font-size: 12px;
+        box-sizing: border-box;
+      }
+
+      div.header {
+        display: block;
+      }
+
+      .header-logo-box {
+        /* margin-left: 5px; */
+        margin-top: 20px;
+        margin-bottom: 0px;
+        width: 100%;
+      }
+
+      .header-logo-box::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .box {
+        min-height: 36px;
+        width: 100%;
+      }
+
+      table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      td {
+        text-align: center;
+        padding: 0 3px;
+      }
+
+      th {
+        text-align: center;
+        padding: 0 3px;
+      }
+
+      .short {
+        width: 7.1428%;
+      }
+
+      .medium {
+        width: 14.2856%;
+      }
+
+      .long {
+        width: 21.4284%;
+      }
+
+      /* footer {
+          position: running(footer);
+        } */
+
+      /* div.footer {
+          position: running(footer);
+          margin-bottom: 210px;
+        } */
+
+      .section-signature {
+        margin-top: 35px;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      .text-transform {
+        text-transform: capitalize;
+      }
+
+      .u-height-medium {
+        height: 30px;
+      }
+
+      .u-height-big {
+        height: 43px;
+      }
+
+      .u-p-0 {
+        padding: 0;
+      }
+
+      .u-p-r-small {
+        padding-right: 4px;
+      }
+
+      .u-p-r-medium {
+        padding-right: 15px;
+      }
+
+      .u-m-t-xsmall {
+        margin-top: 4px;
+      }
+
+      .u-m-t-small {
+        margin-top: 15px;
+      }
+
+      .u-m-t-medium {
+        margin-top: 30px;
+      }
+
+      .u-m-t-large {
+        margin-top: 100px;
+      }
+
+      .u-m-b-medium {
+        margin-bottom: 20px;
+      }
+
+      .u-m-r-small {
+        margin-right: 20px;
+      }
+
+      .u-m-tb-small {
+        margin: 15px 0px;
+      }
+
+      .u-align-center {
+        text-align: center;
+      }
+
+      .u-align-left {
+        text-align: left;
+      }
+
+      .u-align-right {
+        text-align: right;
+      }
+
+      .u-width-99 {
+        width: 99.5%;
+      }
+
+      .u-m-0 {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="u-align-center">
+        <apex:image id="theImage" value="{!$Resource.ContractDNHeader}" width="334" height="147" />
+        <p>Số /No. : {!objContract.ContractNumber}</p>
+      </div>
+    </div>
+
+    <div class="content-part-A u-m-t-small">
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-11-of-12">
+          <p>Căn cứ Luật Thương mại số 36/2005/QH11 được Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam ban hành ngày 14 tháng
+            6 năm 2005;
+            <br/>
+            <i> Pursuant to the Commercial Law No.36/2005/QH11 issued by National Assembly of Socialist Republic of Vietnam on
+              14 June 2005;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-11-of-12">
+          <p>Căn cứ Bộ luật Dân sự số 91/2015/QH13 được Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam thông qua ngày 24 tháng
+            11 năm 2015;
+            <br/>
+            <i>Pursuant to Civil Code No. 91/2015/QH13 passed by the National Assembly of the Socialist Republic of Vietnam
+              on 24 November 2015;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-11-of-12">
+          <p>Căn cứ vào nhu cầu và khả năng của mỗi Bên.
+            <br/>
+            <i>Pursuant to the needs and ability of each Party,</i>
+          </p>
+        </div>
+      </div>
+
+      <div class="row u-m-tb-small">
+        <p>Hôm nay, ngày
+          <apex:outputText value="{0,date,' ' dd}">
+            <apex:param value="{!objContract.CreatedDate}" />
+          </apex:outputText> tháng
+          <apex:outputText value="{0,date,' ' MM}">
+            <apex:param value="{!objContract.CreatedDate}" />
+          </apex:outputText> năm
+          <apex:outputText value="{0,date,' ' yyyy}">
+            <apex:param value="{!objContract.CreatedDate}" />
+          </apex:outputText>, tại {!objContract.Owner.Account.Address__c}, chúng tôi gồm có:
+          <br/>
+          <i> Today, on the
+            <apex:outputText value="{0,date,' ' dd}">
+              <apex:param value="{!objContract.CreatedDate}" />
+            </apex:outputText> date of
+            <apex:outputText value="{0,date,' ' MM}">
+              <apex:param value="{!objContract.CreatedDate}" />
+            </apex:outputText>,
+            <apex:outputText value="{0,date,' ' yyyy}">
+              <apex:param value="{!objContract.CreatedDate}" />
+            </apex:outputText>, at {!objContract.Owner.Account.Address_Eng__c}, we are:</i>
+        </p>
+      </div>
+      <div class="row">
+        <!-- CÔNG TY TNHH YAMAHA MOTOR VIỆT NAM -->
+        <p>BÊN A : {!objContract.Opportunity__r.DODL_Create__r.Contract_Company_Name__c} 
+          <br/>
+          <!-- YAMAHA MOTOR VIETNAM CO., LTD. -->
+          <i style="font-size: 12px;">PARTY A: {!objContract.Opportunity__r.DODL_Create__r.Contract_Company_Name_eng__c}</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Địa chỉ
+        </div>
+        <div class="col-9-of-12">
+          :&nbsp;{!objContract.Account.DO_DL_Create_Account__r.Head_Office__c}
+          <br/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          <i>Address</i>
+        </div>
+        <div class="col-9-of-12">
+          <i>:&nbsp;{!objContract.Account.DO_DL_Create_Account__r.Head_Office_Eng__c}</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Điện thoại/
+          <i>Tel</i>
+        </div>
+        <div class="col-3-of-12">
+          :&nbsp;{!objContract.Account.DO_DL_Create_Account__r.Phone}
+        </div>
+        <div class="col-6-of-12">
+          Fax: {!objContract.Account.DO_DL_Create_Account__r.Fax}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Mã số thuế/
+          <br/>
+          <i>Tax code</i>
+        </div>
+        <div class="col-9-of-12">
+          :&nbsp;{!objContract.Account.DO_DL_Create_Account__r.Tax_Code__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Đại diện bởi
+        </div>
+        <div class="col-3-of-12">
+          :&nbsp;{!objContract.Opportunity__r.DODL_Create__r.Represented_By__c}
+
+        </div>
+        <div class="col-6-of-12">
+          Chức vụ: {!objContract.Opportunity__r.DODL_Create__r.Represented_Title__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          <i> Represented by</i>
+        </div>
+        <div class="col-3-of-12">
+          <i>:&nbsp;{!objContract.Opportunity__r.DODL_Create__r.Represented_By_Eng__c}</i>
+        </div>
+        <div class="col-6-of-12">
+          <i> Title: {!objContract.Opportunity__r.DODL_Create__r.Represented_Title_Eng__c}</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-11-of-12">
+          Theo Giấy ủy quyền ký ngày  01/09/2023 bởi Suzuki Yasutaka – Đại diện theo pháp luật Công ty TNHH Yamaha Motor Việt Nam.
+          <br/>
+          <i>Pursuant to Power of Attorney date  01/09/2023 signed by Suzuki Yasutaka - Legal representative of Yamaha Motor
+            Vietnam Co.,Ltd.
+          </i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Số tài khoản/
+        </div>
+        <div class="col-3-of-12">
+          :&nbsp;{!objContract.Opportunity__r.DODL_Create__r.Bank_Number2__c}
+        </div>
+        <div class="col-6-of-12">
+          Tên tài khoản {!objContract.Opportunity__r.DODL_Create__r.Bank_Account_Name__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          <i>Account No. </i>
+        </div>
+        <div class="col-3-of-12">
+          &nbsp;
+        </div>
+        <div class="col-6-of-12">
+          <i> Account name: {!objContract.Opportunity__r.DODL_Create__r.Bank_Account_Name_Eng__c}</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          Tại ngân hàng
+        </div>
+        <div class="col-9-of-12">
+          :&nbsp;{!objContract.Account.DO_DL_Create_Account__r.Bank_Name__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          <i> Bank name</i>
+        </div>
+        <div class="col-9-of-12">
+          <i> :&nbsp;{!objContract.Account.DO_DL_Create_Account__r.Bank_Name_Eng__c} </i>
+        </div>
+      </div>
+
+      <div class="row">
+        <p>Lưu ý: Hóa đơn Giá trị Gia tăng sẽ do Công ty TNHH Yamaha Motor Việt Nam xuất
+          <br/> Note: VAT invoice shall be issued by Yamaha Motor Vietnam Co., Ltd
+          <br/> Sau đây gọi là “Bên Bán”
+          <br/>
+          <i> Hereinafter referred to as the “Seller”</i>
+        </p>
+      </div>
+      <div class="row u-m-tb-small">
+        <p>Và/
+          <i>and</i>
+        </p>
+      </div>
+    </div>
+    <div class="content-part-B">
+      <div class="row">
+        <p>BÊN B: {!objContract.Contract_Information__r.Name}
+          <br/>
+          <i style="font-size: 12px;">PARTY B: {!removeVietnameToneText}</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Trụ sở chính
+        </div>
+        <div class="col-9-of-12">
+          :&nbsp;{!objContract.Contract_Information__r.Head_Office__c}
+          <br/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          <i>Head-office</i>
+        </div>
+        <div class="col-9-of-12">
+          <i>:&nbsp;{!objContract.Contract_Information__r.Head_Office_Eng__c}</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Điện thoại/
+          <i>Tel</i>
+        </div>
+        <div class="col-3-of-12">
+          :&nbsp;{!objContract.Contract_Information__r.Mobile__c}
+        </div>
+        <div class="col-6-of-12">
+          Fax: {!objContract.Contract_Information__r.Fax__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Mã số thuế/
+          <br/>
+          <i>Tax code</i>
+        </div>
+        <div class="col-9-of-12">
+          :&nbsp;{!objContract.Contract_Information__r.Tax_code__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          -
+        </div>
+        <div class="col-2-of-12">
+          Đại diện bởi
+        </div>
+        <div class="col-3-of-12">
+          :&nbsp;{!objContract.Contract_Information__r.Represented_by__c}
+        </div>
+        <div class="col-6-of-12">
+          Chức vụ: {!objContract.Contract_Information__r.Represented_Title__c}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-2-of-12">
+          <i>Represented by</i>
+        </div>
+        <div class="col-3-of-12">
+          <i> :&nbsp;{!objContract.Contract_Information__r.Represented_By_Eng__c}</i>
+        </div>
+        <div class="col-6-of-12">
+          <i>Title: {!objContract.Contract_Information__r.Represented_Title_Eng__c}</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-11-of-12 u-m-t-xsmall">
+          Theo Giấy ủy quyền số ................ ngày .......................... của .....................................
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1-of-12 u-align-center">
+          &nbsp;
+        </div>
+        <div class="col-11-of-12">
+          <i> Under the Power of Attorney no .................... dated.................................. of................................</i>
+        </div>
+      </div>
+      <div class="row">
+        <p>Sau đây gọi là “Bên Mua”
+          <br/>
+          <i>Hereinafter referred to as the “Buyer”</i>
+        </p>
+      </div>
+      <div class="row u-m-t-small">
+        <p>Bên Bán và Bên Mua sau đây gọi riêng là “Bên” và gọi chung là “Các Bên”
+          <br/>
+          <i> Seller and Buyer hereinafter referred to separately as the “Party” and collectively referred to as the “Parties”</i>
+          <br/> Sau khi bàn bạc, Các Bên đã thống nhất ký kết Hợp đồng Mua bán Xe máy này (Sau đây gọi là “Hợp đồng”) với những
+          điều khoản và điều kiện như sau:
+          <br/>
+          <i>After discussion, both Parties agree to enter into this Motorcycles Sales Agreement (Hereinafter referred to as
+            the “Agreement”) with the following terms and conditions:</i>
+        </p>
+      </div>
+    </div>
+    <div class="article-content">
+      <div class="row u-m-t-small">
+        <p class="article">Điều 1/
+          <i>Article 1:</i> Nội dung hợp đồng/
+          <i>Content of the Agreement</i>
+        </p>
+      </div>
+      <div class="row u-m-t-small">
+        <div class="col-0_5-of-12">
+          <b>1.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Bên Bán đồng ý bán và Bên Mua đồng ý mua (các) sản phẩm xe gắn máy, xe mô tô mang nhãn hiệu Yamaha do Bên Bán cung
+            cấp (Sau đây được gọi là “Xe Máy”) với các thông tin chi tiết như sau:
+            <br/>
+            <i>Seller agreed to sell and Buyer agreed to buy Yamaha branded motorcycles(s) provided by Seller (Hereinafter referred
+              to as the “Motorcycles”) with the following information:</i>
+          </p>
+        </div>
+      </div>
+        <div class="row u-m-t-small">
+        <table>
+          <colgroup>
+            <col class="short" />
+            <col class="medium" />
+            <col class="short" />
+            <col class="medium" />
+            <col class="medium" />
+            <col class="medium" />
+            <col class="medium" />
+            <col class="long" />
+          </colgroup>
+          <tr>
+            <th>
+              STT/
+              <br/>
+              <i>No.</i>
+            </th>
+            <th>
+              Loại xe/
+              <br/>
+              <i>Model of Motorcycles</i>
+            </th>
+              <th>
+              Mã loại xe/
+              <br/>
+              <i>Model Code</i>
+            </th>
+            <th>
+              Màu sắc
+              <br/>
+              <i>Color</i>
+            </th>
+            <th>
+              Số lượng (chiếc)
+              <br/>
+              <i>Quantity (Mcs)</i>
+            </th>
+            <th>
+              Đơn giá (VNĐ/xe)
+              <br/>
+              <i>Unit Price (VND/Mcs)</i>
+            </th>
+            <th>
+              Ghi chú
+              <br/>
+              <i>Remark</i>
+            </th>
+            <th>
+              Thành tiền (VNĐ)
+              <br/>
+              <i>Amount (VND)</i>
+            </th>
+          </tr>
+          <apex:variable value="{!1}" var="count" />
+          <apex:repeat value="{!lstProduct}" var="product">
+            <tr>
+              <td class="u-align-center">{!FLOOR(count)}&nbsp;</td>
+              <td>{!product.Product2.Sales_Name__c}</td>
+                <td>{!product.Product2.Model_Code__c}</td>
+              <td>{!product.Product2.Color_Name__c}</td>
+              <td class="u-align-center">1
+                <!-- <apex:outputText value="{0, Number, 0}">
+                  <apex:param value="{!product.Quantity}" />
+                </apex:outputText> -->
+              </td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, Number, ###,###}">
+                  <apex:param value="{!sumAmountExcludeTax}" />
+                </apex:outputText>
+                <!-- <apex:outputText value="{0, Number, ###,###}">
+                  <apex:param value="{!product.UnitPrice}" />
+                </apex:outputText> -->
+              </td>
+              <td class="u-align-right">Mới 100%
+                <br/> Brand-new
+                <!-- {!objContract.Remark__c} -->
+              </td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, Number, ###,###}">
+                  <apex:param value="{!sumAmountExcludeTax}" />
+                </apex:outputText>
+                <!-- <apex:outputText value="{0, Number, ###,###}">
+                  <apex:param value="{!(IF(product.UnitPrice!=null,product.UnitPrice,0))*(IF(product.Quantity!=null,product.Quantity,0))}"
+                  />
+                </apex:outputText> -->
+              </td>
+            </tr>
+            <apex:variable var="count" value="{!count+ 1}" />
+          </apex:repeat>
+          <tr>
+            <td colspan="6">Tổng (chưa gồm thuế Giá trị gia tăng)/
+              <i>Total (excluding VAT):</i>
+            </td>
+            <td class="u-align-right">
+              <apex:outputText value="{0, Number, ###,###}">
+                <apex:param value="{!sumAmountExcludeTax}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6">Thuế Giá trị gia tăng (10%)
+              <i>( VAT 10%): </i>
+            </td>
+            <td class="u-align-right">
+              <apex:outputText value="{0, Number, ###,###}">
+                <apex:param value="{!taxAmount}" />
+              </apex:outputText>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6">Giá trị Hợp đồng/
+              <i>The value of the Agreement:</i>
+            </td>
+            <td class="u-align-right">
+              <apex:outputText value="{0, Number, ###,###}">
+                <apex:param value="{!sumAmount}" />
+              </apex:outputText>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row">
+        <p>Lưu ý: Phụ kiện kèm theo Xe Máy sẽ tuân theo tiêu chuẩn của Bên Bán tại từng thời điểm
+          <br/>
+          <i>Note: The accessories which shall be delivered along with Motorcycles(s) in accordance with Seller’s standards
+            time by time.</i>
+        </p>
+      </div>
+      <div class="row u-m-t-small">
+        <div class="col-0_5-of-12">
+          <b>1.2.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Giá trị Hợp đồng là:
+            <apex:outputText value="{0, Number,' ' ###,###}">
+              <apex:param value="{!sumAmount}" />
+            </apex:outputText> VNĐ (Bằng chữ: {!total_text_vn} Việt Nam Đồng) (đã bao gồm thuế Giá trị gia tăng).
+            <br/>
+            <i>Accordingly, the value of the Agreement shall be:
+              <apex:outputText value="{0, Number,' ' ###,###}">
+                <apex:param value="{!sumAmount}" />
+              </apex:outputText> VND (In word: {!total_text_en} Vietnamese Dong), (VAT included)</i>
+            <br/> Giá trị Hợp đồng nêu trên đã bao gồm chi phí vận chuyển đến (các) địa điểm giao hàng nêu tại Điều 2 của Hợp
+            đồng này.
+            <br/>
+            <i>The aforesaid value of the Agreement includes transportation fee to the delivery location(s) described in Article
+              2 of this Agreement.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 2/
+          <i>Article 2:</i> Phương thức giao hàng /
+          <i>Delivery method</i>
+        </p>
+      </div>
+      <div class="row u-m-t-small">
+        <div class="col-0_5-of-12">
+          <b>2.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Thời gian giao hàng dự kiến/
+            <i>Tentative delivery date:
+              <apex:outputText value="{0,date,' ' dd/MM/yyyy}">
+                <apex:param value="{!objContract.Tentative_Delivery_Date__c}" />
+              </apex:outputText>
+            </i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>2.2.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Người phụ trách nhận Xe Máy của Bên Mua/
+            <i>Buyer’s person in charge of Motorcycles receipt:</i> {!objContract.Receiver__r.Name}
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>2.3.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Mặc dù có quy định về thời gian giao hàng dự kiến như trên, Các Bên tại đây đồng ý rằng Bên Bán chỉ thực hiện việc
+            giao Xe Máy cho Bên Mua trong vòng {!objContract.Delivery_Time__c} ngày làm việc kể từ ngày Bên Bán đã được Bên
+            Mua thanh toán toàn bộ Giá trị Hợp đồng theo quy định tại Hợp đồng này.
+            <br/>
+            <i>Not withstanding the tentative delivery time described above, two Parties hereby agree that Seller shall deliver
+              the Motorcycles(s) to Buyer within {!objContract.Delivery_Time__c} working days from the date on which Buyer
+              has paid the total Agreement Value to Seller under this Agreement.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>2.4.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Địa điểm giao hàng/
+            <i>Delivery place(s):</i> {!objContract.Owner.Account.Address__c} <i>/ {!objContract.Owner.Account.Address_Eng__c}</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>2.5.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Trong trường hợp Bên Mua muốn thay đổi địa điểm và/hoặc thời gian giao Hàng hóa, Bên Mua có trách nhiệm thông báo
+            cho Bên Bán bằng văn bản trước thời gian giao Xe máy ít nhất bảy (07) ngày và chịu mọi chi phí phát sinh từ
+            và/hoặc liên quan đến việc thay đổi đó (nếu có).
+            <br/>
+            <i>In case Buyer changes the location and/or time of delivery of the Motorcycles, Buyer is responsible for notifying
+              Seller in writing at least seven (07) days before delivery of the Motorcycles and paying all costs arising
+              from and/or in connection with such change (if any).</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>2.6.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          Bên Bán sẽ giao Xe Máy đã được lắp đặt hoàn chỉnh các thiết bị kỹ thuật cần thiết theo tiêu chuẩn của nhà sản xuất cho Bên
+          Mua.
+          <br/>
+          <i>Seller shall deliver the Motorcycles(s) which be completely installed the necessary technical equipment in accordance
+            with the manufacturer’s standards to Buyer.</i>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>2.7.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          Sau khi giao nhận Xe Máy, người đại diện có thẩm quyền phụ trách giao nhận Xe Máy của Bên Bán và Bên Mua cùng ký vào Biên
+          bản Bàn giao.
+          <br/>
+          <i>After the delivery and receipt of Motorcycles, the authorized representatives of the Parties in charge of Motorcycles
+            delivery and receipt shall sign on a Hand-over Minutes.</i>
+
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 3/
+          <i>Article 3:</i> Phương thức thanh toán/
+          <i>Payment method</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>3.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Bên Mua sẽ thanh toán cho Bên Bán 100% Giá trị Hợp đồng bằng Đồng Việt Nam bằng hình thức chuyển khoản vào tài
+            khoản của Bên Bán nêu ở trang đầu tiên Hợp đồng này chậm nhất (…..) ngày làm việc trước Thời gian giao hàng dự
+            kiến quy định tại Điều 2 của Hợp đồng này.
+            <br/>
+            <i>Buyer will pay Seller 100% of the total Agreement Value in Vietnamese Dong by bank transfer to the bank account
+              of Seller mentioned in the first page of this Agreement no later than (……..) working days from the Tentative
+              delivery date indicated in Article 2 of this Agreement.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>3.2.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Sau khi đã nhận đủ 100% Giá trị Hợp đồng, Bên Bán sẽ xuất hóa đơn giá trị gia tăng cho Bên Mua tại thời điểm giao
+            Xe Máy (mỗi một Xe Máy sẽ được Bên Bán xuất một Hóa đơn Giá trị Gia tăng để Bên Mua có thể tiến hành thủ tục
+            đăng ký lưu hành tại Cơ quan Công an).
+            <br/>
+            <i>After received 100% of the total Agreement Value, Seller shall issue VAT invoice(s) to Buyer upon the delivery
+              of Motorcycles(s) (each Motorcycles shall be issued one VAT Invoice by Seller to enable Buyer to carry out
+              procedures for registration at the Police Authorities).</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 4/
+          <i>Article 4:</i> Chuyển giao quyền sở hữu Xe Máy/
+          <i>Transfer of ownership of the Motorcycles(s)</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>4.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Các Bên tại đây đồng ý rằng quyền sở hữu Xe Máy chỉ được chuyển từ Bên Bán sang Bên Mua khi thoả mãn tất cả các
+            điều kiện sau: Bên Bán đã được Bên Mua thanh toán toàn bộ Giá trị Hợp đồng theo quy định tại Hợp đồng này, Bên
+            Bán bàn giao Xe Máy cho Bên Mua và Các Bên cùng ký vào Biên bản Bàn giao.
+            <br/>
+            <i>The Parties hereby agree that the ownership of the Motorcycles(s) shall be transferred from Seller to Buyer only
+              when all conditions are satisfied: Buyer has paid the total Agreement Value to Seller under this Agreement,
+              Seller delivers Motorcycles(s) to Buyer and both Parties sign on Hand-over Minutes.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 5/
+          <i>Article 5:</i> Quyền lợi và trách nhiệm của Các Bên/
+          <i>Benefits and Responsibilities of both Parties</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>5.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Quyền lợi và trách nhiệm của Bên Bán/
+            <i>Benefits and Responsibilities of Seller</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Giao Xe Máy và các phụ kiện kèm theo đầy đủ và đúng hạn như đã nêu tại Điều 2 của Hợp đồng này;
+            <br/>
+            <i>To sufficiently and timely deliver the Motorcycles(s) and its accessories in accordance with Article 2 of the
+              Agreement;
+            </i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Có trách nhiệm xuất hóa đơn giá trị gia tăng cho Bên Mua tại thời điểm giao Xe Máy và theo thông tin Bên Mua cung
+            cấp.
+            <br/>
+            <i>To be responsible for issuing VAT invoice to Buyer upon the delivery of Motorcycles and in accordance with Supplier’s
+              information.
+            </i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>5.2.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Quyền lợi và trách nhiệm của Bên Mua/
+            <i>Benefits and Responsibilities of Supplier</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Thanh toán đầy đủ và đúng hạn toàn bộ Giá trị Hợp đồng cho Bên Bán theo quy định tại Điều 3 của Hợp đồng;
+            <br/>
+            <i>To make payment of the total Agreement Value in full and on time to Seller in accordance with Article 3 of the
+              Agreement;
+            </i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Có trách nhiệm cung cấp cho Bên Bán thông tin chính xác của Bên Mua và người đại diện có thẩm quyền phụ trách nhận
+            Xe Máy của Bên Mua;
+            <br/>
+            <i>To be responsible for providing Seller with the accurate information of Supplier and Supplier’s authorized representative
+              in charge of Motorcycles(s) receipt;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Có trách nhiệm bố trí, sắp xếp nhân sự, địa điểm cần thiết để nhận Xe Máy theo đúng quy định tại Hợp đồng này;
+            <br/>
+            <i>To be responsible for arranging the necessary staffs, and locations to receive the Motorcycles(s) in accordance
+              with this Agreement;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Bên mua sẽ tự chịu trách nhiệm thực hiện việc đăng ký quyền sở hữu đối với Xe Máy nêu trên tại cơ quan có thẩm
+            quyền và nộp các loại thuế, phí liên quan đến việc mua bán, đăng ký Xe Máy;
+            <br/>
+            <i>Buyer shall take responsibility to register the ownership of the Motorcycles at the competent agency and pay
+              all taxes and fees related to the purchase and registration of the Motorcycles;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Bảo hành, bảo trì và sử dụng Xe Máy theo đúng quy định và hướng dẫn của Bên Bán. Không được phép thay thế, lắp
+            đặt thêm các phụ tùng phụ kiện không chính hãng. Bên Bán sẽ không chịu trách nhiệm nếu Bên Mua và/hoặc người
+            sử dụng Xe Máy của Bên Mua tự ý thay thế, lắp đặt thêm các phụ tùng, phụ kiện không chính hãng hoặc tại các địa
+            điểm không phải là Địa điểm bảo hành và bảo trì chính hãng của Bên Bán như quy định tại Điều 6.2 bên dưới;
+            <br/>
+            <i>To preserve and use of the Motorcycles in accordance with the regulations and instructions of Seller and not
+              allowed to replace, install additional non-genuine accessories; Seller shall not take any responsibilities
+              when Buyer or users of Motocycles replace, install non-genuine accessories, spare parts or have Motorcycles
+              warrantied or maintained by the organizations which are not YFS or Yamaha town dealers in Vietnam of Seller
+              as indicated in Article 6.2.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          Chịu mọi chi phí liên quan đến thủ tục đăng ký, lưu hành và bảo hiểm Xe Máy;
+          <br/> All costs related to the procedures for registration, circulation and insurance of the Motorcycles shall be paid
+          by Buyer;
+
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Cam kết mua và sử dụng Xe Máy cho mục đích tiêu dùng, không mua Xe Máy nhằm môi giới, bán lại trước khi đăng ký
+            Xe máy để thu lợi nhuận;
+            <br/>
+            <i>Commit to purchase and use the Motorcycles for consumption purposes, not to buy Motorcycles for brokerage or
+              resale to gain profit before registering the Motorcycles.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Tuân thủ các nghĩa vụ khác được quy định tại Hợp đồng và pháp luật;
+            <br/>
+            <i>Comply with other obligations specified in the Agreement and the laws;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 6/
+          <i>Article 6:</i> Chính sách bảo hành sản phẩm/
+          <i>Policy of Product warranty</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>6.1. </b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Bên Bán sẽ cung cấp chế độ bảo hành, bảo trì Xe Máy cho Bên Mua theo chính sách bảo hành, bảo trì sản phẩm của
+            Bên Bán tại từng thời điểm.
+            <br/>
+            <i>Seller shall provide Buyer with the Motorcycles(s) warranty and maintenance in compliance with Seller’s policy
+              of product warranty and maintenance from time to time.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>6.2.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Địa điểm bảo hành và bảo trì: Tại tất cả các trạm dịch vụ YFS trực thuộc Bên Bán và các Đại lý Yamaha Town của
+            Bên Bán tại Việt Nam.
+            <br/>
+            <i>The warranty and maintenance locations: At all YFS of Seller and the Yamaha Town Dealers of Seller in Vietnam</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 7/
+          <i>Article 7:</i> Bất khả kháng/
+          <i>Force Majeure</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>7.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Các Bên tại đây đồng ý rằng bất kỳ sự trì hoãn hoặc chậm trễ nào trong việc thực hiện nghĩa vụ của mỗi Bên theo
+            Hợp Đồng này vì những nguyên nhân ngoài tầm kiểm soát của mỗi Bên (chẳng hạn như dịch bệnh, chiến tranh, nổi
+            loạn, bạo loạn, cách mạng, cháy, nổ, động đất hay thiên tai, quyết định giãn cách do cơ quan nhà nước có thẩm
+            quyền ban hành) (Sau đây gọi là “Sự kiện bất khả kháng”) sẽ không tính vào thời gian thực hiện nghĩa vụ của mỗi
+            Bên; tuy nhiên, với điều kiện là, sự trì hoãn/chậm trễ này phải được một Bên thông báo cho Bên kia bằng văn bản
+            trong vòng năm (05) ngày làm việc kể từ ngày xảy ra sự kiện bất khả kháng.
+            <br/>
+            <i>The Parties hereby agree that any postponement or delay in implementing the obligations of each Party under this
+              Agreement due to the reasons which beyond the control of each Party (such as disease, war, insurrection, riot,
+              revolution, fire, explosion, earthquake, or acts of God, lockdown decision issued by competent state agencies)
+              (Hereinafter referred to as the “Events of Force Majeure”) shall be excluded from the term of obligations performance
+              of each Party; provided, however, that such postponement/delay must be noticed to the other Party by a written
+              document within five (05) working days from the happening date the Force Majeure event.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 8/
+          <i>Article 8.</i> Chấm dứt Hợp đồng trước hạn/
+          <i>Terminate the Agreement before due date</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>8.1.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Hợp đồng này sẽ bị chấm dứt trước hạn khi xảy ra bất kỳ sự kiện nào dưới đây:
+            <br/>
+            <i>This Agreement shall be terminated in case of occurrence of any of the following events:</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          a.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Các Bên có thỏa thuận bằng văn bản về việc chấm dứt Hợp đồng được ký bởi đại diện có thẩm quyền của mỗi Bên; hoặc
+            <br/>
+            <i>The Parties have a written agreement on termination of the Agreement signed by the authorized representative
+              of each Party; or</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          b.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Khi một Bên lâm vào tình trạng mất khả năng thanh toán, nộp đơn hoặc buộc phải nộp đơn xin phá sản, tái cơ cấu,
+            giải thể hoặc bất kỳ thủ tục tương tự nào khác hoặc thực hiện bất kỳ hành động nào của việc phá sản hoặc mất
+            khả năng thanh toán (kể cả việc tạm ngừng thanh toán) hoặc thực hiện việc thu xếp hay chuyển nhượng toàn bộ quyền
+            lợi cho các chủ nợ của mình hoặc có một nhà quản lý, người quản lý tài sản, người được ủy thác quản lý tài sản,
+            người trông giữ tài sản hoặc bất kỳ nhân sự tương tự nào khác được chỉ định thực hiện công việc kinh doanh hoặc
+            hợp nhất hoặc sáp nhập với một hoặc nhiều công ty khác, khi đó Bên kia có thể chấm dứt Hợp đồng này tại bất kỳ
+            thời điểm nào và việc chấm dứt này sẽ có hiệu lực ngay khi gửi thông báo bằng văn bản đến Bên bị ảnh hưởng mà
+            không phải chịu bất kỳ nghĩa vụ nào đối với Bên bị ảnh hưởng; hoặc
+            <br/>
+            <i>Either Party becomes insolvent, files or has filed against it a petition in bankruptcy, reorganization, dissolution
+              or any other procedure similar thereto or commits any act of bankruptcy or insolvency (including suspension
+              of payment) or makes an arrangement or a general assignment for the benefit of its creditors or has an administrator,
+              receiver, trustee, custodian or other similar official appointed for its business or amalgamates or merges
+              with other company or companies, then, the other Party may terminate this Agreement at any time and taking
+              effective immediately upon its written notice to such Party without incurring any obligations to such Party;
+              or
+            </i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          c.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Khi Hợp đồng bị chấm dứt theo Điều 10.3.c.
+            <br/>
+            <i>The Agreement terminates in accordance with Article 10.3.c.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          <b>8.2.</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Các nghĩa vụ sau khi chấm dứt Hợp đồng/
+            <i>Obligations after the termination of the Agreement</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          Khi Hợp đồng này bị chấm dứt theo Điều 8.1.a và Điều 8.1.b trên đây, Các Bên sẽ cùng nhau thỏa thuận về hậu quả của việc
+          chấm dứt;
+          <br/>
+          <i>When this Agreement is terminated due to reasons as described in Articles 8.1.a and 8.1.b above, the Parties shall
+            mutually agree on the consequences of such termination;</i>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Khi Hợp đồng này bị chấm dứt theo Điều 8.1.c trên đây, Bên Mua phải thanh toán toàn bộ thiệt hại phát sinh từ và/hoặc
+            liên quan đến hành vi vi phạm của Bên Mua và việc chấm dứt Hợp đồng trong trường hợp này;
+            <br/>
+            <i>When this Agreement is terminated due to reasons as described in Articles 8.1.c above, Buyer must pay all damages
+              arising from and/or related to Buyer's breach and termination of the Agreement in this case;</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12 u-align-center">
+          <b>-</b>
+        </div>
+        <div class="col-11_5-of-12">
+          <p class="article-content">Các nghĩa vụ thanh toán, hoàn trả, bồi thường bởi Các Bên quy định tại tại Hợp đồng phải được Các Bên thực hiện
+            trong vòng mười lăm (15) ngày kể từ ngày chấm dứt Hợp đồng. Lãi suất được áp dụng trong trường hợp chậm thực
+            hiện các nghĩa vụ này là 12%/năm/số tiền chậm thanh toán, hoàn trả, bồi thường.
+            <br/>
+            <i>The obligations of paying, refunding, compensating by the Parties stipulated in the Agreement must be carried
+              out by the Parties within fifteen (15) days as from the termination date of the Agreement. The interest rate
+              for overdue amounts shall be 12%/year/late payment, refund or compensation.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 9/
+          <i>Article 9.</i> Bảo mật thông tin/
+          <i>Confidential information</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <p class="article-content">&emsp;&emsp;Bên Mua phải bảo mật các thông tin và/hoặc các tài liệu, hình ảnh liên quan đến Bên Bán do Bên Bán cung
+          cấp và/hoặc do Bên Mua và/hoặc nhân viên Bên Mua có được trong quá trình thực hiện Hợp đồng này và không được tiết
+          lộ các thông tin cho bất kỳ bên thứ ba nào khi chưa nhận được chấp thuận bằng văn bản của Bên Bán ngoại trừ trường
+          hợp cung cấp theo yêu cầu luật pháp. Bên Mua phải đảm bảo các nhân viên của mình sẽ bị ràng buộc bởi quy định tại
+          Điều này. Nghĩa vụ bảo mật thông tin tại Điều này sẽ được đảm bảo trong suốt thời gian thực hiện Hợp đồng cũng
+          như sau ngày chấm dứt hoặc hết hạn Hợp đồng này.
+          <br/>&emsp;&emsp;
+          <i>Buyer shall not disclose any information of this Agreement and/or any information, picture, material in relation
+            to Seller, provided by Seller and/or obtained by Buyer and/or its employees in the normal performance of this
+            Agreement to any third party without prior written consent of Seller, unless otherwise provided by law. Buyer
+            commits to have appropriate measures to ensure that its related employees comply with this provision and shall
+            be responsible for any breach of this provision. The obligation to Confidential information as stipulated in
+            this Article shall be ensured during the duration of implementing Agreement as well as after terminating or expiration
+            of this Agreement.</i>
+        </p>
+      </div>
+      <div class="row u-m-t-small">
+        <p class="article">Điều 10/
+          <i>Article 10:</i> Điều khoản chung/
+          <i>Miscellaneous provisions</i>
+        </p>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_7-of-12">
+          <b>10.1.</b>
+        </div>
+        <div class="col-11_3-of-12">
+          <p class="article-content">Hợp đồng này có hiệu lực kể từ ngày ký bởi Hai Bên nêu ở trang đầu tiên Hợp đồng cho đến khi Các Bên hoàn thành
+            xong các nghĩa vụ của mình theo Hợp đồng này, trừ khi chấm dứt Hợp đồng trước hạn theo quy định tại Điều 8 nêu
+            trên.
+            <br/>
+            <i>This Agreement shall become effective since the signing date mentioned in the first page of this Agreement until
+              both Parties have completed their obligations under this Agreement, unless otherwise earlier terminated as
+              stipulated in Article 8 above.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_7-of-12">
+          <b>10.2.</b>
+        </div>
+        <div class="col-11_3-of-12">
+          <p class="article-content">Tất cả mọi tranh chấp, tranh cãi và/hoặc khác biệt có thể nảy sinh giữa Các Bên trong mối quan hệ với hoặc có liên
+            quan đến Hợp đồng này sẽ được giải quyết một cách ôn hòa giữa các Bên. Trong trường hợp không thể đạt được một
+            sự giải quyết ôn hòa như vậy trong một khoảng thời gian hợp lý, tranh chấp đó sẽ được giải quyết chung thẩm tại
+            Trung Tâm Trọng Tài Quốc Tế Việt Nam (VIAC) theo Quy Tắc Tố Tụng Trọng Tài của VIAC. Phán quyết của trọng tài
+            đó sẽ có giá trị chung thẩm và ràng buộc đối với các Bên có liên quan. Phí trọng tài và các chi phí khác phát
+            sinh từ và/hoặc liên quan đến việc giải quyết tranh chấp do Bên thua kiện chịu.
+            <br/>
+            <i>All disputes, controversies or differences which may arise between the Parties in relation to or in connection
+              with this Agreement shall be amicably settled between the Parties. In the event such amicable settlement cannot
+              be reached within a reasonable time, such dispute shall be finally settled by Vietnam International Arbitration
+              Centre (VIAC) in accordance with the Rules for Arbitration Proceedings of VIAC. The award shall be final and
+              binding upon the Parties. Arbitration fees and other costs arising out of and/or related to the settlement
+              of the dispute shall be borne by the losing Party.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_7-of-12">
+          <b>10.3.</b>
+        </div>
+        <div class="col-11_3-of-12">
+          Chống hối lộ/
+          <i>Anti-Corruption</i>
+
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          a.
+        </div>
+        <div class="col-11-of-12">
+          Bên Mua tại đây cam kết và đảm bảo rằng, Bên Mua, những người điều hành, nhân viên, người lao động và bất kỳ bên thứ ba liên
+          quan nào của Bên Mua (“Bên thuộc Bên Mua”):
+          <br/>
+          <i>Buyer hereby represents and warrants that itself, its directors, officers, employees and any related third party
+            (“Person of Buyer”) shall:</i>
+
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          i.
+        </div>
+        <div class="col-10_5-of-12">
+          <p class="article-content">tuân thủ nghiêm ngặt toàn bộ quy định pháp luật, chính sách, hướng dẫn hiện hành liên quan đến chống hối hộ, tham
+            nhũng của tất cả các nước nơi công việc kinh doanh hoặc dịch vụ được thực hiện hoặc cung cấp theo Hợp đồng này
+            (“Pháp luật Chống Hối lộ”).
+            <br/>
+            <i>strictly comply with all applicable laws, policies and guidance on anti-bribery and anti-corruption of all countries
+              where business or services are conducted or performed under this Agreement (“Anti-Bribery Laws”).</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-1-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          ii.
+        </div>
+        <div class="col-10_5-of-12">
+          <p class="article-content">không trực tiếp hoặc gián tiếp qua trung gian (như bên tư vấn, nhà phân phối, đại lý, người thân quen, thư ký hoặc
+            người liên quan khác) đưa, đề nghị, hứa hẹn trả bất kỳ khoản lợi ích nào, bao gồm nhưng không giới hạn ở các
+            khoản do Bên Bán thanh toán cho Bên Mua, tiền bạc, hàng hóa, tiếp đãi, giải trí hoặc tiêu khiển nào, cho bất
+            kỳ người nào, gồm cả công chức, viên chức hoặc nhân viên Nhà nước nào hoặc người khác làm việc trong khối Nhà
+            nước, cơ quan, đoàn thể, doanh nghiệp có vốn Nhà nước, đảng phái chính trị, ứng viên cho một vị trí chính trị
+            (bất kể quốc tịch nào) (“Cán bộ Nhà nước”), mà trái với hoặc vi phạm Pháp luật Chống Hối lộ hoặc với hiểu biết
+            hợp lý rằng nó sẽ được sử dụng cho mục đích để đạt được bất kỳ lợi ích không chính đáng nào hoặc để tác động
+            một cách không thích hợp đến bất kỳ hành động hoặc quyết định nào của Cán bộ Nhà nước hoặc cho mục đích có được,
+            duy trì hoặc thu hút công việc kinh doanh (“Hành vi Hối lộ”). Bên Mua sẽ không và đảm bảo rằng các Bên thuộc
+            Bên Mua sẽ không trực tiếp hoặc gián tiếp đưa hối lộ, các khoản tiền lại quả, tiền lót tay, tiền đút lót, quà
+            tặng hoặc khoản thanh toán khác dưới bất kỳ hình thức.
+            <br/>
+            <i>not directly or indirectly through third parties (such as consultants, distributors, agents, relatives, secretaries
+              or related personnel) making an offer, promising, providing any benefit, which shall include but will not be
+              limited to, any amounts paid by Seller to Buyer, money, goods, receptions, entertainments and recreations,
+              to any person, which may be public officials, employees of governmental authorities, government controlled
+              enterprise, political party, candidate for political office or any person who is treated in the same way as
+              public officials (regardless of their nationality) (“Public Officials”), in violation of the Anti-Bribery Laws
+              or with the reasonable knowledge that it will be used for the purpose of obtaining any improper benefit or
+              to improperly influence any act or decision by Public Officials or for the purpose of obtaining, retaining,
+              or directing business (“Bribery”). Buyer ensures that itself and Person of Buyer shall not directly or indirectly
+              offer bribes, kickbacks, gratuity, gift, facilitation payment or other inducement in any form.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          b.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Bên Mua tuyên bố và bảo đảm rằng, trong hiểu biết tốt nhất của mình và trong phạm vi được pháp luật cho phép, Bên
+            Mua hoặc các Bên thuộc Bên Mua đã cung cấp cho Bên Bán thông tin chính xác và đầy đủ về bất kỳ chủ sở hữu đa
+            số, đối tác, giám đốc, người quản lý nào của Bên Mua hoặc các Bên thuộc Bên Mua được phép tiến hành hoạt động
+            kinh doanh thay mặt cho Bên Mua hoặc các Bên thuộc Bên Mua (gọi chung là “Người được Ủy quyền của Bên Mua”) mà
+            là, đã là hoặc sẽ là Cán bộ Nhà nước. Nếu vào bất kỳ thời điểm nào trong thời hạn của Hợp đồng này mà Bên Mua
+            biết được hoặc theo cách khác có lý do để cho rằng bất kỳ Người được Ủy quyền của Bên Mua nào là, đã là hoặc
+            sẽ trở thành Cán bộ Nhà nước, thì khi đó, trong chừng mực được pháp luật cho phép, Bên Mua sẽ thông báo ngay
+            cho Bên Bán.
+            <br/>
+            <i>Buyer represents and warrants that it has, to the best of its knowledge and to the extent permitted by law, provided
+              Seller with complete and accurate information regarding any majority owner, partner, officer, director, manager
+              of Buyer or of Person of Buyer who is authorized to conduct business on behalf of Parties (collectively, "Authorized
+              Parties") that is, has been or will become Public Officials. If at any time during the term of this Agreement,
+              Buyer becomes aware, or otherwise has reason to believe, that any Authorized Party is, has been or will become,
+              a Public Official, then, to the extent permissible by law, Buyer shall promptly notify Seller.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          c.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Trong trường hợp vi phạm điều khoản Chống Hối lộ này hoặc nếu Bên Mua vi phạm Pháp luật Chống Hối lộ, thì Bên Bán
+            sẽ chấm dứt Hợp đồng bất cứ lúc nào, và có hiệu lực ngay lập tức kể từ ngày phát hành văn bản thông báo đến Bên
+            Mua, mà không làm phát sinh thêm bất kỳ nghĩa vụ nào cho Bên Bán.
+            <br/>
+            <i>In case of any breach of this Article or if Buyer otherwise violates Anti-Bribery Laws, Seller may terminate
+              this Agreement at any time, immediately effective upon a written notice to Buyer, and without incurring any
+              obligation whatsoever.
+            </i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          d.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Bên Mua đã hiểu rõ Chính sách Chống Hối lộ của Tập Đoàn Yamaha niêm yết tại trang thông tin điện tử: &lt;https://global.yamaha-motor.com/about/csr/anti-corruption/&gt;.
+            <br/>
+            <i>Buyer understood “Yamaha Motor Group’s Anti-Bribery Policy”, which is available on the website: &lt;https://global.yamaha-motor.com/about/csr/anti-corruption/&gt;.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          e.
+        </div>
+        <div class="col-11-of-12">
+          Bên Mua tại đây tuyên bố và đảm bảo rằng: cho đến ngày ký kết Hợp đồng này, Bên Mua cũng như người quản lý, nhân viên và
+          người lao động của Bên Mua chưa từng có Hành vi Hối lộ.
+          <br/>
+          <i>Buyer hereby represents and warrants that at the date of entering into this Agreement, Buyer and its directors,
+            officers, and employees have not engaged in any Bribery.</i>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_5-of-12">
+          &nbsp;
+        </div>
+        <div class="col-0_5-of-12">
+          f.
+        </div>
+        <div class="col-11-of-12">
+          <p class="article-content">Bên Mua sẽ lưu giữ một cách chính xác tất cả các ghi chép, sổ sách kế toán, hồ sơ, hóa đơn, và các tài liệu có
+            liên quan đến Hợp đồng này hoặc việc thực hiện Hợp đồng này và hợp tác đầy đủ với Bên Bán nếu Bên Bán yêu cầu
+            thực hiện việc kiểm tra sổ sách, kiểm toán.
+            <br/>
+            <i>Buyer shall keep accurately all books, accounts, records, invoices, and other relevant documents in any way connection
+              with this Agreement or its performance hereunder and fully cooperate with Seller if audit is requested and
+              conducted by Seller.</i>
+          </p>
+        </div>
+      </div>
+      <div class="row u-m-t-xsmall">
+        <div class="col-0_7-of-12">
+          <b>10.4.</b>
+        </div>
+        <div class="col-11_3-of-12">
+          <p class="article-content">Hợp đồng này được lập thành hai (02) bản song ngữ bằng cả tiếng Anh và tiếng Việt có giá trị pháp lý như nhau,
+            mỗi Bên giữ một (01) bản để cùng thực hiện. Trong trường hợp có sự mâu thuẫn giữa phần tiếng Anh và tiếng Việt,
+            phần tiếng Việt sẽ được ưu tiên áp dụng.
+            <br/>
+            <i>This Agreement is made into two (02) bilingual originals in both English and Vietnamese having equal legal validity.
+              Each Party shall keep one (01) originals for execution. In case of any conflict between the English part and
+              Vietnamese part, the Vietnamese part shall prevail.</i>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-signature">
+      <div class="row">
+        <div class="col-1-of-2 u-align-center">
+          ĐẠI DIỆN BÊN BÁN
+          <br/>
+          <i style="font-size: 12px;"> FOR AND ON BEHALF OF SELLER</i>
+        </div>
+        <div class="col-1-of-2 u-align-center">
+          ĐẠI DIỆN BÊN MUA
+          <br/>
+          <i style="font-size: 12px;">FOR AND ON BEHALF OF BUYER</i>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  </html>
+</apex:page>

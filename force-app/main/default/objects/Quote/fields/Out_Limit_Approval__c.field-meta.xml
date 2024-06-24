@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Out_Limit_Approval__c</fullName>
+    <externalId>false</externalId>
+    <formula>(Discount_Amount__c +  Voucher_Amount__c ) &gt; ( Discount_Standard__c +  Voucher_Standard__c +  Limit_Product_Promotion__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Out Limit Approval</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

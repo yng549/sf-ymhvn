@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Need_to_complete_Bike_order</fullName>
+    <active>true</active>
+    <description>Need to complete order</description>
+    <errorConditionFormula>AND
+(ISCHANGED( Status ), ISPICKVAL(Status , &apos;Completed&apos;),
+AND (RecordType.DeveloperName == &quot;Bike&quot;),
+AND(OR(ISBLANK(Address_No__c ),
+ISBLANK( District__c ),
+ISBLANK( Province__c ),
+ISBLANK( Account.Account_Is_Primary__c ),
+ISBLANK(Account.DOB__pc))
+)
+)</errorConditionFormula>
+    <errorMessage>To complete the order, we need to have complete address information on the order, as well as the date of birth (DOB), Account Primary status on the account.</errorMessage>
+</ValidationRule>

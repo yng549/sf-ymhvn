@@ -1,0 +1,233 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-salesforce1">
+                                <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body" style="padding-left:50%;">
+                            <h2 class="slds-truncate" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">Check Imei Voucher</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                </h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium slds-scrollable_y" id="modal-content-id-1">
+                <lightning-layout multiple-rows="true" vertical-align="end">
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="8"
+                        large-device-size="12" padding="around-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning-input type="text" data-id="searchVoucher" label="Enter Imei Voucher"
+                                    placeholder="Search Voucher"> </lightning-input>
+                                </br>
+                                <button variant="base" class="slds-button slds-button_neutral"
+                                    onclick={handleFilter}>Submit Search</button>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout><br />
+                <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+                    <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+                </div>
+                <div class="slds-scrollable_x slds-scrollable_y">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate" title="Name Campaign">Name Campaign</div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate" title="First Name">Start Date</div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate" title="To Date">End Date</div>
+                                </th>
+                                <th class=""  scope="col">
+                                    <div  class="slds-truncate" title="Route Name" style="color:red;">Voucher Imei</div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate" title="Name Customer">Voucher Name</div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate"></div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate"></div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate"></div>
+                                </th>
+                                <th  class="" scope="col">
+                                    <div class="slds-truncate"></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <template if:true={isData}>
+                            <tbody>
+                                <tr key={vocherSearch.Id}
+                                    style="cursor: pointer;">
+                                    <td scope="col" title={vocherSearch.UrlVoucher} style="margin-right:5px;max-width: 350 px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                        <a title={vocherSearch.UrlVoucher} style="color:rgb(0, 140, 255);"
+                                        href={vocherSearch.UrlVoucher} target="_blank">{vocherSearch.CampaignName}</a>
+                                    </td>
+                                    <th scope="col">
+                                        {vocherSearch.ValidFromDate}
+                                    </th>
+                                    <th scope="col">
+                                        {vocherSearch.ValidToDate}
+                                    </th>
+                                    <th  scope="col" style="max-width: 350px;">
+                                        {vocherSearch.IMEI}
+                                    </th>
+                                    <th  scope="col" style="max-width: 350px;">
+                                        {vocherSearch.VoucherName}
+                                    </th>
+                                    <th  scope="col" >
+                                    </th>
+                                    <th  scope="col" >
+                                    </th>
+                                    <th  scope="col" >
+                                    </th>
+                                    <th  scope="col" >
+                                    </th>
+                                </tr>
+    
+                                <!-- Children -->
+                                <template if:false={vocherSearch.hideBool} key={vocherSearch.Id}>
+                                    <tr key={vocherSearch.Id} style="cursor: pointer;">
+                                        <td scope="col">
+                                         </td>
+                                        <td scope="col"
+                                            style="font-weight: bold; background-color:#04AA6D;">
+                                            Product Campaign Name
+                                        </td>
+                                        <td scope="col"
+                                            style="font-weight: bold; background-color:#04AA6D;">
+                                            Product Name
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                            Product Code
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                        </td>
+                                    </tr>
+                                    <template for:each={vocherSearch.lstProductCampaignDTO} for:item="obj">
+                                        <tr key={obj.Id}
+                                            style="cursor: pointer;">
+                                            <td scope="col">
+                                            </td>
+                                            <td >
+                                                <lightning-input type="checkbox" name={obj.Id} onchange={setBoxes}
+                                                checked={obj.IsChecked} value={obj.Id} data-id={obj.Id}>
+                                            </lightning-input>
+                                            </td>
+                                            <td >
+                                                <a title={obj.UrlProductCampaign} style="color:rgb(0, 140, 255);"
+                                                    href={obj.UrlProductCampaign} target="_blank">{obj.NameProductCampaign}</a>
+                                                
+                                            </td>
+                                            <td scope="col" title={obj.UrlOrder} >
+                                                {obj.ProductName}
+                                            </td>
+                                            
+                                            <td>
+                                                {obj.ProductCode}
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </template>
+        
+                                </template>
+
+
+                                <template if:false={vocherSearch.hideBool} key={vocherSearch.Id}>
+                                    <tr key={vocherSearch.Id} style="cursor: pointer;">
+                                        <td scope="col">
+                                         </td>
+                                        <td scope="col"
+                                            style="font-weight: bold; background-color:#04AA6D;">
+                                            Group Gift Name
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                            Type
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                        </td>
+                                    </tr>
+                                    <template for:each={vocherSearch.lstGiftGroupDTO} for:item="gift">
+                                        <tr key={gift.Id}
+                                            style="cursor: pointer;background-color:#F3F3F3">
+                                            <td scope="col">
+                                            </td>
+                                            <td scope="col" >
+                                                {gift.Name}
+                                            </td>
+                                            <td>
+                                                {gift.Type}
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <template for:each={gift.lstProductGift} for:item="giftProd">
+                                            <tr key={giftProd.Id}
+                                            style="cursor: pointer;">
+                                            <td scope="col">
+                                            </td>
+                                            <td scope="col">
+                                                <lightning-input disabled={giftProd.Disabled} type="checkbox" name={giftProd.ProductId} onchange={setBoxGiftGroup}
+                                                  checked={giftProd.IsChecked} data-name={giftProd.IdGroupGift} 
+                                                   value={giftProd.ProductId} data-id={giftProd.GroupGift}>
+                                                </lightning-input>
+                                            </td>
+                                            <td scope="col" >
+                                                {giftProd.Name}
+                                            </td>
+                                            <td>
+                                                {giftProd.ProductCode}
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        </template>
+                                        
+                                    </template>
+        
+                                </template>
+                            </tbody>
+                        </template>
+                        
+                    </table>
+                </div>
+            </div>
+
+            <div class="slds-modal__footer">
+                <button variant="base" class="slds-button slds-button_neutral" onclick={handlePrev}>Back</button>
+                <button class="slds-button slds-button_brand" variant="brand" onclick={update}>Save</button>
+            </div>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_After_Sale</fullName>
+    <columns>NAME</columns>
+    <columns>Order__c</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Mine</filterScope>
+    <label>My After Sale</label>
+</ListView>

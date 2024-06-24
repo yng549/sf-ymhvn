@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Abbreviations__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL( AccountCustomer__r.Language__c ,&apos;English&apos;) ,
+IF( ISPICKVAL(  AccountCustomer__r.Gender__c , &apos;Male&apos;) , &apos;Mr&apos;, &apos;Ms&apos;) ,
+IF( ISPICKVAL(  AccountCustomer__r.Gender__c, &apos;Male&apos;) , &apos;anh&apos;, &apos;chi&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Abbreviations</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

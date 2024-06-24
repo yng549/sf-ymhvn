@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ID_Issued_By__c</fullName>
+    <externalId>false</externalId>
+    <label>ID Issued By</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>ID_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Công An</fullName>
+                <default>false</default>
+                <label>Công An</label>
+            </value>
+            <value>
+                <fullName>Cục trưởng Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư</fullName>
+                <default>false</default>
+                <label>Cục trưởng Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư</label>
+            </value>
+            <value>
+                <fullName>Cục trưởng Cục Cảnh sát Quản lý Hành chính về Trật tự Xã hội</fullName>
+                <default>false</default>
+                <label>Cục trưởng Cục Cảnh sát Quản lý Hành chính về Trật tự Xã hội</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>CMND</controllingFieldValue>
+            <valueName>Công An</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCCD</controllingFieldValue>
+            <valueName>Cục trưởng Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>CCCD</controllingFieldValue>
+            <valueName>Cục trưởng Cục Cảnh sát Quản lý Hành chính về Trật tự Xã hội</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

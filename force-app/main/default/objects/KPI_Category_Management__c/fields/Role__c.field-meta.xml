@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Role__c</fullName>
+    <externalId>false</externalId>
+    <label>Role</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sales Consultant</fullName>
+                <default>false</default>
+                <label>Sales Consultant</label>
+            </value>
+            <value>
+                <fullName>Sales Supevisor</fullName>
+                <default>false</default>
+                <label>Sales Supevisor</label>
+            </value>
+            <value>
+                <fullName>Sales AM/Manager</fullName>
+                <default>false</default>
+                <label>Sales AM/Manager</label>
+            </value>
+            <value>
+                <fullName>Service Consultant</fullName>
+                <default>false</default>
+                <label>Service Consultant</label>
+            </value>
+            <value>
+                <fullName>Service Technician</fullName>
+                <default>false</default>
+                <label>Service Technician</label>
+            </value>
+            <value>
+                <fullName>Service AM/Sup</fullName>
+                <default>false</default>
+                <label>Service AM/Sup</label>
+            </value>
+            <value>
+                <fullName>PCA Sales Consultant</fullName>
+                <default>false</default>
+                <label>PCA Sales Consultant</label>
+            </value>
+            <value>
+                <fullName>PCA Supervisor</fullName>
+                <default>false</default>
+                <label>PCA Supervisor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

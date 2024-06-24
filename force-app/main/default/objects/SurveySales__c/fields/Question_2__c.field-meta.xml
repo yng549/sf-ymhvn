@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Question_2__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>2 - Based on your purchase experience, how likely is it that you would recommend our Dealership to a friend or colleague? (Select 1)</inlineHelpText>
+    <label>Question 2</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Rating_question</valueSetName>
+    </valueSet>
+</CustomField>

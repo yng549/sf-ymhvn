@@ -1,0 +1,351 @@
+<template>
+   
+
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-salesforce1">
+                              <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                              </svg>
+                            </span>
+                          </div>
+                        <div class="slds-media__body" style="padding-left:50%;">
+                            <h2 class="slds-truncate" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">EDIT QUOTE</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                </h1>
+            </div>
+            
+            <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                <lightning-card class="slds-scrollable_y"> 
+                    <template if:true={isData}>
+                        <div>
+                            <div if:true={isShowSpinner} class="slds-is-relative">
+                                <lightning-spinner alternative-text="Loading..." variant="brand">
+                                </lightning-spinner>
+                            </div>
+                            <div class="slds-grid slds-gutters" style="margin-left:40px;">
+                                
+                                <div class="slds-col">
+                                    <p style="font-weight:bold;">THÔNG TIN KHÁCH HÀNG/ CUSTOMER PROFILE</p>
+                                    <table>
+                
+                                        <tr>
+                                            <th style="width:120px;"></th>
+                                            <th style="width:150px;"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>Họ Khách Hàng<br />
+                                            </td>
+                                            <td>
+                                                <lightning-input data-id='FirstAccountName' onchange={handleChange}
+                                                    variant="label-hidden" style="width:170px;" value={quoteSelelect.FirstAccountName}>
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tên Khách Hàng<br />
+                                            </td>
+                                            <td>
+                                                <lightning-input data-id='LastAccountName' onchange={handleChange}
+                                                    variant="label-hidden" style="width:170px;" value={quoteSelelect.LastAccountName}>
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Địa chỉ hộ khẩu/ Resident Address:<br />
+                                            </td>
+                                            <td>
+                                                {quoteSelelect.AddressFull}
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                    <td>Địa chỉ gửi thư /Mailing adress:
+                                    </td>
+                                    <td><lightning-input data-id='AddressFull'  onchange={handleChange} read-only=true variant="label-hidden" style="width:170px;" value={quoteSelelect.PersonMailingAddress} >
+                                    </lightning-input></td>
+                                </tr> -->
+                                        <tr>
+                                            <td>Số CMND /ID number:</td>
+                                            <td>
+                                                <lightning-input data-id='IDNo' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.IDNo} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mã số thuế /Tax code:</td>
+                                            <td>
+                                                <lightning-input data-id='TaxCode' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.TaxCode} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Điện thoại /Phone number:</td>
+                                            <td>
+                                                <lightning-input data-id='PersonMobilePhone' onchange={handleChange}
+                                                    variant="label-hidden" value={quoteSelelect.PersonMobilePhone} style="width:170px;"
+                                                    type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td>
+                                                <lightning-input data-id='Email' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.Email} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                    </table>
+                
+                                </div>
+                                <div class="slds-col" style="margin-left:120px;">
+                                    <p style="font-weight:bold;">THÔNG TIN XE/ BIKE INFORMATION</p>
+                                    <table>
+                                        <tr>
+                                            <th style="width:200px;"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>Model</td>
+                                            <td>
+                                                <lightning-input data-id='ModelName' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.ModelBikeName} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Màu sắc /Color</td>
+                                            <td>
+                                                <lightning-input data-id='ColorName' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.ProductColorName} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dung tích /Capacity</td>
+                                            <td>
+                                                <lightning-input data-id='CapacityName' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.Capacity} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nguồn gốc /Origin</td>
+                                            <td>
+                                                <lightning-input data-id='OriginName' onchange={handleChange} variant="label-hidden"
+                                                    value={quoteSelelect.ProductOrigin} style="width:170px;" type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tình trạng /Condition</td>
+                                            <td>
+                                                <lightning-combobox data-id="ProductType2" onchange={handleChange} style="width:170px;"
+                                                    variant="label-hidden" value={currentAccount} options={listValues}>
+                                                </lightning-combobox>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="slds-grid slds-gutters" style="margin-left:30px;">
+                                
+                                <div class="slds-col">
+                                    <p style="font-weight:bold;">THÔNG TIN GIÁ/ PROMOTION</p>
+                                    <table>
+                                        <tr>
+                                            <th style="width:250px;"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>Giá xe /Price:</td>
+                                            <td>
+                                                <lightning-input variant="label-hidden" type=number formatter="currency" read-only=true
+                                                    value={quoteSelelect.ListPrice} style="width:170px;">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VAT:</td>
+                                            <td>
+                                                <lightning-input variant="label-hidden" read-only=true value="10%" style="width:170px;"
+                                                    type="text">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giá xe bao gồm VAT/ Price including VAT:</td>
+                                            <td>
+                                                <lightning-input variant="label-hidden" type=number read-only=true formatter="currency"
+                                                    value={quoteSelelect.ListPriceVAT} style="width:170px;">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giảm giá /Discount:</td>
+                                            <td>
+                                                <!-- <lightning-input variant="label-hidden" data-id='Discount' onchange={handleChange}
+                                                    value={quoteSelelect.DiscountPercent} type=decimal formatter="percent-fixed"
+                                                    step="0.01" style="width:170px;">
+                                                </lightning-input> -->
+                                                <lightning-input variant="label-hidden" data-id='Discount' onchange={handleChange}
+                                                    value={quoteSelelect.DiscountAmount} type=number formatter="currency" style="width:170px;">
+                                                </lightning-input>
+                                                
+                                                <template if:true={flagNotifyText}>
+                                                    <span style="color:red;">Need to approval.</span>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Giá sau giảm giá/ Price after discount:</td>
+                                            <td>
+                                                <lightning-input variant="label-hidden" type=number formatter="currency" read-only=true
+                                                    value={quoteSelelect.SalePrice} style="width:170px;">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thời gian dự kiến :</td>
+                                            <td>
+                                                <lightning-input data-id="EstimateDate" onchange={handleChange}
+                                                    value={quoteSelelect.DeliveryDate} type=date variant="label-hidden"
+                                                    style="width:170px;">
+                                                </lightning-input>
+                                                <span if:false={flagDeliveryDate} style="color:rgba(255, 0, 0, 0.7)">
+                                                    Please input value for delivery date.
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Voucher Amount :</td>
+                                            <td>
+                                                <lightning-input data-id="VoucherAmount" onchange={handleChange}
+                                                    value={quoteSelelect.VoucherAmount} type=number formatter="currency"
+                                                    variant="label-hidden" style="width:170px;">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quà tặng Gift :</td>
+                                            <td>
+                                                <table>
+                                                    <template for:each={quoteSelelect.lstPromotion} for:item="obj">
+                                                        <tr key={obj.Id}>
+                                                            <td style="width:10px;">
+                                                                <lightning-input name='PromotionPack' data-id={obj.Id}
+                                                                    onchange={handleChange} type=checkbox checked={obj.isChecked}>
+                                                                </lightning-input>
+                                                            </td>
+                                                            <td>{obj.Name}</td>
+                                                        </tr>
+                                                    </template>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="slds-col" style="margin-left:5px;">
+                                    <p style="font-weight:bold;">THÔNG TIN THANH TOÁN/ PAYMENT INFORMATION</p>
+                                    <table style="padding-bottom:2px;">
+                                        <tr>
+                                            <th style="width:250px;"></th>
+                                        </tr>
+                                        <tr>
+                                            <td>Đơn hàng TMDT/ E-commerce order:</td>
+                                            <td>
+                                                <lightning-input variant="label-hidden" data-id='ECommerceOrder' onchange={handleChange}
+                                                    checked={quoteSelelect.ECommerceOrder} style="width:170px;" type="checkbox">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Giá trị đổi xe/ Trade-in service:</td>
+                                            <td>
+                                                <lightning-input data-id='PriceTradeInBike' onchange={handleChange}
+                                                    value={quoteSelelect.PriceTradeInBike} variant="label-hidden" style="width:170px;"
+                                                    type=number formatter="currency">
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thanh toán đợt 1/ First payment:</td>
+                                            <td>
+                                                <lightning-input data-id='Payment1' onchange={handleChange} variant="label-hidden"
+                                                    type=number formatter="currency" style="width:170px;"
+                                                    value={quoteSelelect.Payment1}>
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thanh toán đợt 2/ Second payment:</td>
+                                            <td>
+                                                <lightning-input data-id='Payment2' onchange={handleChange} variant="label-hidden"
+                                                    type=number formatter="currency" style="width:170px;"
+                                                    value={quoteSelelect.Payment2}>
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thanh toán đợt 3/ Third payment:</td>
+                                            <td>
+                                                <lightning-input data-id='Payment3' onchange={handleChange} variant="label-hidden"
+                                                    type=number formatter="currency" style="width:170px;"
+                                                    value={quoteSelelect.Payment3}>
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vay/ Finance (Nếu có- If any):</td>
+                                            <td>
+                                                <lightning-input data-id='Finance' value={quoteSelelect.Finance} onchange={handleChange}
+                                                    variant="label-hidden" style="width:170px;" type='text'>
+                                                </lightning-input>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    
+                </lightning-card>
+            </div>
+            
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral"
+                    style="margin-right:10px;background-color:#8E0404;color:white;"
+                    onclick={closeQuickAction}>Cancel</button>
+                    <template if:false={isShowSpinner}>
+                        <template if:true={flagDeliveryDate}>
+                            <button class="slds-button slds-button_success" onclick={updateQuote}>
+                                Save
+                            </button>
+                        </template>
+                        <template if:false={flagDeliveryDate}>
+                            <button class="slds-button slds-button_success" disabled>
+                                Save
+                            </button>
+                        </template>
+                    </template>
+                    <template if:true={isShowSpinner}>
+                        <button class="slds-button slds-button_success" disabled>
+                            Save
+                        </button>
+                    </template>
+            </div>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

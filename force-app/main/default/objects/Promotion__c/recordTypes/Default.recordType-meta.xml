@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default</fullName>
+    <active>true</active>
+    <label>Default</label>
+    <picklistValues>
+        <picklist>Service_Apply__c</picklist>
+        <values>
+            <fullName>Bike</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Source__c</picklist>
+        <values>
+            <fullName>Revzone</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Workshop</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Use_For__c</picklist>
+        <values>
+            <fullName>All DO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hà Nội</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sài Gòn</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

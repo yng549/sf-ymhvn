@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Change_Stage_to_Closed</fullName>
+    <active>false</active>
+    <description>Khi chuyển stage sang stage Closed, phải chọn Way to solve= &apos;Satisfaction Achieved&apos; hoặc &apos;In implementation&apos;</description>
+    <errorConditionFormula>AND(ISCHANGED( Status ),
+ISPICKVAL(Status , &apos;Closed&apos;),
+TEXT( Way_to_solve__c ) &lt;&gt; &apos;Satisfaction Achieved&apos;
+)</errorConditionFormula>
+    <errorMessage>You must choose Way to solve as &apos;Satisfaction Achieved&apos;  to change to close this case.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Error_Code__c</fullName>
+    <externalId>false</externalId>
+    <label>Error Code</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SMS_Brandname_000</fullName>
+                <default>false</default>
+                <label>NoError (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_001</fullName>
+                <default>false</default>
+                <label>InputNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_100</fullName>
+                <default>false</default>
+                <label>TokenNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_101</fullName>
+                <default>false</default>
+                <label>UserIsLock (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_102</fullName>
+                <default>false</default>
+                <label>UserNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_103</fullName>
+                <default>false</default>
+                <label>UserNotRoleValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_304</fullName>
+                <default>false</default>
+                <label>DuplicateMessage (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_904</fullName>
+                <default>false</default>
+                <label>BrandnameNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_002</fullName>
+                <default>false</default>
+                <label>MessageTypeNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_003</fullName>
+                <default>false</default>
+                <label>MessageTypeNotAllow (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_005</fullName>
+                <default>false</default>
+                <label>ReceiverNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_006</fullName>
+                <default>false</default>
+                <label>TelcoNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_007</fullName>
+                <default>false</default>
+                <label>ContentContainsBlockedWord (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_008</fullName>
+                <default>false</default>
+                <label>ContentContainsUnicode (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_009</fullName>
+                <default>false</default>
+                <label>ContentNotValidateGsm0338 (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_010</fullName>
+                <default>false</default>
+                <label>LengthOfContentNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_011</fullName>
+                <default>false</default>
+                <label>NotMatchTemplate (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_012</fullName>
+                <default>false</default>
+                <label>TelcoNotAllow (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_013</fullName>
+                <default>false</default>
+                <label>MsisdnInBlacklist (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_014</fullName>
+                <default>false</default>
+                <label>AccountNotEnoughToPay (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_015</fullName>
+                <default>false</default>
+                <label>AccountNotEnoughQuota (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_016</fullName>
+                <default>false</default>
+                <label>ScheduledNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_017</fullName>
+                <default>false</default>
+                <label>OrderCodeNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_018</fullName>
+                <default>false</default>
+                <label>PackageCodeNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_019</fullName>
+                <default>false</default>
+                <label>MsisdnNotValid | ReceiverNotEnough (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_020</fullName>
+                <default>false</default>
+                <label>TelcoFilter (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_021</fullName>
+                <default>false</default>
+                <label>BlockingTimeAdv (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_022</fullName>
+                <default>false</default>
+                <label>FormatOfContentNotValid (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_024</fullName>
+                <default>false</default>
+                <label>OverMaxMT (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_801</fullName>
+                <default>false</default>
+                <label>TemplateNotSet (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_802</fullName>
+                <default>false</default>
+                <label>AccountNotSetProfile (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_803</fullName>
+                <default>false</default>
+                <label>AccountNotSetPrice (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_804</fullName>
+                <default>false</default>
+                <label>RouterNotAvaiable (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_805</fullName>
+                <default>false</default>
+                <label>RouterNotSuportUnicode (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>SMS_Brandname_999</fullName>
+                <default>false</default>
+                <label>ErrorOnServer (SMS Brandname)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_00</fullName>
+                <default>false</default>
+                <label>SUCCESS (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_01</fullName>
+                <default>false</default>
+                <label>INVALID_MOBILENO (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_02</fullName>
+                <default>false</default>
+                <label>INVALID_LEN (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_04</fullName>
+                <default>false</default>
+                <label>INVALID_AUTHEN (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_05</fullName>
+                <default>false</default>
+                <label>PROVIDER_NOT_CONNE (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_06</fullName>
+                <default>false</default>
+                <label>IP_NOT_REGISTERED (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_08</fullName>
+                <default>false</default>
+                <label>PROVIDER_TIMEOUT (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_11</fullName>
+                <default>false</default>
+                <label>INVALID_TYPE (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_80</fullName>
+                <default>false</default>
+                <label>PARTNER_NOT_FOUND (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_81</fullName>
+                <default>false</default>
+                <label>PARTNER_NOT_SUPPORT (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_82</fullName>
+                <default>false</default>
+                <label>PROVIDER_NOT_FOUND (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_83</fullName>
+                <default>false</default>
+                <label>PROVIDER_NOT_SUPPORT (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_84</fullName>
+                <default>false</default>
+                <label>ROUTING_NOT_FOUND (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_85</fullName>
+                <default>false</default>
+                <label>INVALID_SENDER (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_86</fullName>
+                <default>false</default>
+                <label>INVALID_KEYWORD (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_87</fullName>
+                <default>false</default>
+                <label>INVALID_TEMPLATE (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_88</fullName>
+                <default>false</default>
+                <label>MESSAGE_NOT_ENCRYPT (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_89</fullName>
+                <default>false</default>
+                <label>MESSAGE_ENCRYPT (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_97</fullName>
+                <default>false</default>
+                <label>INVALID_DATA (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_90</fullName>
+                <default>false</default>
+                <label>DUPLICATE_TRANSACTION (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>VNPAY_SMS_Brandname_99</fullName>
+                <default>false</default>
+                <label>EXCEPTION (VNPAY)</label>
+            </value>
+            <value>
+                <fullName>Salesforce Exception</fullName>
+                <default>false</default>
+                <label>Salesforce Exception</label>
+            </value>
+            <value>
+                <fullName>API Exception</fullName>
+                <default>false</default>
+                <label>API Exception</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_0</fullName>
+                <default>false</default>
+                <label>SUCCESS (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_10</fullName>
+                <default>false</default>
+                <label>MISSING_USERNAME (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_11</fullName>
+                <default>false</default>
+                <label>MISSING_PASSWORD (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_8</fullName>
+                <default>false</default>
+                <label>MISSING_BRANDNAME (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_7</fullName>
+                <default>false</default>
+                <label>MISSING_SMS_TEXT (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_12</fullName>
+                <default>false</default>
+                <label>MESSAGE_TOO_LONG (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_5</fullName>
+                <default>false</default>
+                <label>INVALID_USER (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_4</fullName>
+                <default>false</default>
+                <label>INVALID_BRANDNAME (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_3</fullName>
+                <default>false</default>
+                <label>INVALID_TYPE (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_15</fullName>
+                <default>false</default>
+                <label>INSUFFICIENT_AMOUNT (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_20</fullName>
+                <default>false</default>
+                <label>MESSAGE_NOT_REVIEWED (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_21</fullName>
+                <default>false</default>
+                <label>INVALID_IP_ADDRESS (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_22</fullName>
+                <default>false</default>
+                <label>OVERTIME (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_14</fullName>
+                <default>false</default>
+                <label>FORBIDDEN_WORDS (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_13</fullName>
+                <default>false</default>
+                <label>INVALID_PHONE_NUMBER (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_1</fullName>
+                <default>false</default>
+                <label>MESSAGE_ACCEPTED (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>AZTECH_SMS_Brandname_9</fullName>
+                <default>false</default>
+                <label>INVALID_PHONE_FORMAT (AZ Tech)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_1</fullName>
+                <default>false</default>
+                <label>Chưa truyền đầy đủ tham số (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_2</fullName>
+                <default>false</default>
+                <label>Máy chủ đang bận (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_3</fullName>
+                <default>false</default>
+                <label>Không tìm thấy tài khoản người dùng (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_4</fullName>
+                <default>false</default>
+                <label>Tài khoản bị khóa (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_5</fullName>
+                <default>false</default>
+                <label>Thông tin xác thực chưa chính xác (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_6</fullName>
+                <default>false</default>
+                <label>Chưa kích hoạt tính năng gửi qua API (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_7</fullName>
+                <default>false</default>
+                <label>IP bị giới hạn truy cập (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_8</fullName>
+                <default>false</default>
+                <label>Tên thương hiệu chưa khai báo 8 (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_9</fullName>
+                <default>false</default>
+                <label>Tài khoản hết credits gửi tin (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_10</fullName>
+                <default>false</default>
+                <label>Số điện thoại chưa chính xác (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_11</fullName>
+                <default>false</default>
+                <label>Số điện thoại nằm trong danh sách từ chối nhận tin (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_12</fullName>
+                <default>false</default>
+                <label>Hết credits gửi tin (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_13</fullName>
+                <default>false</default>
+                <label>Tên thương hiệu chưa khai báo 13 (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_14</fullName>
+                <default>false</default>
+                <label>Số kí tự vượt quá 459 kí tự (lỗi tin nhắn dài) (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_16</fullName>
+                <default>false</default>
+                <label>Gửi trùng số điện thoại, thương hiệu, nội dung trong 01 phút (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_18</fullName>
+                <default>false</default>
+                <label>Nội dung có chứa từ khoá quảng cáo (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_19</fullName>
+                <default>false</default>
+                <label>Vượt quá số tin nhắn giớn hạn trong một ngày do kh tự qui định (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_20</fullName>
+                <default>false</default>
+                <label>Template chưa được đăng ký (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_21</fullName>
+                <default>false</default>
+                <label>Nội dung không phải OTP (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_22</fullName>
+                <default>false</default>
+                <label>Lỗi chuyển mạng hoặc brandname chưa được set Telco (VietGuys)</label>
+            </value>
+            <value>
+                <fullName>VIETGUYS_SMS_Brandname_0</fullName>
+                <default>false</default>
+                <label>Success (VietGuys)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

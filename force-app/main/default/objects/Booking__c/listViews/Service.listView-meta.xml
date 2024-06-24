@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service</fullName>
+    <columns>Full_Name__c</columns>
+    <columns>NAME</columns>
+    <columns>Booking_Date__c</columns>
+    <columns>BookingStartTime__c</columns>
+    <columns>Booking_EndTime__c</columns>
+    <columns>Booking_Time__c</columns>
+    <columns>ActualEndTime__c</columns>
+    <columns>ActualStartTime__c</columns>
+    <columns>ActualCustomerArrivetime__c</columns>
+    <columns>Brand__c</columns>
+    <columns>Do_DL__c</columns>
+    <columns>Mobile__c</columns>
+    <columns>Model__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Service</label>
+</ListView>

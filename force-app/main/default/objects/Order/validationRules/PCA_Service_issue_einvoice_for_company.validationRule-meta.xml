@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PCA_Service_issue_einvoice_for_company</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISPICKVAL( Invoice_Type__c , &quot;Company&quot;), ISBLANK( Tax_Address__c )
+)</errorConditionFormula>
+    <errorMessage>When you issue einvoice for company, you must fill in Tax Address</errorMessage>
+</ValidationRule>

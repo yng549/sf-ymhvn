@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Bike_HN</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Order_Number__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>Bike_Description__c</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>Asset__c</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>CONTRACT.CONTRACT_NUMBER</columns>
+    <columns>YMHVN_Log__c</columns>
+    <columns>Frame_No1__c</columns>
+    <columns>Invoice_Date__c</columns>
+    <columns>Province__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Invoice_No__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Bike</value>
+    </filters>
+    <filters>
+        <field>DO_DL__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <label>Order Bike HN</label>
+    <sharedTo>
+        <group>Team_Sale_HN</group>
+    </sharedTo>
+</ListView>

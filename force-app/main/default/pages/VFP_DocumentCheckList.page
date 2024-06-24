@@ -1,0 +1,289 @@
+<apex:page controller="VFP_PDF_DocumentCheckList" contentType="application/vnd.ms-excel#filename.pdf; charset=UTF-8" renderAs="pdf" standardStylesheets="false" applyHtmlTag="false" showHeader="false" applyBodyTag="false">
+    <head>
+        <style type="text/css" media="print">
+            @page{
+                size: A4;
+                margin-top: 0.4in;
+                margin-right: 0.4in;
+                margin-bottom: 0.75in;
+                margin-left: 0.25in;
+                    @top-center{
+                        content: element(header);
+                    }
+                    @bottom-center {
+                        content: element(footer);
+                    }
+            }
+
+            
+
+            div.header{
+                padding: 0px;
+                position: running(header);
+            }
+
+            .pagenumber:before{
+                content: counter(page);
+            }
+
+            .pagecount:before{
+                content: counter(page);
+            }
+
+            div.footer{
+                width: 60%;
+                height: 30px;
+                display: block;
+                padding-top: 5px;
+                position: running(footer);
+                font-size: 9px;
+                color: #646060;
+                padding-bottom: 50px;
+                padding-right: 50px;
+                padding-left: 40px;
+
+            }
+
+            .marginLeft{
+                padding-left: 31.5;
+            }
+
+            table, th, td{
+                border: 0.5px solid rgb(79, 76, 76);
+                border-collapse: collapse;
+                font-family: Arial Unicode MS;
+            }
+
+            .img-header{
+                float: left;
+                width: 10px;
+                height: 5px;
+                border: 2px solid; 
+            }
+
+            .table-infor-delivery{
+                width: 100%;
+            }
+            
+            div{
+                font-family: Arial Unicode MS;
+                font-size: 10px;
+            }
+
+            i { font-family: sans-serif; font-style: italic; }
+
+            .table-infor-product{
+                width: 98%;
+                margin: 0px 10px 20px 10px;
+            }
+            .table-status-detail{
+                width: 100%;
+                /* text-align: center; */
+            }
+
+            .text-center{
+                text-align: center;
+            }
+
+            .box-for-table-status-detail{
+                float: left;
+                display: block;
+                width: 10px;
+                height: 10px;
+                border-top: 1px solid rgb(184, 172, 172);
+                border-left: 1px solid rgb(201, 195, 195);
+                border-right: 1px solid black;
+                border-bottom: 1px solid black;
+                margin-left: 1px;
+                margin-right: 10px;
+            }
+
+            .table-sender-recipient{
+                width: 100%;
+            }
+            .table-status-detail>tr>td{
+                height: 25px;
+            }
+            .table-infor-delivery, .table-infor-delivery>tr, .table-infor-delivery>tr>td{
+                border: none;
+            }
+            .u-align-center {
+                text-align: center;
+             }
+   	       .header-logo-box {
+            /* margin-left: 40px; */
+            margin-bottom: 25px;
+            width: 185px;
+    	      }	
+          .logo {
+            margin-top: 3px;
+        	  }
+		 .header__small-text span {
+        display: block;
+        font-size: 9px;
+      }
+
+        </style>
+    </head>
+	    <div class="header">
+      <div class="header-logo-box u-align-center">
+        <div class="logo">
+          <apex:image id="logo" value="{!$Resource[logo]}" width="200" height="40" />
+        </div>
+        <div class="header__subtext-box u-align-center">
+          <p class="header__small-text">
+            <span>{!objOrder.Account.DO_DL_Create_Account__r.Address_logo__c}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+	
+
+    <div class="marginLeft">
+        <apex:image style="margin: 20px 0px 20px 35% ;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Document/title_Document.png')}" width="200px" height="40px"/>
+
+
+
+        <table class="table-infor-delivery">
+            <tr>
+                <td colspan="2">Họ và tên Khách hàng/ <i>Customer Name</i>:
+                    &nbsp;{!objOrder.Account.Name}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Thông tin xuất hóa đơn/ <i>Invoice information</i>: 
+                    &nbsp;{!invoiceInfo}
+                </td>
+            </tr>
+            <tr> 
+                <td style="width: 60%;">Người giao / <i>Sender</i>: &nbsp;{!objOrder.Sender_Document__r.Name}</td>
+                <td>Người nhận / <i> Receiver</i>: ...........................................</td>
+            </tr>
+            <tr>  
+                <td style="width: 60%;">Loại xe / <i>Model</i>:
+                    &nbsp;{!objOrder.Product__r.Sales_Name__c}</td>
+                <td>Màu sắc / <i>Color</i>:
+                    &nbsp;{!objOrder.Product__r.Color_Name__c}</td>
+            </tr>
+            <tr>  
+                <td style="width: 60%;">Số máy / <i>Eng no</i>:
+                    &nbsp;{!objOrder.Asset__r.Engine_No__c}</td>
+                <td style="width: 60%;">Số khung / <i>VIN no</i>:
+                    &nbsp;{!objOrder.Asset__r.Frame_Number__c}</td>
+            </tr>
+        </table>
+
+
+        <br/>
+        <table class="table-status-detail">
+            <tr>
+                <td style="width:100px;"><apex:image style="margin: -1px -1px -1px -1px;"  url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Document/ten_chung_tu.png')}" width="250" height="25"/></td>
+                <td style="width:100px;"><apex:image style="margin: -1px -1px -1px -1px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Document/noi_dung.png')}" width="250" height="25"/></td>
+                <td style="width:200px;"><apex:image style="margin: -1px -1px -1px -1px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Document/ngay_giao.png')}" width="110" height="25"/></td>
+                <td style="width:200px;"><apex:image style="margin: -1px -1px -1px -1px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Document/nguoi_nhan.png')}" width="110" height="25"/></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Bảng báo giá và Biên bản thỏa thuận</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Phiếu thu</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Đơn đặt hàng</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Hóa đơn</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Giấy Chứng nhận Chất lượng</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Hợp đồng</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Thông tin cá nhân (photo)</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Chìa khóa</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Sách hướng dẫn, sổ bảo hành</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Thẻ Zutto Ride (Nếu có)</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Voucher (Nếu có)</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Biên bản bàn giao x</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Biên bản điều chỉnh hóa đơn (Nếu có)</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Biên bản hủy hóa đơn (Nếu có)</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Biên bản chuyển công nợ (Nếu có)</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Chứng từ khác</td>
+                <td ></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="footer marginLeft">
+    </div>
+
+</apex:page>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StoreMan_PCA_Service_dont_cancled_TO</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISCHANGED(Status__c),
+    OR(
+        $Profile.Name = &quot;Community Consultant PCA&quot;,
+        $Profile.Name = &quot;Community Consultant PCA 2&quot;,
+        $Profile.Name = &quot;Community Consultant Service&quot;,
+        $Profile.Name = &quot;Community Warehouse&quot;
+    ),
+    ISPICKVAL(Status__c, &quot;Cancled&quot;)
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t cancel TO, contact your System Admin for assistance.</errorMessage>
+</ValidationRule>

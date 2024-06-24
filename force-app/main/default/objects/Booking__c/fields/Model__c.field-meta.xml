@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Model__c</fullName>
+    <externalId>false</externalId>
+    <label>Model</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Test</fullName>
+                <default>false</default>
+                <label>Test</label>
+            </value>
+            <value>
+                <fullName>MT-10 SP</fullName>
+                <default>false</default>
+                <label>MT-10 SP</label>
+            </value>
+            <value>
+                <fullName>MT-07</fullName>
+                <default>false</default>
+                <label>MT-07</label>
+            </value>
+            <value>
+                <fullName>MT-15</fullName>
+                <default>false</default>
+                <label>MT-15</label>
+            </value>
+            <value>
+                <fullName>MT-03</fullName>
+                <default>false</default>
+                <label>MT-03</label>
+            </value>
+            <value>
+                <fullName>MT-09</fullName>
+                <default>false</default>
+                <label>MT-09</label>
+            </value>
+            <value>
+                <fullName>MT-10</fullName>
+                <default>false</default>
+                <label>MT-10</label>
+            </value>
+            <value>
+                <fullName>R15M</fullName>
+                <default>false</default>
+                <label>R15M</label>
+            </value>
+            <value>
+                <fullName>R3</fullName>
+                <default>false</default>
+                <label>R3</label>
+            </value>
+            <value>
+                <fullName>R7</fullName>
+                <default>false</default>
+                <label>R7</label>
+            </value>
+            <value>
+                <fullName>Tracer 900</fullName>
+                <default>false</default>
+                <label>Tracer 900</label>
+            </value>
+            <value>
+                <fullName>Ténéré 700</fullName>
+                <default>false</default>
+                <label>Ténéré 700</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_Change_Stage_to_No_satisfaction</fullName>
+    <active>true</active>
+    <description>Khi chuyển stage sang stage No satisfaction achieved, phải chọn Way to solve= &apos;No satisfaction achieved&apos;</description>
+    <errorConditionFormula>IF(ISCHANGED(Status),
+IF(AND(ISPICKVAL(Status,&apos;No satisfaction achieved&apos;), NOT(ISPICKVAL(Way_to_solve__c,&apos;No satisfaction achieved&apos;))), TRUE,
+FALSE),FALSE)</errorConditionFormula>
+    <errorMessage>You must choose Way to solve as &apos;No satisfaction achieved&apos; to change to this Status</errorMessage>
+</ValidationRule>

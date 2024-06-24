@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Promotion_Item__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Discount_Percent__c   &lt;=  5.45  &amp;&amp;  Discount_Percent__c &gt;= 4.65
+       ,  IF(   ISNULL( Einvoice__r.Order__r.Promotion_Item__c ) &lt;&gt; TRUE 
+              , Einvoice__r.Order__r.Promotion_Item__r.Name 
+              , &apos;Áp dụng chính sách giá ưu đãi cho Khách hàng đặc biệt&apos;
+             )
+       ,IF( Discount_Percent__c   &lt; 0.55  
+                  , NULL
+                  ,&apos;Chính sách giá ưu đãi cho Khách hàng đặc biệt&apos;)
+         )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Promotion Item</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

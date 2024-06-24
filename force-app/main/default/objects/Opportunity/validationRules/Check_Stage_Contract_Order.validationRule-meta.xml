@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Stage_Contract_Order</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISCHANGED( StageName )
+,ISPICKVAL(StageName, &apos;Contract&apos;)
+, $Profile.Name = &apos;Community DO DL Manager&apos;
+, RecordType.DeveloperName = &apos;Bike&apos; )</errorConditionFormula>
+    <errorMessage>Only Sale Admin /Cashier/ Sale can move to stage Contract</errorMessage>
+</ValidationRule>

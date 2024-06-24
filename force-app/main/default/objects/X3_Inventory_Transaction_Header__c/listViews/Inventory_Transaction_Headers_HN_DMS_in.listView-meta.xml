@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventory_Transaction_Headers_HN_DMS_in</fullName>
+    <columns>Header_Number__c</columns>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>StockDate__c</columns>
+    <columns>Type__c</columns>
+    <columns>Comment_Message__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Is_DMS__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>To_Warehouse_Location__c</field>
+        <operation>equals</operation>
+        <value>Revzone HaNoi Bike&amp;PCA</value>
+    </filters>
+    <label>Inventory Transaction Headers HN_DMS in</label>
+    <sharedTo>
+        <group>Storeman_HN</group>
+    </sharedTo>
+</ListView>

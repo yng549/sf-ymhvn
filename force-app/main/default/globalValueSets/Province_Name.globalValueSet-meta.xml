@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>An Giang</fullName>
+        <default>false</default>
+        <label>An Giang</label>
+    </customValue>
+    <customValue>
+        <fullName>Bac Giang</fullName>
+        <default>false</default>
+        <label>Bac Giang</label>
+    </customValue>
+    <customValue>
+        <fullName>Bac Kan</fullName>
+        <default>false</default>
+        <label>Bac Kan</label>
+    </customValue>
+    <customValue>
+        <fullName>Bac Lieu</fullName>
+        <default>false</default>
+        <label>Bac Lieu</label>
+    </customValue>
+    <customValue>
+        <fullName>Bac Ninh</fullName>
+        <default>false</default>
+        <label>Bac Ninh</label>
+    </customValue>
+    <customValue>
+        <fullName>Ba Ria-Vung Tau</fullName>
+        <default>false</default>
+        <label>Ba Ria-Vung Tau</label>
+    </customValue>
+    <customValue>
+        <fullName>Ben Tre</fullName>
+        <default>false</default>
+        <label>Ben Tre</label>
+    </customValue>
+    <customValue>
+        <fullName>Binh Dinh</fullName>
+        <default>false</default>
+        <label>Binh Dinh</label>
+    </customValue>
+    <customValue>
+        <fullName>Binh Duong</fullName>
+        <default>false</default>
+        <label>Binh Duong</label>
+    </customValue>
+    <customValue>
+        <fullName>Binh Phuoc</fullName>
+        <default>false</default>
+        <label>Binh Phuoc</label>
+    </customValue>
+    <customValue>
+        <fullName>Binh Thuan</fullName>
+        <default>false</default>
+        <label>Binh Thuan</label>
+    </customValue>
+    <customValue>
+        <fullName>Ca Mau</fullName>
+        <default>false</default>
+        <label>Ca Mau</label>
+    </customValue>
+    <customValue>
+        <fullName>Can Tho</fullName>
+        <default>false</default>
+        <label>Can Tho</label>
+    </customValue>
+    <customValue>
+        <fullName>Cao Bang</fullName>
+        <default>false</default>
+        <label>Cao Bang</label>
+    </customValue>
+    <customValue>
+        <fullName>Dak Lak</fullName>
+        <default>false</default>
+        <label>Dak Lak</label>
+    </customValue>
+    <customValue>
+        <fullName>Dak Nong</fullName>
+        <default>false</default>
+        <label>Dak Nong</label>
+    </customValue>
+    <customValue>
+        <fullName>Da Nang</fullName>
+        <default>false</default>
+        <label>Da Nang</label>
+    </customValue>
+    <customValue>
+        <fullName>Dien Bien</fullName>
+        <default>false</default>
+        <label>Dien Bien</label>
+    </customValue>
+    <customValue>
+        <fullName>Dong Nai</fullName>
+        <default>false</default>
+        <label>Dong Nai</label>
+    </customValue>
+    <customValue>
+        <fullName>Dong Thap</fullName>
+        <default>false</default>
+        <label>Dong Thap</label>
+    </customValue>
+    <customValue>
+        <fullName>Gia Lai</fullName>
+        <default>false</default>
+        <label>Gia Lai</label>
+    </customValue>
+    <customValue>
+        <fullName>Ha Giang</fullName>
+        <default>false</default>
+        <label>Ha Giang</label>
+    </customValue>
+    <customValue>
+        <fullName>Hai Duong</fullName>
+        <default>false</default>
+        <label>Hai Duong</label>
+    </customValue>
+    <customValue>
+        <fullName>Hai Phong</fullName>
+        <default>false</default>
+        <label>Hai Phong</label>
+    </customValue>
+    <customValue>
+        <fullName>Ha Nam</fullName>
+        <default>false</default>
+        <label>Ha Nam</label>
+    </customValue>
+    <customValue>
+        <fullName>Ha Noi</fullName>
+        <default>false</default>
+        <label>Ha Noi</label>
+    </customValue>
+    <customValue>
+        <fullName>Ha Tinh</fullName>
+        <default>false</default>
+        <label>Ha Tinh</label>
+    </customValue>
+    <customValue>
+        <fullName>Hau Giang</fullName>
+        <default>false</default>
+        <label>Hau Giang</label>
+    </customValue>
+    <customValue>
+        <fullName>Hoa Binh</fullName>
+        <default>false</default>
+        <label>Hoa Binh</label>
+    </customValue>
+    <customValue>
+        <fullName>Ho Chi Minh</fullName>
+        <default>false</default>
+        <label>Ho Chi Minh</label>
+    </customValue>
+    <customValue>
+        <fullName>Hue</fullName>
+        <default>false</default>
+        <label>Hue</label>
+    </customValue>
+    <customValue>
+        <fullName>Hung Yen</fullName>
+        <default>false</default>
+        <label>Hung Yen</label>
+    </customValue>
+    <customValue>
+        <fullName>Khanh Hoa</fullName>
+        <default>false</default>
+        <label>Khanh Hoa</label>
+    </customValue>
+    <customValue>
+        <fullName>Kien Giang</fullName>
+        <default>false</default>
+        <label>Kien Giang</label>
+    </customValue>
+    <customValue>
+        <fullName>Kon Tum</fullName>
+        <default>false</default>
+        <label>Kon Tum</label>
+    </customValue>
+    <customValue>
+        <fullName>Lai Chau</fullName>
+        <default>false</default>
+        <label>Lai Chau</label>
+    </customValue>
+    <customValue>
+        <fullName>Lam Dong</fullName>
+        <default>false</default>
+        <label>Lam Dong</label>
+    </customValue>
+    <customValue>
+        <fullName>Lang Son</fullName>
+        <default>false</default>
+        <label>Lang Son</label>
+    </customValue>
+    <customValue>
+        <fullName>Lao Cai</fullName>
+        <default>false</default>
+        <label>Lao Cai</label>
+    </customValue>
+    <customValue>
+        <fullName>Long An</fullName>
+        <default>false</default>
+        <label>Long An</label>
+    </customValue>
+    <customValue>
+        <fullName>Nam Dinh</fullName>
+        <default>false</default>
+        <label>Nam Dinh</label>
+    </customValue>
+    <customValue>
+        <fullName>Nghe An</fullName>
+        <default>false</default>
+        <label>Nghe An</label>
+    </customValue>
+    <customValue>
+        <fullName>Ninh Binh</fullName>
+        <default>false</default>
+        <label>Ninh Binh</label>
+    </customValue>
+    <customValue>
+        <fullName>Ninh Thuan</fullName>
+        <default>false</default>
+        <label>Ninh Thuan</label>
+    </customValue>
+    <customValue>
+        <fullName>Phu Tho</fullName>
+        <default>false</default>
+        <label>Phu Tho</label>
+    </customValue>
+    <customValue>
+        <fullName>Phu Yen</fullName>
+        <default>false</default>
+        <label>Phu Yen</label>
+    </customValue>
+    <customValue>
+        <fullName>Quang Binh</fullName>
+        <default>false</default>
+        <label>Quang Binh</label>
+    </customValue>
+    <customValue>
+        <fullName>Quang Nam</fullName>
+        <default>false</default>
+        <label>Quang Nam</label>
+    </customValue>
+    <customValue>
+        <fullName>Quang Ngai</fullName>
+        <default>false</default>
+        <label>Quang Ngai</label>
+    </customValue>
+    <customValue>
+        <fullName>Quang Ninh</fullName>
+        <default>false</default>
+        <label>Quang Ninh</label>
+    </customValue>
+    <customValue>
+        <fullName>Quang Tri</fullName>
+        <default>false</default>
+        <label>Quang Tri</label>
+    </customValue>
+    <customValue>
+        <fullName>Soc Trang</fullName>
+        <default>false</default>
+        <label>Soc Trang</label>
+    </customValue>
+    <customValue>
+        <fullName>Son La</fullName>
+        <default>false</default>
+        <label>Son La</label>
+    </customValue>
+    <customValue>
+        <fullName>Tay Ninh</fullName>
+        <default>false</default>
+        <label>Tay Ninh</label>
+    </customValue>
+    <customValue>
+        <fullName>Thai Binh</fullName>
+        <default>false</default>
+        <label>Thai Binh</label>
+    </customValue>
+    <customValue>
+        <fullName>Thai Nguyen</fullName>
+        <default>false</default>
+        <label>Thai Nguyen</label>
+    </customValue>
+    <customValue>
+        <fullName>Thanh Hoa</fullName>
+        <default>false</default>
+        <label>Thanh Hoa</label>
+    </customValue>
+    <customValue>
+        <fullName>Tien Giang</fullName>
+        <default>false</default>
+        <label>Tien Giang</label>
+    </customValue>
+    <customValue>
+        <fullName>Tra Vinh</fullName>
+        <default>false</default>
+        <label>Tra Vinh</label>
+    </customValue>
+    <customValue>
+        <fullName>Tuyen Quang</fullName>
+        <default>false</default>
+        <label>Tuyen Quang</label>
+    </customValue>
+    <customValue>
+        <fullName>Unknown</fullName>
+        <default>false</default>
+        <label>Unknown</label>
+    </customValue>
+    <customValue>
+        <fullName>Vinh Long</fullName>
+        <default>false</default>
+        <label>Vinh Long</label>
+    </customValue>
+    <customValue>
+        <fullName>Vinh Phuc</fullName>
+        <default>false</default>
+        <label>Vinh Phuc</label>
+    </customValue>
+    <customValue>
+        <fullName>Yen Bai</fullName>
+        <default>false</default>
+        <label>Yen Bai</label>
+    </customValue>
+    <masterLabel>Province Name</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

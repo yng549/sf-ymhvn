@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_reason</fullName>
+    <active>false</active>
+    <errorConditionFormula>IF(AND( TEXT(Status)=&apos;Unqualified&apos;,  ISBLANK( TEXT(Close_Lead_Reason__c) )  ), true, false)</errorConditionFormula>
+    <errorMessage>Please update Close lead reason.</errorMessage>
+</ValidationRule>

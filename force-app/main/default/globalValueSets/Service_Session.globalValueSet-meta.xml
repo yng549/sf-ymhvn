@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Rửa xe bọt tuyết</fullName>
+        <default>false</default>
+        <label>Rửa xe bọt tuyết</label>
+    </customValue>
+    <customValue>
+        <fullName>Thay nhớt</fullName>
+        <default>false</default>
+        <label>Thay nhớt</label>
+    </customValue>
+    <customValue>
+        <fullName>Bảo dưởng nội thất, bảo dưỡng, bảo trì và nâng cấp</fullName>
+        <default>false</default>
+        <label>Bảo dưởng nội thất, bảo dưỡng, bảo trì và nâng cấp</label>
+    </customValue>
+    <customValue>
+        <fullName>Hút bụi chuyên nghiệp</fullName>
+        <default>false</default>
+        <label>Hút bụi chuyên nghiệp</label>
+    </customValue>
+    <description>1 buổi session có thể multiple nhiều loại dịch vụ khách nhau</description>
+    <masterLabel>Service Session</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

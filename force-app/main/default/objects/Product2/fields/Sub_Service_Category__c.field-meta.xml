@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Service_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub-Service-Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Service_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Less than 400cc</fullName>
+                <default>false</default>
+                <label>Less than 400cc</label>
+            </value>
+            <value>
+                <fullName>Greater than 400 cc</fullName>
+                <default>false</default>
+                <label>Greater than 400 cc</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

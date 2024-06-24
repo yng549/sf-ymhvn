@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Poor lead</fullName>
+        <default>false</default>
+        <label>Poor lead</label>
+    </customValue>
+    <customValue>
+        <fullName>No need</fullName>
+        <default>false</default>
+        <label>No need</label>
+    </customValue>
+    <customValue>
+        <fullName>Timing</fullName>
+        <default>false</default>
+        <label>Timing</label>
+    </customValue>
+    <customValue>
+        <fullName>Products:</fullName>
+        <default>false</default>
+        <label>Products:</label>
+    </customValue>
+    <customValue>
+        <fullName>Promotion</fullName>
+        <default>false</default>
+        <label>Promotion</label>
+    </customValue>
+    <customValue>
+        <fullName>Financing</fullName>
+        <default>false</default>
+        <label>Financing</label>
+    </customValue>
+    <customValue>
+        <fullName>Pricing</fullName>
+        <default>false</default>
+        <label>Pricing</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Duplicated</fullName>
+        <default>false</default>
+        <label>Duplicated</label>
+    </customValue>
+    <masterLabel>Close Lead Reason</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Order_Prevent_WaitingforPart</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  OR(
+    RecordType.DeveloperName == &quot;Quick_Service_Order&quot;,
+    RecordType.DeveloperName == &quot;Free_Service_Order&quot;,
+    RecordType.DeveloperName == &quot;External_Service&quot;,
+    RecordType.DeveloperName == &quot;Warranty&quot;,
+    RecordType.DeveloperName == &quot;Free_Coupon&quot;,
+    RecordType.DeveloperName == &quot;Recall_Service&quot;,
+    RecordType.DeveloperName == &quot;Service_Package&quot;
+  ),
+  AND(
+    AND(
+      $Profile.Name != &quot;Community Warehouse&quot;,
+      ISCHANGED(Status) &amp;&amp; ISPICKVAL(Status, &quot;Waiting for Parts&quot;)
+    ),
+    AND(
+      $Profile.Name != &quot;System Administrator&quot;,
+      ISCHANGED(Status) &amp;&amp; ISPICKVAL(Status, &quot;Waiting for Parts&quot;)
+),
+    AND(
+      $Profile.Name != &quot;PCA &amp; Service Sup&quot;,
+      ISCHANGED(Status) &amp;&amp; ISPICKVAL(Status, &quot;Waiting for Parts&quot;)
+),
+    AND(
+      $Profile.Name != &quot;Community PCA Sup&quot;,
+      ISCHANGED(Status) &amp;&amp; ISPICKVAL(Status, &quot;Waiting for Parts&quot;)
+    )
+  )
+)</errorConditionFormula>
+    <errorMessage>You can not change stage Waiting for part, contact your Store Man for assistance</errorMessage>
+</ValidationRule>

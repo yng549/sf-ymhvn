@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Get_SG</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.MOBILE_PHONE</columns>
+    <columns>LEAD.EMAIL</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <columns>LEAD.UNREAD</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>equals</operation>
+        <value>salesup</value>
+    </filters>
+    <filters>
+        <field>DO_DL_Create__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR SAI GON</value>
+    </filters>
+    <label>Lead Get SG</label>
+    <sharedTo>
+        <group>Sale_Senior_HCM</group>
+    </sharedTo>
+</ListView>

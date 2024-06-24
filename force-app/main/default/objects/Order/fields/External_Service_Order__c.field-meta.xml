@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>External_Service_Order__c</fullName>
+    <externalId>false</externalId>
+    <label>External Service Order</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Repair</fullName>
+                <default>false</default>
+                <label>Repair</label>
+            </value>
+            <value>
+                <fullName>Quick services</fullName>
+                <default>false</default>
+                <label>Quick services</label>
+            </value>
+            <value>
+                <fullName>Free Services</fullName>
+                <default>false</default>
+                <label>Free Services</label>
+            </value>
+            <value>
+                <fullName>Detailling</fullName>
+                <default>false</default>
+                <label>Detailling</label>
+            </value>
+            <value>
+                <fullName>Dyno</fullName>
+                <default>false</default>
+                <label>Dyno</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

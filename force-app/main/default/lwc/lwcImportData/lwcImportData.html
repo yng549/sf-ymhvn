@@ -1,0 +1,27 @@
+<template>
+    <lightning-quick-action-panel header="Import data">
+  
+        <!-- <lightning-card icon-name="custom:custom19" title='CSV File Read'> -->
+            <div style="margin-left: 3%">
+                <div if:true={loading} >
+                    <lightning-spinner alternative-text="Loading...">
+                    </lightning-spinner>
+                </div>
+                <lightning-input 
+                type="file" 
+                label="Attach receipt" 
+                name="fileUploader"
+                accept={acceptedFormats}
+                onchange={handleUploadFinished}>
+            </lightning-input>
+            </div>
+
+
+            <div if:true={error}>
+                {error}
+            </div><br />
+        <!-- </lightning-card> -->
+
+       
+    </lightning-quick-action-panel>
+</template>

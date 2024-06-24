@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ALL_ASSET_HN</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>Frame_Number__c</columns>
+    <columns>Engine_No__c</columns>
+    <columns>Account_Customer__c</columns>
+    <columns>Inventory_Status__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ASSET.CREATED_DATE</columns>
+    <columns>ASSET.LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ASSET.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Asset.Asset</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <label>All Assets HN</label>
+    <sharedTo>
+        <group>Group_User_DO_HN</group>
+        <group>Service_HCM</group>
+        <group>Service_HN</group>
+    </sharedTo>
+</ListView>

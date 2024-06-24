@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Requirement_BikeDeliveryDate_and_Service</fullName>
+    <active>false</active>
+    <description>Các Order không có Detailing (Warranty, Free Coupon, Recall): phải nhập các field Bike_Delivery_Date_*c, *Service_Job_End_Date_c</description>
+    <errorConditionFormula>AND
+(ISCHANGED( Status ), ISPICKVAL(Status , &apos;Completed&apos;),
+AND (
+OR(RecordType.DeveloperName == &quot;Warranty&quot;,
+RecordType.DeveloperName == &quot;Free_Coupon&quot;, RecordType.DeveloperName == &quot;Recall_Service&quot;)),
+AND(OR(ISBLANK(TEXT(Bike_Delivery_Date__c)),
+ISBLANK(TEXT(Service_Job_End_Date__c)),ISBLANK(Mechanic__c))
+)
+)</errorConditionFormula>
+    <errorMessage>Missing requirement field&apos;s  &quot;Bike Delivery Date&quot; or &quot;Service Job End Date&quot; or &quot;Mechanic&quot;</errorMessage>
+</ValidationRule>

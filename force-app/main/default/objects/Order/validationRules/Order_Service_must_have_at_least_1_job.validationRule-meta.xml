@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Service_must_have_at_least_1_job</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISPICKVAL(Status, &quot;Completed&quot;),
+OR(
+RecordType.DeveloperName = &quot;Warranty&quot;,
+RecordType.DeveloperName = &quot;Free_Coupon&quot;,
+RecordType.DeveloperName = &quot;Recall_Service&quot;,
+RecordType.DeveloperName = &quot;External_Service&quot;,
+RecordType.DeveloperName = &quot;Quick_Service_Order&quot;,
+RecordType.DeveloperName = &quot;Free_Service_Order&quot;
+),
+OR((Count_Detail_Job__c + Count_Repair_Job__c) &lt; 1,
+and((Count_Detail_Job__c + Count_Repair_Job__c) &gt;= 1,
+(Service_Hours__c + Detailing_Hours__c) &lt; 0.1)
+)
+)</errorConditionFormula>
+    <errorMessage>Order Service must have at least 1 line job, and the service hours or detailing hours must be entered. Please re-check</errorMessage>
+</ValidationRule>

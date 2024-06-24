@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Stage_Change_From_Contract_Order</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISCHANGED(StageName),
+RecordType.DeveloperName = &apos;Bike&apos;,
+ TEXT(PRIORVALUE(StageName))  = &apos;Contract&apos;,
+ OR(ISPICKVAL(StageName,&apos;New&apos;),
+ ISPICKVAL(StageName,&apos;Test Ride &amp; Negotiation&apos;),
+ ISPICKVAL(StageName,&apos;Deposit&apos;)),
+OR($Profile.Name = &apos;Community Sale Profile&apos;, 
+$Profile.Name = &apos;Community Sale Sup&apos;))</errorConditionFormula>
+    <errorMessage>You can’t back stage</errorMessage>
+</ValidationRule>

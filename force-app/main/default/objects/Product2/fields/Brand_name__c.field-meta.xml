@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Brand_name__c</fullName>
+    <description>Add list Aftermarket+Brandname/Genuine Yamaha/Genuine REVZONE default các sản phẩm integrate từ DMS = GENUINE YAMAHA</description>
+    <externalId>false</externalId>
+    <label>Brand (name)</label>
+    <length>150</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

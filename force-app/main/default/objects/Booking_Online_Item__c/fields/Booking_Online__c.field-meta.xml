@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Booking_Online__c</fullName>
+    <description>Mã Booking Online</description>
+    <externalId>false</externalId>
+    <label>Booking Online</label>
+    <referenceTo>Booking_Onilne__c</referenceTo>
+    <relationshipLabel>Booking Online Item</relationshipLabel>
+    <relationshipName>Booking_Online_Item</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Sales performance</fullName>
+        <default>false</default>
+        <label>Sales performance</label>
+    </customValue>
+    <customValue>
+        <fullName>Location</fullName>
+        <default>false</default>
+        <label>Location</label>
+    </customValue>
+    <customValue>
+        <fullName>Dealership facility</fullName>
+        <default>false</default>
+        <label>Dealership facility</label>
+    </customValue>
+    <customValue>
+        <fullName>Previous relationship with dealer</fullName>
+        <default>false</default>
+        <label>Previous relationship with dealer</label>
+    </customValue>
+    <customValue>
+        <fullName>Friend recomendation</fullName>
+        <default>false</default>
+        <label>Friend recomendation</label>
+    </customValue>
+    <customValue>
+        <fullName>Approached by dealer</fullName>
+        <default>false</default>
+        <label>Approached by dealer</label>
+    </customValue>
+    <customValue>
+        <fullName>Better promotion</fullName>
+        <default>false</default>
+        <label>Better promotion</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Nhân viên bán hàng tận tình</fullName>
+        <default>false</default>
+        <label>Nhân viên bán hàng tận tình</label>
+    </customValue>
+    <customValue>
+        <fullName>Vị trí</fullName>
+        <default>false</default>
+        <label>Vị trí</label>
+    </customValue>
+    <customValue>
+        <fullName>Cơ sở vật chất tốt</fullName>
+        <default>false</default>
+        <label>Cơ sở vật chất tốt</label>
+    </customValue>
+    <customValue>
+        <fullName>Có mối quan hệ với nhân viên bán hàng</fullName>
+        <default>false</default>
+        <label>Có mối quan hệ với nhân viên bán hàng</label>
+    </customValue>
+    <customValue>
+        <fullName>Được bạn bè giới thiệu</fullName>
+        <default>false</default>
+        <label>Được bạn bè giới thiệu</label>
+    </customValue>
+    <customValue>
+        <fullName>Tiếp cận bởi nhân viên bán hàng</fullName>
+        <default>false</default>
+        <label>Tiếp cận bởi nhân viên bán hàng</label>
+    </customValue>
+    <customValue>
+        <fullName>Giá tốt</fullName>
+        <default>false</default>
+        <label>Giá tốt</label>
+    </customValue>
+    <customValue>
+        <fullName>Khác</fullName>
+        <default>false</default>
+        <label>Khác</label>
+    </customValue>
+    <masterLabel>Survey multil</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

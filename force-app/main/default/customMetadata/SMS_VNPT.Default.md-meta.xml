@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>AGENTID__c</field>
+        <value xsi:type="xsd:string">244</value>
+    </values>
+    <values>
+        <field>APIPASS__c</field>
+        <value xsi:type="xsd:string">Abc123#$</value>
+    </values>
+    <values>
+        <field>APIUSER__c</field>
+        <value xsi:type="xsd:string">REVZONE</value>
+    </values>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>CONTRACTID__c</field>
+        <value xsi:type="xsd:string">14369</value>
+    </values>
+    <values>
+        <field>DATACODINGUTF__c</field>
+        <value xsi:type="xsd:string">8</value>
+    </values>
+    <values>
+        <field>DATA_CODING_NONUTF__c</field>
+        <value xsi:type="xsd:string">0</value>
+    </values>
+    <values>
+        <field>Endpoint__c</field>
+        <value xsi:type="xsd:string">send_sms_list</value>
+    </values>
+    <values>
+        <field>ISTELCOSUB__c</field>
+        <value xsi:type="xsd:string">0</value>
+    </values>
+    <values>
+        <field>USERNAME__c</field>
+        <value xsi:type="xsd:string">REVZONE</value>
+    </values>
+</CustomMetadata>

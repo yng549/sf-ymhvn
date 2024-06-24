@@ -1,0 +1,378 @@
+<template>
+    <!-- <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true"> -->
+        <lightning-card title="Add Promotion Product Bike" style="margin: 5px">
+            <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+                <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+            </div>
+
+            <div class="tableFixHead">
+                <!-- <lightning-progress-indicator current-step={currentStep} type="base" variant="base">
+                    <lightning-progress-step label="Step 1" value="1" onclick={handleOnStepClick}>
+                    </lightning-progress-step>
+                    <lightning-progress-step label="Step 2" value="2" onclick={handleOnStepClick}>
+                    </lightning-progress-step>
+                </lightning-progress-indicator> -->
+                <lightning-layout multiple-rows="true" vertical-align="end">
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="8"
+                        large-device-size="12" padding="around-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning-input type="text" data-id="searchProd" label="Enter Product Name"
+                                    onchange={handleSearch} placeholder="Search Product">
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout><br />
+                <div style="margin-right: 10px; margin-left: 10px">
+                    <div style="float: left">
+                        <span style="font-weight: bold">Total Record: ({totalRecord})</span>
+                    </div>
+                    <div style="float: right">
+                        <a onclick={viewResultSelected} style="font-weight: bold">Record Selected:
+                            ({totalNumberSelected})</a>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="slds-scrollable_y" style="height: 350px; margin: 5px">
+                <template if:true={isStepOne}>
+                    <div class="slds-scrollable_x">
+                        <br />
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" style="
+                                        max-width: 50px;
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        text-overflow: ellipsis;
+                                      " >&nbsp;</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" align="center">#</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Product Name">
+                                            Product
+                                        </div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Model Name">
+                                            Model Name 
+                                        </div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title=" Model code">
+                                            Model code
+                                        </div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Color name">
+                                            Color name
+                                        </div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Color code">
+                                            Color code
+                                        </div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Model Year">
+                                            Model Year
+                                        </div>
+                                    </th>
+                                    <th class="" scope="col">
+                                  <div class="slds-truncate" title="Discount">Discount Amount</div>
+                              </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:false={viewSelected}>
+                                    <template for:each={items} for:item="obj" for:index="index">
+                                        <tr key={obj.value.Id}>
+                                            <th scope="col" align="center">
+                                                <div>
+                                                    <lightning-input type="checkbox" name={obj.value.Id}
+                                                        onchange={setBoxes} value={obj.value.Id} data-id={obj.value.Id}
+                                                        checked={obj.value.IsChecked}>
+                                                    </lightning-input>
+                                                </div>
+                                            </th>
+                                            <th scope="col">
+                                                <div align="center">{obj.value.OrderBy}</div>
+                                            </th>
+                                            <th title="" scope="col">
+                                                <div title={obj.value.ProductName} style="
+                            max-width: 150px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                          ">
+                                                    <a title={obj.value.ProductName} href={obj.value.URLProduct2}
+                                                        target="_blank">{obj.value.ProductName}</a>
+                                                </div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ModelName}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div style="
+                            max-width: 150px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                          ">
+                                                    {obj.value.ModelCode}
+                                                </div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ColorName}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ColorCode}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ModelYear}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>
+                                                    <lightning-input type="number" variant="label-hidden"
+                                                        value={obj.value.Discount} onchange={changeDiscount}
+                                                        data-id={obj.value.Id}></lightning-input>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </template>
+                                </template>
+
+                                <template if:true={viewSelected}>
+                                    <template for:each={lstSelected} for:item="obj" for:index="index">
+                                        <tr key={obj.value.Id}>
+                                            <th scope="col" align="center">
+                                                <div>
+                                                    <lightning-input type="checkbox" name={obj.value.Id}
+                                                        onchange={setBoxes} value={obj.value.Id} data-id={obj.value.Id}
+                                                        checked={obj.value.IsChecked}>
+                                                    </lightning-input>
+                                                </div>
+                                            </th>
+                                            <th scope="col">
+                                                <div align="center">{obj.value.OrderBy}</div>
+                                            </th>
+                                            <th title="" scope="col">
+                                                <div title={obj.value.ProductName} style="
+                            max-width: 150px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                          ">
+                                                    <a title={obj.value.ProductName} href={obj.value.URLProduct2}
+                                                        target="_blank">{obj.value.ProductName}</a>
+                                                </div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ModelName}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div style="
+                            max-width: 150px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                          ">
+                                                    {obj.value.ModelCode}
+                                                </div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ColorName}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ColorCode}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>{obj.value.ModelYear}</div>
+                                            </th>
+                                            <th scope="col">
+                                                <div>
+                                                    <lightning-input type="number" variant="label-hidden"
+                                                    formatter="currency" value={obj.value.Discount} onchange={changeDiscount}
+                                                        data-id={obj.value.Id}></lightning-input>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </template>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+
+                <!-- <template if:true={isStepTwo}>
+                    <div>
+                        <div>
+                            <lightning-card>
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <br />
+                                <div>
+                                    <div class="slds-scrollable" style="height: 25rem">
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th class="" scope="col">
+                                                        <div class="slds-truncate">Product Name</div>
+                                                    </th> -->
+                                                    <!-- <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    ProductId
+                                                </div>
+                                            </th> -->
+                                                    <!-- <th class="" scope="col" align="center">
+                                                        <div class="slds-truncate" style="width: 50%">
+                                                            Discount %
+                                                        </div>
+                                                    </th> -->
+                                                    <!-- <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    Product Name 
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    Quantity
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    QoH
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div style="text-align: center;" class="slds-truncate">
+                                                    Unit Price
+                                                </div>
+                                            </th> -->
+                                                <!-- </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={productList} for:item="obj" for:index="index">
+                                                    <tr key={obj.Id}>
+                                                        <th scope="col">
+                                                            <div>
+                                                                <a href={obj.URLProduct}
+                                                                    target="_blank">{obj.ProductName}</a>
+                                                            </div>
+                                                        </th> -->
+                                                        <!-- <th scope="col">
+                                                    <div>
+                                                        <a href={obj.URLProduct} target="_blank">{obj.Product}</a>
+                                                    </div>
+                                                </th> -->
+                                                        <!-- <th scope="col" align="center">
+                                                            <div>
+                                                                <lightning-input type="number" variant="label-hidden"
+                                                                    value={obj.Discount} onchange={changeDiscount}
+                                                                    data-id={index}></lightning-input>
+                                                            </div>
+                                                        </th> -->
+                                                        <!-- <th scope="col">
+                                                    <div style="padding-left: 70px;">
+                                                        <lightning-input class="currency" style="padding-left: 70px;" variant="label-hidden" type=number formatter="currency" read-only=true
+                                                            value={obj.Price} >
+                                                        </lightning-input>
+                                                    </div>
+                                                </th> -->
+                                                    <!-- </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> -->
+
+                                <!--
+                            This modal box used to show the selected contacts
+                        -->
+
+                                <!-- <div if:true={searchData}>
+                        <lightning-datatable data={searchData} 
+                                             columns={columns} 
+                                             key-field="id"></lightning-datatable>
+                    </div> -->
+                            <!-- </lightning-card>
+                        </div>
+                    </div>
+                </template> -->
+            </div>
+
+            <!-- <div style="
+            float: left;
+            margin-left: 15px;
+            margin-bottom: 10px;
+            height: 40px;
+            margin-top: 20px;
+          ">
+          <button class="slds-button slds-button_neutral" variant="neutral" onclick={closeQuickAction}>
+            Close
+        </button>
+        </div> -->
+
+            <div style="
+          float: right;
+          margin-right: 15px;
+          margin-bottom: 10px;
+          height: 40px;
+          margin-top: 20px;
+        ">
+                <template if:true={isStepOne}>
+                    <template if:false={disabledButtonStep1}>
+                        <button class="slds-button slds-button_brand" variant="brand" onclick={handleNext2}>
+                            Save
+                        </button>
+                    </template>
+                    <template if:true={disabledButtonStep1}>
+                        <button class="slds-button slds-button_brand" variant="brand" disabled>
+                            Save
+                        </button>
+                    </template>
+                    <!-- <template if:false={disabledButtonStep1}>
+                        <button class="slds-button slds-button_neutral" variant="brand" onclick={handleNext1}>
+                            Next
+                        </button>
+                    </template>
+                    <template if:true={disabledButtonStep1}>
+                        <button disabled class="slds-button slds-button_neutral" variant="brand">
+                            Next
+                        </button>
+                    </template> -->
+                </template>
+
+                <!-- <template if:true={isStepTwo}>
+                    <template if:true={isEnablePrev}>
+                        <button variant="base" class="slds-button slds-button_neutral" onclick={handlePrev}>
+                            Prev
+                        </button>
+                    </template>
+                    &nbsp;
+
+                    <template if:false={isShowSpinner}>
+                        <button class="slds-button slds-button_brand" variant="brand" onclick={handleNext2}>
+                            Save
+                        </button>
+                    </template>
+                    <template if:true={isShowSpinner}>
+                        <button class="slds-button slds-button_brand" variant="brand" disabled>
+                            Save
+                        </button>
+                    </template>
+                </template> -->
+            </div>
+
+        </lightning-card>
+    <!-- </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div> -->
+</template>

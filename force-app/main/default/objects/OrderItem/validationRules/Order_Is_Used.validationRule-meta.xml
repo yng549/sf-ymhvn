@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Is_Used</fullName>
+    <active>true</active>
+    <errorConditionFormula>PRIORVALUE(Is_Used__c) == true &amp;&amp; NOT(ISNEW())</errorConditionFormula>
+    <errorMessage>The Order was used so you can not edit it.</errorMessage>
+</ValidationRule>

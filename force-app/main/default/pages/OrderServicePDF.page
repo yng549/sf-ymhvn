@@ -1,0 +1,662 @@
+<apex:page applyBodyTag="false" renderAs="pdf" showHeader="false" standardStylesheets="false" applyHtmlTag="false" controller="orderServicePage">
+
+    <head>
+        <!--  -->
+       <style>
+            body {
+                font-family: Arial Unicode MS;
+                font-size: 10px;
+            }
+
+            @page {
+                margin-top: 0;
+                margin-left: 30px;
+                margin-right: 30px;
+                counter-increment: page;
+                page-break-inside: avoid;
+                size: A4 portrait;
+                tr {
+                    page-break-inside: avoid !important;
+                }
+                @bottom-center {
+                    content: "Page " counter(page) " / " counter(pages);
+                    font-family: Arial Unicode MS;
+                    font-size: 80%;
+                }
+            }
+
+            @page :first {
+                @top-center {
+                    content: element(header);
+                }
+            }
+
+            .header {
+                position: running(header);
+                width: 100%;
+            }
+
+            .row {
+                width: 100%;
+
+            }
+
+            .row::after {
+                content: "";
+                display: block;
+                clear: both;
+            }
+
+
+            .col-1-of-3 {
+                width: 33%;
+                float: left;
+                line-height: 14px;
+                text-align: left;
+                /* border: 1px solid red; */
+            }
+
+            .col-1-of-3-center {
+                width: 32%;
+                float: left;
+                line-height: 14px;
+                text-align: left;
+                margin-left: 1%;
+                /* border: 1px solid blue; */
+            }
+
+            .col-1-of-3-last {
+                width: 32%;
+                float: left;
+                /* <!--color: #c00000;--> */
+                line-height: 14px;
+                text-align: left;
+                margin-left: 1%;
+                /* border: 1px solid green; */
+            }
+            .col-1-of-2 {
+                float: left;
+                width: 50%;
+                font-size: 8px;
+                   
+            }
+            table {
+                margin-top: 2px;
+                border-collapse: collapse;
+                width: 100%;
+                text-align: center;
+            }
+
+            th {
+                border: 1px solid black;
+            }
+            td {
+                border: 1px solid black;
+                text-align: left;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                padding-left: 3px;
+                padding-right: 3px;
+                overflow-wrap: break-word;
+                vertical-align: middle;
+                line-height: 10px;
+                font-size: 8px;
+            }
+
+            
+            .header-mid {
+                width: 33%;
+                /* float: left; */
+                line-height: 17px;
+                text-align: center;
+                font-size: 16px;
+                /* padding-left:300px; */
+                padding-top: 27px;
+                /* border: 2px solid red; */
+                float: left;
+
+            }
+            .checkbox-image {
+                vertical-align: middle;
+                margin-right: 5px;
+                
+             }
+             
+            
+            .header-mid2 {
+
+                font-size: 12px;
+
+
+            }
+
+            .header-right {
+                /* text-align: right; */
+                /* font-size:16px; */
+                /* width: 300px; */
+                /* border: 1px solid blue; */
+                /* padding-top:35px; */
+                width: 200px;
+                float: right;
+                font-size: 10px;
+                padding-left: 40px;
+                margin-right: 0px;
+                text-align: right;
+
+            }
+
+            .header-left {
+                width: 33%;
+                /* height: 25%; */
+                /* float: left; */
+                /* text-align: left; */
+                /* border: 2px solid green; */
+                float: left;
+            }
+
+            .header3 {
+                width: 100%;
+                /* border: 2px solid purple; */
+                height: 85px;
+
+            }
+            .container {
+            display: flex;
+            }
+            .customer {
+            flex: 1;
+            background-color: #f2f2f2;
+            padding: 10px;
+            }
+
+            .workshop {
+            flex: 1;
+            background-color: #e6e6e6;
+            padding: 10px;
+            }
+         
+        </style>
+    </head>
+
+    <body>
+        <div class="header3">
+            <div class="header-left">
+                <apex:image id="logo2" value="{!$Resource[logo]}" height="75" />
+            </div>
+            <div class="header-mid">
+                <div>
+                    &nbsp;&nbsp;&nbsp;SERVICE ORDER 
+                    <br/> Phiếu yêu cầu dịch vụ
+                    <br/>
+                </div>
+                <div class="header-mid2">
+                    Loại dịch vụ: {!objOrder.RecordType.Name}
+                </div>
+            </div>
+            <div class="header-right">
+                <!-- Số Phiếu Yêu Cầu Dịch Vụ(Service Order no.): <br/>  -->
+                Số Phiếu Yêu Cầu Dịch Vụ
+                <br/> (Service Order no.): {!objOrder.Order_Number__c}
+                <br/> Ngày (Date):&nbsp;
+                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                    <apex:param value="{!objOrder.Bike_Delivery_Date__c}" />
+                </apex:outputText>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top:10px">
+            <!-- <div class="col-1-of-2" style="padding-top:20px" >          
+            	Số Phiếu Yêu Cầu Dịch Vụ(Service Order no.): <br/> 
+                Ngày (Date):
+        	</div> -->
+
+            <apex:variable var="phone_gmail" value="{!IF(objOrder.Account.Phone != null, objOrder.Account.Phone, objOrder.Account.PersonMobilePhone)}"
+            />
+            <div class="col-1-of-3">
+                <p style="word-wrap: break-word;">
+                    <!-- Số Phiếu Yêu Cầu Dịch (Service Order no.): <br/> 
+                    Ngày (Date):<br/> -->
+                    Mã Khách Hàng (Customer No.):&nbsp;{!objOrder.Account.AccountNumber}
+                    <br/> Tên Khách Hàng (Customer Name):&nbsp;{!objOrder.Account.Name}
+                    <br/> Liên hệ (Contact):&nbsp;
+                    <apex:outputText value="{0}">
+                        <apex:param value="{!phone_gmail}" />
+                    </apex:outputText>
+                    <br/> Địa chỉ (Address):&nbsp;{!objOrder.Account.Address_Full__c}
+                </p>
+            </div>
+            <div class="col-1-of-3-center">
+                <p style="word-wrap: break-word">Nhãn hiệu (Brand):&nbsp;{!objOrder.Asset__r.Bike_Type__c}
+                    <br/> Số khung (Frame no.):&nbsp;{!objOrder.Asset__r.Frame_Number__c}
+                    <br/> Số máy (Engine no):&nbsp;{!objOrder.Asset__r.Engine_No__c}
+                    <br/> Dòng xe (Model name):&nbsp;{!objOrder.Asset__r.Product2.Model_Name__c}
+                    <br/>
+                    <span style="color:black;">Biển số (No. Plate):&nbsp;{!objOrder.Asset__r.PlateNo__c}</span>
+                    <br/> Số km vào (Mileage In):&nbsp;{!objOrder.Mileage__c}
+                    <br/>
+                    <span style="color:black;">Số km ra (Mileage Out):&nbsp;{!objOrder.Mileage_Out__c}</span>
+                </p>
+            </div>
+            <div class="col-1-of-3-last">
+                <p style="word-wrap: break-word">Tư vấn dịch vụ (Service Consultant):&nbsp;{!objOrder.Cashier__r.Name}  <br/> Kỹ thuật viên (Technician):&nbsp;{!objOrder.Mechanic__r.Name}
+                    <br/>
+                    <span style="">Nhân viên detailing (Detailing staff):&nbsp;{!objOrder.Detailing_Staff__r.Name} 
+                    </span>
+                    <br/> Ngày nhận xe (Bike receiving date):&nbsp;
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                        <apex:param value="{!objOrder.Bike_Receiving_Date__c}" />
+                    </apex:outputText>
+                    <br/>  Ngày giao xe(Bike delivery date):&nbsp;
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                        <apex:param value="{!objOrder.Bike_Delivery_Date__c}" />
+                    </apex:outputText>
+                </p>
+            </div>
+        </div>
+        <apex:variable var="Voucher" value="{!IF(objOrder.Voucher__r.size  > 0, objOrder.Voucher__r[0], 0)}" />
+
+
+        <span> DỊCH VỤ (SERVICE) </span>
+        <table border="1px" style="text-align:center">
+            <tr>
+                <th>STT</th>
+                <!-- <th>Loại Dịch Vụ</th> -->
+                <th>Mã Công Việc</th>
+                <th>Tên công việc</th>
+                <th>Giờ công</th>
+                <th>Đơn vị</th>
+                <th>Đơn giá</th>
+                <th>% Giảm giá</th>
+                <th>Thành tiền</th>
+            </tr>
+            <tr>
+                <th>No</th>
+                <!-- <th>Service category</th> -->
+                <th>Job code</th>
+                <th>Service Job</th>
+                <th>Labour Hour</th>
+                <th>Unit</th>
+                <th>Labour Cost</th>
+                <th>Discount</th>
+                <th>Amount</th>
+            </tr>
+            <tr style="{!IF(lstOrderItemRepair.empty,'display:none','display:initial')}">
+                <th colspan="8" >SERVICE</th>
+            </tr>
+            <apex:variable var="totalAmount" value="{!0}" />
+            <apex:variable var="disCount" value="{!0}" />
+            <apex:variable var="Payment" value="{!0}" />
+            <apex:variable var="disCountAmount" value="{!0}" />
+
+            <apex:variable var="rowNum" value="{!1}" />
+
+            <apex:repeat var="orderItemService" value="{!lstOrderItemRepair}">
+                <tr style="word-wrap: break-word">
+                    <th>
+                        <apex:outputText value="{!rowNum}" />
+                    </th>
+                    <!-- <th>SỬA CHỮA (Repair)</th> -->
+                    <th>{!orderItemService.Product2.ProductCode}</th> 
+                    <th>{!orderItemService.Product2.Name}</th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.##}"><!-- Thay đổi tăng thêm hàng thập phân 06/01-->
+                            <apex:param value="{!IF(orderItemService.Labour_Hours__c!= null ,orderItemService.Labour_Hours__c ,orderItemService.Product2.Labor_HOUR__c)}" />
+                        </apex:outputText>
+                    </th>
+                    <th>{!orderItemService.Product2.Unit_Measure__c}</th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.#}"> 
+                            <apex:param value="{!orderItemService.ListPrice/orderItemService.Product2.Labor_HOUR__c}" /><!-- Thay đổi labor cost 06/01-->
+                           
+                        </apex:outputText>
+                    </th>
+                    <th>
+                        <apex:outputText rendered="{!NOT(ifFreeService)}">
+                            <apex:outputText value="{0, number, ###}">
+                                <apex:param value="{!orderItemService.Discount__c}" />
+                            </apex:outputText>
+                            %
+                        </apex:outputText>
+                        <apex:outputText rendered="{!ifFreeService}">
+                            100%
+                        </apex:outputText>
+                    </th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.#}">
+                            <apex:param value="{!IF(ifFreeService,0,orderItemService.TotalPrice+IF(orderItemService.Discount_Amount__c == null,0,orderItemService.Discount_Amount__c))}" />
+                        </apex:outputText>
+                    </th>
+                </tr>
+                <apex:variable var="rowNum" value="{!rowNum+1}" />
+           
+                <apex:variable var="disCountAmount" value="{!IF(ifFreeservice,0,IF(orderItemService.Discount_Amount__c == null,0,orderItemService.Discount_Amount__c))}" />
+                <apex:variable var="disCount" value="{!IF(ifFreeService , disCount+orderItemService.TotalPrice , disCount + disCountAmount)}"
+                />
+                <apex:variable var="totalAmount" value="{!IF(ifFreeService,totalAmount + 0,totalAmount + orderItemService.TotalPrice + disCountAmount)}" />
+
+            </apex:repeat>
+            
+            <tr style="{!IF(lstOrderItemDetailing.empty,'display:none','display:initial')}">
+                <th colspan="8">DETAILING</th>
+            </tr>
+
+            <apex:variable var="rowNum2" value="{!1}" />
+            <apex:repeat var="orderItemDetailing" value="{!lstOrderItemDetailing}">
+                <tr style="word-wrap: break-word">
+                    <th>
+                        <apex:outputText value="{!rowNum2}" />
+                    </th>
+                    <!-- <th>SỬA CHỮA (Repair)</th> -->
+                    <th>{!orderItemDetailing.Product2.ProductCode}</th>
+                    <th>{!orderItemDetailing.Product2.Name}</th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.##}"> <!--Thay đổi tăng hàng thập phân 06/01 -->
+                            <apex:param value="{!IF(orderItemDetailing.Labour_Hours__c!= null ,orderItemDetailing.Labour_Hours__c ,orderItemDetailing.Product2.Labor_HOUR__c)}" />
+                        </apex:outputText>
+                    </th>
+                    <th>{!orderItemDetailing.Product2.Unit_Measure__c}</th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.#}">
+                            <apex:param value="{!orderItemDetailing.ListPrice/orderItemDetailing.Product2.Labor_HOUR__c}" /><!-- Thay đổi labor cost 06/01-->
+                        </apex:outputText>
+                    </th>
+                    <th>
+                        <apex:outputText value="{0, number, ###.#}">
+                            <apex:param value="{!IF(ifFreeService,100,orderItemDetailing.Discount__c)}" />
+                        </apex:outputText>
+                        %
+                    </th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.#}">
+                            <apex:param value="{!IF(ifFreeService,0,orderItemDetailing.TotalPrice+IF(orderItemDetailing.Discount_Amount__c == null,0,orderItemDetailing.Discount_Amount__c))}" />
+                        </apex:outputText>
+                    </th>
+                </tr>
+                <apex:variable var="rowNum2" value="{!rowNum2 + 1}" />
+               
+                <apex:variable var="disCountAmount" value="{!IF(ifFreeservice,0,IF(orderItemDetailing.Discount_Amount__c == null,0,orderItemDetailing.Discount_Amount__c))}" />
+                <apex:variable var="disCount" value="{!IF(ifFreeService , disCount+orderItemDetailing.TotalPrice , disCount + disCountAmount)}"
+                />
+                <apex:variable var="totalAmount" value="{!IF(ifFreeService,totalAmount + 0,totalAmount + orderItemDetailing.TotalPrice +disCountAmount)}" />
+            </apex:repeat>
+
+            <tr style="word-wrap: break-word">
+                <th colspan="7">Tổng tiền (Total amount)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!totalAmount}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+            <tr style="word-wrap: break-word">
+                <th colspan="7">Giảm giá (Discount)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!disCount}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+             <!-- <tr style="word-wrap: break-word">
+                <th colspan="7">Phiếu quà tặng (Voucher) </th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!IF((totalAmountVoucher == null), 0, totalAmountVoucher)}" />
+                    </apex:outputText>
+                </th>
+            </tr -->
+            <tr style="word-wrap: break-word">
+                <apex:variable var="Payment" value="{!IF(ifFreeService,0,IF((totalAmountVoucher == null),totalAmount - disCount,IF((totalAmount < 0), 0, totalAmount - disCount - totalAmountVoucher)))}"
+                />
+                <apex:variable var="Payment" value="{!IF(Payment<0,0,Payment)}"
+                />
+                <!-- <apex:param value="{!IF((totalAmountVoucher == null), '0' , totalAmountVoucher = totalAmountVoucher)}"/> -->
+                <!-- <apex:variable var="Payment" value="{!Payment + totalAmount - disCount - totalAmountVoucher}" /> -->
+                <th colspan="7">THANH TOÁN (Payment) - SERVICE (Dịch vụ)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!Payment}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+        </table>
+        <br/>
+        <span>
+            PHỤ TÙNG (SPARE PART)
+        </span>
+        <table border="1px" style="text-align:center">
+            <tr>
+                <th>STT</th>
+                <!-- <th>Loại PCA</th> -->
+                <th>Mã Phụ tùng</th>
+                <th>Tên Phụ tùng</th>
+                <th>Số lượng</th>
+                <th>Đơn vị</th>
+                <th>Giá bán</th>
+                <th>% Giảm giá</th>
+                <th>Thành tiền</th>
+            </tr>
+            <tr>
+                <th>No</th>
+                <!-- <th>PCA category</th> -->
+                <th>Part code</th>
+                <th>Part name</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Selling Price</th>
+                <th>Discount</th>
+                <th>Amount</th>
+            </tr>
+            <apex:variable var="totalAmount2" value="{!0}" />
+            <apex:variable var="disCount2" value="{!0}" />
+            <apex:variable var="Payment2" value="{!0}" />
+
+            <apex:variable var="rowNum3" value="{!1}" />
+            <apex:repeat var="orderSpare" value="{!lstOrderItemPCA}">
+                <tr style="word-wrap: break-word">
+                    <th>
+                        <apex:outputText value="{!rowNum3}" />
+                    </th>
+                    <!-- <th>Spare Part</th> -->
+                    <th>{!orderSpare.Product2.ProductCode}</th>
+                    <th>{!orderSpare.Product2.Name}</th>
+                    <th>{!orderSpare.Quantity}</th>
+                    <th>Cái</th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.#}">
+                            <apex:param value="{!orderSpare.ListPrice}" />
+                        </apex:outputText>
+                    </th>
+                    <th>
+                        <apex:outputText value="{0, number, ###.#}">
+                            <apex:param value="{!IF(ifFreeService,100,orderSpare.Discount__c)}" />
+                        </apex:outputText>
+                        %
+                    </th>
+                    <th>
+                        <apex:outputText value="{0, number, ###,###,###.#}">
+                            <apex:param value="{!orderSpare.Total_Amount_Line__c}" />
+                        </apex:outputText>
+                    </th>
+                </tr>
+                <apex:variable var="Quantity" value="{!IF(orderSpare.Discount__c == null,1,orderSpare.Quantity)}"/>
+                <apex:variable var="rowNum3" value="{!rowNum3 + 1}" />
+                <!-- <apex:variable var="totalAmount2" value="{!IF(ifFreeservice,totalAmount2 + 0,totalAmount2 + orderSpare.Total_Amount_Line__c)}" /> -->
+                <apex:variable var="totalAmount2" value="{!IF(ifFreeservice, totalAmount2 + orderSpare.Total_Amount_Line__c, totalAmount2 + orderSpare.Total_Amount_Line__c)}" />
+                <!-- <apex:variable var="disCountAmount" value="{!IF(ifFreeservice,0,IF(orderSpare.Discount_Amount__c == null,0,orderSpare.Discount_Amount__c*Quantity))}" /> -->
+                
+                <!-- <apex:variable var="disCountAmount" value="{!IF(ifFreeservice,0,
+                                                           IF(AND(OR(orderSpare.Discount_Amount__c != null, orderSpare.Discount_Amount__c != 0),
+                                                           IF(isnull(orderSpare.Order.Campaign__r.Promotion_Item__c), false,
+                                                           IF(isnull(mapPromotionProduct[orderSpare.Order.Campaign__r.Promotion_Item__c].Quantity__c),false, mapPromotionProduct[orderSpare.Order.Campaign__r.Promotion_Item__c].Quantity__c>0))), orderSpare.Discount_Amount__c,
+                                                           IF(OR(orderSpare.Discount_Amount__c == 0, orderSpare.Discount_Amount__c == null),0,orderSpare.Discount_Amount__c*Quantity)))}" /> -->
+                                    
+                <apex:variable var="disCountAmount" value="{!IF(ifFreeservice, 0,
+                                                                IF(AND(OR(orderSpare.Discount_Amount__c != null, orderSpare.Discount_Amount__c != 0),
+                                                                    IF(OR(isnull(orderSpare.Order.Campaign__r.Promotion_Item__c), NOT(ISBLANK(mapPromotionProduct))), 
+                                                                        false,
+                                                                        IF(isnull(mapPromotionProduct[orderSpare.Order.Campaign__r.Promotion_Item__c].Quantity__c),
+                                                                            false, 
+                                                                            mapPromotionProduct[orderSpare.Order.Campaign__r.Promotion_Item__c].Quantity__c>0))), 
+                                                                            orderSpare.Discount_Amount__c,
+                                                                        IF(OR(orderSpare.Discount_Amount__c == 0, orderSpare.Discount_Amount__c == null),0,orderSpare.Discount_Amount__c)))}" />
+                <apex:variable var="disCount2" value="{!IF(ifFreeService , disCount2+orderSpare.Total_Amount_Line__c , disCount2 + disCountAmount)}"
+                />
+            </apex:repeat>
+            <tr style="word-wrap: break-word">
+                <th colspan="7">Tổng tiền (Total amount)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!totalAmount2}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+            <tr style="word-wrap: break-word">
+                <th colspan="7">Giảm giá (Discount)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!disCount2}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+            <tr style="word-wrap: break-word">
+                <!-- {!IF((totalAmountVoucher == null),!totalAmount2 - disCount2,!totalAmount2 - disCount2 - totalAmountVoucher)} -->
+                <!-- <apex:variable var="Payment2" value="{!IF((totalAmountVoucher == null),totalAmount2 - disCount2,totalAmount2 - disCount2 - totalAmountVoucher)}" /> -->
+                <apex:variable var="Payment2" value="{!IF(ifFreeService,0,IF((totalAmountVoucher == null),totalAmount2 - disCount2,IF((totalAmount2 == 0), 0, totalAmount2 - disCount2 - totalAmountVoucher)))}"
+                />
+                <apex:variable var="Payment2" value="{!IF(Payment2<0,0,Payment2)}"
+                />
+                <th colspan="7">THANH TOÁN (Payment) - SPARE PART (Phụ tùng)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!Payment2}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+            <!--   <tr style="word-wrap: break-word">
+                <th colspan="7">Phiếu quà tặng (Voucher)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!totalAmountVoucher}" />
+                    </apex:outputText>
+                </th>
+            </tr> -->
+        </table>
+        <br/>
+        <apex:variable var="PaymentAll" value="{!Payment + Payment2}" />
+        <table border="1px" style="text-align:center;">
+               <tr style="word-wrap: break-word">
+                <th colspan="1">Phiếu quà tặng (Voucher)</th>
+                <th>
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!totalAmountVoucher}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+            <tr style="background-color: rgb(231, 230, 230); word-wrap: break-word;">
+                <th colspan="1">TỔNG THANH TOÁN (FINAL PAYMENT)</th>
+                <th colspan="1" style="width: 90px;">
+                    <apex:outputText value="{0, number, ###,###,###.#}">
+                        <apex:param value="{!PaymentAll}" />
+                    </apex:outputText>
+                </th>
+            </tr>
+        </table>
+        
+        <br/>
+        <table>
+            <thead>
+              <tr>
+                <th colspan="2">Bàn Giao Xe (DELIVERY CHECK-LIST)</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="vertical-align: middle;">
+                        <apex:image id="iconcheckbox1" value="{!$Resource.iconcheckbox}" width="16px" styleClass="checkbox-image" style="vertical-align: 0px;"/>
+                        <div style="display: inline-block; margin-left: 1px;">
+                            <span> Khách hàng xác nhận xe đã hoàn thành các công việc yêu cầu.</span>
+                            <div>/ Customer comfirmed the workshop finished all services jobs following to request.</div>
+                        </div>
+                      </td>
+                    <td style="vertical-align: middle;">
+                      <apex:image id="iconcheckbox2" value="{!$Resource.iconcheckbox}" width="16px" styleClass="checkbox-image" style="vertical-align: 0px;"/>
+                      <div style="display: inline-block; margin-left: 1px;">
+                            <span> Khách hàng đã kiểm tra xe và hạng mục công việc, phụ tùng thay thế </span>
+                            <div>/ Customer checked the bike &amp; all the service jobs, spare parts. </div>
+                     </div>
+                    </td>
+                  </tr> 
+              <tr>
+                <td style="vertical-align: middle;">
+                    <apex:image id="iconcheckbox3" value="{!$Resource.iconcheckbox}" width="16px" styleClass="checkbox-image" style="vertical-align: 0px;"/>
+                    <div style="display: inline-block; margin-left: 1px;">
+                      <span>Khách hàng nhận đủ phụ tùng thay ra hoặc nhớt còn lại</span>
+                      <div>/ Customer received the replaced parts or remain oils.</div>
+                    </div>
+                  </td>
+                <td style="vertical-align: middle;">
+                  <apex:image id="iconcheckbox4" value="{!$Resource.iconcheckbox}" width="16px" styleClass="checkbox-image" style="vertical-align: 0px;"/>
+                  <div style="display: inline-block; margin-left: 1px;">
+                    <span>Khách hàng không nhận phụ tùng đã thay thế hoặc nhớt còn lại</span>
+                    <div>/ Customer don't get back replaced part, remain oilds. </div>
+                 </div>
+                </td>
+              </tr>   
+            </tbody>
+          </table>
+          <br/>
+  		<table>
+              <tr>
+                <th style="width: 20%;">KHÁCH HÀNG</th>
+                <th style="width: 20%;">TƯ VẤN DỊCH VỤ</th>
+                <th style="width: 20%;">THU NGÂN</th>
+                <th style="width: 20%;">QUẢN LÝ XƯỞNG</th>
+                <th style="width: 20%;">QUẢN LÝ</th>
+              </tr>
+              <tr>
+               	<th style="width: 20%;">CUSTOMER</th>
+                <th style="width: 20%;">SERVICE CONSULTANT</th>
+                <th style="width: 20%;">CASHIER</th>
+                <th style="width: 20%;">SERVICE MANAGER</th>
+                <th style="width: 20%;">MANAGER</th>
+              </tr>
+              <tr>
+                <td height="40px"></td>
+                <td height="40px"></td>
+                <td height="40px"></td>
+                <td height="40px"></td>
+                <td height="40px"></td>
+              </tr>
+            </table>
+
+        <br/>
+        <div class="row" style="border: 1px solid black; box-sizing:border-box; height:40px; padding-top:5px;padding-left:5px;">
+            Ghi chú của xưởng (Workshop note): {!objOrder.Workshop_Note__c}
+        </div>
+        <br/>
+        <div style="background-color:rgb(255, 255, 255); font-size:10px;">
+            * Bằng việc ký vào phiếu này, quý khách đồng ý cho chúng tôi sử dụng các thông tin trên đây vào việc thực hiện các dịch vụ
+            tiếp thị chăm sóc khách hàng sau bán hàng và được phép chuyển giao các thông tin nêu trên cho công ty mẹ của
+            YMVN - Công ty Yamaha Motor (YMC) tại Nhật Bản và/hoặc các công ty khác trong cùng hệ thống tập đoàn Yamaha mục
+            đích nghiên cứu, phát triển và tiếp thị sản phầm mang nhãn hiệu Yamaha.
+            <br/> * By signing this form, you agree to us using the above information to perform after-sales customer care, marketing
+            services and are allowed to transfer the above information to the company YMVN's parent company - Yamaha Motor
+            Company (YMC) in Japan and/or other companies in the same Yamaha group system for the purpose of researching,
+            developing and marketing Yamaha brand products
+        </div>
+
+    </body>
+    <!-- <script>
+        window.onload = codeAddress;
+        function codeAddress() {
+            console.log("message received => ");
+            alert('message received => ');
+        }
+        var lexOrigin = "https://yamahamotorsvietnam--dev.lightning.force.com";
+        window.addEventListener("message", function(event) {
+            console.log("message received => ",event,(event.data==='PRINT'));
+            if (event.origin !== lexOrigin) return;
+            if(event.data==='PRINT') window.print();
+        }, false);
+        </script> -->
+</apex:page>

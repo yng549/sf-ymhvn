@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Calculate_For__c</fullName>
+    <externalId>false</externalId>
+    <label>Calculate For</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Total campaign Member - New lead</fullName>
+                <default>false</default>
+                <label>Total campaign Member - New lead</label>
+            </value>
+            <value>
+                <fullName>Total campaign Member - Old lead</fullName>
+                <default>false</default>
+                <label>Total campaign Member - Old lead</label>
+            </value>
+            <value>
+                <fullName>Total Campaign member - Old Account</fullName>
+                <default>false</default>
+                <label>Total Campaign member - Old Account</label>
+            </value>
+            <value>
+                <fullName>Total round to sale - New Lead</fullName>
+                <default>false</default>
+                <label>Total round to sale - New Lead</label>
+            </value>
+            <value>
+                <fullName>Total round to sale - Old Lead</fullName>
+                <default>false</default>
+                <label>Total round to sale - Old Lead</label>
+            </value>
+            <value>
+                <fullName>Total round to sale - Account</fullName>
+                <default>false</default>
+                <label>Total round to sale - Account</label>
+            </value>
+            <value>
+                <fullName>Number of opportunity bike</fullName>
+                <default>false</default>
+                <label>Number of opportunity bike</label>
+            </value>
+            <value>
+                <fullName>Number of order bike (VAT)</fullName>
+                <default>false</default>
+                <label>Number of order bike (VAT)</label>
+            </value>
+            <value>
+                <fullName>PCA</fullName>
+                <default>false</default>
+                <label>PCA</label>
+            </value>
+            <value>
+                <fullName>Service</fullName>
+                <default>false</default>
+                <label>Service</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

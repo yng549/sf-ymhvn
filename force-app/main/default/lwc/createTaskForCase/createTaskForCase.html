@@ -1,0 +1,49 @@
+<template>
+    <header class="slds-modal__header">
+    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create task with the status's implementation</h2>
+    </header>
+    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+    {displayMessage}
+    </div>
+    
+    <lightning-card title="Create Task With The Status's Implementation" icon-name="standard:account">
+        <div class="slds-p-around_x-small">
+            <lightning-combobox
+          label="Take Action When"
+          options={selectOption}
+          onchange={handleInputChange}
+          required>
+        </lightning-combobox> 
+        <lightning-input required=true type="date" name="input8" label="Estimate Time Task" onchange={changeEstimate} ></lightning-input>
+        </div>
+    </lightning-card>
+
+    <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" style="margin-right:10px;background-color:#8E0404;color:white;" onclick={closeQuickAction}>Cancel</button>
+        <template if:true={strSubject}>
+            <template if:true={strEstimateTime}>
+                <button class="slds-button slds-button_brand" style="background-color:#2565AE;" onclick={handleSave}>
+                    Save
+                  </button>
+            </template>
+        </template>
+        <template if:false={strSubject}>
+            <template if:false={strEstimateTime}>
+                <lightning-button label="Save"  disabled=true>
+                  </lightning-button>
+            </template>
+        </template>
+        <template if:true={strEstimateTime}>
+            <template if:false={strSubject}>
+                <lightning-button label="Save"  disabled=true>
+                  </lightning-button>
+            </template>
+        </template>
+        <template if:true={strSubject}>
+            <template if:false={strEstimateTime}>
+                <lightning-button label="Save"  disabled=true>
+                  </lightning-button>
+            </template>
+        </template>
+        </footer>
+    </template>

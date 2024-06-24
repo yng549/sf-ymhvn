@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Need_to_complete_PCA_Order</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND
+(ISCHANGED( Status ), ISPICKVAL(Status , &apos;Completed&apos;),
+AND (RecordType.DeveloperName == &quot;PCA&quot;),
+AND(OR(ISBLANK(Account.Province__c ),
+ISBLANK(Account.PersonEmail ))
+)
+)</errorConditionFormula>
+    <errorMessage>Need to add Province and Email to Account to complete PCA Order</errorMessage>
+</ValidationRule>

@@ -1,0 +1,397 @@
+<template>
+    <!-- AAAAAAAAAA -->
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-salesforce1">
+                                <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body" style="padding-left:50%;">
+                            <h2 class="slds-truncate" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">Edit Promotion Item</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                </h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium slds-scrollable_y" id="modal-content-id-1">
+                <lightning-layout multiple-rows="true" vertical-align="end">
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="8"
+                        large-device-size="12" padding="around-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning-input type="text" data-id="searchVoucher" label="Enter Imei Voucher"
+                                    placeholder="Search Voucher"> </lightning-input>
+                                </br>
+                                <button variant="base" class="slds-button slds-button_neutral"
+                                    onclick={handleFilter}>Submit Search</button>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout><br />
+                <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+                    <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+                </div>
+                <div class="tableFixHead">
+
+                    <lightning-progress-indicator current-step={currentStep} type="base" variant="base">
+                        <lightning-progress-step label="Step 1" value="1" onclick={handleOnStepClick}>
+                        </lightning-progress-step>
+                        <lightning-progress-step label="Step 2" value="2" onclick={handleOnStepClick}>
+                        </lightning-progress-step>
+                    </lightning-progress-indicator>
+                    <lightning-layout multiple-rows="true" vertical-align="end">
+                        <lightning-layout-item size="12" small-device-size="10" medium-device-size="8"
+                            large-device-size="12" padding="around-small">
+                        </lightning-layout-item>
+                    </lightning-layout><br />
+                    <br />
+                </div>
+                <div class="slds-scrollable_y" style="height:350px;margin:5px;">
+                    <template if:true={isStepOne}>
+                        <div class="slds-scrollable_x">
+                            <br />
+                            <template if:false={vocherSearch}>
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    #
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    Order By
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    Name
+                                                </div>
+                                            </th>
+                                            <th class="" style="max-width: 350px;" scope="col">
+                                                <div class="slds-truncate" title="Product Name VietNamese">
+                                                    Promotion Code
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="Route Name">
+                                                    Discount
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="PCA type">ValidFrom</div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="PCA type">ValidTo</div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="PCA type">RecordType Name</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template if:false={viewSelected}>
+                                            <template for:each={items} for:item="obj" for:index="index">
+                                                <tr key={obj.Id}>
+                                                    <th scope="col">
+                                                        <div>
+                                                            <lightning-input type="checkbox" name={obj.Id}
+                                                                onchange={setBoxes} value={obj.Id} data-id={obj.Id}
+                                                                checked={obj.IsCheck}>
+                                                            </lightning-input>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div style="margin-left:10px;">
+                                                            {obj.OrderBy}
+                                                        </div>
+                                                    </th>
+                                                    <th title={obj.Name} scope="col" style="max-width: 350px;">
+                                                        <div title={obj.PromotionCode}
+                                                            style="max-width: 350px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                            <a title={obj.PromotionCode} href={obj.URLPromotionId}
+                                                                target="_blank">{obj.Name}</a>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>
+                                                            <a href={obj.URLPromotionId}
+                                                                target="_blank">{obj.PromotionCode}</a>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>
+                                                            <a href={obj.URLPromotionId} target="_blank">
+
+                                                                <lightning-input variant="label-hidden" read-only=true
+                                                                    value={obj.Discount} type=number
+                                                                    formatter="percent-fixed" step="0.01"
+                                                                    style="width:170px;">
+                                                                </lightning-input>
+                                                            </a>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{obj.ValidFrom}</div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{obj.ValidTo}</div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{obj.RecordTypeName}</div>
+                                                    </th>
+                                                </tr>
+                                            </template>
+                                        </template>
+
+                                    </tbody>
+                                </table>
+                            </template>
+
+
+                            <template if:true={vocherSearch}>
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    #
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate">
+                                                    
+                                                    Voucher Name
+                                                </div>
+                                            </th>
+                                            <th class="" style="max-width: 350px;" scope="col">
+                                                <div class="slds-truncate" title="Product Name VietNamese">
+                                                    Voucher Code
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="Route Name">
+                                                    IMEI
+                                                </div>
+                                            </th>
+                                            <th class="" scope="col">
+                                                Campaign Name
+                                            </th>
+                                            <th class="" scope="col">
+                                                Promotion Item Name
+                                            </th>
+                                            <th class="" scope="col">
+                                                <div class="slds-truncate" title="PCA type">RecordType Name</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <th scope="col">
+                                            <div>
+                                                <lightning-input type="checkbox" name={vocherSearch.Id}
+                                                    onchange={setBoxesVoucher} value={vocherSearch.Id}
+                                                    data-id="voucher" checked={vocherSearch.IsCheck}>
+                                                </lightning-input>
+                                            </div>
+                                        </th>
+                                        <th title={vocherSearch.VoucherName} scope="col">
+                                            <a href={vocherSearch.UrlVoucher}
+                                            target="_blank">{vocherSearch.VoucherName}</a>
+                                            
+                                        </th>
+                                        <th scope="col">
+                                            <a href={vocherSearch.UrlVoucher}
+                                            target="_blank">{vocherSearch.VoucherCode}</a>
+                                            
+                                        </th>
+                                        <th scope="col">
+                                            {vocherSearch.IMEI}
+                                        </th>
+                                        <th scope="col">
+                                            {vocherSearch.CampaignName}
+                                        </th>
+                                        <th scope="col">
+                                            {vocherSearch.PromotionItemName}
+                                        </th>
+                                        <th scope="col">
+                                            {vocherSearch.RecordTypeName}
+                                        </th>
+
+                                    </tbody>
+                                </table>
+                            </template>
+                        </div>
+                    </template>
+
+
+
+
+
+                    <template if:true={isStep2}>
+                        <div>
+                            <div>
+                                <lightning-card>
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <span></span>
+                                        </div>
+                                    </div><br />
+                                    <div>
+                                        <div class="slds-scrollable" style="height: 25rem;">
+                                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                                <thead>
+                                                    <tr class="slds-line-height_reset">
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                Product Code
+                                                            </div>
+                                                        </th>
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                Product Name
+                                                            </div>
+                                                        </th>
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                List Price
+                                                            </div>
+                                                        </th>
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                Discount
+                                                            </div>
+                                                        </th>
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                Discount Price
+                                                            </div>
+                                                        </th>
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                Sale Price
+                                                            </div>
+                                                        </th>
+                                                        <th class="" scope="col">
+                                                            <div class="slds-truncate">
+                                                                Promotion Product
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <template for:each={objPromotionSelected.lstProductApplyDTO}
+                                                        for:item="obj" for:index="index">
+                                                        <tr key={obj.Id}>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <a href={obj.URLPromotionProduct}
+                                                                        target="_blank">{obj.ProductCode}</a>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <a href={obj.URLPromotionProduct}
+                                                                        target="_blank">{obj.ProductName}</a>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <lightning-input variant="label-hidden" type=number
+                                                                        formatter="currency" read-only=true
+                                                                        value={obj.ListPrice} style="width:170px;">
+                                                                    </lightning-input>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div>
+
+                                                                    <lightning-input variant="label-hidden"
+                                                                        data-id='Discount' read-only=true
+                                                                        value={obj.Discount} type=number
+                                                                        formatter="percent-fixed" step="0.01"
+                                                                        style="width:170px;">
+                                                                    </lightning-input>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <lightning-input variant="label-hidden" type=number
+                                                                        formatter="currency" read-only=true
+                                                                        value={obj.DiscountPrice} style="width:170px;">
+                                                                    </lightning-input>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <lightning-input variant="label-hidden" type=number
+                                                                        formatter="currency" read-only=true
+                                                                        value={obj.SalePrice} style="width:170px;">
+                                                                    </lightning-input>
+                                                                </div>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <div>
+                                                                    <template if:true={obj.objPromotionProduct.Id}>
+                                                                        <a href={obj.URLPromotionProduct}
+                                                                            target="_blank">{obj.objPromotionProduct.Name}</a>
+                                                                    </template>
+                                                                    <template if:false={obj.objPromotionProduct.Id}>
+                                                                        <span style="color:rgba(255, 0, 0, 0.562);">Not
+                                                                            promotion apply for this product.</span>
+                                                                    </template>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </lightning-card>
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+
+            <div class="slds-modal__footer">
+                <template if:true={isStepOne}>
+                    <template if:false={disabledButtonStep1}>
+                        <button class="slds-button slds-button_neutral" variant="brand"
+                            onclick={handleNext1}>Next</button>
+                    </template>
+                    <template if:true={disabledButtonStep1}>
+                        <button disabled class="slds-button slds-button_neutral" variant="brand">Next</button>
+                    </template>
+                </template>
+
+                <template if:true={isStepTwo}>
+                    <template if:true={isEnablePrev}>
+                        <button variant="base" class="slds-button slds-button_neutral"
+                            onclick={handlePrev}>Back</button>
+                    </template> &nbsp;
+
+                    <template if:false={isShowSpinner}>
+                        <button class="slds-button slds-button_brand" variant="brand"
+                            onclick={handleNext2}>Save</button>
+                    </template>
+                    <template if:true={isShowSpinner}>
+                        <button class="slds-button slds-button_brand" variant="brand" disabled>Save</button>
+                    </template>
+                </template>
+            </div>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

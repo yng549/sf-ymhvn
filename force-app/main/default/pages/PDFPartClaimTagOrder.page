@@ -1,0 +1,381 @@
+<apex:page applyBodyTag="false" renderAs="pdf" showHeader="false" standardStylesheets="false" applyHtmlTag="false" controller="PDFOrderPartClaimTag">
+	<head> 
+	<!--  -->
+		<style>
+			body {
+				font-family : Arial Unicode MS;
+				font-size : 10px;
+			}
+			@page {
+				counter-increment: page;
+				size: A4 portrait;
+				margin-right:5px;
+                margin-left:5px;
+                page-break-inside: avoid;
+                tr {
+                    page-break-inside: avoid !important;
+                }
+                @bottom-center {
+                    content: "Page " counter(page) " / " counter(pages);
+                    font-family: sans-serif;
+                    font-size: 80%;
+                }
+			}
+            @page :first {
+                @top-center {
+					content: element(header);
+				}
+
+                
+            }
+
+            div.header {
+                padding-left:10px;
+                position: running(header);
+            }
+			
+			.row {
+				clear : both;
+			}
+            .companyHeader1  .companyHeader2{
+                height:80px;
+            }
+			.textRow {
+				margin: -1px;
+                font-size: 13px;
+			}
+			.companyDeli {
+				padding : 0px;
+				width : 100%;
+				margin-top: 3px;
+			}
+			.colum1quoteDataTable {
+				width: 100px;
+			}
+			.productTable {
+				/* -fs-table-paginate: paginate;  Dùng để hiển thị table td ở đầu mỗi trang*/
+				width : 100%;
+                border-collapse: collapse;
+			}
+            .productTable td, tr, th {
+                vertical-align:top;
+                border: 1px solid black;
+            }
+            .productTable td {
+                padding-left:4px;
+            }
+            .productTable .productTableColumnEight {
+				border-right: 1.25 px solid black;
+			}
+			.productTableHeader td{
+				font-weight: bold;
+				text-align : center;
+			}
+			.productTableColumn1 {
+				width : 10% !important;
+
+			}
+			.productTableColumn2 {
+				width : 35% !important;
+			}
+			.productTableColumn3 {
+				width : 35% !important;
+			}
+			.productTableColumn4 {
+				width : auto !important;
+			}
+			.content .dataRow td {
+				padding: 0px 3px 0px 3px;
+				height: 31px;
+			}
+			.content th {
+				text-align: center;
+				padding: 0px 3px 0px 3px;
+				height: 27px;
+			}
+			.content {
+				padding : 0px;
+				height: 100%;
+			}
+			.pagenumber:before {
+				content: counter(page);
+			}
+			.pagecount:before {
+				content: counter(pages);
+			}
+			div.header {
+				margin : 20px 5px 0px 5px;
+				display: block;
+				position: running(header);
+			}
+			.page-break {
+				page-break-after:always;
+			}
+			.page-break td {
+				border-bottom : 1px solid black;
+			}
+
+			.align-left {
+				text-align: left;
+			}
+
+			.align-center {
+				text-align: center;
+			}
+
+			.align-right {
+				text-align: right;
+			}
+			.column1 {
+				float: left;
+				width: 60%;
+			}
+			.column3 {
+				float: left;
+				width: auto;
+			}
+            .columnHeader1 {
+				float: left;
+				width: 50%;
+			}
+			.columnHeader2 {
+                float: right;
+				width: auto;
+				margin-right: 4px;
+                padding-bottom:2px;
+                margin-top:2px;
+			}
+            .columnHeader3 {
+                float: left;
+				width: auto;
+				margin-right: 4px;
+                padding-bottom:2px;
+                margin-top:2px;
+            }
+			.column1 , .column3 {
+				flex: 1;
+				border: 1px solid gray;
+				border-style:none;
+			}
+			.totalPriceCenter {
+				text-align: center;
+				width: 80%;
+				padding-bottom: -55px;
+				margin-top: 92px;
+			}
+
+            /* .footer {
+                height: 25px;
+                position: running(footer);
+            } */
+            .pagenumber:before {
+                content: counter(page);
+            }
+            .pagecount:before {
+                content: counter(pages);
+            }
+            .flex {
+                display: inline-flex;
+            }
+            .symptom table, th, td {
+                border: hidden;
+                border-collapse: collapse;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="header">
+            <div >
+				<div class="columnHeader1">
+					<div class="companyHeader1">
+                        <span style="font-size:15px; font-weight: bold;">
+                            PART CLAIM TAG (PHIẾU XÁC NHẬN HƯ HỎNG)
+                        </span>
+					</div>
+				</div>
+				<div class="columnHeader2">
+					<div class="companyHeader2">
+						<span style="font-weight: bold;">
+                            <span style="padding-left:120px;">Date: 
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy hh:mm:ss}">
+                                        <apex:param value="{!dateTimeNow}" /> 
+                                    </apex:outputText>
+                            </span>
+                            <br/>
+                            <c:barcode codeValue="{!objOrder.Barcode_Number__c}" />
+                            <!-- <apex:image id="theImage" value="{!objOrder.BarCode__c}" width="300" height="50"/> -->
+                            <!--  -->
+                        </span>
+					</div>
+				</div>
+                <br/>
+                <div class="columnHeader1">
+					<div>
+                        <span style="font-size:11px;font-weight: bold;">WARRANTY INFORMATION (THÔNG TIN BẢO HÀNH)</span>
+					</div>
+				</div>  
+				<div class="columnHeader3">
+					<div style="margin-left:75px;">
+                        <span style="font-size:11px;font-weight: bold;">CampaignNo (Số yêu cầu):</span>
+                        &nbsp;
+                        <span style="font-size:11px;">{!objOrder.Opportunity.Asset__r.Make_Model__c} </span>
+					</div>
+				</div>
+			</div>	
+		</div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="information" style="padding-left:5px;padding-bottom:2px; height:76px; border-style:solid;">
+            <!-- Column1 -->
+            <div class="column1" >
+                <div class="companyInforColumn1">
+                    <div>
+                        <div class="textRow" style="margin-bottom:3px;">
+                            <span style="font-size:11px;font-weight: bold;">Tên đại lý (Claim No):</span>
+                                &nbsp;
+                                <span style="font-size:11px;">{!addressString}</span>
+                                
+                        </div>
+                        <div class="textRow" style="margin-bottom:3px;">
+                            <span style="font-size:11px;font-weight: bold;">Consigness Name (Tên đại lý nhập xe):</span>
+                                &nbsp;
+                                <span style="font-size:11px;">{!objOrder.Account.PersonMobilePhone}</span>
+                                
+                        </div>
+                        <div class="textRow" style="margin-bottom:3px;font-size:13px;">
+                            <span style="font-size:11px;font-weight: bold;">Frame No</span>
+                                &nbsp;
+                            <span style="font-size:11px;">{!objOrder.Interested_In__r.Name}</span>    
+                        </div>
+                        <div class="textRow" style="margin-bottom:3px;">
+                            <span style="font-size:11px;font-weight: bold;">Mileage (Số km):</span>
+                                &nbsp;
+                                {!objOrder.Opportunity.Asset__r.Year__c}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column3">
+                <div class="companyInforColumn2">
+                    <div>
+                        <div class="textRow" style="margin-bottom:3px;">
+                            <span style="font-size:11px;font-weight: bold;">Claim Date (Ngày yêu cầu bảo hành):</span>
+                                &nbsp;
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                    <apex:param value="{!today}" /> 
+                                </apex:outputText>
+                        </div>
+                        <div class="textRow" style="margin-bottom:3px;">
+                            <span style="font-size:11px;font-weight: bold;">Consigness Code (Mã đại lý nhập xe):</span>
+                                &nbsp;
+                                <span style="font-size:11px;">{!objOrder.Opportunity.Asset__r.Mileage__c}</span>
+                                
+                        </div>
+                        <div class="textRow" style="margin-bottom:3px;">
+                            <span style="font-size:11px;font-weight: bold;">STU Date (Ngày bán):</span>
+                                &nbsp;
+                                
+                                <span style="font-size:11px;">{!objOrder.Opportunity.Asset__r.Engine_No__c}</span>
+                        </div>
+                        <div class="textRow">
+                            <span style="font-size:11px;font-weight: bold;">Warranty Time (Số lần bảo hành):</span>
+                                &nbsp;
+                                <span style="font-size:11px;">{!objOrder.Sales_Associate__r.Name}</span>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float:left;">
+            <div class="textRow" style="margin-bottom:3px;">
+                <span style="padding-left:5px;font-size:11px;font-weight: bold;">SYMPTOM (Hiện tượng hư hỏng)</span>
+            </div>
+        </div>
+        <br/>
+        <div class="symptom" style="margin-top:10px;border-style:solid;">
+            <table style="width:100%">
+                <apex:repeat value="{!objOrder.Motorcycle_Situations__r}" var="item">
+                    <tr style="font-size:11px;">
+                        <td style="width:20px;padding-left:5px;">{!item.Symptom__r.Name}</td>
+                        <td >{!item.Symptom__r.Description_VN__c}</td>
+                    </tr>
+                </apex:repeat> 
+            </table>
+        </div>
+        <br/>
+        <div style="float:left;">
+            <div class="textRow" style="margin-bottom:3px;">
+                <span style="padding-left:5px;font-size:11px;font-weight: bold;">REPLACE PARTS (Phụ tùng thay thế)</span>
+            </div>
+        </div>
+		<div style="margin-top:20px;">
+			<table class="productTable" style="border-collapse: collapse;" >
+				<thead>
+					<tr class="productTableHeader" style="background-color:gray;">
+						<td class="productTableColumn1 align-center" style="background-color:gray;">
+							<span  style="font-size:13px;font-family: sans-serif;
+                                    font-weight: bold;">No </span>
+						</td>
+                        <td class="productTableColumn2 align-center" style="background-color:gray;">
+                            <span style="font-size:11px;
+                                    font-weight: bold;"> Parts No <br/>
+                                    (Mã phụ tùng)</span>
+						</td>
+						<td class="productTableColumn3 align-center" style="background-color:gray;">
+                            <span style="font-size:11px;
+                                    font-weight: bold;"> Parts Name <br/>
+                                    (Tên phụ tùng)</span>
+                           
+						</td>
+						<td class="productTableColumn4  align-center" style="background-color:gray;">
+							<span  style="font-size:11px;font-weight: bold;">
+                            Qty(S.L)
+                            </span>
+						</td>
+					</tr>
+				</thead>
+                <tbody>
+                    <apex:variable var="index" value="{!0}" />
+                    <apex:repeat value="{!objOrder.OrderItems}" var="item">
+                        <apex:variable var="index" value="{!index + 1}" />
+                            <tr>
+                                <td class="align-left" style="text-align:center;cfont-size:11px;">
+                                    {!index}
+                                </td>
+                                <td class="align-left">
+                                    {!item.Product2.ProductCode}
+                                </td>
+                                <td class="align-left" style="font-size:11px;">
+                                    {!item.Product2.Name}
+                                </td>
+                                <td class="align-left" style="font-size:11px;">
+                                    {!item.Quantity}
+                                </td>
+                            </tr>
+                    </apex:repeat>
+                </tbody>
+			</table>
+		</div>
+        <div style="margin-top:10px;width:100%;">
+            YMVN SERVICE JUDGEMENT (Phần đánh giá của nhân viên)
+            <br/>
+            <div style="width:200px;  border-bottom: 1px solid black;">Xác nhận hiện tượng hư hỏng</div><br/>
+            <hr/>
+            <br/>
+            <hr/>
+            <br/>
+            <hr/>
+            <br/>
+            <div style="width:400px;  border-bottom: 1px solid black;">Xác nhận tình trạng bảo hành: 
+                
+            </div>
+            <div style="float:right;height:auto; margin-right:150px;margin-top:-10px;">
+                <div  style="   height:10px; width:9px;border: solid;"> </div>
+                
+            </div>
+            <span style="float:right;margin-top:-10px;">Chấp nhận (Accepted): &nbsp;</span>
+        </div>
+	</body>
+</apex:page>

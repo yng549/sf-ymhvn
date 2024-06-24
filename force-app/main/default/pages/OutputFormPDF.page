@@ -1,0 +1,578 @@
+<apex:page applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" contentType="text/html; charset=UTF-8"
+  renderAs="pdf" controller="OutputFormPDFController">
+
+  <html>
+
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        /* counter-increment: page; */
+        size: A4 landscape;
+        margin-top: 145px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+        tr {
+          page-break-inside: avoid !important;
+        }
+
+        td {
+          page-break-inside: avoid !important;
+        }
+        @top-left {
+          width: 100%;
+          content: element(header);
+        }
+
+        /* @bottom-right {
+          content: element(footer);
+        } */
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      .u-align-center td {
+        text-align: center;
+      }
+
+      table {
+        -fs-table-paginate: paginate;
+        border-spacing: 0;
+      }
+
+      .row {
+        width: 100%;
+        margin: 0 auto;
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 33.33333333333%;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      b {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      i {
+        font-family: sans-serif;
+        font-style: italic;
+      }
+
+      body {
+
+        font-family: Arial Unicode MS;
+        font-size: 11px;
+        box-sizing: border-box;
+      }
+
+      div.header {
+        display: block;
+        width: 100%;
+        position: running(header);
+      }
+
+      .header-logo-box {
+        /* margin-left: 5px; */
+        margin-top: 20px;
+        /* margin-bottom: 5px; */
+        width: 100%;
+      }
+
+      .header-logo-box::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .logo {
+        float: left;
+        margin-top: 3px;
+        width: 50%;
+      }
+
+      .header__subtext-box {
+        float: left;
+        margin-top: 3px;
+        /* margin-left: 15px; */
+        text-align: left;
+        width: 50%;
+        /* margin-left: 15px; */
+      }
+
+      .box {
+        min-height: 36px;
+        width: 100%;
+      }
+
+
+      /* div.footer {
+        position: running(footer);
+      } */
+
+      .container {
+        width: 100%;
+        font-size: 80%;
+        text-align: right;
+      }
+
+      .header__small-text span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        line-height: 20px;
+      }
+
+      .header__text-box {
+        letter-spacing: 8px;
+        text-align: center;
+      }
+
+
+
+      .header__info-box p {
+        margin-bottom: 5px;
+      }
+
+      table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        font-weight: bold;
+        /* font-size: 9px; */
+        /* background-color: #c0c0c0; */
+        color: red;
+        text-align: center;
+        vertical-align: center;
+      }
+
+      td {
+        text-align: left;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 3px;
+        padding-right: 3px;
+        overflow-wrap: break-word;
+        vertical-align: top;
+        /* line-height: 10px; */
+        /* font-size: 8px; */
+      }
+
+      table,
+      th,
+      td {
+        border: 0.5px solid black;
+      }
+
+      .table-without-border,
+      .table-without-border th,
+      .table-without-border td
+        {
+        border: none;
+      }
+
+      .color-yellow {
+        width: 40%;
+        background-color: yellow;
+        color: red;
+        font-family: sans-serif;
+        text-decoration: underline;
+        text-decoration-color: red;
+      }
+
+      .longest {
+        width: 40%;
+      }
+
+      .super-short-plus-long {
+        width: 15%;
+      }
+
+      .long {
+        width: 20%;
+      }
+
+      .super-short {
+        width: 2.5%;
+      }
+
+      .short {
+        width: 5%;
+      }
+
+      .super-short-plus-short {
+        width: 7.5%;
+      }
+
+      .medium {
+        width: 10%;
+      }
+
+      .super-short-plus-medium {
+        width: 12.5%;
+      }
+
+      .section-content {
+        margin-top: 25px;
+      }
+
+      .fixed-half-width {
+        width: 50%;
+      }
+
+      .fixed-width {
+        width: 25%;
+      }
+
+      .table-info {
+        width: 95%;
+      }
+
+      .table-info1 {
+        width: 95%;
+        margin-left: 5%;
+      }
+
+      .table-info>span,
+      .table-info1>span {
+        color: red;
+      }
+
+      .signature>tr td {
+        text-align: center;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      .u-height-medium {
+        height: 35px;
+      }
+
+      .u-height-big {
+        height: 65px;
+      }
+
+      .u-p-0 {
+        padding: 0;
+      }
+
+      .u-p-r-small {
+        padding-right: 4px;
+      }
+
+      .u-p-r-medium {
+        padding-right: 15px;
+      }
+
+      .u-m-t-xsmall {
+        margin-top: 8px;
+      }
+
+      .u-m-t-small {
+        margin-top: 15px;
+      }
+
+      .u-m-t-medium {
+        margin-top: 30px;
+      }
+
+      .u-m-t-large {
+        margin-top: 60px;
+      }
+
+      .u-m-b-medium {
+        margin-bottom: 20px;
+      }
+
+      .u-m-tb-small {
+        margin: 3px 0px;
+      }
+
+      .u-align-center {
+        text-align: center;
+      }
+
+      .u-align-left {
+        text-align: left;
+      }
+
+      .u-align-right {
+        text-align: right;
+      }
+
+      .u-width-99 {
+        width: 99.5%;
+      }
+
+      .u-m-0 {
+        margin: 0;
+      }
+
+      .repeatTableHeader {
+        -fs-table-paginate: paginate;
+      }
+
+      .repeatTableHeader,
+      .repeatTableHeader>tr>td,
+      .repeatTableHeader>tr>th {
+        border: none;
+        border-spacing: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-logo-box">
+        <div class="header__subtext-box ">
+          <p class="header__small-text">
+            <span style="text-decoration: underline;">
+              <i>PARTS, CLOTHINGS &amp; ACCESSORIES</i>
+            </span>
+            <span style="font-size: 25px;">PHIẾU XUẤT KHO
+            </span>
+          </p>
+        </div>
+        <div class="logo">
+          <apex:image id="logo" value="{!$Resource[logo]}" width="265" height="45" />
+        </div>
+      </div>
+    </div>
+    <!-- End Header -->
+    <!-- Footer -->
+    <!-- <div class="footer">
+      <div class="container">
+        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+          <apex:param value="{!today}" />
+        </apex:outputText> 
+ 
+      </div>
+    </div> -->
+    <!-- End footer -->
+    <div class="section-info">
+      <div class="row">
+        <div class="col-1-of-2">
+          <p>
+            Mã số/
+            <i>No.</i>&emsp;&emsp;&emsp; {!objHeader.Header_Number__c}
+            <br/>Phiếu/
+            <i>Name</i>&emsp;&emsp;&emsp; {!objHeader.Name}
+            <br/>Ngày/
+            <i>Stock Date</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+              <apex:param value="{!objHeader.StockDate__c}" />
+              </apex:outputText>
+              <br/>Mã đơn hàng/
+              <i>Order No.</i>&emsp;&emsp;&emsp; {!objHeader.Order_No__c}
+          </p>
+        </div>
+        <div class="col-1-of-2">
+          <p>
+            <i>Document Number</i>&emsp;&emsp;&emsp; {!objHeader.Document_Number__c}
+            <br/>
+            <i>From</i>&emsp;&emsp;&emsp; {!objHeader.From_Warehouse_Location__r.Name}
+            <br/>
+            <i>To</i>&emsp;&emsp;&emsp; {!objHeader.To_Warehouse_Location__r.Name}
+            <br/>
+            <i>Comment</i>&emsp;&emsp;&emsp; {!objHeader.Comment_Message__c}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="section-content">
+      <div class="content-table u-m-b-medium">
+        <p>KHÁCH HÀNG/CUSTOMER</p>
+        <table class="table-without-border">
+          <colgroup>
+            <col class="super-short-plus-long" />
+          </colgroup>
+          <tr>
+            <td>Khách hàng/
+              <i>Customer</i>
+            </td>
+            <td>{!objHeader.Order_Reserved__r.Account.Name}</td>
+          </tr>
+          <tr>
+            <td>Sđt/
+              <i>Tel</i>
+            </td>
+            <td>{!objHeader.Order_Reserved__r.Account.PersonMobilePhone}</td>
+          </tr>
+          <tr>
+            <td>Địa chỉ/
+              <i>Address</i>
+            </td>
+            <td>{!objHeader.Order_Reserved__r.Account.Address_Full__c}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="content-table u-m-b-medium">
+        <p>CHI TIẾT HÀNG/PRODUCTS</p>
+        <table>
+          <colgroup>
+            <col style="width:2%;" />
+            <col style="width:8%;" />
+            <col style="width:20%;" />
+            <col style="width:20%;" />
+            <col style="width:5%;" />
+            <col style="width:8.5%;" />
+            <col style="width:4%;" />
+            <col style="width:9%;" />
+            <col style="width:4.5%;" />
+            <col style="width:7%;" />
+            <col style="width:17%;" />
+          </colgroup>
+          <tr class="u-align-center">
+            <td></td>
+            <td>Mã hàng
+              <br/>
+              <i>Product No.</i>
+            </td>
+            <td>Tên sản phẩm
+              <br/>
+              <i>Description</i>
+            </td>
+            <td>Product name
+              <br/>
+              <i>Description</i>
+            </td>
+            <td>ĐVT
+              <br/>
+              <i>Unit</i>
+            </td>
+            <td>Đơn giá
+              <br/>
+              <i>Unit Price</i>
+            </td>
+            <td>
+              <i>VAT</i>
+            </td>
+            <td>Đơn giá sau VAT
+              <br/>
+              <i>Included VAT</i>
+            </td>
+            <td>SL
+              <br/>
+              <i>Qty</i>
+            </td>
+            <td>Thành tiền
+              <br/>
+              <i>Amount</i>
+            </td>
+            <td>Note
+            </td>
+          </tr>
+          <apex:variable var="count" value="{!1}" />
+          <apex:variable var="sumQuantity" value="{!0}" />
+          <apex:variable var="sumAmount" value="{!0}" />
+          <apex:repeat value="{!lstItems}" var="item">
+            <!-- <apex:variable value="{!mapPriceBookEntry[item.Product__c]}" var="PriceBookEntry" /> -->
+            <apex:variable var="priceCost" value="{!IF(item.Unit_Price__c!=null,item.Unit_Price__c,0)}" />
+            <apex:variable var="VAT" value="{!IF(item.VAT__c!=null,item.VAT__c,0)}" />
+            <apex:variable var="priceCostAfterVat" value="{!priceCost*(1+(VAT/100))}" />
+            <tr>
+              <td>{!count}</td>
+              <td>{!item.Product__r.ProductCode}</td>
+              <td>{!item.Product__r.Name}</td>
+              <td>{!item.Product__r.PartsNameEng__c}</td>
+              <td>{!item.Product__r.Product_Unit__c}</td>
+
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!priceCost}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-right"><apex:outputText value="{0, number, 0'%'}">
+                <apex:param value="{!VAT}" />
+              </apex:outputText></td>
+
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!priceCostAfterVat}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-right">{!item.Quantity__c}</td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!priceCostAfterVat*item.Quantity__c}" />
+                </apex:outputText>
+              </td>
+              <td>
+                <apex:outputField value="{!item.Note__c}"/>
+              </td>
+            </tr>
+
+            <apex:variable var="sumQuantity" value="{!sumQuantity+IF(item.Quantity__c!=null,item.Quantity__c,0)}" />
+            <apex:variable var="sumAmount" value="{!sumAmount+IF(priceCostAfterVat*item.Quantity__c!=null,priceCostAfterVat*item.Quantity__c,0)}"
+            />
+            <apex:variable var="count" value="{!count+1}" />
+          </apex:repeat>
+          <tr>
+            <td class="u-align-center" colspan="8">
+              TỔNG CỘNG/TOTAL
+            </td>
+            <td class="u-align-right">
+              {!sumQuantity}
+            </td>
+            <td class="u-align-right">
+              <apex:outputText value="{0, number, ###,###,###}">
+                <apex:param value="{!sumAmount}" />
+              </apex:outputText>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row u-m-t-large">
+        <div class="col-1-of-3 u-align-center">
+          NGƯỜI LẬP PHIẾU
+          <br/>
+          <i>Prepared By</i>
+        </div>
+        <div class="col-1-of-3 u-align-center">
+          NGƯỜI NHẬN
+          <br/>
+          <i>The Receiver</i>
+        </div>
+        <div class="col-1-of-3 u-align-center">
+          TRƯỞNG BỘ PHẬN
+          <br/>
+          <i>Manager</i>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  </html>
+</apex:page>

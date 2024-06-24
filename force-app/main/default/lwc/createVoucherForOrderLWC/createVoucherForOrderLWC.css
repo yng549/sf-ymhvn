@@ -1,0 +1,17 @@
+div {
+    display: block;
+}
+
+.slds-modal__footer{
+    flex-shrink: 0;
+}
+
+.modal-container {
+    width: 90%;
+    max-width: 100%; 
+    min-width: 100%; 
+}
+
+.slds-modal__container{
+    padding: 0;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Opportunities_HN</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Product__c</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.LEAD_SOURCE</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>SYNCEDQUOTE.NAME</columns>
+    <columns>Close_Lost_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DODL_Create__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.Bike</value>
+    </filters>
+    <label>All Opportunities Bike HN</label>
+    <sharedTo>
+        <group>Admin_Revzone_HN</group>
+        <group>Group_User_DO_HN</group>
+    </sharedTo>
+</ListView>

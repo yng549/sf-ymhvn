@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Job_External_Key__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND (!ISBLANK(ProductLineCode__c), !ISBLANK(ProductCode) ,  RecordType.DeveloperName == &apos;Service_Jobs&apos; ) , 
+ProductLineCode__c + &apos;_&apos; + ProductCode, &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Service Job External Key</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

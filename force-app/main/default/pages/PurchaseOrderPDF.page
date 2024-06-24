@@ -1,0 +1,939 @@
+<apex:page applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" contentType="text/html; charset=UTF-8"
+renderAs="pdf" controller="PurchaseOrderPDFController">
+
+  <html>
+
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        /* counter-increment: page; */
+        size: A4 landscape;
+        margin-top: 145px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+        tr {
+          page-break-inside: avoid !important;
+        }
+
+        td {
+          page-break-inside: avoid !important;
+        }
+        @top-left {
+          width: 100%;
+          content: element(header);
+        }
+
+        /* @bottom-right {
+          content: element(footer);
+        } */
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      .u-align-center td {
+        text-align: center;
+      }
+
+      table {
+        -fs-table-paginate: paginate;
+        border-spacing: 0;
+      }
+
+      .row {
+        width: 100%;
+        margin: 0 auto;
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 33.33333333333%;
+      }
+
+      .col-2-of-3 {
+        float: left;
+        width: 66.66666666666%;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      b {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      i {
+        font-family: sans-serif;
+        font-style: italic;
+      }
+
+      body {
+
+        font-family: Arial Unicode MS;
+        font-size: 11px;
+        box-sizing: border-box;
+      }
+
+      div.header {
+        display: block;
+        width: 100%;
+        position: running(header);
+      }
+
+      .header-logo-box {
+        /* margin-left: 5px; */
+        margin-top: 20px;
+        /* margin-bottom: 5px; */
+        width: 100%;
+      }
+
+      .header-logo-box::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .logo {
+        float: left;
+        margin-top: 3px;
+        width: 50%;
+      }
+
+      .header__subtext-box {
+        float: left;
+        margin-top: 3px;
+        /* margin-left: 15px; */
+        text-align: left;
+        width: 50%;
+        /* margin-left: 15px; */
+      }
+
+      .box {
+        min-height: 36px;
+        width: 100%;
+      }
+
+
+      /* div.footer {
+        position: running(footer);
+      } */
+
+      .container {
+        width: 100%;
+        font-size: 80%;
+        text-align: right;
+      }
+
+      .header__small-text span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        line-height: 20px;
+      }
+
+      .header__text-box {
+        letter-spacing: 8px;
+        text-align: center;
+      }
+
+
+
+      .header__info-box p {
+        margin-bottom: 5px;
+      }
+
+      table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 3px;
+        padding-right: 3px;
+        overflow-wrap: break-word;
+        vertical-align: top;
+      }
+
+      td {
+        text-align: left;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 3px;
+        padding-right: 3px;
+        overflow-wrap: break-word;
+        vertical-align: top;
+        /* line-height: 10px; */
+        /* font-size: 8px; */
+      }
+
+      table,
+      th,
+      td {
+        border: 0.5px solid black;
+      }
+
+      .color-yellow {
+        width: 40%;
+        background-color: yellow;
+        color: red;
+        font-family: sans-serif;
+        text-decoration: underline;
+        text-decoration-color: red;
+      }
+
+      .longest {
+        width: 40%;
+      }
+
+      .super-short-plus-long {
+        width: 22.5%;
+      }
+
+      .long {
+        width: 20%;
+      }
+
+      .super-short {
+        width: 2.5%;
+      }
+
+      .short {
+        width: 5%;
+      }
+
+      .super-short-plus-short {
+        width: 7.5%;
+      }
+
+      .medium {
+        width: 10%;
+      }
+
+      .super-short-plus-medium {
+        width: 12.5%;
+      }
+
+      .section-content {
+        margin-top: 25px;
+      }
+
+      .fixed-half-width {
+        width: 50%;
+      }
+
+      .fixed-width {
+        width: 25%;
+      }
+
+      .table-info {
+        width: 95%;
+      }
+
+      .table-info1 {
+        width: 95%;
+        margin-left: 5%;
+      }
+
+      .table-info>span,
+      .table-info1>span {
+        color: red;
+      }
+
+      .signature>tr td {
+        text-align: center;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      .u-height-medium {
+        height: 35px;
+      }
+
+      .u-height-big {
+        height: 65px;
+      }
+
+      .u-p-0 {
+        padding: 0;
+      }
+
+      .u-p-r-small {
+        padding-right: 4px;
+      }
+
+      .u-p-r-medium {
+        padding-right: 15px;
+      }
+
+      .u-m-t-xsmall {
+        margin-top: 8px;
+      }
+
+      .u-m-t-small {
+        margin-top: 15px;
+      }
+
+      .u-m-t-medium {
+        margin-top: 30px;
+      }
+
+      .u-m-t-large {
+        margin-top: 60px;
+      }
+
+      .u-m-b-medium {
+        margin-bottom: 20px;
+      }
+
+      .u-m-tb-small {
+        margin: 3px 0px;
+      }
+
+      .u-align-center {
+        text-align: center;
+      }
+
+      .u-align-left {
+        text-align: left;
+      }
+
+      .u-align-right {
+        text-align: right;
+      }
+
+      .u-width-99 {
+        width: 99.5%;
+      }
+
+      .u-m-0 {
+        margin: 0;
+      }
+
+      .repeatTableHeader {
+        -fs-table-paginate: paginate;
+      }
+
+      .repeatTableHeader,
+      .repeatTableHeader>tr>td,
+      .repeatTableHeader>tr>th {
+        border: none;
+        border-spacing: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-logo-box">
+        <div class="header__subtext-box ">
+          <p class="header__small-text">
+            <span style="text-decoration: underline;">
+              <i>PARTS, CLOTHINGS &amp; ACCESSORIES</i>
+            </span>
+            <span style="font-size: 25px;">PURCHASE ORDER
+            </span>
+          </p>
+        </div>
+          <div class="header__subtext-box ">
+              <div class="logo">
+          <apex:image id="logo" value="{!$Resource[logo]}" width="265" height="45" />
+        </div>
+          <div class="header__subtext-box u-align-center">
+          <p class="header__small-text">
+            <!-- <span>{!objOrder.Account.DO_DL_Create_Account__r.Address_logo__c}</span>-->
+          </p>
+        </div>
+      </div>
+    </div>
+        
+    </div>
+    <!-- End Header -->
+    <!-- Footer -->
+    <!-- <div class="footer">
+      <div class="container">
+        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+          <apex:param value="{!today}" />
+        </apex:outputText> 
+ 
+      </div>
+    </div> -->
+    <!-- End footer -->
+    <div class="section-info">
+      <div class="row" style="display: inline-block;">
+        <div style="display: inline-block;">
+          <!-- <p>
+            Mã số/
+            <i>No.</i>&emsp;&emsp;&emsp; {!objOrder.Order_Number__c}
+            <br/>Ngày/
+            <i>Date</i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:outputText value="{0,date,dd'/'MM'/'yyyy }">
+              <apex:param value="{!objOrder.EffectiveDate}" />
+            </apex:outputText>
+            <br/>Hợp đồng số/
+            <i>Contract No.</i>&emsp;&emsp;&emsp; {!objOrder.Contract_No__c}
+
+          </p> -->
+          <table style="border: 0px;width: 100%;">
+            <tr style="border: 0px;">
+              <td style="border: 0px;">Mã số/<i>No.</i></td>
+              <td style="border: 0px;text-align: left;">{!objOrder.Order_Number__c}</td>
+              
+            </tr>
+            <tr style="border: 0px;">
+              <td style="border: 0px;">Ngày/<i>Date</i></td>
+              <td style="border: 0px;text-align: left;">
+                <apex:outputText value="{0,date,dd'/'MM'/'yyyy }">
+                  <apex:param value="{!objOrder.EffectiveDate}" />
+                </apex:outputText>
+              </td>
+            </tr>
+            <tr style="border: 0px;">
+              <td style="border: 0px;">Hợp đồng số/<i>Contract No.</i></td>
+              <td style="border: 0px;text-align: left;">{!objOrder.Contract_No__c}</td>
+            </tr>
+          </table>
+        </div>
+        <div style="border: 0px;display: inline-block;padding-left: 10%;">
+          <table style="border: 0px;width: 100%;">
+            <tr style="border: 0px;">
+              <td style="border: 0px;">Ngày giao hàng dự kiến:</td>
+              <td colspan="2" style="border: 0px;text-align: left;">
+                {!objOrder.Delivery_Date_Text__c}
+                <!-- <apex:outputText value="{0, date, MMMM d','  yyyy}">
+                  <apex:param value="{!objOrder.Delivery_Date_Text__c}"/>
+                </apex:outputText> -->
+                <!-- <apex:outputText value="{0,date,dd/MM/yyyy }">
+                  <apex:param value="{!objOrder.Delivery_Date__c}" />
+                </apex:outputText> -->
+              </td>
+            </tr>
+            <tr style="border: none;">
+              <td style="border: 0px;">Địa điểm/<i>Place:</i></td>
+              <td colspan="2" style="border: 0px;text-align: left;">
+                  {!objOrder.Delivery_Place__c}
+              </td>
+            </tr>
+            <tr style="border: 0px;">
+              <td style="border: 0px;">Số PO/<i>PO No.</i></td>
+              <td colspan="2" style="border: 0px;text-align: left;">{!objOrder.PO_No__c}</td>
+            </tr>
+          </table>
+
+        </div> 
+      </div>
+    </div>
+    <div class="section-content">
+      <div class="content-table u-m-b-medium">
+        <div class="row">
+          <div class="col-1-of-2">
+            <p>BÊN MUA/
+              <i>BUYER</i>
+            </p>
+            <table style="width:98%">
+              <colgroup>
+                <col style="width:21%;" />
+                <col style="width:18%;" />
+                <col style="width:26%;" />
+                <col style="width:34%;" />
+              </colgroup>
+              <tr>
+                <td>Bên mua/
+                  <i>The Buyer</i>
+                </td>
+                <td colspan="3">CÔNG TY TNHH YAMAHA MOTOR VIỆT NAM
+                  <!-- {!objOrder.Account.Name} -->
+
+                </td>
+              </tr>
+              <tr>
+                <td>MST/
+                  <i>Tax Number</i>
+                </td>
+                <td>{!objOrder.Account.Tax_Code__c}</td>
+                <td>Số tài khoản/
+                  <i>Acc. Num</i>
+                </td>
+                <td>{!objOrder.Account.Bank_Number2__c}</td>
+              </tr>
+              <tr>
+                <td>Sđt/
+                  <i>Tel</i>
+                </td>
+                <td>{!objOrder.Account.Phone}</td>
+                <td>Ngân hàng/
+                  <i>Bank</i>
+                </td>
+                <td>{!objOrder.Account.Bank_Name__c}</td>
+              </tr>
+              <tr>
+                <td>
+                  <i>Fax</i>
+                </td>
+                <td>{!objOrder.Account.Fax}</td>
+                <td>Đại diện/
+                  <i>Represented by:</i>
+                </td>
+                <td>Mr. Suzuki Yasutaka</td>
+             
+              </tr>
+              <tr>
+                <td>
+                  <i>Email</i>
+                </td>
+                <td>{!objOrder.Account.PersonEmail}</td>
+                <td>Chức vụ/
+                  <i>Title</i>
+                </td>
+                <td>Tổng Giám Đốc</td>
+              </tr>
+              <tr>
+                <td>Địa chỉ/
+                  <i>Address</i>
+                </td>
+                <td colspan="3">Thôn Bình An, Xã Trung Giã, Huyện Sóc Sơn, Thành phố Hà Nội, Việt Nam</td>
+              </tr>
+              <!-- <tr>
+                <td>Bộ phận/
+                  <i>Department</i>
+                </td>
+                <td colspan="3">Big Bike DO Department</td>
+              </tr> -->
+            </table>
+          </div>
+
+          <div class="col-1-of-2">
+            <p>BÊN BÁN/
+              <i>SELLER</i>
+            </p>
+            <table>
+              <colgroup>
+                <col style="width:21%;" />
+                <col style="width:18%;" />
+                <col style="width:26%;" />
+                <col style="width:34%;" />
+              </colgroup>
+              <tr>
+                <td>NCC/
+                  <i>Supplier</i>
+                </td>
+                <td colspan="3">{!objOrder.Supplier__r.Name}</td>
+              </tr>
+              <tr>
+                <td>MST/
+                  <i>Tax Number</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Tax_Code__c}</td>
+                <td>Số tài khoản/
+                  <i>Acc. Num</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Bank_Number2__c}</td>
+              </tr>
+              <tr>
+                <td>Sđt/
+                  <i>Tel</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Phone}</td>
+                <td>Ngân hàng/
+                  <i>Bank</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Bank_Name__c}</td>
+              </tr>
+              <tr>
+                <td>
+                  <i>Fax</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Fax}</td>
+                <td>Đại diện/
+                  <i>Represented by:</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Represented_By__c}</td>
+              </tr>
+              <tr>
+                <td>
+                  <i>Email</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Email__c}</td>
+                <td>Chức vụ/
+                  <i>Title</i>
+                </td>
+                <td>{!objOrder.Supplier__r.Represented_Title__c}</td>
+              </tr>
+              <tr>
+                <td valign="top">Địa chỉ/
+                  <i>Address</i>
+                </td>
+                <td colspan="3">{!objOrder.Supplier__r.Address_Full__c}</td>           
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="content-table u-m-b-medium">
+        <p>ĐƠN HÀNG/
+          <i>QUOTATION</i>
+        </p>
+        <table>
+          <colgroup>
+            <col style="width:2.5%;" />
+            <col style="width:8%;" />
+            <col style="width:8%;" />
+            <col style="width:14%;" />
+            <col style="width:14%;" />
+            <col style="width:4%;" />
+            <col style="width:7%;" />
+            <col style="width:4%;" />
+            <col style="width:9%;" />
+            <col style="width:4%;" />
+            <col style="width:8%;" />
+            <col style="width:13%;" />
+          </colgroup>
+          <tr class="u-align-center">
+            <td></td>
+            <td>Mã NCC
+              <br/>
+              <i>Supplier No.</i>
+            </td>
+            <td>Mã YMVN
+              <br/>
+              <i>YMVN No.</i>
+            </td>
+            <td>Tên sản phẩm
+              <br/>
+              <i>Description</i>
+            </td>
+            <td>Product Name
+              <br/>
+              <i>Description</i>
+            </td>
+            <td>ĐVT
+              <br/>
+              <i>Unit</i>
+            </td>
+            <td>Đơn giá
+              <br/>
+              <i>Unit Price</i>
+            </td>
+            <td>
+              <i>VAT %</i>
+            </td>
+            <td>Đơn giá sau VAT
+              <br/>
+              <i>Included VAT</i>
+            </td>
+            <td>SL
+              <br/>
+              <i>Qty</i>
+            </td>
+            <td>Thành tiền
+              <br/>
+              <i>Amount</i>
+            </td>
+            <td>Note
+            </td>
+          </tr>
+          <apex:variable var="count" value="{!1}" />
+          <apex:variable var="countProduct" value="{!0}" />
+          <apex:variable var="sumTotal" value="{!0}" />
+          <apex:variable var="sumQuantity" value="{!0}" />
+          <apex:repeat value="{!lstOrderProduct}" var="orderProduct">
+            <tr>
+              <td>{!count}</td>
+              <td>{!orderProduct.Product2.Item_No__c}</td>
+              <td>{!orderProduct.Product2.ProductCode}</td>
+              <td>{!orderProduct.Product2.Name}</td>
+              <td>{!orderProduct.Product2.PartsNameEng__c}</td>
+              <td>{!orderProduct.Product2.Product_Unit__c}</td>
+              <td class="u-align-right">
+
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!orderProduct.UnitPrice}" />
+                </apex:outputText>
+              </td>
+              <!-- <td class="u-align-center">{!orderProduct.Product2.VAT__c}%</td> -->
+              
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, 0}">
+                  <!-- <apex:param value="{!orderProduct.VAT__c}" /> -->
+                  <apex:param value="{!orderProduct.VAT_PO__c}" />
+                </apex:outputText>
+                %</td>
+              <!-- <td class="u-align-right">
+                <apex:variable var="priceAfterVat" value="{!orderProduct.UnitPrice*(1+(orderProduct.Product2.VAT__c/100))}" />
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!ROUND(priceAfterVat, -2)}" />
+                </apex:outputText>
+              </td> -->
+
+              <!-- {!IF(orderProduct.Price_After_VAT__c!=Null and orderProduct.Price_After_VAT__c>0,orderProduct.UnitPrice*(1+(orderProduct.Price_After_VAT__c/100)),objOrder.Discount_Amount__c)} -->
+              <!-- {!IF(orderProduct.Price_After_VAT__c!=Null,IF(orderProduct.Price_After_VAT__c >0 ,orderProduct.UnitPrice*(1+(orderProduct.Price_After_VAT__c/100)), 0),0)} -->
+              <td class="u-align-right">
+                <apex:variable var="priceAfterVat" value="{!IF(AND(orderProduct.Price_After_VAT__c!=null,orderProduct.Price_After_VAT__c > 0),orderProduct.UnitPrice*(1+(orderProduct.Price_After_VAT__c/100)),0)}" />
+                
+                <apex:outputText value="{0, number, ###,###,##0}">
+                  <apex:param value="{!orderProduct.Price_After_VAT__c}" />
+                  <!-- <apex:param value="{!orderProduct.UnitPrice*(1 + orderProduct.VAT_PO__c)}" /> -->
+                </apex:outputText>
+              </td>
+              
+              <!-- <td class="u-align-right">
+                <apex:outputText value="{0, number,0}">
+                  <apex:param value="{!orderProduct.Quantity}" />
+                </apex:outputText>
+              </td> -->
+
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, 0}">
+                  <apex:param value="{!orderProduct.Quantity}" />
+                </apex:outputText>
+              </td>
+
+
+              <!-- <td class="u-align-right">
+          
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!ROUND(priceAfterVat, -2)*orderProduct.Quantity}" />
+                </apex:outputText>
+              </td> -->
+
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ##,###,##0}">
+                  <apex:param value="{!orderProduct.Amount__c}" />
+                </apex:outputText>
+                </td>
+              
+
+              <td>
+                <apex:outputField value="{!orderProduct.Note__c}"/>
+              </td>
+            </tr>
+            
+            <apex:variable var="count" value="{!count+1}" />
+            <apex:variable var="sumTotal" value="{!sumTotal + (ROUND(priceAfterVat,-2)*orderProduct.Quantity)}"
+            />
+            <apex:variable var="countProduct" value="{!countProduct + orderProduct.Quantity}"/>
+            <apex:variable var="sumQuantity" value="{!sumQuantity + orderProduct.Amount__c}" />
+          </apex:repeat>
+          <tr>
+            <td>{!count}</td>
+
+            <td class="u-align-center" colspan="8">
+              TỔNG CỘNG/TOTAL
+            </td>
+
+            <td class="u-align-right">
+              <apex:outputText value="{0, number, 0}">
+                  <apex:param value="{!countProduct}" />
+              </apex:outputText>
+            </td>
+
+            <td class="u-align-right">
+              <apex:outputText value="{0, number, ###,###,###}">
+                <apex:param value="{!sumQuantity}" />
+              </apex:outputText>
+            </td>
+
+            <td></td>
+            
+          </tr>
+          <tr>
+            <td>{!count+1}</td>
+            <td class="u-align-center" colspan="8">CHIẾT KHẤU/DISCOUNT: </td>
+            <td></td>
+            <td class="u-align-right">
+              <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!IF(objOrder.Discount_Amount__c==null,0,objOrder.Discount_Amount__c)}" />
+              </apex:outputText>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>{!count+2}</td>
+            <td class="u-align-center" colspan="8">THÀNH TIỀN/AMOUNT:</td>
+            <td class="u-align-right">
+                <apex:outputText value="{0, number, 0}">
+                  <apex:param value="{!countProduct}" />
+                </apex:outputText>
+            </td>
+            <td class="u-align-right">
+              <apex:variable var="amount" value="{!IF(objOrder.Discount_Amount__c==null,sumQuantity,sumQuantity - objOrder.Discount_Amount__c)}" />
+              <apex:outputText value="{0, number, ###,###,###}">
+                <apex:param value="{!amount}" />
+              </apex:outputText>
+            </td>
+            <td></td>
+          </tr>
+          
+        </table>
+      </div>
+      <div class="u-m-b-medium">
+        <!-- 1 Lần  -->
+        <apex:pageBlock rendered="{!IF(objOrder.Pays__c == 'Thanh toán 1 lần',true,false)}">
+          <table>
+            <colgroup>
+              <col style="width:64%;" />
+              <col style="width:5%;" />
+              <col style="width:13.5%;" />
+              <col style="width:17.5%;" />
+            </colgroup>
+            <tr>
+              <td class="u-align-center">Điều khoản thanh toán / Payment term</td>
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, ###'%'}">
+                  <apex:param value="{!objOrder.Payment_1_Percent__c}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-center">Tổng cộng/Total</td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!amount}" />
+                </apex:outputText>
+              </td>
+            </tr>
+          </table>
+        </apex:pageBlock>
+        <!-- 2 Lần  -->
+        <apex:pageBlock rendered="{!IF(objOrder.Pays__c == 'Thanh toán 2 lần',true,false)}">
+          <table>
+            <colgroup>
+              <col style="width:64%;" />
+              <col style="width:5%;" />
+              <col style="width:13.5%;" />
+              <col style="width:17.5%;" />
+            </colgroup>
+            <tr>
+              <td class="u-align-center">Trả trước/Deposit</td>
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, ###'%'}">
+                  <apex:param value="{!objOrder.Payment_1_Percent__c}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-center">Đợt 1</td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!amount*(objOrder.Payment_1_Percent__c/100)}" />
+                </apex:outputText>
+              </td>
+            </tr>
+            <tr>
+              <td class="u-align-center">Thanh toán toàn bộ/Full payment</td>
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, 0'%'}">
+                  <apex:param value="{!objOrder.Payment_2_Percent__c}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-center">Đợt 2
+              </td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!amount*(objOrder.Payment_2_Percent__c/100)}" />
+                </apex:outputText>
+              </td>
+            </tr>
+          </table>
+        </apex:pageBlock>
+        <!-- 3 Lần  -->
+        <apex:pageBlock rendered="{!IF(objOrder.Pays__c == 'Thanh toán 3 lần',true,false)}">
+          <table>
+            <colgroup>
+              <col style="width:64%;" />
+              <col style="width:5%;" />
+              <col style="width:13.5%;" />
+              <col style="width:17.5%;" />
+            </colgroup>
+            <tr>
+              <td class="u-align-center">Trả trước/Deposit</td>
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, 0'%'}">
+                  <apex:param value="{!objOrder.Payment_1_Percent__c}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-center">Đợt 1</td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!amount*(objOrder.Payment_1_Percent__c/100)}" />
+                </apex:outputText>
+              </td>
+            </tr>
+            <tr>
+              <td class="u-align-center">Thanh toán sau/The rest of</td>
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, 0'%'}">
+                  <apex:param value="{!objOrder.Payment_2_Percent__c}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-center">Đợt 2</td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!amount*(objOrder.Payment_2_Percent__c/100)}" />
+                </apex:outputText>
+              </td>
+            </tr>
+            <tr>
+              <td class="u-align-center">Thanh toán toàn bộ/Full payment</td>
+              <td class="u-align-center">
+                <apex:outputText value="{0, number, 0'%'}">
+                  <apex:param value="{!objOrder.Payment_3_Percent__c}" />
+                </apex:outputText>
+              </td>
+              <td class="u-align-center">Đợt 3</td>
+              <td class="u-align-right">
+                <apex:outputText value="{0, number, ###,###,###}">
+                  <apex:param value="{!amount*(objOrder.Payment_3_Percent__c/100)}" />
+                </apex:outputText>
+              </td>
+            </tr>
+          </table>
+        </apex:pageBlock>
+      </div>
+      <div class="row u-m-t-large">
+        <div class="col-1-of-3 u-align-center">
+          NGƯỜI LẬP PHIẾU
+          <br/>
+          <i>Prepared By</i>
+        </div>
+        <div class="col-1-of-3 u-align-center">
+          ĐẠI DIỆN BÊN BÁN
+          <br/>
+          <i>The Seller</i>
+        </div>
+        <div class="col-1-of-3 u-align-center">
+          ĐẠI DIỆN BÊN MUA
+          <br/>
+          <i>The Buyer</i>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  </html>
+</apex:page>

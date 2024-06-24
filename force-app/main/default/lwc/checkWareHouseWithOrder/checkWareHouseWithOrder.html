@@ -1,0 +1,210 @@
+<template>
+    <div class="slds-form">
+		<div class="div-title">Check Order Profomar</div>
+		<hr class="line-color" />
+			<lightning-record-edit-form  record-type-id={strRecordTypeId} object-api-name="Order">
+				<div class="slds-grid slds-wrap slds-p-top_large">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <div class="slds-col slds-size_1-of-6 conditionHead1">
+                                <lightning-input type="Date" data-id="StartDate" onchange={handleChange} label="From" variant="label-inline" value={ObjSearchDTO.startDate} format="MM/dd/yyyy"></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-input type="Date" label="To" onchange={handleChange} data-id="EndDate" variant="label-inline" value={ObjSearchDTO.endDate} format="MM/dd/yyyy"></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <div class="slds-col slds-size_4-of-6 ">
+                                <lightning-input-field style="width: 260px;" onchange={handleChange} data-id="Status" value="Place Order" variant="label-inline" field-name="Status" ></lightning-input-field>
+                            </div>
+                        </div>
+                        <div class="slds-col" >
+                            <div class="slds-col slds-size_5-of-6 ">
+                                <lightning-combobox data-id="DODL" onchange={handleChange} style="width: 260px;"
+                                variant="label-inline" label="Salers" value={currentAccount} options={listValues}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+					</div>
+				</div>
+                <div id="conditionSearchFooter2" class="slds-grid slds-wrap" style="float:right;">
+					<lightning-button label="Searching" title="Searching"  onclick={SearchingByCondition}></lightning-button>
+                    <template if:true={isButtonSearch}>
+                        <lightning-button style="margin-left:10px;" onclick={checkProductWithWarehouse}  label="Check Inventory" title="Check Inventor" ></lightning-button>
+                    </template>
+					<template if:false={isButtonSearch}>
+                        <lightning-button style="margin-left:10px;" disabled="true" label="Check Inventor" title="Check Inventor" ></lightning-button>
+                    </template>
+				</div>
+			</lightning-record-edit-form>
+		<br/>
+        <template if:false={isData}>
+            <div class="div-title">Order Profomar: {allTotal}</div>
+        </template>
+        <template if:true={isData}>
+            <div class="div-title">Order Profomar: {allTotal}</div>
+        </template>
+		
+		<hr class="line-color" />
+		<div class="slds-table--header-fixed_container div-tblProperty">
+            <div if:true={isShowSpinner} class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading..." variant="brand">
+                </lightning-spinner>
+            </div>
+			<div class="slds-scrollable_y">
+				<table class="slds-table slds-table_bordered slds-table_fixed-layout slds-table--header-fixed" id="tblPropertyDisplay" role="grid">
+					<colgroup>
+                        <col class="col0"/>
+						<col class="col1"/>
+						<col class="col2"/>
+						<col class="col3"/>
+						<col class="col4"/>
+                        <col class="col5"/>
+					</colgroup>
+					<thead>
+						<tr>
+                            <th style="width:12%;">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate slds-cell-fixed">
+									<span class="slds-truncate headerPadding"></span>
+								</div>
+							</th>
+                            <th style="width:10%;">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate slds-cell-fixed">
+									<span class="slds-truncate headerPadding">
+                                        <lightning-input type="checkbox"  onchange={checkAll}
+                                                         data-id="checkAll" >
+                                            </lightning-input>
+                                    </span>
+								</div>
+							</th>
+							<th scope="col">
+								<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate slds-cell-fixed">
+									<span class="slds-truncate headerPadding">Order Number</span>
+								</div>
+							</th>
+							<th scope="col">
+								<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate slds-cell-fixed">
+									<span class="slds-truncate headerPadding">Status</span>
+								</div>
+							</th>
+							<th scope="col">
+								<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate slds-cell-fixed">
+									<span class="slds-truncate headerPadding">Account Name</span>
+								</div>
+							</th>
+							<th scope="col">
+								<div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate slds-cell-fixed">
+									<span class="slds-truncate headerPadding">Order StartDate</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+                        <template if:true={isData}>
+                            <template for:each={lstObjOrder} for:item="objOrder" for:index="index">
+                                <tr key={objOrder.Id}>
+                                    <td class="checkbox" role="gridcell">
+                                        <lightning-button
+                                        variant="+" label="+" data-record-id={index}
+                                        onclick={hideAndShow} class="slds-m-left_x-small">
+                                    </lightning-button>
+                                    </td>
+                                    <td class="checkbox" role="gridcell" style="padding-right:150px;">
+                                        <lightning-input data-name="checkboxChild" data-id={objOrder.Id} type=checkbox checked={objOrder.isChecked} onchange={checkBox} value={objOrder.Id}></lightning-input>
+                                    </td>
+                                    <td class="slds-truncate" role="gridcell">
+                                        <a title={objOrder.URLOrder}  href={objOrder.URLOrder} target="_blank">{objOrder.OrderNumber}</a>
+                                    </td>
+                                    <td class="slds-truncate" role="gridcell">
+                                        <lightning-input read-only=true value={objOrder.Status}></lightning-input>
+                                    </td>
+                                    <td class="slds-truncate" role="gridcell">
+                                        <lightning-input read-only=true value={objOrder.AccountName}></lightning-input>
+                                    </td>
+                                    <td class="slds-truncate" role="gridcell">
+                                        <lightning-input read-only=true value={objOrder.efectiveDate}></lightning-input>
+                                    </td>
+                                    <td class="slds-truncate" role="gridcell">
+                                        <template if:true={objOrder.InStock}>
+                                            <lightning-icon icon-name="utility:success" alternative-text="Success!" variant="success"
+                                            title="success variant small" size="small"></lightning-icon>
+                                        </template>
+                                        <template if:false={objOrder.InStock}>
+                                            <lightning-icon icon-name="utility:error" alternative-text="Error!" variant="error"
+                                                title="error variant small" size="small"></lightning-icon>
+                                        </template>
+                                    </td>
+                                </tr>
+
+
+
+                                <template if:true={objOrder.hideButton}>
+                                    <tr key={objOrder.Id} style="cursor: pointer;">
+                                        <td></td>
+                                        <td></td>
+                                        <td scope="col"
+                                            style="font-weight: bold; background-color:#04AA6D;">
+                                            OrderItemNumber
+                                        </td>
+                                        <td scope="col"
+                                            style="font-weight: bold; background-color:#04AA6D;">
+                                            Product Name
+                                        </td>
+                                        <td style="font-weight: bold; background-color:#04AA6D;
+                                        max-width: 200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                        Quantity
+                                        </td>
+                                        <td scope="col"
+                                            style="font-weight: bold; background-color:#04AA6D;">
+                                         Status In Stock
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                        <template for:each={objOrder.lstOrderItem} for:item="item">
+                                            <tr key={item.Id}
+                                                style="cursor: pointer;">
+                                                <td></td>
+                                                <td></td>
+                                                <td >
+                                                    {item.OrderItemNumber}
+                                                </td>
+                                                <td scope="col" title={item.OrderItemNumber} >
+                                                    {item.ProductName}
+                                                </td>
+                                                <td scope="col">
+                                                    <div>
+                                                        {item.Quantity}
+                                                    </div>
+                                                </td>
+                                                <td scope="col">
+                                                    <div>
+                                                        {item.InStock}
+                                                    </div>
+                                                </td>
+                                                
+                                            </tr>
+                                        </template>
+                                    </template>
+                            </template>
+                        </template>
+                        
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+        <div  class="slds-grid slds-wrap footer" style="float:right;padding-right:10px;padding-top:10px;">	
+            <div class="slds-col slds-size_1-of-6 btn2" >
+                <template if:true={isButtonSave}>
+                    <lightning-button onclick={insertItem} label="Allocate" title="Allocate" ></lightning-button>
+                </template>
+                <template if:false={isButtonSave}>
+                    <lightning-button disabled="true" label="Allocate" title="Allocate" ></lightning-button>
+                </template>
+            </div>
+        </div>
+				
+		
+	</div>
+</template>

@@ -1,0 +1,48 @@
+<template>
+    <header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create Task 30 Days For After Sale
+        </h2>
+    </header>
+
+    <div style="margin-bottom:10px;" if:false={isData}>
+        <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+            <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+        </div>
+        <div class="slds-col">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                      <span><lightning-input data-id="comment" onchange={changeValue}
+                        style="margin-left:10px;" default="0" required=true type="text" name="input8" label="Comment"></lightning-input></span>
+                    </div>
+                    <div class="slds-col">
+                      <span><template if:true={dateValue}>
+                        <lightning-input onchange={changeValue} disabled=true
+                        style="margin-left:10px;" value={dateValue} type="date" name="input8" label="Due Date"></lightning-input>
+                    </template></span>
+                    </div>
+                  </div>    
+        </div>
+    </div>
+
+    <div style="margin:10px; text-align:center;" if:true={isData}>
+        After Sale has task status open or in processing. Please completed them.
+    </div>
+    
+      <footer>
+        
+        <div style="margin-right:10px;float:right;margin-bottom:5px;">
+            <template if:true={disabledButton}>
+                <button  class="slds-button slds-button_brand" variant="brand" disabled>Create Task 30 Days For After Sale</button>
+            </template>
+            <template if:false={disabledButton}>
+                <template if:false={isShowSpinner}>
+                    <lightning-button   onclick={handleCreateTask} style="background-color: brown;" label="Create Task PCA"></lightning-button>
+                </template>
+                <template if:true={isShowSpinner}>
+                    <lightning-button disabled style="float:right;margin-right:10px;" label="Create Task PCA"></lightning-button>
+                </template>
+            </template>
+        </div>
+        
+      </footer>
+    </template>

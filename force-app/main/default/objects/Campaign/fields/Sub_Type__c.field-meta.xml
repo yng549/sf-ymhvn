@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SEO</fullName>
+                <default>false</default>
+                <label>SEO</label>
+            </value>
+            <value>
+                <fullName>Email marketing</fullName>
+                <default>false</default>
+                <label>Email marketing</label>
+            </value>
+            <value>
+                <fullName>PPC</fullName>
+                <default>false</default>
+                <label>PPC</label>
+            </value>
+            <value>
+                <fullName>Social media ads</fullName>
+                <default>false</default>
+                <label>Social media ads</label>
+            </value>
+            <value>
+                <fullName>Mobile Marketing</fullName>
+                <default>false</default>
+                <label>Mobile Marketing</label>
+            </value>
+            <value>
+                <fullName>E-commerce</fullName>
+                <default>false</default>
+                <label>E-commerce</label>
+            </value>
+            <value>
+                <fullName>Off-line</fullName>
+                <default>false</default>
+                <label>Off-line</label>
+            </value>
+            <value>
+                <fullName>Test Ride</fullName>
+                <default>false</default>
+                <label>Test Ride</label>
+            </value>
+            <value>
+                <fullName>Roadshow</fullName>
+                <default>false</default>
+                <label>Roadshow</label>
+            </value>
+            <value>
+                <fullName>Product Launching</fullName>
+                <default>false</default>
+                <label>Product Launching</label>
+            </value>
+            <value>
+                <fullName>Brand launching</fullName>
+                <default>false</default>
+                <label>Brand launching</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>PR Booking</fullName>
+                <default>false</default>
+                <label>PR Booking</label>
+            </value>
+            <value>
+                <fullName>PR Seeding</fullName>
+                <default>false</default>
+                <label>PR Seeding</label>
+            </value>
+            <value>
+                <fullName>Video/ photoshoot</fullName>
+                <default>false</default>
+                <label>Video/ photoshoot</label>
+            </value>
+            <value>
+                <fullName>KOLs/ Influencers</fullName>
+                <default>false</default>
+                <label>KOLs/ Influencers</label>
+            </value>
+            <value>
+                <fullName>Content creation</fullName>
+                <default>false</default>
+                <label>Content creation</label>
+            </value>
+            <value>
+                <fullName>Media monitoring</fullName>
+                <default>false</default>
+                <label>Media monitoring</label>
+            </value>
+            <value>
+                <fullName>Advertising</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Advertising</label>
+            </value>
+            <value>
+                <fullName>Public Relation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Public Relation</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Digital Marketing</controllingFieldValue>
+            <valueName>SEO</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Marketing</controllingFieldValue>
+            <valueName>Email marketing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Marketing</controllingFieldValue>
+            <valueName>PPC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Marketing</controllingFieldValue>
+            <valueName>Social media ads</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Marketing</controllingFieldValue>
+            <valueName>Mobile Marketing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Digital Marketing</controllingFieldValue>
+            <valueName>E-commerce</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event/activation</controllingFieldValue>
+            <valueName>Off-line</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event/activation</controllingFieldValue>
+            <valueName>Test Ride</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event/activation</controllingFieldValue>
+            <valueName>Roadshow</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event/activation</controllingFieldValue>
+            <valueName>Product Launching</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event/activation</controllingFieldValue>
+            <valueName>Brand launching</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Event/activation</controllingFieldValue>
+            <valueName>Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Relation</controllingFieldValue>
+            <valueName>PR Booking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Relation</controllingFieldValue>
+            <valueName>PR Seeding</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Relation</controllingFieldValue>
+            <valueName>Video/ photoshoot</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Relation</controllingFieldValue>
+            <valueName>KOLs/ Influencers</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Relation</controllingFieldValue>
+            <valueName>Content creation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Public Relation</controllingFieldValue>
+            <valueName>Media monitoring</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

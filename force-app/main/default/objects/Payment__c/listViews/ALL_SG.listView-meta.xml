@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ALL_SG</fullName>
+    <columns>NAME</columns>
+    <columns>PaymentNo__c</columns>
+    <columns>Payment_Code__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Payment_Type__c</columns>
+    <columns>Payment_Term__c</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Payment_For__c</columns>
+    <columns>Order__c</columns>
+    <columns>Note__c</columns>
+    <columns>Notes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Payment_Code__c</field>
+        <operation>notContain</operation>
+        <value>-HN-</value>
+    </filters>
+    <label>ALL SG</label>
+    <sharedTo>
+        <group>Group_User_In_DO_HCM</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventory_Transaction_Headers_Stock_out</fullName>
+    <columns>CREATEDBY_USER</columns>
+    <columns>NAME</columns>
+    <columns>StockDate__c</columns>
+    <columns>Status__c</columns>
+    <columns>From_Warehouse_Location__c</columns>
+    <columns>To_Warehouse_Location__c</columns>
+    <columns>Header_Number__c</columns>
+    <columns>Document_Number__c</columns>
+    <columns>Comment_Message__c</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>From_Warehouse_Location__c</field>
+        <operation>equals</operation>
+        <value>Revzone SaiGon Bike&amp;PCA,Revzone Wholesale PCA,Revzone HaNoi Bike&amp;PCA</value>
+    </filters>
+    <filters>
+        <field>CREATEDBY_USER</field>
+        <operation>notEqual</operation>
+        <value>Sales Admin,Lương Yến Linh,Trần Khôi Nguyên,Sales Admin HN,Nguyễn Thuý Hường,Tran Ba Thu</value>
+    </filters>
+    <filters>
+        <field>To_Warehouse_Location__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>Reserse</value>
+    </filters>
+    <label>Inventory Transaction Headers_Stock out</label>
+    <sharedTo>
+        <group>Storeman_HCM</group>
+    </sharedTo>
+</ListView>

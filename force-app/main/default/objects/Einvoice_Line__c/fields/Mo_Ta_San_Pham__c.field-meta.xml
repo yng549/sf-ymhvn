@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mo_Ta_San_Pham__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  DiscountedAmount__c =0,  Product_Name__c &amp; &apos; (Thanh toán 100% bằng voucher theo CTKM) &apos;,  IF( Don_Gia__c   &gt;0 &amp;&amp;( DiscountedAmount__c/Don_Gia__c   ) &lt;  0.55,Product_Name__c &amp; &apos; (Thanh toán 50% bằng voucher theo CTKM)&apos;, Product_Name__c ))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Mo Ta San Pham</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

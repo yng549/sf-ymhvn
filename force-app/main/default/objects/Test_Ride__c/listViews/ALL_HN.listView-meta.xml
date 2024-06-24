@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ALL_HN</fullName>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Test_Ride_Customer__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>OWNER.LAST_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DO_DLR__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <label>ALL HN</label>
+    <sharedTo>
+        <group>Team_Sale_HN</group>
+    </sharedTo>
+</ListView>

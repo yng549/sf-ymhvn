@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Reserved__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field use to reserve the ID of Order reserve. The purpose of this action is to keep track when the order cancel. The quantity will pull back to the warehouse when they are the same Order Id and the quantity reserved.</description>
+    <externalId>false</externalId>
+    <label>Order Reserved</label>
+    <referenceTo>Order</referenceTo>
+    <relationshipLabel>Warehouses Inventory</relationshipLabel>
+    <relationshipName>Warehouses_Inventory</relationshipName>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

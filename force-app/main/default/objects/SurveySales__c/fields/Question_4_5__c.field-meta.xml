@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Question_4_5__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>4.5 - Availability of brochures and motorcycle information (Select 1)</inlineHelpText>
+    <label>Question 4.5</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Survey_Point_1_to_10</valueSetName>
+    </valueSet>
+</CustomField>

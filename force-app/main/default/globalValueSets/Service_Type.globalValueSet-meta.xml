@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Detailing</fullName>
+        <default>false</default>
+        <label>Detailing</label>
+    </customValue>
+    <customValue>
+        <fullName>Repair</fullName>
+        <default>false</default>
+        <label>Repair</label>
+    </customValue>
+    <customValue>
+        <fullName>Dyno</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Dyno</label>
+    </customValue>
+    <customValue>
+        <fullName>Yamaha Bike</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Yamaha Bike</label>
+    </customValue>
+    <customValue>
+        <fullName>Free Coupon</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Free Coupon</label>
+    </customValue>
+    <customValue>
+        <fullName>Warranty</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Warranty</label>
+    </customValue>
+    <customValue>
+        <fullName>Non-Yamaha (others brand)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Non-Yamaha (others brand)</label>
+    </customValue>
+    <masterLabel>Service Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

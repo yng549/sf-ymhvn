@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Omn1_MessagingSession</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Test Omn1</label>
+    <queue>Test_Omn1</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

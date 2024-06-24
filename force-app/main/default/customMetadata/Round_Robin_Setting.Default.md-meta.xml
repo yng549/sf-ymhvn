@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default</label>
+    <protected>true</protected>
+    <values>
+        <field>Maximum_Record_Per_Account_Batch__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Maximum_Record_Per_Case_Batch__c</field>
+        <value xsi:type="xsd:double">10000.0</value>
+    </values>
+    <values>
+        <field>Maximum_Record_Per_KPI_Batch__c</field>
+        <value xsi:type="xsd:double">10000.0</value>
+    </values>
+    <values>
+        <field>Maximum_Record_Per_Lead_Batch__c</field>
+        <value xsi:type="xsd:double">10000.0</value>
+    </values>
+    <values>
+        <field>Maximum_Record_Per_Opportunity_Batch__c</field>
+        <value xsi:type="xsd:double">10000.0</value>
+    </values>
+    <values>
+        <field>Maximum_Record_Per_Order_Account_Batch__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Maximum_Record_Per_Order_Batch__c</field>
+        <value xsi:type="xsd:double">10000.0</value>
+    </values>
+    <values>
+        <field>Run_Account_Trigger__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Run_Case_Trigger__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Run_Lead_Trigger__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Run_Opportunity_Trigger__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Run_Order_Trigger__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>

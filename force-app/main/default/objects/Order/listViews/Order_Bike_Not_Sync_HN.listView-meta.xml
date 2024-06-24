@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Bike_Not_Sync_HN</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Order_Number__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>Bike_Description__c</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.END_DATE</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>CONTRACT.CONTRACT_NUMBER</columns>
+    <columns>Frame_No__c</columns>
+    <columns>YMHVN_Log__c</columns>
+    <columns>Invoice_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Bike</value>
+    </filters>
+    <filters>
+        <field>Is_Sync__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>ORDERS.STATUS</field>
+        <operation>equals</operation>
+        <value>Completed</value>
+    </filters>
+    <filters>
+        <field>YMHVN_Log__c</field>
+        <operation>notContain</operation>
+        <value>is not exists</value>
+    </filters>
+    <filters>
+        <field>DO_DL__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <label>Order Bike Not Sync HN</label>
+    <sharedTo>
+        <group>Team_Sale_HN</group>
+    </sharedTo>
+</ListView>

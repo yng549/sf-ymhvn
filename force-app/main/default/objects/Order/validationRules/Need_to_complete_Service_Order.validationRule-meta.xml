@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Need_to_complete_Service_Order</fullName>
+    <active>true</active>
+    <description>Do Field Fomular trên account giới hạn nên dùng account name thay vì Record type = DO/DLR để loại bỏ các trường hợp Account Revzone tạo đơn.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(Status),
+    ISPICKVAL(Status, &apos;Completed&apos;),
+    AND(
+        OR(
+            RecordType.DeveloperName == &quot;Quick_Service_Order&quot;,
+            RecordType.DeveloperName == &quot;Free_Service_Order&quot;,
+            RecordType.DeveloperName == &quot;External_Service&quot;,
+            RecordType.DeveloperName == &quot;Warranty&quot;,
+            RecordType.DeveloperName == &quot;Free_Coupon&quot;
+        ),
+        OR(
+            ISBLANK(Account.Province__c),
+            ISBLANK(Account.PersonEmail),
+            ISBLANK(Mileage_Out__c)
+        ),
+        NOT(
+            OR(
+                Account.Name == &quot;REVZONE YAMAHA MOTOR SAI GON&quot;,
+                Account.Name == &quot;REVZONE YAMAHA MOTOR HA NOI&quot;
+            )
+        )
+    )
+)</errorConditionFormula>
+    <errorMessage>We need to add the Email, Province to the account, and Mileage out to the order in order to complete the order.</errorMessage>
+</ValidationRule>

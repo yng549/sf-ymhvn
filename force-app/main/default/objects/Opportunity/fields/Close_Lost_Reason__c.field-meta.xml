@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_Lost_Reason__c</fullName>
+    <externalId>false</externalId>
+    <label>Close Lost  Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Poor lead</fullName>
+                <default>false</default>
+                <label>Date Delivery</label>
+            </value>
+            <value>
+                <fullName>No need</fullName>
+                <default>false</default>
+                <label>Customer Service</label>
+            </value>
+            <value>
+                <fullName>Products</fullName>
+                <default>false</default>
+                <label>Product &amp; Chosen Competitor</label>
+            </value>
+            <value>
+                <fullName>Promotion</fullName>
+                <default>false</default>
+                <label>Promotion</label>
+            </value>
+            <value>
+                <fullName>Financing</fullName>
+                <default>false</default>
+                <label>Financing</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Timing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Timing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

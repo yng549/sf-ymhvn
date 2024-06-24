@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_cant_Cancel_or_Closed_SO</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName == &quot;Bike&quot;,
+AND(
+$Profile.Name != &quot;Community Sales Admin&quot;,
+ISCHANGED(Status) &amp;&amp; (OR (ISPICKVAL(Status, &quot;Cancel&quot;),ISPICKVAL(Status, &quot;Closed&quot;)))
+),
+AND(
+$Profile.Name != &quot;System Administrator&quot;,
+ISCHANGED(Status) &amp;&amp; (OR (ISPICKVAL(Status, &quot;Cancel&quot;),ISPICKVAL(Status, &quot;Closed&quot;)))
+))</errorConditionFormula>
+    <errorMessage>Sales can&apos;t Cancel/Closed SO</errorMessage>
+</ValidationRule>

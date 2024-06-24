@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>DN_Account_Pass__c</field>
+        <value xsi:type="xsd:string">0100774342aA@</value>
+    </values>
+    <values>
+        <field>DN_Account__c</field>
+        <value xsi:type="xsd:string">yamahamotordnadmin</value>
+    </values>
+    <values>
+        <field>DN_Bike_Pattern__c</field>
+        <value xsi:type="xsd:string">Not Exist</value>
+    </values>
+    <values>
+        <field>DN_Bike_Serial__c</field>
+        <value xsi:type="xsd:string">Not Exist</value>
+    </values>
+    <values>
+        <field>DN_Enpoint__c</field>
+        <value xsi:type="xsd:string">https://cadmindntt78.yamaha-motor.com.vn:4343/YamahaPublishService.asmx?op=ImportAndPublishInv</value>
+    </values>
+    <values>
+        <field>DN_Pattern__c</field>
+        <value xsi:type="xsd:string">1/001</value>
+    </values>
+    <values>
+        <field>DN_Serial__c</field>
+        <value xsi:type="xsd:string">Not Exist</value>
+    </values>
+    <values>
+        <field>DN_User_Pass__c</field>
+        <value xsi:type="xsd:string">Einv#@oi@vn#pt20</value>
+    </values>
+    <values>
+        <field>DN_User__c</field>
+        <value xsi:type="xsd:string">yamahamotordnservice</value>
+    </values>
+    <values>
+        <field>HCM_Account_Pass__c</field>
+        <value xsi:type="xsd:string">0100774342aA@</value>
+    </values>
+    <values>
+        <field>HCM_Account__c</field>
+        <value xsi:type="xsd:string">yamahamotoradmin</value>
+    </values>
+    <values>
+        <field>HCM_Bike_Pattern__c</field>
+        <value xsi:type="xsd:string">1/003</value>
+    </values>
+    <values>
+        <field>HCM_Bike_Serial__c</field>
+        <value xsi:type="xsd:string">C24TXB</value>
+    </values>
+    <values>
+        <field>HCM_Endpoint__c</field>
+        <value xsi:type="xsd:string">https://cadminhntt78.yamaha-motor.com.vn:4343/YamahaPublishService.asmx?op=ImportAndPublishInv</value>
+    </values>
+    <values>
+        <field>HCM_Pattern__c</field>
+        <value xsi:type="xsd:string">1/004</value>
+    </values>
+    <values>
+        <field>HCM_Serial__c</field>
+        <value xsi:type="xsd:string">C24TPB</value>
+    </values>
+    <values>
+        <field>HCM_User_Pass__c</field>
+        <value xsi:type="xsd:string">Einv#@oi@vn#pt20</value>
+    </values>
+    <values>
+        <field>HCM_User__c</field>
+        <value xsi:type="xsd:string">yamahamotorservice</value>
+    </values>
+    <values>
+        <field>HN_Account_Pass__c</field>
+        <value xsi:type="xsd:string">0100774342aA@</value>
+    </values>
+    <values>
+        <field>HN_Account__c</field>
+        <value xsi:type="xsd:string">yamahamotoradmin</value>
+    </values>
+    <values>
+        <field>HN_Bike_Pattern__c</field>
+        <value xsi:type="xsd:string">1/003</value>
+    </values>
+    <values>
+        <field>HN_Bike_Serial__c</field>
+        <value xsi:type="xsd:string">C24TXR</value>
+    </values>
+    <values>
+        <field>HN_Enpoint__c</field>
+        <value xsi:type="xsd:string">https://cadminhntt78.yamaha-motor.com.vn:4343/YamahaPublishService.asmx?op=ImportAndPublishInv</value>
+    </values>
+    <values>
+        <field>HN_Pattern__c</field>
+        <value xsi:type="xsd:string">1/004</value>
+    </values>
+    <values>
+        <field>HN_Serial__c</field>
+        <value xsi:type="xsd:string">C24TPR</value>
+    </values>
+    <values>
+        <field>HN_User_Pass__c</field>
+        <value xsi:type="xsd:string">Einv#@oi@vn#pt20</value>
+    </values>
+    <values>
+        <field>HN_User__c</field>
+        <value xsi:type="xsd:string">yamahamotorservice</value>
+    </values>
+    <values>
+        <field>NT_Account_Pass__c</field>
+        <value xsi:type="xsd:string">0100774342aA@</value>
+    </values>
+    <values>
+        <field>NT_Account__c</field>
+        <value xsi:type="xsd:string">yamahamotorntadmin</value>
+    </values>
+    <values>
+        <field>NT_Bike_Pattern__c</field>
+        <value xsi:type="xsd:string">Not Exist</value>
+    </values>
+    <values>
+        <field>NT_Bike_Serial__c</field>
+        <value xsi:type="xsd:string">Not Exist</value>
+    </values>
+    <values>
+        <field>NT_Enpoint__c</field>
+        <value xsi:type="xsd:string">https://cadminnttt78.yamaha-motor.com.vn:4343/YamahaPublishService.asmx?op=ImportAndPublishInv</value>
+    </values>
+    <values>
+        <field>NT_Pattern__c</field>
+        <value xsi:type="xsd:string">1/001</value>
+    </values>
+    <values>
+        <field>NT_Serial__c</field>
+        <value xsi:type="xsd:string">C22TXH</value>
+    </values>
+    <values>
+        <field>NT_User_Pass__c</field>
+        <value xsi:type="xsd:string">Einv#@oi@vn#pt20</value>
+    </values>
+    <values>
+        <field>NT_User__c</field>
+        <value xsi:type="xsd:string">yamahamotorntservice</value>
+    </values>
+</CustomMetadata>

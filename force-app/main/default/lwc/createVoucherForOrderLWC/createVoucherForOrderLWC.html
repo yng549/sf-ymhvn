@@ -1,0 +1,130 @@
+<template>
+
+    <section style="margin-top:15%;" role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-modal="true">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-salesforce1">
+                              <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                              </svg>
+                            </span>
+                          </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-truncate" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">Divide/ Create Voucher Amount</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+                </h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium slds-scrollable_y" style="height:50%" id="modal-content-id-1">
+                <h3>
+                    <lightning-input style="color:green;font-weight:bold;" label="Voucher Amount" type=number
+                        formatter="currency" read-only=true value={objQuoteSyncing.Voucher_Amount__c}>
+                    </lightning-input>
+                </h3>
+                <br />
+                <lightning-radio-group name="radioGroup" label="Choosen the way divide." options={options} value={value}
+                    type="radio" onchange={handleOnChange}></lightning-radio-group>
+                <template if:true={autoView}>
+                    <lightning-input required=true type="number" name="input8" label="Issue Quantity Voucher"
+                        onchange={changeValueInputAutoDivide}></lightning-input>
+                    <br />
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p style="color:red;">{displayMessage}</p>
+                    </div>
+
+                    <br />
+                    <template if:true={resultAutoDivideFlag}>
+                        Each the voucher will be has value's &nbsp;
+                        <lightning-formatted-number value={resultAutoDivide} maximum-fraction-digits="2">
+                        </lightning-formatted-number>
+                    </template>
+
+                </template>
+                <template if:true={manualView}>
+                    <lightning-accordion active-section-name="A">
+                        <lightning-accordion-section name="A" label="Create Voucher Manual">
+                            <template if:true={flagResultTolalManual}>
+                                Total value voucher will be create: &nbsp;
+                                <lightning-formatted-number value={resultTolalManual} maximum-fraction-digits="2">
+                                </lightning-formatted-number>
+                                &nbsp; VND
+                            </template>
+                            <template if:true={flagErrorManualInput}>
+                                <p style="color:red;">The amount of promotion must be greater than total input value.
+                                </p>
+                            </template>
+                            <template if:true={flagErrorManualInputLessTotal}>
+                                <p style="color:red;">The input value must be equal total voucher.</p>
+                            </template>
+                            <template for:each={itemList} for:item="item" for:index="index">
+                                <lightning-record-edit-form key={item.id} object-api-name="Voucher__c">
+                                    <lightning-messages> </lightning-messages>
+                                    <div style="margin-left: 5px;">
+                                        <lightning-layout multiple-rows>
+                                            <lightning-layout-item style="width:140px;" padding="around-small">
+                                                <lightning-input-field access-key={item.id}
+                                                    onchange={changeValueInputManualDivide} field-name="Amount__c"
+                                                    variant="label-stacked" required>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item style="width:160px;" padding="around-small">
+                                                <lightning-input-field disabled=true value={recordId}
+                                                    field-name="Order__c" variant="label-stacked" required>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item style="width:180px;" padding="around-small">
+                                                <lightning-input-field disabled=true
+                                                    value={objPromotion.Opportunity.SyncedQuote.Promotion_Item__c}
+                                                    field-name="Promotion_Item__c" variant="label-stacked" required>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item style="width:90px;margin-top:10px;margin-left:10px;">
+                                                <div class="slds-p-top_small" style="margin-top: 10px;">
+                                                    <lightning-icon icon-name="action:new" access-key={item.id}
+                                                        id={index} alternative-text="Add Row" size="x-small"
+                                                        title="Add Row" onclick={addRow}>
+                                                    </lightning-icon>
+                                                    <lightning-icon icon-name="action:delete" access-key={item.id}
+                                                        id={index} alternative-text="Delete Row" size="x-small"
+                                                        title="Delete Row" onclick={removeRow}>
+                                                    </lightning-icon>
+                                                </div>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+                                        <p style="border-bottom: 1px solid red;"></p>
+                                    </div>
+
+
+                                </lightning-record-edit-form>
+                            </template>
+
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </template>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral"
+                    style="margin-right:10px;background-color:#8E0404;color:white;"
+                    onclick={closeQuickAction}>Cancel</button>
+                <template if:true={flagDisabledButtonSave}>
+                    <button class="slds-button slds-button_brand" style="background-color:#2565AE;"
+                        onclick={handleSubmit}>
+                        Save
+                    </button>
+                </template>
+                <template if:false={flagDisabledButtonSave}>
+                    <lightning-button label="Save" disabled=true>
+                    </lightning-button>
+                </template>
+            </div>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

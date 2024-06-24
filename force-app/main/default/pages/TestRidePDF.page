@@ -1,0 +1,434 @@
+<!-- <apex:page applyHtmlTag="false" applyBodyTag="false" showHeader="false" sidebar="false" renderAs="pdf" standardStylesheets="false" contentType="text/html; charset=UTF-8"
+  controller="TestRidePDF"> -->
+<apex:page applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" renderAs="PDF"
+  contentType="text/html; charset=UTF-8" controller="TestRidePDF">
+  <html>
+
+  <head>
+    <style type="text/css" media="print">
+      @page {
+        counter-increment: page;
+        /* size:landscape; */
+        size: A4 portrait;
+        page-break-inside: avoid;
+        margin-left: 28px;
+        margin-right: 43px;
+        margin-top: 10px;
+        margin-bottom: 200px;
+        tr {
+          page-break-inside: avoid !important;
+        }
+
+        td {
+          page-break-inside: avoid !important;
+        }
+
+        @bottom-center {
+          content: element(footer);
+        }
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      .row {
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 49%;
+      }
+
+      .col-2-of-3 {
+        float: left;
+        width: 66%;
+
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 30%;
+
+      }
+
+      .col-1-of-4 {
+        float: left;
+        width: 24%;
+      }
+
+      .col-2-of-4 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-3-of-4 {
+        float: left;
+        width: 75%;
+      }
+
+      .col-1-of-6 {
+        float: left;
+        width: 20%;
+      }
+
+      .col-2-of-6 {
+        float: left;
+        width: 29%;
+      }
+      .col-2-of-6-2 {
+        float: left;
+        width: 31%;
+      }
+
+      .col-4-of-6 {
+        float: left;
+        width: 71%;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      b {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      body {
+        font-family: Arial Unicode MS;
+        font-size: 12px;
+        box-sizing: border-box;
+      }
+
+      div.header {}
+
+      .header-logo-box {
+        /* margin-left: 40px; */
+        margin-bottom: 25px;
+        width: 185px;
+      }
+
+      .header-logo-box::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .logo {
+        margin-top: 3px;
+      }
+
+      .header__subtext-box {
+        text-align: left;
+        /* margin-left: 15px; */
+      }
+
+      .box {
+        min-height: 36px;
+        width: 100%;
+      }
+
+      .header__small-text span {
+        display: block;
+        font-size: 10px;
+      }
+
+      .header__text-box {
+        letter-spacing: 8px;
+        color: red;
+        text-align: center;
+      }
+
+      .heading-primary {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .heading-secondary {
+        text-transform: uppercase;
+        font-size: 18px;
+        font-family: sans-serif;
+        font-weight: bold;
+        font-style: italic;
+      }
+
+
+      .header__info-box p {
+        margin-bottom: 5px;
+      }
+
+
+      .section-info {
+        margin-top: 15px;
+      }
+
+      .section-info__text {
+        line-height: 24px;
+      }
+
+      .time-info {
+        width: 231px;
+      }
+
+      /* footer {
+        position: running(footer);
+      } */
+
+      div.footer {
+        position: running(footer);
+        margin-bottom: 210px;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      .u-height-medium {
+        height: 30px;
+      }
+
+      .u-height-big {
+        height: 43px;
+      }
+
+      .u-p-0 {
+        padding: 0;
+      }
+
+      .u-p-r-small {
+        padding-right: 4px;
+      }
+
+      .u-p-r-medium {
+        padding-right: 15px;
+      }
+
+      .u-m-t-xsmall {
+        margin-top: 8px;
+      }
+
+      .u-m-t-small {
+        margin-top: 15px;
+      }
+
+      .u-m-t-medium {
+        margin-top: 20px;
+      }
+
+      .u-m-t-large {
+        margin-top: 100px;
+      }
+
+      .u-m-b-medium {
+        margin-bottom: 20px;
+      }
+
+      .u-m-tb-small {
+        margin: 3px 0px;
+      }
+
+      .u-align-center {
+        text-align: center;
+      }
+
+      .u-align-left {
+        text-align: left;
+      }
+
+      .u-align-right {
+        text-align: right;
+      }
+
+      .u-width-99 {
+        width: 99.5%;
+      }
+
+      .u-m-0 {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-logo-box u-align-center">
+        <div class="logo">
+          <apex:image id="logo" value="{!$Resource[logo]}" width="180" height="45" />
+        </div>
+        <div class="header__subtext-box u-align-center">
+          <p class="header__small-text">
+            <span> {!objTestRide.Opportunity__r.DODL_Create__r.Address__c}</span>
+            <span>Số/No.:{!objTestRide.Test_Ride_Number__c}
+              <!-- <b>Test Drive Code</b> -->
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="header__text-box">
+        <p class="heading-primary">GIẤY ĐĂNG KÝ CHẠY THỬ</p>
+        <p class="heading-secondary">TEST RIDE FORM</p>
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Section info -->
+    <div class="section-info">
+      <div class="row section-info__text">
+        <div class="col-2-of-6 u-align-left">
+          <p>Họ tên khách hàng/ Customer’s name
+            <br/>Số CMND/ ID number
+            <br/>Giấy phép lái xe số/ A2 license no
+            <br/>Điện thoại/ Phone no.
+          </p>
+        </div>
+        <div class="col-2-of-6-2 u-align-left">
+          <p>{!objTestRide.Test_Ride_Customer__r.Name}
+            <br/>{!objTestRide.Test_Ride_Customer__r.ID_No__c}
+            <br/>{!objTestRide.Test_Ride_Customer__r.A2_License_No__c}
+            <br/>{!objTestRide.Test_Ride_Customer__r.PersonMobilePhone}
+
+            <!-- <apex:repeat value="{!lstProduct}" var="bike" id="theRepeat">
+              <apex:outputText value="{!bike.Name}" id="theValue" />
+              <br/>
+            </apex:repeat> -->
+          </p>
+        </div>
+        <div class="col-1-of-6 u-align-left" style="width:130px;">
+          <p>Mã số/ Code
+            <br/>Cấp ngày/ Issued date
+            <br/>Cấp ngày/ Issued date
+            <br/>Email
+          </p>
+        </div>
+        <div class="col-1-of-6 u-align-left last-child">
+          <p>{!objTestRide.Test_Ride_Customer__r.AccountNumber}
+            <br/>
+            <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+              <apex:param value="{!objTestRide.Test_Ride_Customer__r.ID_Issue_Date__c}" />
+            </apex:outputText>
+            <br/>
+            <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+              <apex:param value="{!objTestRide.Test_Ride_Customer__r.A2_Issue_Date__c}" />
+            </apex:outputText>
+            <br/>{!objTestRide.Test_Ride_Customer__r.PersonEmail}
+          </p>
+        </div>
+      </div>
+      <div class="row section-info__text">
+        <div class="col-2-of-6 u-align-left">
+          <p>Mẫu xe lái thử/ Test ride motorcycle</p>
+        </div>
+        <div class="col-4-of-6 u-align-left">
+          <p>
+            {!products}</p>
+        </div>
+      </div>
+      <div class="row u-m-b-small u-m-t-small">
+        <!-- <div class="col-2-of-3 "> -->
+        <p>Thiết bị và giấy tờ kèm theo xe/ Additional equipments &amp; documents</p>
+        <div class="checkbox-info u-m-t-xsmall">
+          <apex:repeat value="{!lstAdditional}" var="val">
+            <tr>
+              <td colspan="4" style="padding-top:5px;font-family:'Arial Unicode MS'">
+                <apex:image rendered="{! if(mpAddtional[val] == true ,false, true)}" url="/img/checkbox_unchecked.gif" />
+                <apex:image rendered="{! if(mpAddtional[val] == true, true, false)}" url="/img/checkbox_checked.gif" />
+                <apex:outputText value="{!val}" />
+              </td>
+            </tr>
+          </apex:repeat>
+        </div>
+        <!-- </div> -->
+        <!-- <div class="col-1-of-3">
+          <div class="box"></div>
+        </div> -->
+      </div>
+
+      <div class="row u-m-t-medium">
+        <p>Ngày &amp; giờ nhận xe/ Date &amp; time collected <apex:outputText value="{0,date,' ' HH:mm dd'/'MM'/'yyyy}">
+          <apex:param value="{!objTestRide.Date_time_collected__c}" />
+        </apex:outputText></p>
+      </div>
+
+      <!-- <div class="row last-child">
+        <div class="time-info">
+          <p>
+            <apex:outputText value="{0,date,HH:mm dd'/'MM'/'yyyy}">
+              <apex:param value="{!objTestRide.Date_time_collected__c}" />
+            </apex:outputText>
+          </p> -->
+
+          <!-- <div class="col-1-of-2 u-align-right">
+              <span>manual</span>
+            </div> -->
+        <!-- </div>
+      </div> -->
+      <div class="row u-m-t-medium last-child">
+        <p>
+          <span>Ghi chú/ Comments &nbsp; {!objTestRide.Comments__c}
+          </span>
+          <br/>
+          <br/>
+        </p>
+      </div>
+      <div class="row ">
+        <p>Chiếc xe trong tình trạng hoàn hảo và Tôi sẽ chịu mọi trách nhiệm về những thiệt hại hoặc mất mát xảy ra trong quá
+          trình chạy thử xe. Tôi cam kết có đầy đủ điều kiện thể chất và pháp lý cần thiết để chạy xe môtô phân khối lớn
+          hơn 175cc và xe thể thao dưới 175cc.</p>
+        <p class="u-m-t-small">The motorcycle is in perfect riding condition and I take full responsibility of any damages or loss which will occur
+          during the test ride. I am physically and legally capable to ride big bore motorcycle above 175cc and sport bike
+          under 175cc.</p>
+      </div>
+    </div>
+    <!-- End section info -->
+    <div class="section-signature u-m-t-large">
+      <div class="row">
+        <div class="col-1-of-2 u-align-center">
+          <p>Khách hàng ký &amp; ghi rõ họ tên </p>
+          <p>
+            <b>Customer’s signature &amp; full name</b>
+          </p>
+        </div>
+        <div class="col-1-of-2 u-align-center last-child">
+          <p>Nhân viên của DO</p>
+          <p>
+            <b>DO personnel</b>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <div class="footer">
+        <div class="row" style=" border: 1px solid rgb(255, 255, 255);">
+          <div class="col-1-of-2 u-align-center ">
+            <span> Ngày/ Date:_____/______/_________</span>
+          </div>
+          <div class="col-1-of-2 u-align-center last-child ">
+            <span>Ngày/ Date:_____/______/_________</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+
+  </html>
+</apex:page>

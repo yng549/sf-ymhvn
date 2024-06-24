@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Payment</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(Text(Stage__c) == &apos;ACC Checking&apos;,Text(Stage__c) == &apos;Completed&apos;, Text(Stage__c) == &apos;Cancelled&apos;)</errorConditionFormula>
+    <errorMessage>This payment locked by stage .</errorMessage>
+</ValidationRule>

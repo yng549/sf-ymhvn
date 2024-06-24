@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Customer_Accounts</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>PC_PHONE3</columns>
+    <columns>PC_EMAIL</columns>
+    <columns>CORE.USERS.LAST_NAME</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <columns>DOB__pc</columns>
+    <columns>ACCOUNT.ACCOUNT_NUMBER</columns>
+    <columns>AccountNo__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>ACCOUNT.LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PersonAccount.Customer</value>
+    </filters>
+    <filters>
+        <field>Is_Primary__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>DO_DL_Create_Account__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR SAI GON</value>
+    </filters>
+    <label>All Customer Accounts SG</label>
+    <sharedTo>
+        <group>Group_User_In_DO_HCM</group>
+    </sharedTo>
+</ListView>

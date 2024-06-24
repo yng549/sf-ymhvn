@@ -1,0 +1,273 @@
+<apex:page controller="VFP_PDF_DeliveryCheckList" contentType="application/vnd.ms-excel#filename.pdf; charset=UTF-8" renderAs="pdf" standardStylesheets="false" applyHtmlTag="false" showHeader="false" applyBodyTag="false">
+    <head>
+        <style type="text/css" media="print">
+            @page{
+                size: A4;
+                margin-top: 0.4in;
+                margin-right: 0.4in;
+                margin-bottom: 0.75in;
+                margin-left: 0.25in;
+                    @top-center{
+                        content: element(header);
+                    }
+                    @bottom-center {
+                        content: element(footer);
+                    }
+            }
+
+            
+
+            div.header{
+                padding: 0px;
+                position: running(header);
+            }
+
+            .pagenumber:before{
+                content: counter(page);
+            }
+
+            .pagecount:before{
+                content: counter(page);
+            }
+
+            div.footer{
+                width: 60%;
+                height: 30px;
+                display: block;
+                padding-top: 5px;
+                position: running(footer);
+                font-size: 9px;
+                color: #646060;
+                padding-bottom: 50px;
+                padding-right: 50px;
+                padding-left: 40px;
+
+            }
+
+            .marginLeft{
+                padding-left: 31.5;
+            }
+
+            table, th, td{
+                border: 0.5px solid rgb(79, 76, 76);
+                border-collapse: collapse;
+                font-family: Arial Unicode MS;
+            }
+
+            .img-header{
+                float: left;
+                width: 10px;
+                height: 5px;
+                border: 2px solid; 
+            }
+
+            .table-infor-delivery{
+                width: 100%;
+            }
+            
+            div{
+                font-family: Arial Unicode MS;
+                font-size: 10px;
+            }
+
+            i { font-family: sans-serif; font-style: italic; }
+
+            .table-infor-product{
+                width: 98%;
+            margin: 0px 10px 20px 10px;
+            }
+            .table-infor-product .table-row_two td{
+               
+            	height: 30px;
+            }
+            .table-status-detail{
+                width: 100%;
+                /* text-align: center; */
+            }
+
+            .text-center{
+                text-align: center;
+            }
+
+            .box-for-table-status-detail{
+                float: left;
+                display: block;
+                width: 10px;
+                height: 10px;
+                border-top: 1px solid rgb(184, 172, 172);
+                border-left: 1px solid rgb(201, 195, 195);
+                border-right: 1px solid black;
+                border-bottom: 1px solid black;
+                margin-left: 1px;
+                margin-right: 10px;
+            }
+
+            .table-sender-recipient{
+                width: 100%;
+            }
+            	.u-align-center {
+                text-align: center;
+             }
+   	       .header-logo-box {
+            /* margin-left: 40px; */
+            margin-bottom: 25px;
+            width: 185px;
+    	      }	
+          .logo {
+            margin-top: 3px;
+        	  }
+             .header__small-text span {
+            display: block;
+            font-size: 9px;
+          }
+            </style>
+    </head>
+
+        
+	    <div class="header">
+      <div class="header-logo-box u-align-center">
+        <div class="logo">
+            <apex:image id="logo" value="{!$Resource[logo]}" width="200" height="40" />
+        </div>
+        <div class="header__subtext-box u-align-center">
+          <p class="header__small-text">
+            <span> {!obj_account_order.objOrder.Account.DO_DL_Create_Account__r.Address_logo__c}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="marginLeft">
+        <apex:image style="margin: 20px 0px 20px 35% ;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/title_Delivary.png')}" width="200px" height="40px"/>
+       
+        <table class="table-infor-delivery">
+            <tr>
+                <td style="width:60%">&nbsp;Bên bàn giao/ <i>Sender</i>:  Công ty TNHH Yamaha Motor Việt Nam (sau đây gọi là "YMVN") - cửa hàng {!obj_account_order.objOrder.Account.DO_DL_Create_Account__r.Name} <br />
+                    <i>Sender</i>: Yamaha Motor Vietnam Co., Ltd (herein after referred as to "YMVN") - {!obj_account_order.objOrder.Account.DO_DL_Create_Account__r.Name} shop
+                </td>
+                <!-- <td>&nbsp;Bên bàn giao/ <i>Sender</i>: </td> -->
+                <td style="width:40%">&nbsp;Khách Hàng/ Customer: {!obj_account_order.objOrder.Account.Name}</td> 
+            </tr>
+            <tr>
+                <td>&nbsp;Địa chỉ/ <i>Address</i>: {!obj_account_order.objOrder.Account.DO_DL_Create_Account__r.Address__c}</td>
+                <!-- <td>&nbsp;Địa chỉ/ <i>Address</i>: </td> -->
+                <td>&nbsp;Địa chỉ/ <i>Address</i>: {!obj_account_order.objAccount.Name}</td> 
+            </tr>
+            <tr>
+                <td>&nbsp;Đại diện/ <i>Representative</i>: {!obj_account_order.objUser.Name}</td>
+                <td>&nbsp;Bên nhận/ Receiver: </td>
+            </tr>
+            <tr>
+                <td>&nbsp;Số điện thoại/ <i>Phone number</i>: {!obj_account_order.objUser.Zalo_Viber__c}</td>
+                <td>&nbsp;Số điện thoại/ <i>Phone number</i>: {!obj_account_order.objOrder.Account.PersonMobilePhone}</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Ngày bàn giao/ <i>Delivery date</i>:</td>
+                <td>&nbsp;Ngày nhận/ <i>Receive date</i>:</td>
+            </tr>
+        </table>
+
+        <!-- <apex:image style="margin: 5px 0px 5px 2px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/tien_hanh_vc_giao_nhan_hang_hoa_theo_hd_so.png')}" width="50%" height="25px"/> -->
+        <apex:image style="margin: 5px 0px 5px 2px;" url="{!URLFOR($Resource.VFPConfirm)}" width="50%" height="40px"/>
+        <!-- <b style="font-family: sans-serif">Tiến hành việc giao nhận Hàng Hóa theo thông tin dưới đây</b> <br/>
+        <b><i>Carrying out the delivery and receipt of the Goods as below information: </i></b> -->
+
+        <table class="table-infor-product">
+            <tr>
+                <td>&nbsp;Loại xe&nbsp;/<i>Model</i></td>
+                <td style="width: 150px;">&nbsp;Số máy&nbsp;/<i>Eng No.</i></td>
+                <td>&nbsp;Số khung&nbsp;/<i>VIN No.</i></td>
+                <td style="width: 150px;">&nbsp;Màu sắc&nbsp;/<i>Color</i></td>
+            </tr>
+            <tr class="table-row_two">
+                <td>{!obj_account_order.objOrder.Asset__r.Product2.Sales_Name__c} </td>
+                <td>{!obj_account_order.objOrder.Asset__r.Engine_No__c} </td>
+                <td>{!obj_account_order.objOrder.Asset__r.Frame_Number__c} </td>
+                <td>{!obj_account_order.objOrder.Asset__r.Product2.Color_Name__c} </td>
+            </tr>
+        </table>
+
+        <table class="table-status-detail">
+            <tr>
+                <td style="text-align: right;"><apex:image style="padding: 2px 100px 2px 100px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/chi_tiet.png')}" width="40" height="10"/></td>
+                <td style="text-align: center;"><apex:image style="padding: 2px 20px 2px 20px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/tinh_trang.png')}" width="50" height="11"/></td>
+                <td><apex:image style="padding: 2px 100px 2px 100px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/chi_tiet.png')}" width="40" height="10"/></td>
+                <td><apex:image style="padding: 2px 20px 2px 20px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/tinh_trang.png')}" width="50" height="11"/></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Chìa khoá/ <i>Key</i></td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+                <td><div class="box-for-table-status-detail"></div>Dụng cụ/ <i>Tools:</i></td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Sổ bảo hành/ <i>Warranty book</i></td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+                <td><div class="box-for-table-status-detail"></div>Hồ sơ xe (Hóa đơn, GKĐCL, 2 Bản cà CK, SM)</td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Sách hướng dẫn/ <i>Guideline book</i></td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+                <td><div class="box-for-table-status-detail"></div>Quà tặng/ <i>Bike gift (Zuttoride, Clothings)</i></td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+            </tr>
+            <tr>
+                <td><div class="box-for-table-status-detail"></div>Phụ kiện khác/ <i>Orders:</i></td>
+                <td class="text-center">Tốt/ <i>Good</i></td>
+                <td></td>
+                <td class="text-center"></td>
+            </tr>
+        </table>
+
+        <p>Bên Nhận đại diện và đảm bảo và chịu toàn bộ trách nhiệm về việc Bên Nhận đã có được sự đồng ý, giấy phép và sự cho phép cần thiết từ Khách Hàng để đại diện nhận Hàng Hóa và thực hiện các thủ tục, cam kết liên quan với YMVN.
+        </p>
+        <p style="margin-top: -5px;"><i>The Receiver represents and warrants and takes full responsibilities that the Receiver has obtained the necessary consent, license and permission from the Customer to represent and receive the Goods and carry out related procedures and commitments with YMVN.</i>
+        </p>
+        <p>Bên Nhận đã tự mình kiểm tra tất cả các thiết bị, bộ phận và tình trạng kỹ thuật xe 
+            trong tình trạng sử dụng bình thường, tốt theo đúng thoả thuận trong Hợp đồng và 
+            không có khiếu nại.
+        </p>
+        <p style="margin-top: -5px;"><i>The Receiver has personally checked all equipment, parts and technical condition of the vehicle in normal, good condition as agreed in the Contract and without complaints.</i></p>
+
+        <p>Bên Nhận đã nhận đầy đủ hồ sơ, chứng từ cần thiết liên quan đến chiếc xe như mô tả trên.</p>
+        <p style="margin-top: -5px;"><i>The Receiver has received all necessary documents related to the motocycle as described above.</i></p>
+        
+        <p>Kể từ thời điểm ký kết biên bản này, mọi trách nhiệm và rủi ro phát sinh (trự nghĩa vụ
+            bảo hành) đối với chiếc xe nêu trên hoàn toàn chuyển giao cho Bên Nhận.</p>
+        <p style="margin-top: -5px;"><i>From the time of signing this memorandum, all responsibilities and risks arising
+            (warranty obligations) for the above motocycle are completely transferred to the Receiver.</i></p>
+        
+        <p>
+            Các Bên tại đây đồng ý rằng quyền sở hữu Xe Máy chỉ được chuyển từ YMVN sang Khách hàng khi thoả mãn tất cả các điều kiện sau: YMVN đã được thanh toán toàn bộ Giá trị xe, YMVN đã bàn giao Xe Máy cho Khách Hàng và YMVN và Khách Hàng/Bên Nhận cùng ký vào Biên bản Bàn giao.	
+        </p>
+        <p style="margin-top: -5px">
+            <i > The Parties hereby agree that the ownership of the Motorcycles(s) shall be transferred from YMVN to Customer only when all conditions are satisfied: YMVN has paid the total Goods Value, YMVN delivers Goods to Customer and YMVN and Customer/Receiver signed on Hand-over Minutes. </i>
+        </p>
+
+        <p style="margin-top: -5px">
+            Cho mục đích bảo quản đúng tiêu chuẩn kỹ thuật thì Khách Hàng đồng ý cho YMVN bảo quản lưu trữ hộ chiếc xe cho đến khi khách hàng hoàn thành thủ tục đăng ký vay với JACC và JACC đã giải ngân đầy đủ choYMVN số tiền còn lại của giá trị xe máy.
+        </p>
+        <p style="margin-top: -5px">
+            <i >For the purpose of preservation in accordance with technical standards, Customer agrees to allow YMVN to preserve and store the vehicle until the customer completes the loan application procedure with JACC and JACC has fully disbursed to YMVN the remaining amount of the value of the motorcycle</i>
+        </p>
+        <p>
+            Bằng cách ký vào Biên Bản này, Khách hàng/Bên Nhận đồng ý cho phép YMVN thu thập, sử dụng, chia sẻ và/hoặc xử lý dữ liệu cá nhân của Khách Hàng như quy định trong Chính sách quyền riêng tư của YMVN (Chi tiết tại link: https://yamaha-motor.com.vn/policy/).
+        </p>
+        <p style="margin-top: -5px">
+            <i>By signing this Minutes, Customers/The Receiver agree to allow YMVN to collect, use, share and/or process Customer's personal data as specified in YMVN's Privacy Policy (Details at link : https://yamaha-motor.com.vn/policy/)</i>
+        </p>
+        <table style="width: 100%; margin-top: 15px">
+            <tr>
+                <td style="width: 50%;height: 1.75cm;vertical-align: top;"><apex:image style="padding: 10px 100px 50px 140px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/ho_ten_nguoi_giao.png')}" width="85px" height="20px"/></td>
+                <td style="width: 50%;height: 1.75cm;vertical-align: top;"><apex:image style="padding: 10px 10px 50px 140px;" url="{!URLFOR($Resource.image_Check_List, 'img_pdf_Delivery_Doc_Check_List/Delivery/ho_ten_nguoi_nhan.png')}" width="85px" height="20px"/></td>
+            </tr>
+        </table>     
+    </div>
+
+    <div class="footer ">
+        
+    </div>
+
+</apex:page>

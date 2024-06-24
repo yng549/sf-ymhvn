@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Complete_Date__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(ISPICKVAL(Status , &apos;Completed&apos;),OR(RecordType.DeveloperName == &quot;Quick_Service_Order&quot;,
+RecordType.DeveloperName == &quot;Free_Service_Order&quot;,
+RecordType.DeveloperName == &quot;External_Service&quot;,
+RecordType.DeveloperName == &quot;Warranty&quot;,
+RecordType.DeveloperName == &quot;Free_Coupon&quot;,
+RecordType.DeveloperName == &quot;Recall_Service&quot;,
+RecordType.DeveloperName == &quot;Service_Package&quot;)),TODAY(),NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Order Complete Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

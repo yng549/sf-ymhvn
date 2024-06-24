@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Estimate_Time__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(ISPICKVAL(Status,&apos;Case Assigned to CS&apos;),ISPICKVAL(Priority,&apos;Low&apos;)), NOW()+3,
+IF(AND(ISPICKVAL(Status,&apos;Case Assigned to CS&apos;),ISPICKVAL(Priority,&apos;Medium&apos;)),NOW()+2,
+IF(AND(ISPICKVAL(Status,&apos;Case Assigned to CS&apos;),OR(ISPICKVAL(Priority,&apos;High&apos;),ISPICKVAL(Priority,&apos;Extremely&apos;))),NOW()+1,
+IF(AND(ISPICKVAL(Status,&apos;1st Case Reassigned&apos;),ISPICKVAL(Priority,&apos;Low&apos;)), NOW()+1.5,
+IF(AND(ISPICKVAL(Status,&apos;1st Case Reassigned&apos;),ISPICKVAL(Priority,&apos;Medium&apos;)),NOW()+1,
+IF(AND(ISPICKVAL(Status,&apos;1st Case Reassigned&apos;),OR(ISPICKVAL(Priority,&apos;High&apos;),ISPICKVAL(Priority,&apos;Extremely&apos;))),NOW()+0.5,NULL))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Estimate Time</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

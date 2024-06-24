@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commission_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Commission Type</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Used Bike</fullName>
+                <default>false</default>
+                <label>Used Bike</label>
+            </value>
+            <value>
+                <fullName>Promotion In</fullName>
+                <default>false</default>
+                <label>Promotion In</label>
+            </value>
+            <value>
+                <fullName>Promotion Out</fullName>
+                <default>false</default>
+                <label>Promotion Out</label>
+            </value>
+            <value>
+                <fullName>E-Commerce</fullName>
+                <default>false</default>
+                <label>E-Commerce</label>
+            </value>
+            <value>
+                <fullName>Hour Sold Revenue</fullName>
+                <default>false</default>
+                <label>Hour Sold Revenue</label>
+            </value>
+            <value>
+                <fullName>Part Revenue</fullName>
+                <default>false</default>
+                <label>Part Revenue</label>
+            </value>
+            <value>
+                <fullName>A&amp;A Revenue</fullName>
+                <default>false</default>
+                <label>A&amp;A Revenue</label>
+            </value>
+            <value>
+                <fullName>Voucher</fullName>
+                <default>false</default>
+                <label>Voucher</label>
+            </value>
+            <value>
+                <fullName>Discount</fullName>
+                <default>false</default>
+                <label>Discount</label>
+            </value>
+            <value>
+                <fullName>Coupon / Warranty</fullName>
+                <default>false</default>
+                <label>Coupon / Warranty</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

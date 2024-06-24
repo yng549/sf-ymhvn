@@ -1,0 +1,14 @@
+<template>
+    <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+        <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+    </div>
+    <div class="footer">
+        <button type="button" class="slds-button slds-button_neutral">Cancel</button>
+        <template if:true={isShowSpinner}>
+            <button type="button" disabled class="slds-button slds-button_brand">Save</button>
+        </template>
+        <template if:false={isShowSpinner}>
+            <button type="button" onclick={updateLead} class="slds-button slds-button_brand">Save</button>
+        </template>
+    </div>
+</template>

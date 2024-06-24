@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Repair</fullName>
+                <default>false</default>
+                <label>Repair</label>
+            </value>
+            <value>
+                <fullName>PDI</fullName>
+                <default>false</default>
+                <label>PDI</label>
+            </value>
+            <value>
+                <fullName>Warranty</fullName>
+                <default>false</default>
+                <label>Warranty</label>
+            </value>
+            <value>
+                <fullName>Free Coupon</fullName>
+                <default>false</default>
+                <label>Free Coupon</label>
+            </value>
+            <value>
+                <fullName>Quick Service</fullName>
+                <default>false</default>
+                <label>Quick Service</label>
+            </value>
+            <value>
+                <fullName>Free Service</fullName>
+                <default>false</default>
+                <label>Free Service</label>
+            </value>
+            <value>
+                <fullName>Recall</fullName>
+                <default>false</default>
+                <label>Recall</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

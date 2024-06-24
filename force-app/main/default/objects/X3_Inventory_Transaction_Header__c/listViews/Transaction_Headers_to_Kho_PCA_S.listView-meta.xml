@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transaction_Headers_to_Kho_PCA_S</fullName>
+    <columns>CREATEDBY_USER</columns>
+    <columns>NAME</columns>
+    <columns>StockDate__c</columns>
+    <columns>Status__c</columns>
+    <columns>From_Warehouse_Location__c</columns>
+    <columns>To_Warehouse_Location__c</columns>
+    <columns>Comment_Message__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>To_Warehouse_Location__c</field>
+        <operation>equals</operation>
+        <value>Revzone Wholesale PCA</value>
+    </filters>
+    <label>Transaction Headers_to Kho PCA Sỉ</label>
+    <sharedTo>
+        <group>Storeman_HCM</group>
+    </sharedTo>
+</ListView>

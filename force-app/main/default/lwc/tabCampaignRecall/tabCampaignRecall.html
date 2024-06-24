@@ -1,0 +1,405 @@
+<template>
+    <lightning-card>
+        <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+            <div class="exampleHolder">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-gutters_direct" style="margin-top:15px;">
+            <div class="slds-col">
+                <span></span>
+            </div>
+            <div class="slds-col" style="text-align: right;">
+                <span>
+                    Frame No
+                </span>
+            </div>
+            <div class="slds-col">
+                <div class={className}>
+                    <template if:true={label}>
+                        <p class="slds-form-element__label">
+                            <template if:true={required}>
+                                <span class="requiredAsterisk">*</span>
+                            </template>
+                            {label}
+                        </p>
+                    </template>
+                    <div class="slds-combobox_container" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                            <!-- Search Input Box -->
+                            <template if:false={showPill}>
+                                <lightning-input onchange={searchRecords} onclick={showRecords} onblur={blurEvent}
+                                    class="inputBox" type="search" autocomplete="off" variant="label-hidden"
+                                    placeholder={placeholder}></lightning-input>
+                                <div if:true={showSpinner}>
+                                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                                </div>
+                            </template>
+
+                            <!-- Selected Value Pill -->
+                            <div if:true={showPill} class="pillContainer">
+                                <lightning-pill class="fullWidth" label={selectedRecord.label}
+                                    name={selectedRecord.value} onremove={removeItem}>
+                                    <lightning-icon icon-name={iconName} alternative-text="icon" size="x-small">
+                                    </lightning-icon>
+                                </lightning-pill>
+                            </div>
+
+                            <!-- Dropdown List -->
+                            <template if:true={showDropdown}>
+                                <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid">
+                                    <ul class="slds-listbox slds-listbox_vertical recordListBox">
+                                        <template if:false={message}>
+                                            <template for:each={recordsList} for:item="rec">
+                                                <li key={rec.value} data-key={rec.value}
+                                                    class="slds-listbox__item eachItem" onmousedown={selectItem}>
+                                                    <div class="slds-media slds-listbox__option_entity">
+                                                        <lightning-icon icon-name={iconName} alternative-text="icon"
+                                                            size="small"></lightning-icon>
+                                                        <span class="verticalAlign slds-truncate">{rec.label}</span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </template>
+                                        <template if:true={message}>
+                                            <li class="slds-listbox__item">
+                                                <span class="slds-media slds-listbox__option_entity">{message}</span>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <!-- <div style="margin-top: -6px;margin-left: 5px;">
+                    <lightning-input name="framenumber" onchange={changeValue} style="max-width: 397px;"
+                        variant="label-hidden" type="text"></lightning-input>
+                </div> -->
+            </div>
+            <div class="slds-col">
+                <span></span>
+            </div>
+            <div class="slds-col">
+                <span></span>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-gutters_direct" style="margin-top:15px;">
+            <div class="slds-col">
+                <span></span>
+            </div>
+            <div class="slds-grid">
+                <span>
+                    <template if:true={flagButton}>
+                        <button style="background-color:#04AA6D;color:white" class="slds-button slds-button_neutral"
+                            onclick={searchFrameNumber}>Search
+                        </button>
+                    </template>
+                    <template if:false={flagButton}>
+                        <button disabled class="slds-button slds-button_neutral">Search</button>
+                    </template>
+
+                    &nbsp;&nbsp;
+                    <button style="background-color:rgba(35, 118, 204, 1);color:white"
+                        class="slds-button slds-button_neutral" onclick={closePopup}>Refresh
+                    </button>
+                </span>
+            </div>
+            <div class="slds-col">
+                <span></span>
+            </div>
+        </div>
+        <br />
+        <div class="slds-table--header-fixed_container ">
+            <template if:true={flagSearch}>
+                <div class="slds-scrollable_x slds-scrollable_y">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate">
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate">
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate">
+                                        Asset Name
+                                    </div>
+                                </th>
+
+                                <th class="" scope="col">
+                                    <div class="slds-truncate">
+                                        Warranty Kilometers
+                                    </div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate">
+                                        Number Of Month GarDel
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr key={objAsset.Id} style="cursor: pointer;">
+                                <th scope="col">
+                                </th>
+                                <th scope="col">
+                                </th>
+                                <td scope="col"
+                                    style="margin-right:5px;max-width: 350 px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                    <a title={objAsset.Id} style="color:blue;" href={urlAssetId}
+                                        target="_blank">{objAsset.Name}</a>
+                                </td>
+                                <th scope="col">
+                                    {objAsset.Warranty_Kilometers__c}
+                                </th>
+                                <th scope="col">
+                                    {objAsset.Number_of_Month_Gar_del__c}
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <br />
+            <div class="slds-scrollable_x slds-scrollable_y">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate">
+                                    Select Campaign
+                                </div>
+                            </th>
+
+                            <th class="" scope="col">
+                                <div class="slds-truncate">
+                                    Order Number
+                                </div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">
+                                    Expand Details
+                                </div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Name Campaign">Name Campaign</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="First Name">Start Date</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="To Date">End Date</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Route Name" style="color:red;">Frame No</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Name Customer">Name Customer</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Route Name">Product Name</div>
+                            </th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template for:each={lstCampaignAsset} for:item="item" for:index="index">
+                            <tr key={item.Id} style="cursor: pointer;">
+
+                                <th scope="col">
+                                    <lightning-input type="checkbox" name={item.Id} onchange={setBoxes} value={item.Id}
+                                        data-id={item.Id}>
+                                    </lightning-input>
+                                </th>
+                                <th scope="col">
+                                    {item.OrderBy}
+                                </th>
+                                <th data-label={index}>
+                                    <lightning-button variant="+" label="+" data-record-id={index} onclick={hideAndShow}
+                                        class="slds-m-left_x-small">
+                                    </lightning-button>
+                                </th>
+                                <td scope="col" title={item.URLCampaignAsset}
+                                    style="margin-right:5px;max-width: 350 px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                    <a title={item.URLCampaignAsset} style="color:blue;" href={item.URLCampaignAsset}
+                                        target="_blank">{item.Name}</a>
+                                </td>
+                                <th scope="col">
+                                    {item.StartDate}
+                                </th>
+                                <th scope="col">
+                                    {item.EndDate}
+                                </th>
+                                <th scope="col" style="max-width: 350px;">
+                                    {item.strFrameNumber}
+                                </th>
+                                <th scope="col" style="max-width: 350px;">
+                                    {item.strNameAccount}
+                                </th>
+                                <th scope="col" style="max-width: 350px;">
+                                    {item.strProductName}
+                                </th>
+
+                            </tr>
+
+                            <!-- Children -->
+                            <template if:false={item.hideBool} key={item.Id}>
+                                <tr key={item.Id} style="cursor: pointer;">
+                                    <td scope="col">
+                                    </td>
+                                    <td scope="col">
+                                    </td>
+                                    <td scope="col">
+                                    </td>
+                                    <td scope="col" style="font-weight: bold; background-color:#04AA6D;">
+                                        Campaign Asset
+                                    </td>
+                                    <td scope="col" style="font-weight: bold; background-color:#04AA6D;">
+                                        Order Number
+                                    </td>
+                                    <td style="font-weight: bold; background-color:#04AA6D;
+                                    max-width: 200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                        Date Joined
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <template for:each={item.lstCampaignAsset} for:item="obj">
+                                    <tr key={obj.Id} style="cursor: pointer;">
+                                        <td scope="col">
+                                        </td>
+                                        <td scope="col">
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            {obj.Name}
+                                        </td>
+                                        <td scope="col" title={obj.UrlOrder}>
+                                            <a title={obj.UrlOrder} style="color:blue;" href={obj.UrlOrder}
+                                                target="_blank">{obj.Order_Number__c}</a>
+                                        </td>
+                                        <!-- {obj.Order__r.OrderNumber} -->
+                                        <td scope="col">
+                                            <div>
+                                                <lightning-formatted-date-time value={obj.Date_Joined__c} year="2-digit"
+                                                    month="short" day="2-digit" hour="numeric" weekday="long"
+                                                    era="short"></lightning-formatted-date-time>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </template>
+
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <template if:true={bShowModal}>
+            <section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+
+
+                <div class="slds-modal__container" style="width: 1000px;">
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            onclick={closeXPopup} title="Close">
+                            <lightning-icon alternative-text="close" icon-name="utility:close" size="small"
+                                variant="inverse"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="modal-heading-01">
+                            Create Order With RecordType's Recalll.
+                        </h2>
+                    </header>
+                    <!-- modal body start -->
+                    <lightning-record-edit-form object-api-name={orderObject}>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-scrollable" style="height: 25rem;">
+
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col" style="width:50%">
+                                        <lightning-input label="Campaign Name" readonly="true"
+                                            value={orderSelelect.Name}>
+                                        </lightning-input>
+                                    </div>
+
+                                    <div class="slds-col" style="width:50%">
+                                        <lightning-input-field value={orderSelelect.strAccountId}
+                                            field-name="AccountId"> </lightning-input-field>
+                                    </div>
+                                </div>
+
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col" style="width:50%">
+                                        <lightning-combobox name="filter" label="Status" required=true value="Draft"
+                                            onchange={changeStatus} options={status}>
+                                        </lightning-combobox>
+                                    </div>
+                                    <div class="slds-col" style="width:50%">
+                                        <lightning-input-field value={dttoday} field-name="EffectiveDate">
+                                        </lightning-input-field>
+                                    </div>
+                                </div>
+
+
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col" style="width:50%">
+                                        <lightning-input-field value={orderSelelect.strAssetId} field-name="Asset__c">
+                                        </lightning-input-field>
+                                    </div>
+                                    <div class="slds-col" style="width:50%">
+                                        <lightning-textarea name="Description" label="Description"></lightning-textarea>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <div class="slds-col slds-size_1-of-1">
+                                <button class="slds-button slds-button_neutral" onclick={closePopup}>Cancel</button>
+                                <lightning-button style="margin-left:5px;" onclick={saveOrder} variant="brand"
+                                    type="submit" label="Save">
+                                </lightning-button>
+                            </div>
+
+                        </footer>
+                    </lightning-record-edit-form>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <!-- <div class="slds-docked-form-footer">
+            <button type="button" class="slds-button slds-button_neutral">Cancel</button>
+            <button type="button" class="slds-button slds-button_brand">Save</button>
+          </div> -->
+        <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+            <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+        </div>
+    </lightning-card>
+</template>

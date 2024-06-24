@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KPI_Criteria__c</fullName>
+    <externalId>false</externalId>
+    <label>KPI Criteria</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Apply_to_Role__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sales volume</fullName>
+                <default>false</default>
+                <label>Sales volume</label>
+            </value>
+            <value>
+                <fullName>Number of enquiries (Opty)</fullName>
+                <default>false</default>
+                <label>Number of enquiries (Opty)</label>
+            </value>
+            <value>
+                <fullName>Quality of enquiries (Lead)</fullName>
+                <default>false</default>
+                <label>Quality of enquiries (Lead)</label>
+            </value>
+            <value>
+                <fullName>Number of Test ride</fullName>
+                <default>false</default>
+                <label>Number of Test ride</label>
+            </value>
+            <value>
+                <fullName>Content creation</fullName>
+                <default>false</default>
+                <label>Content creation</label>
+            </value>
+            <value>
+                <fullName>TSI score</fullName>
+                <default>false</default>
+                <label>TSI score</label>
+            </value>
+            <value>
+                <fullName>Customer follow up</fullName>
+                <default>false</default>
+                <label>Customer follow up</label>
+            </value>
+            <value>
+                <fullName>Sales team volume</fullName>
+                <default>false</default>
+                <label>Sales team volume</label>
+            </value>
+            <value>
+                <fullName>Training section</fullName>
+                <default>false</default>
+                <label>Training section</label>
+            </value>
+            <value>
+                <fullName>Event</fullName>
+                <default>false</default>
+                <label>Event</label>
+            </value>
+            <value>
+                <fullName>Showroom monitoring</fullName>
+                <default>false</default>
+                <label>Showroom monitoring</label>
+            </value>
+            <value>
+                <fullName>Team TSI</fullName>
+                <default>false</default>
+                <label>Team TSI</label>
+            </value>
+            <value>
+                <fullName>Team content creation</fullName>
+                <default>false</default>
+                <label>Team content creation</label>
+            </value>
+            <value>
+                <fullName>Average conversion rate</fullName>
+                <default>false</default>
+                <label>Average conversion rate</label>
+            </value>
+            <value>
+                <fullName>Sales dept. volume</fullName>
+                <default>false</default>
+                <label>Sales dept. volume</label>
+            </value>
+            <value>
+                <fullName>Sales dept. revenue</fullName>
+                <default>false</default>
+                <label>Sales dept. revenue</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Number of enquiries</fullName>
+                <default>false</default>
+                <label>Number of enquiries</label>
+            </value>
+            <value>
+                <fullName>Sales dept. TSI</fullName>
+                <default>false</default>
+                <label>Sales dept. TSI</label>
+            </value>
+            <value>
+                <fullName>Sales dept. content creation</fullName>
+                <default>false</default>
+                <label>Sales dept. content creation</label>
+            </value>
+            <value>
+                <fullName>Monthly revenue (PCA target)</fullName>
+                <default>false</default>
+                <label>Monthly revenue (PCA target)</label>
+            </value>
+            <value>
+                <fullName>Monthly revenue (Service revenue)</fullName>
+                <default>false</default>
+                <label>Monthly revenue (Service revenue)</label>
+            </value>
+            <value>
+                <fullName>Service Dept. TSI</fullName>
+                <default>false</default>
+                <label>Service Dept. TSI</label>
+            </value>
+            <value>
+                <fullName>Customer following up</fullName>
+                <default>false</default>
+                <label>Customer following up</label>
+            </value>
+            <value>
+                <fullName>Service efficiency</fullName>
+                <default>false</default>
+                <label>Service efficiency</label>
+            </value>
+            <value>
+                <fullName>Service productivity</fullName>
+                <default>false</default>
+                <label>Service productivity</label>
+            </value>
+            <value>
+                <fullName>Customer retention rate</fullName>
+                <default>false</default>
+                <label>Customer retention rate</label>
+            </value>
+            <value>
+                <fullName>Hour sold target</fullName>
+                <default>false</default>
+                <label>Hour sold target</label>
+            </value>
+            <value>
+                <fullName>Customer complain handling</fullName>
+                <default>false</default>
+                <label>Customer complain handling</label>
+            </value>
+            <value>
+                <fullName>Monthly sales volume</fullName>
+                <default>false</default>
+                <label>Monthly sales volume</label>
+            </value>
+            <value>
+                <fullName>1st PO of new bike delivery</fullName>
+                <default>false</default>
+                <label>1st PO of new bike delivery</label>
+            </value>
+            <value>
+                <fullName>Customer follow-up</fullName>
+                <default>false</default>
+                <label>Customer follow-up</label>
+            </value>
+            <value>
+                <fullName>Spare Parts Supply Ratio</fullName>
+                <default>false</default>
+                <label>Spare Parts Supply Ratio</label>
+            </value>
+            <value>
+                <fullName>Stock movement</fullName>
+                <default>false</default>
+                <label>Stock movement</label>
+            </value>
+            <value>
+                <fullName>Stock age control</fullName>
+                <default>false</default>
+                <label>Stock age control</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <valueName>Sales volume</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <valueName>Number of enquiries (Opty)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <valueName>Quality of enquiries (Lead)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <valueName>Number of Test ride</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>PCA Sales consultant</controllingFieldValue>
+            <valueName>Content creation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <controllingFieldValue>ALL Technician (Chief, Advance, Technician, Detailing Expert, Detailing specialist)</controllingFieldValue>
+            <controllingFieldValue>PCA Sales consultant</controllingFieldValue>
+            <valueName>TSI score</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bike Sales KPI by position:</controllingFieldValue>
+            <valueName>Customer follow up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <valueName>Sales team volume</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <valueName>Training section</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <valueName>Event</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <valueName>Showroom monitoring</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <controllingFieldValue>PCA Supervisor</controllingFieldValue>
+            <valueName>Team TSI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <valueName>Team content creation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales supervisor (Also conduct direct sales)</controllingFieldValue>
+            <valueName>Average conversion rate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales AM/Manager (NOT conduct direct sales)</controllingFieldValue>
+            <valueName>Sales dept. volume</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales AM/Manager (NOT conduct direct sales)</controllingFieldValue>
+            <valueName>Sales dept. revenue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales AM/Manager (NOT conduct direct sales)</controllingFieldValue>
+            <valueName>Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales AM/Manager (NOT conduct direct sales)</controllingFieldValue>
+            <valueName>Number of enquiries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales AM/Manager (NOT conduct direct sales)</controllingFieldValue>
+            <valueName>Sales dept. TSI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sales AM/Manager (NOT conduct direct sales)</controllingFieldValue>
+            <valueName>Sales dept. content creation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Monthly revenue (PCA target)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Monthly revenue (Service revenue)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Service Dept. TSI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <controllingFieldValue>PCA Sales consultant</controllingFieldValue>
+            <valueName>Customer following up</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>ALL Technician (Chief, Advance, Technician, Detailing Expert, Detailing specialist)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Service efficiency</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>ALL Technician (Chief, Advance, Technician, Detailing Expert, Detailing specialist)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Service productivity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service consultant (Conduct direct service sales)</controllingFieldValue>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Customer retention rate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ALL Technician (Chief, Advance, Technician, Detailing Expert, Detailing specialist)</controllingFieldValue>
+            <valueName>Hour sold target</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service AM/Sup</controllingFieldValue>
+            <valueName>Customer complain handling</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PCA Sales consultant</controllingFieldValue>
+            <valueName>Monthly sales volume</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PCA Sales consultant</controllingFieldValue>
+            <valueName>1st PO of new bike delivery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PCA Supervisor</controllingFieldValue>
+            <valueName>Spare Parts Supply Ratio</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PCA Supervisor</controllingFieldValue>
+            <valueName>Stock movement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PCA Supervisor</controllingFieldValue>
+            <valueName>Stock age control</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

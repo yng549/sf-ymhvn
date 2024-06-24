@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MC_already_sold_cant_create_0kmwarranty</fullName>
+    <active>false</active>
+    <description>MC already sold, can&apos;t create 0km warranty.</description>
+    <errorConditionFormula>AND( Warranty_0_Kilometer__c = true,  OR(Asset__r.Invoiced_Date__c &gt; EffectiveDate, Asset__r.Invoiced_Date__c = EffectiveDate))</errorConditionFormula>
+    <errorMessage>MC already sold, can&apos;t create 0km warranty</errorMessage>
+</ValidationRule>

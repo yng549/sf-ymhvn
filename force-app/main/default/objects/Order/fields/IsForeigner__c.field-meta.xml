@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsForeigner__c</fullName>
+    <externalId>false</externalId>
+    <formula>If(ISPICKVAL(Account.Language__c, &apos;English&apos;), True, false)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Foreigner</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

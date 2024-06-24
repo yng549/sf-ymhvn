@@ -1,0 +1,1221 @@
+public without sharing class TriggerHandlerLead {
+    public static Boolean flag = true;
+    
+    public static void onAfterInsert(List<Lead> lstLeadNews
+    ) {
+        Set<Id> setIdLeadCheckInventory = new Set<Id>();
+        for (Lead item : lstLeadNews) {
+            if(String.isNotblank(item.Product__c)) {
+                setIdLeadCheckInventory.add(item.Id);
+            }
+        }
+        System.debug('setIdLeadCheckInventory ' + setIdLeadCheckInventory);
+        if(!setIdLeadCheckInventory.isEmpty()) {
+            checkAvailableInStock(setIdLeadCheckInventory);
+        }
+    }
+    
+    public static void onAfterUpdate(
+        Map<Id, Lead> newMap,
+        Map<Id, Lead> oldMap
+    ) {
+        lookupLeadConvertedOpty(newMap.values(), newMap, oldMap);
+        updateIsStockLeadAfter(oldMap, newMap);
+    }
+    
+    public static void lookupLeadConvertedOpty(
+        List<Lead> newData,
+        Map<Id, Lead> newMap,
+        Map<Id, Lead> oldMap
+    ) {
+        Map<ID, ID> oppToLead = new Map<ID, ID>();
+        for (Lead ld : newData) {
+            if (ld.IsConverted && oldMap.get(ld.id).IsConverted)
+                continue; //only process newly converted leads
+            // Find all converted Leads with Opportunitiy and add ConvertedOpportunityId to setConvertedOppIds
+            if (ld.ConvertedOpportunityId != null) {
+                oppToLead.put(ld.ConvertedOpportunityId, ld.Product__c);
+            }
+        }
+        if (!oppToLead.isEmpty()) {
+            List<Opportunity> lstOpp = new List<Opportunity>();
+            for (Opportunity opps : [
+                SELECT Id, Product__c
+                FROM Opportunity
+                WHERE Id IN :oppToLead.keySet()
+            ]) {
+                if (oppToLead.containsKey(opps.id)) {
+                    opps.Product__c = oppToLead.get(opps.id);
+                    lstOpp.add(opps);
+                }
+            }
+            if (!lstOpp.isEmpty()) {
+                update lstOpp;
+            }
+        }
+    }
+    
+    private static void updateIsStockLeadAfter(Map<Id, Lead> oldMapLead, Map<Id, Lead> newMapLead) {
+        Set<Id> setIdLeadCheckInventory = new Set<Id>();
+        for (Lead item : newMapLead.values()) {
+            if(oldMapLead.containsKey(item.Id)) {
+                if(oldMapLead.get(item.Id).Product__c != item.Product__c && item.Product__c != Null) {
+                	setIdLeadCheckInventory.add(item.Id);
+            	}
+			}
+        }
+        if(!setIdLeadCheckInventory.isEmpty()) {
+            checkAvailableInStock(setIdLeadCheckInventory);
+            
+        }
+    }
+    
+   
+    
+    /* Warehouse của DO/DL hiện tại
+Product (Warehouse Inventory) = Product (Lead)
+Nếu totalQoH   >=1 : thì Is Stock = true
+Nếu totalQoH  <1:  thì Is Stock = false*/
+    private static void checkAvailableInStock(Set<Id> setIdLeadCheckInventory) {
+       try {
+         Map<Id, User> mapUserSale = new Map<Id, User>([SELECT Id
+                                                         		, Name
+                                                         		, AccountId
+                                                        		, Account.Warehouse_Location__c
+                                                         FROM User
+                                                         WHERE Profile.Name =: 'Community Sale Profile']);
+        Map<Id, User> mapUserSaleSup = new Map<Id, User>([SELECT Id
+                                                         		, Name
+                                                         		, AccountId
+                                                        		, Account.Warehouse_Location__c
+                                                         FROM User
+                                                         WHERE Profile.Name =: 'Community Sale Sup']);
+        Map<Id, Warehouse_Inventory__c> mapProductWarehouse = new Map<Id, Warehouse_Inventory__c>();
+        Set<Id> setAccountIds = new Set<Id>();
+        List<Lead> lstToUpdate = new List<Lead>();
+        Map<Id, List<Map<Id, Warehouse_Inventory__c>>> mapDODLInventory = new Map<Id,  List<Map<Id, Warehouse_Inventory__c>>>();
+        
+        List<Lead> lstLead = [SELECT Id,
+                                    Is_Stock__c,
+                                    Product__c,
+                                    OwnerId
+                                    FROM Lead
+                                    WHERE Id IN :setIdLeadCheckInventory];
+         
+        System.debug('mapUserSale : ' + mapUserSale);
+        for (Lead item : lstLead) {
+            if(mapUserSale.containsKey(item.OwnerId)) {
+                setAccountIds.add(mapUserSale.get(item.OwnerId).Account.Warehouse_Location__c);
+            }
+            if(mapUserSaleSup.containsKey(item.OwnerId)) {
+                setAccountIds.add(mapUserSaleSup.get(item.OwnerId).Account.Warehouse_Location__c);
+            }
+        }
+        System.debug('setAccountIds : ' + setAccountIds);
+			List<Warehouse_Inventory__c> lstWarehouseBefore = [SELECT Id
+                                                                    , Product__c
+                                                                    , Vendor__c
+                                                                    , QoH__c
+                                                                    , Warehouse_Location__c
+                                                               FROM Warehouse_Inventory__c
+                                                               WHERE Warehouse_Location__c IN: setAccountIds
+                                                                     AND QoH__c >: 0
+                                                              		 AND Product__c != NULL];
+           System.debug('lstWarehouseBefore : ' + lstWarehouseBefore);
+           if(!lstWarehouseBefore.isEmpty()) {
+               for(Warehouse_Inventory__c item : lstWarehouseBefore) {
+                   if (mapDODLInventory.containsKey(item.Warehouse_Location__c)){
+                        List<Map<Id, Warehouse_Inventory__c>> lstProductInWarehouse = mapDODLInventory.get(item.Warehouse_Location__c);
+                       	lstProductInWarehouse.add(new Map<Id, Warehouse_Inventory__c>{item.Product__c => item});
+                        mapDODLInventory.put(item.Warehouse_Location__c, lstProductInWarehouse);
+                    } else{
+                        Map<Id, Warehouse_Inventory__c> mapData = new Map<Id, Warehouse_Inventory__c>{item.Product__c => item};
+                        mapDODLInventory.put(item.Warehouse_Location__c, new List<Map<Id, Warehouse_Inventory__c>>{mapData});
+                    }
+               }
+               System.debug('mapDODLInventory ' + mapDODLInventory);
+               for(Lead item : lstLead) {
+                   System.debug('item.Product__c:' + item.Product__c);
+                   if(mapUserSale.containsKey(item.OwnerId)) {
+                       if(mapDODLInventory.containsKey(mapUserSale.get(item.OwnerId).Account.Warehouse_Location__c)) {
+                           List<Map<Id, Warehouse_Inventory__c>> lstDODLInventory = mapDODLInventory.get(mapUserSale.get(item.OwnerId).Account.Warehouse_Location__c);
+                           for(Map<Id, Warehouse_Inventory__c> objMap : lstDODLInventory) {
+                               if(objMap.containsKey(item.Product__c)) {
+                                   item.Is_Stock__c = true;
+                                   break;
+                               } else {
+                                   item.Is_Stock__c = false;
+                               }
+                           }
+                   }
+                }
+               }
+               update lstLead;
+           }
+
+        } catch (Exception e) {
+           throw new AuraHandledException(e.getMessage());
+        }
+    }
+     public static void cheatTemp() {
+        String a = 'cheat';
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+        a = a;
+    }
+}

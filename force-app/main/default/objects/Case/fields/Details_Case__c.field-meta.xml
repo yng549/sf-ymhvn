@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Details_Case__c</fullName>
+    <externalId>false</externalId>
+    <label>Details Case</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type_Request__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Products (Motorcycle)</fullName>
+                <default>false</default>
+                <label>Products (Motorcycle)</label>
+            </value>
+            <value>
+                <fullName>Products (A&amp;A)</fullName>
+                <default>false</default>
+                <label>Products (A&amp;A)</label>
+            </value>
+            <value>
+                <fullName>Quality of Services</fullName>
+                <default>false</default>
+                <label>Quality of Services</label>
+            </value>
+            <value>
+                <fullName>First time complaint</fullName>
+                <default>false</default>
+                <label>First time complaint</label>
+            </value>
+            <value>
+                <fullName>Serial complaint</fullName>
+                <default>false</default>
+                <label>Serial complaint</label>
+            </value>
+            <value>
+                <fullName>Multi-media complaint (Facebook, Chat box)</fullName>
+                <default>false</default>
+                <label>Multi-media complaint (Facebook, Chat box)</label>
+            </value>
+            <value>
+                <fullName>Delivery time</fullName>
+                <default>false</default>
+                <label>Delivery time</label>
+            </value>
+            <value>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+                <label>Feature Request</label>
+            </value>
+            <value>
+                <fullName>Lack of Follow-ups</fullName>
+                <default>false</default>
+                <label>Lack of Follow-ups</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>Test 1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Test 1</label>
+            </value>
+            <value>
+                <fullName>Test 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Test 2</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Products (Motorcycle)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Products (A&amp;A)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Quality of Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>First time complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Serial complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Multi-media complaint (Facebook, Chat box)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Delivery time</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Feature Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Lack of Follow-ups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Khiếu nại</controllingFieldValue>
+            <valueName>Others</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

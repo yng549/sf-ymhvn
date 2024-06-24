@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Address_Full__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Head_Office__c != null,  Head_Office__c, IF(ISBLANK(Address_No__c) , &apos;&apos;, Address_No__c + &apos;, &apos;) +
+IF(ISBLANK(District__r.Name) , &apos;&apos;, District__r.Name + &apos;, &apos;) +
+Province__r.Name)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Address Full</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

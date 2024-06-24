@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Back_Stage</fullName>
+    <active>true</active>
+    <description>Sau khi Complete service order, chỉ có admin được chuyển stage</description>
+    <errorConditionFormula>AND(OR(RecordType.DeveloperName == &quot;Warranty&quot;,
+RecordType.DeveloperName == &quot;Free_Coupon&quot;,
+RecordType.DeveloperName == &quot;Recall_Service&quot;,
+RecordType.DeveloperName == &quot;External_Service&quot;,
+RecordType.DeveloperName == &quot;Quick_Service_Order&quot;,
+RecordType.DeveloperName == &quot;Free_Service_Order&quot;),
+OR($Profile.Name == &apos;Community Consultant Service&apos;,
+$Profile.Name == &apos;Community Warehouse&apos; ),
+
+(CASE(Status ,
+&quot;New&quot;,1,
+&quot;Waiting for Parts&quot;,2,
+&quot;Waiting for Repair&quot;,3,
+&quot;Waiting for Payment&quot;,4,
+&quot;Waiting for Hand over&quot;,5,
+&quot;Completed&quot;,6,
+&quot;Closed&quot;,7,0)
+&lt;
+CASE(PRIORVALUE( Status ),
+&quot;New&quot;,1,
+&quot;Waiting for Parts&quot;,2,
+&quot;Waiting for Repair&quot;,3,
+&quot;Waiting for Payment&quot;,4,
+&quot;Waiting for Hand over&quot;,5,
+&quot;Completed&quot;,6,
+&quot;Closed&quot;,7,0)))</errorConditionFormula>
+    <errorMessage>You can&apos;t back order, contact your System Admin for assistance.</errorMessage>
+</ValidationRule>

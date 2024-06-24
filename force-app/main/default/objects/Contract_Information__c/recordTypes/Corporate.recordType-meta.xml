@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Corporate</fullName>
+    <active>true</active>
+    <label>Corporate</label>
+    <picklistValues>
+        <picklist>ID_Issued_By__c</picklist>
+        <values>
+            <fullName>Công An</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cục trưởng Cục Cảnh sát Quản lý Hành chính về Trật tự Xã hội</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cục trưởng Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ID_Type__c</picklist>
+        <values>
+            <fullName>CCCD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMND</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

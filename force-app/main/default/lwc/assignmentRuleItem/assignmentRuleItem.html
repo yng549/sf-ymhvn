@@ -1,0 +1,86 @@
+<template>
+  <li class="slds-expression__row">
+    <fieldset>
+      <legend class="slds-expression__legend">
+        <template if:true={isAndAction}>
+          <span>AND</span>
+        </template>
+        <template if:true={isOrAction}>
+          <span>OR</span>
+        </template>
+        <template if:true={isCustomAction}>
+          <span>{item.Sort_Order__c}</span>
+        </template>
+        <span class="slds-assistive-text">Condition {item.Sort_Order__c}</span>
+      </legend>
+      <div class="slds-grid slds-gutters_xx-small">
+        <div class="slds-col slds-size_3-of-12">
+          <div class="slds-form-element">
+            <lightning-combobox
+              name="item.Field_Name__c"
+              label="Field Name"
+              value={getItemField}
+              options={schema}
+              onchange={handleFieldChange}
+              required>
+            </lightning-combobox>
+          </div>
+        </div>
+        <div class="slds-col slds-size_3-of-12 slds-grow-none">
+          <lightning-combobox
+            name="item.Operator__c"
+            label="Operator"
+            value={getItemOperator}
+            options={picklistOperator}
+            onchange={handleOperatorChange}
+            required>
+          </lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_5-of-12">
+          <template if:true={isDefaultOperator}>
+            <lightning-input type="text" value="" disabled label="Value"></lightning-input>
+          </template>
+          <template if:false={isDefaultOperator}>
+            <template if:true={isBooleanOperator}>
+              <lightning-combobox
+                name="currentConditionValue"
+                label="Value"
+                value={getItemCondition}
+                options={picklistBoolean}
+                onchange={handleInputChange}
+                required>
+              </lightning-combobox>
+            </template>
+            <template if:true={isPicklistOperator}>
+              <lightning-combobox
+                name="currentConditionValue"
+                label="Value"
+                value={getItemCondition}
+                options={currentFieldPicklist}
+                onchange={handleInputChange}
+                required>
+              </lightning-combobox>
+            </template>
+            <template if:true={isContainsPicklistOperator}>
+              <lightning-dual-listbox
+                name="currentConditionValue"
+                label="Value"
+                source-label="Available"
+                selected-label="Selected"
+                options={currentFieldPicklist}
+                value={getItemCondition}
+                onchange={handleInputChange}>
+              </lightning-dual-listbox>
+            </template>
+            <template if:true={isInputOperator}>
+              <lightning-input type={getInputFieldType} value={getItemCondition} name="currentConditionValue" label="Value" onchange={handleInputChange} required></lightning-input>
+            </template>
+          </template>
+        </div>
+        <div class="slds-col slds-size_1-of-12 slds-grow-none" style="align-self: flex-end;">
+          <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" class="slds-m-left_xx-small" onclick={handleDeleteCondition}></lightning-button-icon>
+        </div>
+      </div>
+    </fieldset>
+  </li>
+</template>

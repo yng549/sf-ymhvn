@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commission_Rate__c</fullName>
+    <externalId>false</externalId>
+    <formula>If( AND(OR(Monthly_KPI_Employee__r.Role__c == &apos;Sales Consultant&apos;,Monthly_KPI_Employee__r.Role__c == &apos;Sales Supevisor&apos;), Text(Commission_Type__c) == &apos;Promotion In&apos;),0.65, 
+If( AND(OR(Monthly_KPI_Employee__r.Role__c == &apos;Sales Consultant&apos;,Monthly_KPI_Employee__r.Role__c == &apos;Sales Supevisor&apos;), Text(Commission_Type__c) == &apos;Promotion Out&apos;),0.45, 
+If( AND(OR(Monthly_KPI_Employee__r.Role__c == &apos;Sales Consultant&apos;,Monthly_KPI_Employee__r.Role__c == &apos;Sales Supevisor&apos;), Text(Commission_Type__c) == &apos;E-Commerce&apos;),0.25,
+If( AND(OR(Monthly_KPI_Employee__r.Role__c == &apos;Sales Consultant&apos;,Monthly_KPI_Employee__r.Role__c == &apos;Sales Supevisor&apos;), Text(Commission_Type__c) == &apos;Used Bike&apos;),20,
+If( AND(Monthly_KPI_Employee__r.Role__c == &apos;Sales Manager&apos;, Text(Commission_Type__c) == &apos;Used Bike&apos;),5, 0.125 )))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Commission Rate</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

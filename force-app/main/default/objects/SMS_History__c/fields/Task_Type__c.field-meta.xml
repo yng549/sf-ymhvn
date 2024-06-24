@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Task_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Task Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sale Bike Process - Order</fullName>
+                <default>false</default>
+                <label>Sale Bike Process - Order</label>
+            </value>
+            <value>
+                <fullName>Sale PCA Process - Order</fullName>
+                <default>false</default>
+                <label>Sale PCA Process - Order</label>
+            </value>
+            <value>
+                <fullName>Service - Booking</fullName>
+                <default>false</default>
+                <label>Service - Booking</label>
+            </value>
+            <value>
+                <fullName>Service Process  - Order</fullName>
+                <default>false</default>
+                <label>Service Process  - Order</label>
+            </value>
+            <value>
+                <fullName>Survey Sending</fullName>
+                <default>false</default>
+                <label>Survey Sending</label>
+            </value>
+            <value>
+                <fullName>Automatic send Case Survey</fullName>
+                <default>false</default>
+                <label>Automatic send Case Survey</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Unit__c</fullName>
+    <externalId>false</externalId>
+    <label>Product Unit</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Chiếc</fullName>
+                <default>true</default>
+                <label>Chiếc</label>
+            </value>
+            <value>
+                <fullName>Cái</fullName>
+                <default>false</default>
+                <label>Cái</label>
+            </value>
+            <value>
+                <fullName>Lọ</fullName>
+                <default>false</default>
+                <label>Lọ</label>
+            </value>
+            <value>
+                <fullName>Bình</fullName>
+                <default>false</default>
+                <label>Bình</label>
+            </value>
+            <value>
+                <fullName>Đơn vị khác</fullName>
+                <default>false</default>
+                <label>Đơn vị khác</label>
+            </value>
+            <value>
+                <fullName>Thùng</fullName>
+                <default>false</default>
+                <label>Thùng</label>
+            </value>
+            <value>
+                <fullName>Bộ</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bộ</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

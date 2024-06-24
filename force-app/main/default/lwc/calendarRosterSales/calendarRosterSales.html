@@ -1,0 +1,156 @@
+<!-- 
+@description: Lightning web component using Fullcalendar.io js library to display most recent events
+@author: Tran Hoang Tan Tann(Number 10)
+@jslibrary: https://fullcalendar.io/ -->
+<template>
+
+    <!-- Spinner to show on waiting screens --> 
+    <template if:true={openSpinner}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+
+    <div class="slds-grid slds-wrap slds-theme_default">
+        <div class="slds-col slds-size_2-of-12" style="padding-top:20px;">
+            <div class="slds-card__body slds-card__body_inner">
+                <!-- <c-lookup onsearch={handleSearch} errors={errors} label="Account"
+                    onselectionchange={handleLookupSelectionChange} placeholder="Search Account" selection={_selection}
+                    is-multi-entry=true required={required}>
+                </c-lookup> -->
+                <!-- EDIT DETAIL -->
+                <template if:true={selectedEvent} >
+                    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small"
+                      aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                      <div class="slds-modal__container">
+                          <header class="slds-modal__header">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Event Details</h2>
+                          </header>
+
+                                <lightning-record-edit-form object-api-name="Order" record-id={selectedEvent.id}>
+                                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                        <div class="slds-scrollable" style="height: 25rem;">
+                                            
+                                            <div class="slds-grid slds-gutters">
+                                                <div class="slds-col" style="width:50%">
+                                                    <lightning-input-field   field-name="OrderNumber"> </lightning-input-field>
+                                                </div>
+                                                
+                                                <div class="slds-col" style="width:50%">
+                                                    <lightning-input-field  field-name="Mechanic__r.Name"> </lightning-input-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="slds-grid slds-gutters">
+                                                <div class="slds-col" style="width:50%">
+                                                    <lightning-input-field   field-name="Service_Job_Start_Date__c"> </lightning-input-field>
+                                                </div>
+                                                
+                                                <div class="slds-col" style="width:50%">
+                                                    <lightning-input-field  field-name="Service_Job_End_Date__c"> </lightning-input-field>
+                                                </div>
+                                            </div>
+
+                                            <div class="slds-grid slds-gutters">
+                                                <div class="slds-col" style="width:50%">
+                                                    <lightning-input-field   field-name="Detailing_Start_Date__c"> </lightning-input-field>
+                                                </div>
+                                                
+                                                <div class="slds-col" style="width:50%">
+                                                    <lightning-input-field  field-name="Detailing_End_Date__c"> </lightning-input-field>
+                                                </div>
+                                            </div>
+                                                
+                                        </div>
+                                    </div>
+                                    <footer class="slds-modal__footer">
+                                        <div class="slds-col slds-size_1-of-1">
+                                            <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                                            <lightning-button variant="brand" type="submit" label="Save" 
+                                            onclick={handleSuccess}>
+                                            </lightning-button>
+                                        </div>
+                                        
+                                    </footer>
+                            </lightning-record-edit-form>
+                      </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                  </template>
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">{label}</label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-combobox_container">
+                            <div aria-expanded="false" aria-haspopup="listbox"
+                                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" role="combobox">
+                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                    role="none">
+                                    <input aria-controls="listbox-id-1" auto-complete="off"
+                                        class="slds-input slds-combobox__input readonly" data-id="combobox-id-1"
+                                        onclick={handleClick} role="textbox" value={selectedContactMessage} type="text"
+                                        onblur={handleBlur}></input>
+                                    <div class="slds-input__icon-group slds-input__icon-group_right">
+                                        <lightning-icon class="slds-input__icon slds-input__icon_right"
+                                            icon-name="utility:down" size="xx-small"></lightning-icon>
+                                    </div>
+                                </div>
+                                <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" id="5"
+                                    onmouseenter={handleMouseEnter} onmouseleave={handleMouseleave} role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template for:each={inputOptions} for:item="option">
+                                            <li class="slds-listbox__item" data-selected="false" data-id="All"
+                                                data-value={option.value} key={option.value} role="presentation"
+                                                onclick={handleSelection}>
+                                                <div class={option.class}
+                                                    role="option" >
+                                                    <span class="slds-media__figure">
+                                                        <lightning-icon
+                                                            class="slds-icon-utility-check slds-current-color slds-listbox__icon-selected slds-icon_container"
+                                                            icon-name="utility:check" size="x-small">
+                                                        </lightning-icon>
+                                                    </span>
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-truncate"
+                                                            title={option.label}>{option.label}</span>
+                                                    </span>
+                                                </div>
+                                            </li>
+
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+
+            <div style="margin-top:10px; padding:10px;">
+                <lightning-button label="Filter" title="Filter" variant="brand" icon-name="utility:search"
+                    onclick={actionFilter}></lightning-button>
+            </div>
+            <hr/>
+
+            <div style="margin-top:10px; padding:5px;">
+                <lightning-button style="margin-right:10px;margin-left:5px;" label="Prev" title="Refresh"
+                     onclick={Prev}></lightning-button>
+                <lightning-button  title="Next" variant="brand" label="Next" value={defaultDate}
+                    onclick={next}></lightning-button>
+            </div>
+
+        </div>
+        <div class="slds-col slds-size_10-of-12">
+            <!-- fullcalendar sits in this div -->
+            <div class="scheduler-container-height">
+                <div data-id="fullCalendarContainer" id="fullCalendarContainer" class="fullcalendarjs" lwc:dom="manual"></div>
+            </div>
+            <div lwc:dom="manual" data-id="popovercontent" class="popover-content"></div>
+            <template if:true={isLoading}>
+                <lightning-spinner size="small"></lightning-spinner>
+            </template>
+        </div>
+        
+    </div>
+
+</template>

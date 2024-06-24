@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TOR__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISPICKVAL(Language__c ,&apos;English&apos;) ,  
+IF( ISPICKVAL( Gender__c , &apos;Male&apos;) , &apos;Mr &apos;,&apos;Ms &apos;) , 
+IF( ISPICKVAL( Gender__c , &apos;Male&apos;) ,&apos;anh &apos;,&apos;chi &apos;
+          ))+
+
+
+
+CASE( LEN(LastName) - LEN(SUBSTITUTE(LastName,&apos; &apos;, &apos;&apos;)),
+1, RIGHT(LastName, LEN(LastName) - FIND(&quot; &quot;, LastName)),
+2, RIGHT(LastName, LEN(LastName) - FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName)+1)),
+3, RIGHT(LastName, LEN(LastName) - FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName)+1)+1) ),
+4, RIGHT(LastName, LEN(LastName) - FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName)+1)+1)+1) ),
+5, RIGHT(LastName, LEN(LastName) - FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName)+1)+1)+1)+1) ),
+6, RIGHT(LastName, LEN(LastName) - FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName, FIND(&quot; &quot;, LastName)+1)+1)+1)+1)+1) ),
+LastName
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Title Of Respect</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

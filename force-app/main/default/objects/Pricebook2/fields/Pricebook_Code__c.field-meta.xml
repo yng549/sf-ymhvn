@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pricebook_Code__c</fullName>
+    <displayFormat>PBB-{0000}</displayFormat>
+    <externalId>false</externalId>
+    <label>Pricebook Code</label>
+    <trackHistory>false</trackHistory>
+    <type>AutoNumber</type>
+</CustomField>

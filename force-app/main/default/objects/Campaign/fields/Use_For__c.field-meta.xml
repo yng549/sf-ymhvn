@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Use_For__c</fullName>
+    <externalId>false</externalId>
+    <label>Use For</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ALL DO</fullName>
+                <default>true</default>
+                <label>ALL DO</label>
+            </value>
+            <value>
+                <fullName>Sài Gòn</fullName>
+                <default>false</default>
+                <label>Sài Gòn</label>
+            </value>
+            <value>
+                <fullName>Hà Nội</fullName>
+                <default>false</default>
+                <label>Hà Nội</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warranty_Claim_must_be_Y</fullName>
+    <active>true</active>
+    <description>Warranty Order always Y</description>
+    <errorConditionFormula>AND(Warranty_Claim__c = false, Order__r.Record_Type_Name__c = &apos;Warranty Order&apos;,  Order__r.Warranty_0_Kilometer__c = false)</errorConditionFormula>
+    <errorMessage>Warranty Claim must be Y with Warranty Order &gt; 0km</errorMessage>
+</ValidationRule>

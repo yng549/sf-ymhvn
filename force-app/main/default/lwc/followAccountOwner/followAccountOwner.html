@@ -1,0 +1,292 @@
+<template>
+    <lightning-card  title="Reassign Owner" style="margin:5px;">
+        <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+            <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+        </div>
+        <div class="slds-scrollable_y" style="height:30rem">
+            <lightning-progress-indicator current-step={currentStep} type="base" variant="base">
+                <lightning-progress-step label="Step 1" value="1" onclick={handleOnStepClick}></lightning-progress-step>
+                <lightning-progress-step label="Step 2" value="2" onclick={handleOnStepClick}></lightning-progress-step>
+            </lightning-progress-indicator>
+
+            <template if:true={isStepOne}>
+                <div style="margin:10px;">
+                    <div class="slds-grid slds-wrap">
+                        <lightning-combobox class="slds-col slds-size_2-of-6" placeholder="-Select value-"
+                           name={label} value={value} options={pricebookOptions} onchange={pricebookChange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isStepTwo}>
+                <div>
+                    <div>
+                        <lightning-card >
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <span></span>
+                                </div>
+                            </div><br />
+                            <div>
+                                <div class="slds-scrollable" style="height: 25rem;">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate">
+                                                        Expand
+                                                    </div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate">
+                                                        #
+                                                    </div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate">
+                                                        Name
+                                                    </div>
+                                                </th>
+                                                <th class="" style="max-width: 350px;" scope="col">
+                                                    <div class="slds-truncate">Owner Name</div>
+                                                </th>
+                                                <th class="" style="max-width: 350px;" scope="col">
+                                                    <div class="slds-truncate" >Created Date</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={productList} for:item="obj" for:index="index">
+                                                <tr key={obj.objAccount.Id}>
+                                                    <th  data-label={index}>
+                                                        <lightning-button style="background-color:mediumspringgreen;"
+                                                            variant="+" label="+" data-record-id={index}
+                                                            onclick={hideAndShow} class="slds-m-left_x-small">
+                                                        </lightning-button>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>
+                                                            <lightning-input type="checkbox" 
+                                                                onchange={setBoxes} value={obj.objAccount.Id} data-id={obj.objAccount.Id}>
+                                                            </lightning-input>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>
+                                                            {obj.objAccount.Name}
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div >
+                                                            {obj.objAccount.Owner.Name}
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div >
+                                                            <lightning-formatted-date-time value={obj.objAccount.CreatedDate}  year="2-digit"
+                                                             month="short" day="2-digit" weekday="long"></lightning-formatted-date-time>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <template if:false={obj.hideBool} key={obj.objAccount.Id}>
+                                                    <tr key={obj.objAccount.Id} style="cursor: pointer;">
+                                                        <td scope="col"
+                                                            style="width: 5%">
+                                                            
+                                                        </td>
+                                                        <td scope="col"
+                                                            style="max-width: 15%; font-weight: bold; background-color:#04AA6D;">
+                                                            Opportunity Name
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;
+                                                        max-width: 3%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                            Stage Name
+                                                        </td>
+                                                        <td style="max-width: 17%;font-weight: bold; background-color:#04AA6D;">
+                                                            Owner Name
+                                                        </td>
+                                                        <td style="max-width: 55%;font-weight: bold; background-color:#04AA6D;">
+                                                            Created Date
+                                                        </td>
+                                                    </tr>
+                                                    <template for:each={obj.lstOpportunity} for:item="item">
+                                                        <tr key={item.Id}
+                                                            style="cursor: pointer;">
+                                                            <td scope="col">
+                                                            </td>
+                                                            <td>
+                                                                {item.Name}
+                                                            </td>
+                                                            <td>
+                                                                {item.StageName}
+                                                            </td>
+                                                            
+                                                            <td scope="col">
+                                                                <div>
+                                                                    
+                                                                    {item.Owner.Name}
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <lightning-formatted-date-time value={item.CreatedDate}  year="2-digit"
+                                                             month="short" day="2-digit" weekday="long"></lightning-formatted-date-time>
+                                                            </td>
+                                                        </tr>
+                                                        <tr key={item.Id}
+                                                            style="cursor: pointer; padding-left:100px;">
+                        
+                                                        </tr>
+                                                    </template>
+
+                                                    <!-- Order -->
+                                                    <tr key={obj.objAccount.Id} style="cursor: pointer;">
+                                                        <td scope="col"
+                                                            style="width: 5%">
+                                                            
+                                                        </td>
+                                                        <td scope="col"
+                                                            style="font-weight: bold; background-color:#04AA6D;">
+                                                            Order Number
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                                            Status
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                                            Owner Name
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;">
+                                                            Created Date
+                                                        </td>
+                                                    </tr>
+                                                    <template for:each={obj.lstOrder} for:item="item">
+                                                        <tr key={item.Id}
+                                                            style="cursor: pointer;">
+                                                            <td scope="col">
+                                                            </td>
+                                                            <td>
+                                                                {item.OrderNumber}
+                                                            </td>
+                                                            
+                                                            <td scope="col">
+                                                                <div>
+                                                                    
+                                                                    {item.Status}
+                                                                </div>
+                                                            </td>
+
+                                                            <td scope="col">
+                                                                <div>
+                                                                    
+                                                                    {item.Owner.Name}
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <lightning-formatted-date-time value={item.CreatedDate}  year="2-digit"
+                                                             month="short" day="2-digit" weekday="long"></lightning-formatted-date-time>
+                                                            </td>
+                                                        </tr>
+                                                        <tr key={item.Id}
+                                                            style="cursor: pointer; padding-left:100px;">
+                        
+                                                        </tr>
+                                                    </template>
+
+                                                    <tr key={obj.objAccount.Id} style="cursor: pointer;">
+                                                        <td scope="col"
+                                                            style="width: 5%">
+                                                            
+                                                        </td>
+                                                        <td scope="col"
+                                                            style="max-width: 15%; font-weight: bold; background-color:#04AA6D;">
+                                                            After Sale
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;
+                                                        max-width: 3%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                            Order Number
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;
+                                                        max-width: 3%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                            Order Status
+                                                        </td>
+                                                        <td style="font-weight: bold; background-color:#04AA6D;
+                                                        max-width: 3%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                                            Bike Type
+                                                        </td>
+                                                    </tr>
+                                                    <template for:each={obj.lstOrderAccount} for:item="item">
+                                                        <tr key={item.Id}
+                                                            style="cursor: pointer;">
+                                                            <td scope="col">
+                                                                
+                                                            </td>
+                                                            
+                                                            <td scope="col">
+                                                                {item.Name} 
+                                                            </td>
+                                                            <td scope="col">
+                                                                {item.Order_Number__c} 
+                                                            </td>
+                                                            <td scope="col">
+                                                                {item.Order_Status__c}
+                                                            </td>
+                                                            <td>
+                                                                {item.Bike_cc_Product__c}
+                                                            </td>
+                                                        </tr>
+                                                    </template>
+
+                                                    
+                                                </template>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+
+                            <!--
+                                This modal box used to show the selected contacts
+                            -->
+
+
+                            <!-- <div if:true={searchData}>
+                            <lightning-datatable data={searchData} 
+                                                 columns={columns} 
+                                                 key-field="id"></lightning-datatable>
+                        </div> -->
+                        </lightning-card>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div style="float:right;margin-right:15px;margin-bottom:10px;">
+            <template if:true={isStepOne}>
+                <template if:false={disabledButtonStep1}>
+                        <button  class="slds-button slds-button_neutral" variant="brand" onclick={handleNext1}>Next</button>
+                </template>
+                <template if:true={disabledButtonStep1}>
+                    <button disabled class="slds-button slds-button_neutral"  variant="brand">Next</button>
+                </template>
+            </template>
+            
+            <template if:true={isStepTwo}>
+                <template if:true={isEnablePrev}>
+                    <button variant="base" class="slds-button slds-button_neutral" onclick={handlePrev}>Back</button>
+                </template> &nbsp;
+                <template if:false={disabledButtonStep2}>
+                    <template if:false={isShowSpinner}>
+                        <button class="slds-button slds-button_brand" variant="brand" onclick={handleNext2}>Save</button>
+                    </template>
+                    <template if:true={isShowSpinner}>
+                        <button  class="slds-button slds-button_brand" variant="brand" disabled>Save</button>
+                    </template>
+                    
+                </template>
+                <template if:true={disabledButtonStep2}>
+                    <button class="slds-button slds-button_brand" variant="brand" disabled>Save</button>
+                </template>
+            </template>
+        </div>
+        
+    </lightning-card>
+</template>

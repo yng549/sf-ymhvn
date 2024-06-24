@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Staff__c</columns>
+    <columns>Date__c</columns>
+    <columns>DO_DL__c</columns>
+    <columns>Shift__c</columns>
+    <columns>From__c</columns>
+    <columns>To__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Work_Hour__c</columns>
+    <columns>Staff_Code__c</columns>
+    <columns>Shift_Code__c</columns>
+    <columns>DO_DL_Code__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>THIS_YEAR</value>
+    </filters>
+    <filters>
+        <field>Date__c</field>
+        <operation>equals</operation>
+        <value>LAST_MONTH</value>
+    </filters>
+    <filters>
+        <field>Staff__c</field>
+        <operation>contains</operation>
+        <value>SHIBATA</value>
+    </filters>
+    <label>All</label>
+    <sharedTo>
+        <allPartnerUsers></allPartnerUsers>
+    </sharedTo>
+</ListView>

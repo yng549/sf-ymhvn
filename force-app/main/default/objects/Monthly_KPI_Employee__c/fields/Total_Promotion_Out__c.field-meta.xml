@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Promotion_Out__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Sales Amount - Out Promo</label>
+    <summarizedField>Monthly_KPI_Employee_Detail__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Monthly_KPI_Employee_Detail__c.Commission_Type__c</field>
+        <operation>equals</operation>
+        <value>Promotion Out</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Monthly_KPI_Employee_Detail__c.Monthly_KPI_Employee__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

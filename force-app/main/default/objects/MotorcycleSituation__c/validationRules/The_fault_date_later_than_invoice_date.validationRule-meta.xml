@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_fault_date_later_than_invoice_date</fullName>
+    <active>true</active>
+    <errorConditionFormula>Fault_Start_Date__c &lt;  Order__r.Asset__r.Invoiced_Date__c</errorConditionFormula>
+    <errorDisplayField>Fault_Start_Date__c</errorDisplayField>
+    <errorMessage>The Fault Date can not be earlier than the Invoice Date</errorMessage>
+</ValidationRule>

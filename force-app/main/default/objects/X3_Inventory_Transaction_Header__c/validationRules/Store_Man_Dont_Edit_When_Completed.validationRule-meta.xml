@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store_Man_Dont_Edit_When_Completed</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+NOT(ISNEW()),
+ISCHANGED(Status__c),
+ISPICKVAL( PRIORVALUE(Status__c),&quot;Completed&quot;),
+ $Profile.Name == &apos;Community Warehouse&apos;
+)</errorConditionFormula>
+    <errorMessage>You can not edit when it was completed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_transfer_status</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>Round_To_Sale__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LEAD.LEAD_SOURCE</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Is_Lead_Transfer__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>DO_DL_Create__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR SAI GON</value>
+    </filters>
+    <label>Lead transfer status SG</label>
+    <sharedTo>
+        <group>Group_User_In_DO_HCM</group>
+    </sharedTo>
+</ListView>

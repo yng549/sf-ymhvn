@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FrameNoPointCode__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( !ISBLANK( FrameNo__c ) &amp;&amp; !ISBLANK(  PointCode__c ), FrameNo__c  + &apos;_&apos; + PointCode__c , &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>FrameNoPointCode</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

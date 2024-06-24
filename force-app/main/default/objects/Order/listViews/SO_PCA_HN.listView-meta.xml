@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SO_PCA_HN</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Order_Number__c</columns>
+    <columns>Booking_Note__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>Paid_Amount__c</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>Invoice_Date__c</columns>
+    <columns>Order_Ecommerce_Id__c</columns>
+    <columns>Order_Ecommerce__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>Promotion_Item__c</columns>
+    <columns>Invoice_No__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.PCA</value>
+    </filters>
+    <filters>
+        <field>DO_DL__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <filters>
+        <field>ORDERS.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Completed,Cancel,Closed</value>
+    </filters>
+    <label>HN- SO Working PCA</label>
+    <sharedTo>
+        <group>PCA_DO_HN</group>
+        <group>Storeman_HN</group>
+    </sharedTo>
+</ListView>

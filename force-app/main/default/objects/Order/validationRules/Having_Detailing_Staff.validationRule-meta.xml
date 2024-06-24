@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Having_Detailing_Staff</fullName>
+    <active>false</active>
+    <description>Các Order có Detailing (Quick_Service_Order, Free_Service_Order, External_Service): phải nhập các field Bike_Delivery_Date_*c, *Service_Job_End_Date_c, Detailing_End_Date__c</description>
+    <errorConditionFormula>IF(AND
+(ISCHANGED( Status ), ISPICKVAL(Status , &apos;Completed&apos;),
+AND (
+OR(RecordType.DeveloperName == &quot;Quick_Service_Order&quot;,
+RecordType.DeveloperName == &quot;Free_Service_Order&quot;,
+RecordType.DeveloperName == &quot;External_Service&quot;))
+
+,
+AND (Detailing_Staff__c != Null)
+),TRUE,FALSE)</errorConditionFormula>
+    <errorMessage>Missing requirement field&apos;s &quot;Detailing Start Date&quot; or &quot;Detailing End Date&quot;</errorMessage>
+</ValidationRule>

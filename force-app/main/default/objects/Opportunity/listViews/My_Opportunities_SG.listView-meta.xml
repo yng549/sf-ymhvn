@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Opportunities_SG</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>DODL_Create__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR SAI GON</value>
+    </filters>
+    <label>My Opportunities SG</label>
+    <sharedTo>
+        <group>Group_User_In_DO_HCM</group>
+    </sharedTo>
+</ListView>

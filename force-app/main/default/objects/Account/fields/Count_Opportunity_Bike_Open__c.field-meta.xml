@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Count_Opportunity_Bike_Open__c</fullName>
+    <externalId>false</externalId>
+    <label>Count Opportunity Bike Open</label>
+    <summaryFilterItems>
+        <field>Opportunity.StageName</field>
+        <operation>notEqual</operation>
+        <value>Closed Won, Closed Lost</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Opportunity.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Bike</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Opportunity.AccountId</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

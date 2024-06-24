@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Run_Lead_Trigger__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Setting to check if round robin can run lead trigger</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Run Lead Trigger</label>
+    <type>Checkbox</type>
+</CustomField>

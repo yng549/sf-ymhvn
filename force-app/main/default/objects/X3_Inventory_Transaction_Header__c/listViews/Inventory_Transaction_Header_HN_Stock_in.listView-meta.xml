@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventory_Transaction_Header_HN_Stock_in</fullName>
+    <columns>CREATEDBY_USER</columns>
+    <columns>NAME</columns>
+    <columns>Stock_In__c</columns>
+    <columns>StockDate__c</columns>
+    <columns>Status__c</columns>
+    <columns>Type__c</columns>
+    <columns>From_Warehouse_Location__c</columns>
+    <columns>To_Warehouse_Location__c</columns>
+    <columns>Comment_Message__c</columns>
+    <columns>Header_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>To_Warehouse_Location__c</field>
+        <operation>equals</operation>
+        <value>Revzone HaNoi Bike&amp;PCA</value>
+    </filters>
+    <label>Inventory Transaction Header HN_Stock in</label>
+    <sharedTo>
+        <group>Storeman_HN</group>
+    </sharedTo>
+</ListView>

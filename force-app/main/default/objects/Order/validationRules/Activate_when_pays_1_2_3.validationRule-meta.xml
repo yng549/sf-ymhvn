@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activate_when_pays_1_2_3</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISBLANK(TEXT(Pays__c)), NOT(ISNULL(Payment_1_Percent__c)))</errorConditionFormula>
+    <errorDisplayField>Payment_1_Percent__c</errorDisplayField>
+    <errorMessage>Chọn thanh toán 1 lần chở lên để nhập payment 1</errorMessage>
+</ValidationRule>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recall</fullName>
+    <active>true</active>
+    <label>Recall</label>
+    <picklistValues>
+        <picklist>Category__c</picklist>
+        <values>
+            <fullName>Activation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Promotion</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Department__c</picklist>
+        <values>
+            <fullName>MRK %E2%80%93 DM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MRK %E2%80%93 PNS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sales</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issued_by__c</picklist>
+        <values>
+            <fullName>Bike</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MRK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Service_Apply__c</picklist>
+        <values>
+            <fullName>Bike</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Source__c</picklist>
+        <values>
+            <fullName>Revzone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workshop</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stage_Approval__c</picklist>
+        <values>
+            <fullName>In AM Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Director DO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Finance %28optional%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Project manager</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planned</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Brand launching</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Content creation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>E-commerce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KOLs%2F Influencers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Media monitoring</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Off-line</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PPC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PR Booking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PR Seeding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product Launching</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Roadshow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social media ads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test Ride</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video%2F photoshoot</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Advertising</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Demo Signup %2F Trial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Event%2Factivation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Relation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referral Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thought Leadership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website Direct</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Use_For__c</picklist>
+        <values>
+            <fullName>ALL DO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hà Nội</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sài Gòn</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Voucher_Type__c</picklist>
+        <values>
+            <fullName>Cash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gift</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

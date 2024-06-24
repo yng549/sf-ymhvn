@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Need_to_complete_Free_Service_Order</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(
+    OR(
+        AND(
+            RecordType.DeveloperName = &quot;Free_Service_Order&quot;,
+            ISPICKVAL(Status, &apos;Completed&apos;),
+            Is_Discount_Approval__c = false,
+            NOT(
+                OR(
+                    (Account.Name == &quot;REVZONE YAMAHA MOTOR SAI GON&quot;),
+                    (Account.Name == &quot;REVZONE YAMAHA MOTOR HA NOI&quot;),
+                    (Account.Name == &quot;REVZONE YAMAHA MOTOR DA NANG&quot;)
+                )
+            )
+        ),
+        AND(
+            RecordType.DeveloperName = &quot;Warranty&quot;,
+            ISPICKVAL(Status, &apos;Completed&apos;),
+            Is_Discount_Approval__c = false
+        )
+    ),
+    true,
+    null
+)</errorConditionFormula>
+    <errorMessage>We need to tick true field IS Discount Approval to complete order</errorMessage>
+</ValidationRule>

@@ -1,0 +1,478 @@
+<apex:page applyBodyTag="false" applyHtmlTag="false" showHeader="false" renderAs="pdf" standardStylesheets="false" controller="HandOverRecordPDF">
+
+  <head>
+    <style type="text/css">
+      @page {
+        counter-increment: page;
+        size: A4 portrait;
+        page-break-inside: avoid;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-top: 15px;
+        margin-bottom: 150px;
+        tr {
+          page-break-inside: avoid !important;
+        }
+
+        td {
+          page-break-inside: avoid !important;
+        }
+
+        @bottom-center {
+          content: element(footer);
+        }
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+      .row {
+        width: 100%;
+        /* margin: 0 auto; */
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 49%;
+      }
+
+      .col-2-of-3 {
+        float: left;
+        width: 66.66%;
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 33.33%;
+      }
+
+      .col-1-of-4 {
+        float: left;
+        width: 24%;
+      }
+
+      .col-2-of-4 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-3-of-4 {
+        float: left;
+        width: 75%;
+      }
+
+      .col-1-of-6 {
+        float: left;
+        width: 20%;
+      }
+
+      .col-2-of-6 {
+        float: left;
+        width: 28%;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+      b {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      body {
+        font-family: Arial Unicode MS;
+        font-size: 12px;
+        box-sizing: border-box;
+      }
+
+      div.header {}
+
+      .header-logo-box {
+        /* margin-left: 40px; */
+        margin-bottom: 25px;
+        width: 185px;
+      }
+
+      .header-logo-box::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .logo {
+        margin-top: 3px;
+      }
+
+      .header__subtext-box {
+        text-align: center;
+        /* margin-left: 10px; */
+      }
+
+      /* .box {
+        min-height: 36px;
+      } */
+
+      .header__small-text span {
+        display: block;
+        font-size: 10px;
+      }
+
+      .header__text-box {
+        letter-spacing: 8px;
+        color: red;
+        text-align: center;
+      }
+
+      .heading-primary {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .heading-secondary {
+        text-transform: uppercase;
+        font-size: 18px;
+        font-family: sans-serif;
+        font-weight: bold;
+        font-style: italic;
+      }
+
+
+      .header__info-box p {
+        margin-bottom: 5px;
+      }
+
+      .checkbox {
+        padding: 0 8px;
+        height: 10px;
+        border: 1px solid black;
+        box-sizing: border-box;
+      }
+
+      table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        font-weight: bold;
+        font-size: 12px;
+        color: black;
+        padding-left: 10px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+
+      td {
+        text-align: left;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        overflow-wrap: break-word;
+        /* vertical-align: middle; */
+        /* line-height: 12px; */
+        font-size: 12px;
+        min-height: 15px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      .spliter {
+        border: 2px solid black;
+        width: 100%;
+        margin-top: 3px;
+      }
+
+      div.footer {
+        margin-bottom: 100px;
+        width: 730px;
+        position: running(footer);
+      }
+
+
+      .u-height-medium {
+        height: 30px;
+      }
+
+      .u-height-big {
+        height: 43px;
+      }
+
+      .u-p-0 {
+        padding: 0;
+      }
+
+      .u-p-r-small {
+        padding-right: 4px;
+      }
+
+      .u-p-r-medium {
+        padding-right: 15px;
+      }
+
+      .u-m-t-small {
+        margin-top: 10px;
+      }
+
+      .u-m-t-medium {
+        margin-top: 27px;
+      }
+
+      .u-m-t-large {
+        margin-top: 50px;
+      }
+
+      .u-m-t-xlarge {
+        margin-top: 70px;
+      }
+
+      .u-m-b-medium {
+        margin-bottom: 25px;
+      }
+
+      .u-m-b-large {
+        margin-bottom: 75px;
+      }
+
+      .u-m-l-medium {
+        margin-left: 20px;
+      }
+
+      .u-m-tb-small {
+        margin: 7px 0px;
+      }
+
+      .u-m-tb-medium {
+        margin: 17px 0px;
+      }
+
+      .u-m-tb-large {
+        margin: 28px 0px;
+      }
+
+      .u-align-center {
+        text-align: center;
+      }
+
+      .u-align-left {
+        text-align: left;
+      }
+
+      .u-align-right {
+        text-align: right;
+      }
+
+      .u-width-99 {
+        width: 99.5%;
+      }
+
+      .u-m-0 {
+        margin: 0;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-logo-box u-align-center">
+        <div class="logo">
+          <apex:image id="logo" value="{!$Resource[logo]}" width="180" height="45" />
+        </div>
+        <div class="header__subtext-box">
+          <p class="header__small-text">
+            <span>{!objOrder.Account.DO_DL_Create_Account__r.Address_logo__c}</span>
+            <span>Số/No.: {!objOrder.Order_Number__c} - Handover
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="header__text-box">
+        <p class="heading-primary">BIÊN BẢN BÀN GIAO </p>
+        <p class="heading-secondary">HAND-OVER RECORD</p>
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Section info -->
+    <div class="section-info u-m-t-medium">
+      <div class="row">
+        <!-- <div class="col-1-of-2"> -->
+        <span>Khách hàng/Customer: &nbsp;</span>
+        <apex:image rendered="{!if(objOrder.Account.Gender__c == 'Male' ,true, false)}" value="{!$Resource.checkboxCheckedPDF}" width="20"
+          height="20" />
+        <apex:image rendered="{!if(objOrder.Account.Gender__c != 'Male' ,true, false)}" value="{!$Resource.checkboxUncheckedPDF}"
+          width="20" height="20" />
+        <span> &nbsp;Ông/Mr. &nbsp;&nbsp;</span>
+        <apex:image rendered="{!if(objOrder.Account.Gender__c == 'Female' ,true, false)}" value="{!$Resource.checkboxCheckedPDF}"
+          width="20" height="20" />
+        <apex:image rendered="{!if(objOrder.Account.Gender__c != 'Female' ,true, false)}" value="{!$Resource.checkboxUncheckedPDF}"
+          width="20" height="20" />
+        <span>&nbsp; Bà/Ms.</span>
+        <!-- </div> -->
+      </div>
+      <div class="row u-m-t-small">
+        <table>
+          <thead>
+            <tr>
+              <th>HỌ VÀ TÊN/FULL NAME
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-transform: uppercase;">{!objOrder.Account.Name} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row u-m-t-small" style="line-height: 23px;">
+        <div class="col-1-of-2">
+          <p>Số điện thoại/Phone no.:&nbsp;{!objOrder.Account.PersonMobilePhone}
+            <br/>Địa chỉ người mua/Add:
+          </p>
+        </div>
+        <div class="col-1-of-2">
+          <p>Ngày tháng năm sinh/Date of birth:&nbsp;
+            <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+              <apex:param value="{!objOrder.Account.DOB__pc}" />
+            </apex:outputText>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <table>
+          <tr>
+            <td style="">{!objOrder.Account.Address_Full__c}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="row u-m-t-small">
+        Ngày giao hàng/Delivery date &nbsp;
+        <apex:outputText value="{0,date, dd'/'MM'/'yyyy}">
+          <apex:param value="{!today}" />
+        </apex:outputText>
+      </div>
+
+
+      <div class="row u-m-t-small">
+        <div class="col-1-of-3">Số khung/Vin no.
+          <div style="width: 150px">
+            <table>
+              <tr>
+                <td>{!objOrder.Asset__r.Frame_Number__c}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-1-of-3">Số máy/Engine no.:
+          <div style="width: 120px">
+            <table>
+              <tr>
+                <td>{!objOrder.Asset__r.Engine_No__c}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-1-of-3">Số hóa đơn/Invoice no:
+          <div style="width: 120px">
+            <table>
+              <tr>
+                <td>{!objOrder.Invoice_No__c}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Split here  -->
+      <div class="spliter u-m-tb-large"></div>
+
+      <div class="row u-m-b-large">
+        <p>Xác nhận bởi Yamaha Motor Việt Nam/Confirmed by Yamaha Motor VN:
+          <br/> - Xe đã đáp ứng đủ mọi yêu cầu chính hãng Yamaha/This motorbike is satified according to Yamaha's requirement.
+          <br/> - Xe đã được kiểm tra theo chỉ dẫn trước khi giao cho khách hàng/This motorbike is checked according to Yamaha's
+          direction before handing over to Customer.
+          <br/> - Chính sách Bảo hành, hướng dẫn sử dụng đã được giao cho khách hàng/Warranty policy, manual is delivered to customer.
+          <br/> - Cung cấp cho khách hàng 01 bản sao của mẫu đơn này và giữ lại bản chính cho việc sao lưu hồ sơ/Both parties
+          keep 01 copy of this record. </p>
+      </div>
+      <div class="row u-m-t-small">
+        <div class="col-1-of-3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div style="border-top:1px solid black;display:inline-block;">Nhân viên bán hàng/Sales Consultant
+          </div>
+        </div>
+        <div class="col-1-of-3">Đã nhận đủ số tiền/Full paid
+          <div style="border-top:1px solid black;display:inline-block;">
+            P. Kế Toán/Acct Dept.
+          </div>
+        </div>
+        <div class="col-1-of-3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div style="border-top:1px solid black;display:inline-block;">
+            Ngày &nbsp;&nbsp;&nbsp;&nbsp;/ Tháng&nbsp;&nbsp;&nbsp;&nbsp; / Năm &nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+      <div class="spliter "></div>
+      <div class="row">
+        <p>Xác nhận bởi Khách Hàng/Confirmed by Customer:
+          <br/> - Xe này đã được giao trong tình trạng tốt/This motorbike is in good condition.
+          <br/> - Tôi đã nhận được hướng dẫn sử dụng và các điều khoản bảo hành đã được giải thích rõ./ I confirmed that well
+          received the manual and warranty policy</p>
+      </div>
+    </div>
+    <!-- End section info -->
+
+    <!-- Section signature -->
+    <div class="section-signature u-m-t-xlarge">
+      <div class="row">
+        <div class="col-1-of-2 u-align-left">
+          <div class="u-align-center" style="width: 70%">
+            <p>Khách hàng ký và ghi rõ họ tên </p>
+            <p>Customer's signature &amp; full name</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End section signature -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer">
+        <div class="row" style=" border: 1px solid rgb(255, 255, 255); ">
+          <div class="col-1-of-2 u-align-left">
+            <div class="u-align-center" style=" width: 70%; border-top: 1px solid rgb(0, 0, 0);">
+              <span> Ngày/Date:_____/______/_________</span>
+            </div>
+          </div>
+          <div class="col-1-of-2 u-align-center last-child ">
+            &nbsp;
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</apex:page>

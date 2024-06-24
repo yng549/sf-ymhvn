@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Event Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>PCA</fullName>
+                <default>false</default>
+                <label>PCA</label>
+            </value>
+            <value>
+                <fullName>Phụ tùng, Quần áo và Phụ kiện</fullName>
+                <default>false</default>
+                <label>Phụ tùng, Quần áo và Phụ kiện</label>
+            </value>
+            <value>
+                <fullName>Sales</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sales</label>
+            </value>
+            <value>
+                <fullName>Serivce Yamaha</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Serivce Yamaha</label>
+            </value>
+            <value>
+                <fullName>Service Multi Brands</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Service Multi Brands</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

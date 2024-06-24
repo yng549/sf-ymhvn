@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Round_Robin_Assignment__c</fullName>
+    <externalId>false</externalId>
+    <label>Round Robin Assignment</label>
+    <referenceTo>Round_Robin_Assignment__c</referenceTo>
+    <relationshipLabel>Round Robin Assignee</relationshipLabel>
+    <relationshipName>Round_Robin_Assignee</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

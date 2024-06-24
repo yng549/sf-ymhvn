@@ -1,0 +1,1135 @@
+<apex:page standardController="Contract" standardstylesheets="false" showHeader="false" sidebar="false" applyHtmlTag="false"
+    applyBodyTag="false" renderAs="PDF" contentType="text/html; charset=UTF-8" extensions="BtnPrintContractFormController">
+
+    <head>
+        <style type="text/CSS">
+            table {-fs-table-paginate: paginate;}
+            <!-- table header after page -->
+            th{ font-family: Arial Unicode MS; font-weight:bold; } td { padding:5px } .noBorder { border: 0px ; border-collapse: collapse;
+            width:100%; } .customBorder { border: 1px solid black; border-collapse: collapse; border-radius: 50px 50px 0px
+            0px; width:100%} .borderBottom { border-bottom : 1px solid black; } .customFont {font-family: Arial Unicode MS;width:
+            100%; font-size:12px; } .center { margin: auto; width: 45%; display: block; padding-top:500px; font-size:12px;}
+            .fontSizeTitle {font-size:14px;} .textBlue {color:blue;} .paddingLeftText {padding-left:22px} .custom-text-area{line-height:
+            0;} /* Default left, right, top, bottom margin is 2cm */ @page { counter-increment: page; margin-top: 1.3cm;
+            margin-bottom: 2cm; margin-left:2cm; margin-right: 1cm; @bottom-center { content: counter(page); font-family:
+            sans-serif; font-size: 80%; } } /* First page, 10 cm margin on top */ @page :first { margin-top: 1.3cm; margin-bottom:
+            2.5cm; margin-left:2cm; margin-right: 2cm; } .p-tb-table-td td{ padding-top:0; padding-bottom:0; } .sample {
+            font-size:25px; } i { font-family: sans-serif; font-style: italic; font-size:12px;}
+        </style>
+        
+    </head>
+
+    <div class='customFont'>
+        <div style='text-align:center;font-size:12px'>
+            <p>
+                <apex:image id="theImage" value="{!$Resource.ConTractFormHeader}" width="337" height="153" />
+                <br/>
+                <!-- CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM <br/>
+             Độc lập – Tự do – Hạnh phúc  <br/>
+             SOCIALIST REPUBLIC OF VIETNAM  <br/>
+             Independence – Freedom - Happiness  <br/> -->
+                <!-- ------------------------------   -->
+                <!-- <br/>
+             HỢP ĐỒNG MUA BÁN  <br/>
+             SALES AGREEMENT  <br/>-->
+                Số /No. : {!currentContract.ContractNumber} </p>
+
+        </div>
+        <div style="margin-left:0.5cm;">
+            <table class="p-tb-table-td">
+                <tr>
+                    <td style="vertical-align: top;">
+                        - &nbsp;
+                    </td>
+                    <td>
+                        Căn cứ Luật Thương mại số 36/2005/QH11 được Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam ban hành ngày 14 tháng 6 năm
+                        2005;
+                        <br/>
+                        <i> Pursuant to the Commercial Law No.36/2005/QH11 issued by National Assembly of Socialist Republic
+                            of Vietnam on 14 June 2005;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        - &nbsp;
+                    </td>
+                    <td>
+                        Căn cứ Bộ luật Dân sự số 91/2015/QH13 được Quốc hội nước Cộng hòa xã hội chủ nghĩa Việt Nam thông qua ngày 24 tháng 11 năm
+                        2015;
+                        <br/>
+                        <i>Pursuant to Civil Code No. 91/2015/QH13 passed by the National Assembly of the Socialist Republic
+                            of Vietnam on 24 November 2015;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        - &nbsp;
+                    </td>
+                    <td>
+                        Căn cứ vào nhu cầu và khả năng của mỗi Bên.
+                        <br/>
+                        <i>Pursuant to the needs and ability of each Party,</i>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+		 <div style="margin:10px 0; ">
+            Hôm nay, ngày {!contractDay} tháng {!contractMonth} năm {!contractYear}, tại {!currentContract.Account.DO_DL_Create_Account__r.Address__c},chúng tôi
+            gồm có:
+            <br/>
+            <i> Today, on the {!contractDay} date of {!contractMonth}, {!contractYear}, at {!currentContract.Account.DO_DL_Create_Account__r.Address_Eng__c},we are:</i>
+            <br/>
+        </div>
+        <div>
+            <p style="line-height: 19px; margin-bottom: 2px;">
+                BÊN A :  {!currentContract.Opportunity__r.DODL_Create__r.Contract_Company_Name__c}
+                <br/>
+                <i>PARTY A:  {!currentContract.Opportunity__r.DODL_Create__r.Contract_Company_Name_eng__c}</i>
+            </p>
+            <!-- <apex:image value="{!$Resource.ContractFormBody2}" width="415" height="47" /> -->
+        </div>
+
+        <div style='width:100%;font-size:12px;' class='paddingLeftText'>
+            <table class="p-tb-table-td">
+                <tr>
+                    <td style="vertical-align: top; width:16px;">
+                        -
+                    </td>
+                    <td valign="top">Địa chỉ : {!currentContract.Account.DO_DL_Create_Account__r.Head_Office__c}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td valign="top">
+                        <i>Address : {!currentContract.Account.DO_DL_Create_Account__r.Head_Office_Eng__c}</i>
+                    </td>
+                </tr>
+            </table>
+            <table class="p-tb-table-td">
+                <tr>
+                    <td style="vertical-align: top;width:10px;">
+                        -
+                    </td>
+                    <td valign="top" style="width:41%">Điện thoại/
+                        <i>Tel</i> :   {!currentContract.Account.DO_DL_Create_Account__r.Phone}</td>
+                    <td valign="top" style="width:55.5%">Fax: {!currentContract.Account.DO_DL_Create_Account__r.Fax}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        - &nbsp;
+                    </td>
+                    <td colspan="2" valign="top">Mã số thuế/Tax Code : {!currentContract.Account.DO_DL_Create_Account__r.Tax_Code__c}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        - &nbsp;
+                    </td>
+                    <td valign="top">Đại diện bởi : {!currentContract.Opportunity__r.DODL_Create__r.Represented_By__c} 
+                    </td>
+                    <td valign="top">Chức vụ: {!currentContract.Opportunity__r.DODL_Create__r.Represented_Title__c} 
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td valign="top">
+                        <i>Represented by: {!currentContract.Opportunity__r.DODL_Create__r.Represented_By_Eng__c} 
+                           
+                        </i>
+                    </td>
+                    <td valign="top">
+                        <i>Title: {!currentContract.Opportunity__r.DODL_Create__r.Represented_Title_Eng__c} </i>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td colspan="2"> Theo giấy ủy quyền ký ngày 01/09/2023 bởi Suzuki Yasutaka – Đại diện theo pháp luật Công ty TNHH Yamaha
+                        Motor Việt Nam.
+                        <br/>
+                        <i> Pursuant to Power of Attorney date 01/09/2023 signed by Suzuki Yasutaka - Legal representative of
+                            Yamaha Motor Vietnam Co.,Ltd.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        - &nbsp;
+                    </td>
+                  	 <td>Số tài khoản:  {!currentContract.Opportunity__r.DODL_Create__r.Bank_Number2__c}</td>
+                    <td>Tên tài khoản: {!currentContract.Opportunity__r.DODL_Create__r.Bank_Account_Name__c }</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td>
+                        <i>Account No. {!currentContract.Opportunity__r.DODL_Create__r.Bank_Number2__c}</i>
+                    </td>
+                    <td>
+                        <i>Account name: {!currentContract.Opportunity__r.DODL_Create__r.Bank_Account_Name_Eng__c}</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td colspan="2">Tại ngân hàng : {!currentContract.Account.DO_DL_Create_Account__r.Bank_Name__c}</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td colspan="2">
+                        <i>Bank name : {!currentContract.Account.DO_DL_Create_Account__r.Bank_Name_Eng__c}</i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top:10px;">Lưu ý: Hóa đơn Giá trị Gia tăng sẽ do Công ty TNHH Yamaha Motor Việt Nam xuất
+            <i>
+                <br/> Note: VAT invoice shall be issued by Yamaha Motor Vietnam Co., Ltd
+            </i>
+            <br/> Sau đây gọi là “Bên Bán”
+            <br/>
+            <i>Hereinafter referred to as the “Seller”</i>
+            <br/>
+            <br/> Và/
+            <i>and</i>
+            <br/>
+        </div>
+        <div>
+            <p style="font-size:12px;line-height: 19px; margin-bottom: 2px;">
+                BÊN B: {!IF(currentContract.Contract_Information__c == null,UPPER(currentAccount.Name),UPPER(currentContract.Contract_Information__r.Name))}
+                <br/>
+                <i>PARTY B: {!UPPER(removeVietnamToneText)}</i>
+            </p>
+        </div>
+        <div style="width:100%;font-size:12px;" class='paddingLeftText'>
+            <table class="p-tb-table-td">
+                <tr>
+                    <td style="vertical-align: top;width:11px;">
+                        -
+                    </td>
+                    <td>
+                        Họ tên : {!IF(currentContract.Contract_Information__c == null,currentAccount.Name,currentContract.Contract_Information__r.Name)}
+                    </td>
+                    <td colspan="2">
+                        Ngày sinh:
+                        <apex:outputText value="{0,date,' ' dd/MM/yyyy}">
+                            <apex:param value="{!IF(currentContract.Contract_Information__c == null,currentAccount.DOB__pc , currentContract.Contract_Information__r.DOB__c)}"
+                            />
+                        </apex:outputText>
+                        <!-- Ngày sinh: {!IF(currentContract.Contract_Information__c == null,currentAccount.PersonBirthdate , currentContract.Contract_Information__r.DOB__c)} -->
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td>
+                        <i> Full name : {!removeVietnamToneText}</i>
+                    </td>
+                    <td colspan="2">
+                        <i> Date of birth:
+                            <apex:outputText value="{0,date,' ' dd/MM/yyyy}">
+                                <apex:param value="{!IF(currentContract.Contract_Information__c == null,currentAccount.DOB__pc , currentContract.Contract_Information__r.DOB__c)}"
+                                />
+                            </apex:outputText>
+                        </i>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        -
+                    </td>
+                    <td>
+                        Điện thoại/
+                        <i>Tel : {!IF(currentContract.Contract_Information__c == null,currentAccount.PersonMobilePhone , currentContract.Contract_Information__r.Mobile__c)}
+                        </i>
+                    </td>
+                    <td colspan="2">
+                        Fax: {!IF(currentContract.Contract_Information__c == null,currentAccount.Fax , currentContract.Contract_Information__r.Fax__c)}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        -
+                    </td>
+                    <td valign="top" style="width:36%">
+                        CMND/CCCD/Hộ chiếu: {!IF(currentContract.Contract_Information__c == null,currentAccount.ID_No__c , currentContract.Contract_Information__r.ID_number__c)}
+                    </td>
+                    <td valign="top" style="width:23%">
+                        Ngày cấp :
+                        <apex:outputText value="{0,date,' ' dd/MM/yyyy}">
+                            <apex:param value="{!IF(currentContract.Contract_Information__c == null,currentAccount.ID_Issue_Date__c , currentContract.Contract_Information__r.ID_Issue_dated__c)}"
+                            />
+                        </apex:outputText>
+                    </td>
+                    <td valign="top" style="width:38%">
+                        Bởi : {!IF(currentContract.Contract_Information__c == null, 
+                            IF(currentAccount.ID_Type__c == 'CMND',
+                             currentAccount.ID_Issued_By__c
+                        + ' ' + 
+                        currentAccount.Province__r.Name ,IF(currentAccount.ID_Type__c == 'Passport',currentAccount.Country__c
+                        ,currentAccount.ID_Issued_By__c)),
+                         IF(currentContract.Contract_Information__r.ID_Type__c == 'CMND',
+                        currentContract.Contract_Information__r.ID_Issued_By__c 
+                        + ' ' + currentContract.Contract_Information__r.Province__r.Name
+                        ,IF(currentContract.Contract_Information__r.ID_Type__c == 'Passport',
+                        currentContract.Contract_Information__r.Country__c
+                        ,currentContract.Contract_Information__r.ID_Issued_By__c)))}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td valign="top">
+                        <i>ID number: {!IF(currentContract.Contract_Information__c == null,currentAccount.ID_No__c , currentContract.Contract_Information__r.ID_number__c)}</i>
+                    </td>
+                    <td valign="top">
+                        <i> Dated :
+                            <apex:outputText value="{0,date,' ' dd/MM/yyyy}">
+                                <apex:param value="{!IF(currentContract.Contract_Information__c == null,currentAccount.ID_Issue_Date__c , currentContract.Contract_Information__r.ID_Issue_dated__c)}"
+                                />
+                            </apex:outputText>
+                        </i>
+                    </td>
+                    <td valign="top">
+                        Issued by : {!IF(currentContract.Contract_Information__c == null, IF(currentAccount.ID_Type__c ==
+                            'CMND', currentAccount.ID_Issued_By_Eng__c + ' ' + provinceEng ,
+                            IF(currentAccount.ID_Type__c == 'Passport',currentAccount.Country__c
+                        ,currentAccount.ID_Issued_By_Eng__c) )
+                            , IF(currentContract.Contract_Information__r.ID_Type__c == 'CMND',currentContract.Contract_Information__r.ID_Issued_By_Eng__c
+                            + ' ' + provinceEng ,
+                            IF(currentContract.Contract_Information__r.ID_Type__c == 'Passport',
+                        currentContract.Contract_Information__r.Country__c
+                        ,currentContract.Contract_Information__r.ID_Issued_By_Eng__c)))}
+                     
+                    </td>
+                </tr>
+            </table>
+            <table class="p-tb-table-td">
+                <tr>
+                    <td style="vertical-align: top; width:11px;">
+                        - &nbsp;
+                    </td>
+                    <td valign="top">
+                        Địa chỉ thường trú : 
+                        {!IF(currentContract.Contract_Information__c == null,currentAccount.Address_Full__c , currentContract.Contract_Information__r.Address_Full__c)}
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="vertical-align: top;">
+                        &nbsp;&nbsp;
+                    </td>
+                    <td valign="top">
+                        <i> Permanent residence:</i>
+                        <!-- {!IF(currentContract.Contract_Information__c == null,currentAccount.Permanent_Residence__c
+                        , currentContract.Contract_Information__r.Permanent_residence__c)} -->
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        -
+                    </td>
+                    <td valign="top">
+                        Chỗ ở hiện tại:
+                        {!IF(currentContract.Contract_Information__c == null,currentAccount.Permanent_Residence__c , currentContract.Contract_Information__r.Permanent_residence__c)}
+                         <!-- {!IF(currentContract.Contract_Information__c == null,currentAccount.Address_Full__c , currentContract.Contract_Information__r.Address_Full__c)} -->
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        &nbsp;
+                    </td>
+                    <td valign="top">
+                        <i> Current residence: </i>
+                        <!-- {!IF(currentContract.Contract_Information__c == null,currentAccount.Address_Full__c
+                        , currentContract.Contract_Information__r.Address_Full__c)} -->
+                    </td>
+                </tr>
+            </table>
+            Sau đây gọi là “Bên Mua”
+            <br/>
+            <i>Hereinafter referred to as the “Buyer”</i>
+            <br/>
+            <br/> Bên Bán và Bên Mua sau đây gọi riêng là “Bên” và gọi chung là “Các Bên”
+            <br/>
+            <i>Seller and Buyer hereinafter referred to separately as the “Party” and collectively referred to as the “Parties”</i>
+            <br/> Sau khi bàn bạc, Các Bên đã thống nhất ký kết Hợp đồng Mua bán này (Sau đây gọi là “Hợp đồng”) với những điều
+            khoản và điều kiện như sau:
+            <br/>
+            <i>After discussion, both Parties agree to enter into this Sales Agreement (Hereinafter referred to as the “Agreement”)
+                with the following terms and conditions:</i>
+            <br/>
+            <br/>
+        </div>
+        <div style='width:100%'>
+            <p style='font-size:12px'>
+                Điều 1/
+                <i>Article 1:</i> Nội dung hợp đồng/
+                <i>Content of the Agreement</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">1.1.</td>
+                    <td>Bên Bán đồng ý bán và Bên Mua đồng ý mua (các) sản phẩm xe gắn máy, xe mô tô mang nhãn hiệu Yamaha do
+                        Bên Bán cung cấp (Sau đây được gọi là “Xe Máy”) với các thông tin chi tiết như sau:
+                        <br/>
+                        <i> Seller agreed to sell and Buyer agreed to buy Yamaha branded motorcycles(s) provided by Seller (Hereinafter
+                            referred to as the “Motorcycles”) with the following information:</i>
+                    </td>
+                </tr>
+            </table>
+            <table class='customBorder' border='1' cellspacing="0">
+                <thead>
+                    <tr>
+                        <td>STT/
+                            <br/>No.</td>
+                        <td>Loại xe/
+                            <br/>
+                            <i>Model of Motorcycles</i>
+                        </td>
+                        <td>
+                            Mã loại xe/
+                            <br/>
+                            Model Code
+                        </td>
+                        <td>Màu sắc
+                            <br/>Color</td>
+                        <td>Số lượng (chiếc)
+                            <br/>
+                            <i>Quantity (Mcs)</i>
+                        </td>
+                        <td>Đơn giá (VNĐ/xe)
+                            <br/>
+                            <i>Unit Price (VND/Mcs)</i>
+                        </td>
+                        <td>Ghi chú
+                            <br/>
+                            <i>Remark</i>
+                        </td>
+                        <td>Thành tiền (VNĐ)
+                            <br/>
+                            <i>Amount (VND)</i>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:variable var="semcount" value="{!1}" />
+                    <apex:repeat value="{!listProduct}" var="product">
+                        <tr>
+                            <td>{!semcount}</td>
+                            <td>{!product.Product2.Sales_Name__c}</td>
+                            <td>{!product.Product2.Model_Code__c}</td>
+                            <td>{!product.Product2.Color_Name__c}</td>
+                            <td>{!product.Quantity}</td>
+                            <td>
+                                <!-- <apex:outputText value="{0, Number, ###,###}">
+                                    <apex:param value="{!product.UnitPrice}" />
+                                </apex:outputText> -->
+                                <apex:outputText value="{0, Number, ###,###}">
+                                    <apex:param value="{!total_exclude_vat}" />
+                                </apex:outputText>
+                            </td>
+                            <td> Mới 100%
+                                <br/> Brand-new
+                                <!-- {!currentContract.Remark__c} -->
+                            </td>
+                            <td>
+                                <!-- <apex:outputText value="{0, Number, ###,###}">
+                                    <apex:param value="{!product.TotalPrice}" />
+                                </apex:outputText> -->
+                                <apex:outputText value="{0, Number, ###,###}">
+                                    <apex:param value="{!total_exclude_vat}" />
+                                </apex:outputText>
+                            </td>
+                            <apex:variable var="semcount" value="{!semcount+1}" />
+                        </tr>
+                    </apex:repeat>
+                    <tr>
+                        <td colspan='6'>Tổng (chưa gồm thuế Giá trị gia tăng)/
+                            <i>Total (excluding VAT):</i>
+                        </td>
+                        <td>
+                            <apex:outputText value="{0, Number, ###,###}">
+                                <apex:param value="{!total_exclude_vat}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan='6'>Thuế Giá trị gia tăng (10%) (VAT 10%):</td>
+                        <td>
+                            <apex:outputText value="{0, Number, ###,###}">
+                                <apex:param value="{!amount_vat}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan='6'>Giá trị Hợp đồng/
+                            <i>The value of the Agreement</i>
+                        </td>
+                        <td>
+                            <apex:outputText value="{0, Number, ###,###}">
+                                <apex:param value="{!total}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            Lưu ý: Phụ kiện kèm theo Xe Máy sẽ tuân theo tiêu chuẩn của Bên Bán tại từng thời điểm.
+            <br/>
+            <i> Note: The accessories which shall be delivered along with Motorcycles(s) in accordance with Seller’s standards
+                time by time.</i>
+            <br/>
+            <table>
+                <tr>
+                    <td valign="top">1.2.</td>
+                    <td>Giá trị Hợp đồng là:
+                        <apex:outputText value="{0, Number, ###,###}">
+                            <apex:param value="{!total}" /></apex:outputText> VNĐ (Bằng chữ:{!total_text_vn} Việt Nam Đồng) (đã bao gồm thuế Giá trị gia
+                        tăng).
+                        <br/>
+                        <i> Accordingly, the value of the Agreement shall be:
+                            <apex:outputText value="{0, Number, ###,###}">
+                                <apex:param value="{!total}" /></apex:outputText> VND (In word:{!total_text_en} Vietnamese Dong), (VAT included)</i>
+                        <br/> Giá trị Hợp đồng nêu trên đã bao gồm chi phí vận chuyển đến (các) địa điểm giao hàng nêu tại Điều
+                        2 của Hợp đồng này.
+                        <br/>
+                        <i> The aforesaid value of the Agreement includes transportation fee to the delivery location(s) described
+                            in Article 2 of this Agreement.</i>
+                        <br/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            <p style='font-size:12px'>
+                Điều 2/
+                <i> Article 2:</i> Phương thức giao hàng /
+                <i> Delivery method</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">2.1.</td>
+                    <td>Thời gian giao hàng dự kiến/
+                        <i> Tentative delivery date:
+                            <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                <apex:param value="{!currentContract.Tentative_Delivery_Date__c}" /> </apex:outputText>
+                        </i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">2.2.</td>
+                    <td>Mặc dù có quy định về thời gian giao hàng dự kiến như trên, Các Bên tại đây đồng ý rằng Bên Bán chỉ thực
+                        hiện việc giao Xe Máy cho Bên Mua sau khi Bên Bán đã được Bên Mua thanh toán toàn bộ Giá trị Hợp
+                        đồng theo quy định tại Hợp đồng này.
+                        <br/>
+                        <i>Notwithstanding the tentative delivery time described above, two Parties hereby agree that Seller
+                            shall deliver the Motorcycles(s) to Buyer after Buyer has paid the total Agreement Value to Seller
+                            under this Agreement.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">2.3.</td>
+                    <td>Địa điểm giao hàng/
+                        <i> Delivery place(s):</i> {!currentContractOwner.Address__c}/
+                        <i>{!currentContractOwner.Address_Eng__c}</i>
+                        <br/> Trong trường hợp thay đổi địa điểm giao hàng do yêu cầu của Bên Mua: Bên Mua và Bên Bán cùng nhau
+                        thoả thuận thời gian, chi phí phát sinh nếu có.
+                        <br/>
+                        <i> In case of changing of delivery place(s) by the Buyer: Both parties will make deals for new delivery
+                            time and cost if any.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">2.4.</td>
+                    <td>Bên Bán sẽ giao Xe Máy đã được lắp đặt hoàn chỉnh các thiết bị kỹ thuật cần thiết theo tiêu chuẩn của
+                        nhà sản xuất cho Bên Mua.
+                        <br/>
+                        <i>Seller shall deliver the Motorcycles(s) which be completely installed the necessary technical equipment
+                            in accordance with the manufacturer’s standards to Buyer.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">2.5.</td>
+                    <td>Sau khi giao nhận Xe Máy, người đại diện có thẩm quyền phụ trách giao nhận Xe Máy của Bên Bán và Bên
+                        Mua cùng ký vào Biên bản Bàn giao.
+                        <br/>
+                        <i> After the delivery and receipt of Motorcycles, the authorized representative of the Seller in charge
+                            of Motorcycles delivery and the Buyer shall sign on a Hand-over Minutes.</i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            <p style='font-size:12px'>
+                Điều 3/
+                <i>Article 3:</i> Phương thức thanh toán/
+                <i>Payment method</i>
+            </p>
+            <div style="{!IF(currentContract.Payment_Type__c=='1', 'display:block', 'display:none')}">
+                <table>
+                    <tr>
+                        <td valign="top">3.1.</td>
+                        <td> Bên Mua sẽ thanh toán cho Bên Bán 100% Giá trị Hợp đồng bằng Đồng Việt Nam bằng hình thức chuyển
+                            khoản vào tài khoản của Bên Bán nêu ở trang đầu tiên Hợp đồng này hoặc thanh toán tiền mặt trước
+                            Thời gian giao hàng dự kiến quy định tại Điều 2 của Hợp đồng này.
+                            <br/>
+                            <i> Buyer will pay Seller 100% of the total Agreement Value in Vietnamese Dong by bank transfer to
+                                the bank account of Seller mentioned in the first page of this Agreement or by cash before
+                                the Tentative delivery date indicated in Article 2 of this Agreement.</i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top"> 3.2.</td>
+                        <td> Sau khi đã nhận đủ 100% Giá trị Hợp đồng, Bên Bán sẽ xuất hóa đơn giá trị gia tăng cho Bên Mua tại
+                            thời điểm giao Xe Máy (mỗi một Xe Máy sẽ được Bên Bán xuất một Hóa đơn Giá trị Gia tăng để Bên
+                            Mua có thể tiến hành thủ tục đăng ký lưu hành tại Cơ quan Công an). Hóa đơn Giá trị Gia tăng
+                            sẽ do Công ty TNHH Yamaha Motor Việt Nam xuất. Thời điểm được xem là đã thanh toán khi tài khoản
+                            của Bên Bán đã ghi có.
+                            <br/>
+                            <i>After received 100% of the total Agreement Value, Seller shall issue VAT invoice(s) to Buyer
+                                upon the delivery of Motorcycles(s) (each Motorcycles shall be issued one VAT Invoice by
+                                Seller to enable Buyer to carry out procedures for registration at the Police Authorities).
+                                VAT invoice shall be issued by Yamaha Motor Vietnam Co., Ltd. The payment is considered as
+                                being received when the Seller's account has been credited.</i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--<div style="{!IF(currentContract.Payment_Type__c=='2', 'display:block', 'display:none')}">
+                <apex:outputText rendered="{!if(currentContract.Payment_Type__c=='2',if(currentContract.Payment_1__c != null,true,false),false)}" value="{!payment_1_vn}"/><br/>
+                <apex:outputText rendered="{!if(currentContract.Payment_Type__c=='2',if(currentContract.Payment_1__c != null,true,false),false)}" value="{!payment_1_en}"/><br/>
+                <apex:outputText rendered="{!if(currentContract.Payment_Type__c=='2',if(currentContract.Payment_2__c != null,true,false),false)}" value="{!payment_2_vn}"/><br/>
+                <apex:outputText rendered="{!if(currentContract.Payment_Type__c=='2',if(currentContract.Payment_2__c != null,true,false),false)}" value="{!payment_2_en}"/><br/>
+                <apex:outputText rendered="{!if(currentContract.Payment_Type__c=='2',if(currentContract.Payment_3__c != null,true,false),false)}" value="{!payment_3_vn}"/><br/>
+                <apex:outputText rendered="{!if(currentContract.Payment_Type__c=='2',if(currentContract.Payment_3__c != null,true,false),false)}" value="{!payment_3_en}"/>
+                <apex:outputField rendered="{!if(currentContract.Payment_Type__c=='2',true,false)}" value="{!template.Article_3_Multi_Payment__c}"/>
+            </div> -->
+            <div style="{!IF(currentContract.Payment_Type__c=='2', 'display:block', 'display:none')}">
+                <table>
+                    <tr>
+                        <td valign="top">3.1.</td>
+                        <td> Bên Mua sẽ thanh toán cho Bên Bán thành {!currentContract.Payment_Type__c} đợt thanh toán:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class='paddingLeftText'>-</td>
+                        <td>Đợt 01: Bên Mua sẽ đặt cọc số tiền là :
+                            <apex:outputText value="{0, Number}">
+                                <apex:param value="{!currentContract.Payment_1__c}" /></apex:outputText> VND (Bằng chữ : {!payment_1_vn_text} Việt Nam Đồng) nhằm đảm bảo việc
+                            thực hiện đúng và đầy đủ nghĩa vụ của Bên Mua theo Hợp đồng. Nếu Bên Mua đơn phương hủy Hợp đồng
+                            thì số tiền đặt cọc trên sẽ thuộc về Bên Bán.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class='paddingLeftText'>-</td>
+                        <td>Đợt 02: Bên Mua sẽ thanh toán phần còn lại của của Hợp đồng cho Bên Bán trước khi Bên Bán giao Xe
+                            máy cho Bên Mua.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">&nbsp;</td>
+                        <td>
+                            <i>Buyer shall make {!currentContract.Payment_Type__c} payments to Seller:</i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class='paddingLeftText'>-</td>
+                        <td>
+                            <i>01st payment: Buyer shall make Deposit equal to :
+                                <apex:outputText value="{0, Number}">
+                                    <apex:param value="{!currentContract.Payment_1__c}" /></apex:outputText> VND (In word : {!payment_1_en_text} Vietnamese Dong) to ensure Buyer’s
+                                obligations under this Agreement. If Buyer unilaterally terminanate this Agreement, the Deposit
+                                shall belong to Seller. </i>VNĐ.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class='paddingLeftText'>-</td>
+                        <td>
+                            <i>02nd payment: Buyer shall make payment for the rest of the Agreement to Seller before Seller
+                                deliveries Motorcycle(s) to Buyer.</i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- <div style="{!IF(currentContract.Payment_Type__c=='3', 'display:block', 'display:none')}">
+                3.1. Bên Mua sẽ thanh toán cho Bên Bán thành {!currentContract.Payment_Type__c} đợt thanh toán:
+                <br/> - Đợt 01: Bên Mua sẽ đặt cọc số tiền là :
+                <apex:outputText value="{0, Number}">
+                    <apex:param value="{!currentContract.Payment_1__c}" /></apex:outputText> VND (Bằng chữ : {!payment_1_vn_text} Việt Nam Đồng) nhằm đảm bảo việc thực hiện đúng
+                và đầy đủ nghĩa vụ của Bên Mua theo Hợp đồng. Nếu Bên Mua đơn phương hủy Hợp đồng thì số tiền đặt cọc trên
+                sẽ thuộc về Bên Bán.
+                <br/> - Đợt 02: Bên Mua sẽ thanh toán tiếp :
+                <apex:outputText value="{0, Number}">
+                    <apex:param value="{!currentContract.Payment_2__c}" /></apex:outputText> VND (Bằng chữ : {!payment_2_vn_text} Việt Nam Đồng) cho Bên B khi.....................
+                <br/> - Đợt 03: Bên Mua sẽ thanh toán phần còn lại của của Hợp đồng cho Bên Bán trước khi Bên Bán giao Xe máy
+                cho Bên Mua.
+                <br/>
+                <br/> Buyer shall make {!currentContract.Payment_Type__c} payments to Seller:
+                <br/> - 01st payment: Buyer shall make Deposit equal to :
+                <apex:outputText value="{0, Number}">
+                    <apex:param value="{!currentContract.Payment_1__c}" /></apex:outputText> VND (In word : {!payment_1_en_text} Vietnamese Dong) to ensure Buyer’s obligations
+                under this Agreement. If Buyer unilaterally terminanate this Agreement, the Deposit shall belong to Seller.
+                VNĐ.
+                <br/> - 02nd payment: Buyer shall pay :
+                <apex:outputText value="{0, Number}">
+                    <apex:param value="{!currentContract.Payment_2__c}" /></apex:outputText> VND (In word : {!payment_2_en_text} Vietnamese Dong) to Seller when........................
+                <br/> - 03nd payment: Buyer shall make payment for the rest of the Agreement to Seller before Seller deliveries
+                Motorcycle(s) to Buyer.
+            </div> -->
+        </div>
+        <div style='width:100%'>
+            <p>
+                Điều 4/
+                <i>Article 4:</i> Chuyển giao quyền sở hữu Xe Máy/
+                <i>Transfer of ownership of the Motorcycles(s)</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">4.1</td>
+                    <td>Các Bên tại đây đồng ý rằng quyền sở hữu Xe Máy chỉ được chuyển từ Bên Bán sang Bên Mua khi thoả mãn
+                        tất cả các điều kiện sau: Bên Bán đã được Bên Mua thanh toán toàn bộ Giá trị Hợp đồng theo quy định
+                        tại Hợp đồng này, Bên Bán bàn giao Xe Máy cho Bên Mua và Các Bên cùng ký vào Biên bản Bàn giao.</td>
+                </tr>
+                <tr>
+                    <td valign="top">&nbsp;</td>
+                    <td>
+                        <i>The Parties hereby agree that the ownership of the Motorcycles(s) shall be transferred from Seller
+                            to Buyer only when all conditions are satisfied: Buyer has paid the total Agreement Value to
+                            Seller under this Agreement, Seller delivers Motorcycles(s) to Buyer and both Parties sign on
+                            Hand-over Minutes.
+                        </i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%;'>
+            <p>
+                Điều 5/
+                <i> Article 5:</i> Quyền lợi và trách nhiệm của Các Bên/
+                <i>Benefits and Responsibilities of both Parties</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">5.1</td>
+                    <td>Quyền lợi và trách nhiệm của Bên Bán/ Benefits and Responsibilities of Seller</td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td> Giao Xe Máy và các phụ kiện kèm theo đầy đủ và đúng hạn như đã nêu tại Điều 2 của Hợp đồng này;
+                        <br/>
+                        <i>To sufficiently and timely deliver the Motorcycles(s) and its accessories in accordance with Article
+                            2 of the Agreement;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td> Có trách nhiệm xuất hóa đơn giá trị gia tăng cho Bên Mua tại thời điểm giao Xe Máy và theo thông tin
+                        Bên Mua cung cấp.
+                        <br/>
+                        <i>To be responsible for issuing VAT invoice to Buyer upon the delivery of Motorcycles and in accordance
+                            with Supplier’s information.;</i>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td valign="top">5.2</td>
+                    <td>Quyền lợi và trách nhiệm của Bên Mua/
+                        <i>Benefits and Responsibilities of Supplier</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Thanh toán đầy đủ và đúng hạn toàn bộ Giá trị Hợp đồng cho Bên Bán theo quy định tại Điều 3 của Hợp đồng;
+                        <br/>
+                        <i> To make payment of the total Agreement Value in full and on time to Seller in accordance with Article
+                            3 of the Agreement;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Có trách nhiệm cung cấp cho Bên Bán thông tin chính xác của Bên Mua và người đại diện có thẩm quyền phụ
+                        trách nhận Xe Máy của Bên Mua;
+                        <br/>
+                        <i>To be responsible for providing Seller with the accurate information of Supplier and Supplier’s authorized
+                            representative in charge of Motorcycles(s) receipt;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Có trách nhiệm bố trí, sắp xếp nhân sự, địa điểm cần thiết để nhận Xe Máy theo đúng quy định tại Hợp
+                        đồng này;
+                        <br/>
+                        <i>To be responsible for arranging the necessary staffs, and locations to receive the Motorcycles(s)
+                            in accordance with this Agreement;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Bên mua sẽ tự chịu trách nhiệm thực hiện việc đăng ký quyền sở hữu đối với Xe Máy nêu trên tại cơ quan
+                        có thẩm quyền và nộp các loại thuế, phí liên quan đến việc mua bán, đăng ký Xe Máy;
+                        <br/>
+                        <i>Buyer shall take responsibility to register the ownership of the Motorcycles at the competent agency
+                            and pay all taxes and fees related to the purchase and registration of the Motorcycles;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Bảo hành, bảo trì và sử dụng Xe Máy theo đúng quy định và hướng dẫn của Bên Bán. Không được phép thay
+                        thế, lắp đặt thêm các phụ tùng phụ kiện không chính hãng. Bên Bán sẽ không chịu trách nhiệm nếu Bên
+                        Mua và/hoặc người sử dụng Xe Máy của Bên Mua tự ý thay thế, lắp đặt thêm các phụ tùng, phụ kiện không
+                        chính hãng hoặc tại các địa điểm không phải là Địa điểm bảo hành và bảo trì chính hãng của Bên Bán
+                        như quy định tại Điều 6.2 bên dưới;
+                        <br/>
+                        <i>To preserve and use of the Motorcycles in accordance with the regulations and instructions of Seller
+                            and not allowed to replace, install additional non-genuine accessories; Seller shall not take
+                            any responsibilities when Buyer or users of Motocycles replace, install non-genuine accessories,
+                            spare parts or have Motorcycles warrantied or maintained by the organizations which are not YFS
+                            or Yamaha town dealers in Vietnam of Seller as indicated in Article 6.2.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td> Chịu mọi chi phí liên quan đến thủ tục đăng ký, lưu hành và bảo hiểm Xe Máy;
+                        <br/>
+                        <i>All costs related to the procedures for registration, circulation and insurance of the Motorcycles
+                            shall be paid by Buyer;</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Cam kết mua và sử dụng Xe Máy cho mục đích tiêu dùng, không mua Xe Máy nhằm môi giới, bán lại trước
+                        khi đăng ký Xe máy để thu lợi nhuận;
+                        <br/>
+                        <i>Commit to purchase and use the Motorcycles for consumption purposes, not to buy Motorcycles for brokerage
+                            or resale to gain profit before registering the Motorcycles.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Tuân thủ các nghĩa vụ khác được quy định tại Hợp đồng và pháp luật;
+                        <br/>
+                        <i>Comply with other obligations specified in the Agreement and the laws;</i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            Điều 6/
+            <i>Article 6:</i> Chính sách bảo hành sản phẩm/
+            <i>Policy of Product warranty</i>
+            <table>
+                <tr>
+                    <td valign="top">6.1.</td>
+                    <td>Bên Bán sẽ cung cấp chế độ bảo hành, bảo trì Xe Máy cho Bên Mua theo chính sách bảo hành, bảo trì sản
+                        phẩm của Bên Bán tại từng thời điểm.
+                        <br/>
+                        <i> Seller shall provide Buyer with the Motorcycles(s) warranty and maintenance in compliance with Seller’s
+                            policy of product warranty and maintenance from time to time.</i>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">6.2.</td>
+                    <td> Địa điểm bảo hành và bảo trì/
+                        <i>The warranty and maintenance locations:</i>
+                        <br/>
+                        <br/> Đối với các dòng xe mô tô MT15, MT03, R15, R3, XSR155: Tại tất cả các trạm dịch vụ YFS trực thuộc
+                        Bên Bán và các Đại lý Yamaha Town của Bên Bán tại Việt Nam.
+                        <br/>
+                        <i>MT15, MT03, R15, R3, XSR155 model: At any YFS of Seller and the Yamaha Town Dealers of Seller in
+                            Vietnam.
+                        </i>
+                        <br/> Đối với các dòng xe mô tô Xmax300, WR155 và các dòng xe mô tô khác có dung tích trên 400cc: Tại
+                        tất cả các trạm dịch vụ thuộc hệ thống Revzone Workshop tại Việt Nam.
+                        <br/>
+                        <i>For the motorcycles of Xmax300, WR155 models or other motorcycles with a capacity of over 400cc:
+                            At any Revzone Workshop in Vietnam.zzz</i>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+        <div style='width:100%'>
+
+            Điều 7/
+            <i>Article 7:</i> Bất khả kháng/
+            <i>Force Majeure</i>
+            <table>
+                <tr>
+                    <td valign="top">7.1.</td>
+                    <td>Các Bên tại đây đồng ý rằng bất kỳ sự trì hoãn hoặc chậm trễ nào trong việc thực hiện nghĩa vụ của mỗi
+                        Bên theo Hợp Đồng này vì những nguyên nhân ngoài tầm kiểm soát của mỗi Bên (chẳng hạn như dịch bệnh,
+                        chiến tranh, nổi loạn, bạo loạn, cách mạng, cháy, nổ, động đất hay thiên tai) (Sau đây gọi là “Sự
+                        kiện bất khả kháng”) sẽ không tính vào thời gian thực hiện nghĩa vụ của mỗi Bên; tuy nhiên, với điều
+                        kiện là, sự trì hoãn/chậm trễ này phải được một Bên thông báo cho Bên kia bằng văn bản trong vòng
+                        năm (05) ngày làm việc kể từ ngày xảy ra sự kiện bất khả kháng.
+                        <br/>
+                        <i>The Parties hereby agree that any postponement or delay in implementing the obligations of each Party
+                            under this Agreement due to the reasons which beyond the control of each Party (such as disease,
+                            war, insurrection, riot, revolution, fire, explosion, earthquake, or acts of God) (Hereinafter
+                            referred to as the “Events of Force Majeure”) shall be excluded from the term of obligations
+                            performance of each Party; provided, however, that such postponement/delay must be noticed to
+                            the other Party by a written document within five (05) working days from the happening date the
+                            Force Majeure event.</i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            <p style='font-size:12px'>
+                Điều 8/
+                <i>Article 8.</i> Chấm dứt Hợp đồng trước hạn/
+                <i>Terminate the Agreement before due date</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">8.1.</td>
+                    <td>Hợp đồng này sẽ bị chấm dứt trước hạn khi xảy ra bất kỳ sự kiện nào dưới đây:
+                        <br/>
+                        <i>This Agreement shall be terminated in case of occurrence of any of the following events:</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Các Bên có thỏa thuận bằng văn bản về việc chấm dứt Hợp đồng được ký bởi đại diện có thẩm quyền của mỗi
+                        Bên; hoặc</td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">&nbsp;</td>
+                    <td>
+                        <i>The Parties have a written agreement on termination of the Agreement signed by the authorized representative
+                            of each Party; or</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">-</td>
+                    <td>Khi một Bên lâm vào tình trạng mất khả năng thanh toán, nộp đơn hoặc buộc phải nộp đơn xin phá sản, tái
+                        cơ cấu, giải thể hoặc bất kỳ thủ tục tương tự nào khác hoặc thực hiện bất kỳ hành động nào của việc
+                        phá sản hoặc mất khả năng thanh toán (kể cả việc tạm ngừng thanh toán) hoặc thực hiện việc thu xếp
+                        hay chuyển nhượng toàn bộ quyền lợi cho các chủ nợ của mình hoặc có một nhà quản lý, người quản lý
+                        tài sản, người được ủy thác quản lý tài sản, người trông giữ tài sản hoặc bất kỳ nhân sự tương tự
+                        nào khác được chỉ định thực hiện công việc kinh doanh hoặc hợp nhất hoặc sáp nhập với một hoặc nhiều
+                        công ty khác, khi đó Bên kia có thể chấm dứt Hợp đồng này tại bất kỳ thời điểm nào và việc chấm dứt
+                        này sẽ có hiệu lực ngay khi gửi thông báo bằng văn bản đến Bên bị ảnh hưởng mà không phải chịu bất
+                        kỳ nghĩa vụ nào đối với Bên bị ảnh hưởng; hoặc</td>
+                </tr>
+                <tr>
+                    <td class='paddingLeftText' valign="top">&nbsp;</td>
+                    <td>
+                        <i>Either Party becomes insolvent, files or has filed against it a petition in bankruptcy, reorganization,
+                            dissolution or any other procedure similar thereto or commits any act of bankruptcy or insolvency
+                            (including suspension of payment) or makes an arrangement or a general assignment for the benefit
+                            of its creditors or has an administrator, receiver, trustee, custodian or other similar official
+                            appointed for its business or amalgamates or merges with other company or companies, then, the
+                            other Party may terminate this Agreement at any time and taking effective immediately upon its
+                            written notice to such Party without incurring any obligations to such Party; or</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">8.2.</td>
+                    <td>Các nghĩa vụ sau khi chấm dứt Hợp đồng/
+                        <i>Obligations after the termination of the Agreement</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">-</td>
+                    <td>Khi Hợp đồng này bị chấm dứt theo Điều 8.1 trên đây, Các Bên sẽ cùng nhau thỏa thuận về hậu quả của việc
+                        chấm dứt;</td>
+                </tr>
+                <tr>
+                    <td valign="top">&nbsp;</td>
+                    <td>
+                        <i>When this Agreement is terminated due to reasons as described in Article 8.1 above, the Parties shall
+                            mutually agree on the consequences of such termination;</i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            <p style='font-size:12px'>
+                Điều 9/
+                <i>Article 9.</i> Bảo mật thông tin/
+                <i>Confidential information</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">9.1</td>
+                    <td>Bên Mua phải bảo mật các thông tin và/hoặc các tài liệu, hình ảnh liên quan đến Bên Bán do Bên Bán cung
+                        cấp và/hoặc do Bên Mua và/hoặc nhân viên Bên Mua có được trong quá trình thực hiện Hợp đồng này và
+                        không được tiết lộ các thông tin cho bất kỳ bên thứ ba nào khi chưa nhận được chấp thuận bằng văn
+                        bản của Bên Bán ngoại trừ trường hợp cung cấp theo yêu cầu luật pháp. Bên Mua phải đảm bảo các nhân
+                        viên của mình sẽ bị ràng buộc bởi quy định tại Điều này. Nghĩa vụ bảo mật thông tin tại Điều này
+                        sẽ được đảm bảo trong suốt thời gian thực hiện Hợp đồng cũng như sau ngày chấm dứt hoặc hết hạn Hợp
+                        đồng này.
+                        <br/>
+                        <i> Buyer shall not disclose any information of this Agreement and/or any information, picture, material
+                            in relation to Seller, provided by Seller and/or obtained by Buyer and/or its employees in the
+                            normal performance of this Agreement to any third party without prior written consent of Seller,
+                            unless otherwise provided by law. Buyer commits to have appropriate measures to ensure that its
+                            related employees comply with this provision and shall be responsible for any breach of this
+                            provision. The obligation to Confidential information as stipulated in this Article shall be
+                            ensured during the duration of implementing Agreement as well as after terminating or expiration
+                            of this Agreement.</i>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">9.2</td>
+                    <td>Bên Bán có quyền sử dụng toàn bộ hình ảnh, thông tin cá nhân do Bên Mua cung cấp hoặc do Bên Bán có được
+                        trong quá trình cung cấp hàng hóa, dịch vụ (“Thông tin Khách hàng”), cho mục đích của Hợp đồng này
+                        và các mục đích gồm: (1) Thực hiện và cung cấp các hàng hóa, dịch vụ của Bên Bán, như dịch vụ bảo
+                        hành, dịch vụ sau bán hàng, các hoạt động cải tiến hoặc thu hồi sản phẩm. (2) Nghiên cứu thị trường
+                        và các phân tích khác để nâng cao chất lượng và cải tiến dịch vụ. (3) Gửi thông báo và các tài liệu
+                        mà khách hàng có thể quan tâm (chẳng hạn như bản tin, tài liệu quảng cáo và các thư khác). (4) Phân
+                        tích tiếp thị trực tiếp và các ưu đãi.
+                        <br/>
+                        <i>The Seller shall be entitled to use all personal images and information provided by the Buyer or
+                            known by the Seller during the goods and services provision (“Customer Information”), for the
+                            purposes of this Agreement and for the following purposes: (1) Performing and providing services
+                            and goods, such as warranty services, after-sales services, product improvement or recall activities.
+                            (2) Market research and other analysis for quality enhancement and improvement of products and
+                            services. (3) Sending notification and materials which may be of interest for customer (such
+                            as newsletters, brochures and other mailings). (4) Direct marketing analysis and offers.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">9.3</td>
+                    <td>Để thực hiện mục đích trên, Bên Bán sẽ: (1) sử dụng Thông tin Khách hàng trong phạm vi hoạt động kinh
+                        doanh của Bên Bán; (2) chia sẻ Thông tin Khách hàng với các công ty thuộc Tập đoàn Yamaha Motor,
+                        các đại lý Yamaha tại Việt Nam, các nhà cung cấp và nhà thầu của Bên Bán tại Việt Nam hoặc ra nước
+                        ngoài như Nhật Bản, Singapore; và (3) bảo mật Thông tin Khách hàng.
+                        <br/>
+                        <i>To fulfill the above purpose, the Seller will: (1) use the Customer Information within the scope
+                            of business activities of the Seller; (2) share the Customer Information with Yamaha Motor Group
+                            Companies, Yamaha Dealers in Vietnam, YMVN agents and contractors, regardless of inside or outside
+                            of Vietnam, such as: Japan, Singapore; and (3) keep Customer Information confidentially.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">9.4</td>
+                    <td>Trừ khi được quy định khác đi trong Hợp đồng này, Bên Bán cam kết thu thập, sử dụng, bảo vệ và lưu trữ
+                        Thông tin Khách hàng theo đúng quy định trong Chính sách Quyền Riêng tư của Bên Bán (Chi tiết tại
+                        link: https://yamaha-motor.com.vn/policy/).
+                        <i>Unless otherwise specified herein, the Seller undertakes to collect, use, protect and store the Customer
+                            Information in accordance with the Privacy Policy of the Seller (at the link: https://yamaha
+                            -motor.com.vn/policy/).
+                        </i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            <p style='font-size:12px'>
+                Điều 10/
+                <i>Article 10:</i> Điều khoản chung/
+                <i>Miscellaneous provisions</i>
+            </p>
+            <table>
+                <tr>
+                    <td valign="top">10.1</td>
+                    <td>Hợp đồng này có hiệu lực kể từ ngày ký bởi Hai Bên nêu ở trang đầu tiên Hợp đồng cho đến khi Các Bên
+                        hoàn thành xong các nghĩa vụ của mình theo Hợp đồng này, trừ khi chấm dứt Hợp đồng trước hạn theo
+                        quy định tại Điều 8 nêu trên.
+                        <br/>
+                        <i>This Agreement shall become effective since the signing date mentioned in the first page of this
+                            Agreement until both Parties have completed their obligations under this Agreement, unless otherwise
+                            earlier terminated as stipulated in Article 8 above.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">10.2</td>
+                    <td>Tất cả mọi tranh chấp, tranh cãi và/hoặc khác biệt có thể nảy sinh giữa Các Bên trong mối quan hệ với
+                        hoặc có liên quan đến Hợp đồng này sẽ được giải quyết một cách ôn hòa giữa các Bên. Trong trường
+                        hợp không thể đạt được một sự giải quyết ôn hòa như vậy trong một khoảng thời gian hợp lý, tranh
+                        chấp đó sẽ được giải quyết chung thẩm tại Trung Tâm Trọng Tài Quốc Tế Việt Nam (VIAC) theo Quy Tắc
+                        Tố Tụng Trọng Tài của VIAC. Phán quyết của trọng tài đó sẽ có giá trị chung thẩm và ràng buộc đối
+                        với các Bên có liên quan.
+                        <br/>
+                        <i>All disputes, controversies or differences which may arise between the Parties in relation to or
+                            in connection with this Agreement shall be amicably settled between the Parties. In the event
+                            such amicable settlement cannot be reached within a reasonable time, such dispute shall be finally
+                            settled by Vietnam International Arbitration Centre (VIAC) in accordance with the Rules for Arbitration
+                            Proceedings of VIAC. The award shall be final and binding upon the Parties concerned.</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">10.3</td>
+                    <td>Hợp đồng này được lập thành hai (02) bản song ngữ bằng cả tiếng Anh và tiếng Việt có giá trị pháp lý
+                        như nhau, mỗi Bên giữ một (01) bản để cùng thực hiện. Trong trường hợp có sự mâu thuẫn giữa phần
+                        tiếng Anh và tiếng Việt, phần tiếng Việt sẽ được ưu tiên áp dụng.
+                        <br/>
+                        <i>This Agreement is made into two (02) bilingual originals in both English and Vietnamese having equal
+                            legal validity. Each Party shall keep one (01) originals for execution. In case of any conflict
+                            between the English part and Vietnamese part, the Vietnamese part shall prevail.</i>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style='width:100%'>
+            <table style='width:100%;text-align:center;'>
+                <tr>
+                    <td>ĐẠI DIỆN BÊN BÁN
+                        <br/>
+                        <i style="font-size: 12px;">FOR AND ON BEHALF OF SELLER</i>
+                    </td>
+                    <td>ĐẠI DIỆN BÊN MUA
+                        <br/>
+                        <i style="font-size: 12px;">FOR AND ON BEHALF OF BUYER</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</apex:page>

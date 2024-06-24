@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Line_Description__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( Order.RecordType.Name ,
+&quot;Service Order&quot;,
+IF( Discount_Amount__c &gt; 0 &amp;&amp; ISBLANK(Order.Campaign__c) = FALSE , Product2.Name + &apos; (Thanh toán &apos; +
+TEXT( Promotion_Product__r.Discount__c *100) + &quot;% bằng voucher theo CTKM)&quot; , Product2.Name),
+
+&quot;Sales PCA Order&quot;,
+IF( (Discount_Amount__c &gt; 0 || Discount__c &gt;0 )&amp;&amp; ISBLANK( Order.Promotion_Item__c ) = FALSE &amp;&amp; Order.Promotion_Item__r.Promotion__r.RecordType.DeveloperName = &apos;Standard&apos; , Product2.Name + &apos; (Thanh toán &apos; +
+TEXT(  Promotion_Product__r.Discount__c  *100) + &quot;% bằng voucher theo CTKM)&quot; ,
+
+IF( Discount__c &gt; 0  &amp;&amp;  Product2.Is_Genuine__c = TRUE 
+          &amp;&amp; ISBLANK( Order.Promotion_Item__c ) = FALSE 
+          &amp;&amp; Order.Promotion_Item__r.Promotion__r.RecordType.DeveloperName = &apos;Default&apos;  ,
+          Product2.Name + &apos;(Áp dụng chính sách giá ưu đãi cho khách hàng đặc biệt)&apos;,
+         Product2.Name)),
+
+
+Product2.Name)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Line Description</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

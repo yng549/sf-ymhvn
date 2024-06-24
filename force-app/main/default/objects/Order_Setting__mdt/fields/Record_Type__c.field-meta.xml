@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Type__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Record Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal Service Order</fullName>
+                <default>true</default>
+                <label>Internal Service Order</label>
+            </value>
+            <value>
+                <fullName>Service Order</fullName>
+                <default>false</default>
+                <label>Service Order</label>
+            </value>
+            <value>
+                <fullName>Sales Bike Order</fullName>
+                <default>false</default>
+                <label>Sales Bike Order</label>
+            </value>
+            <value>
+                <fullName>Sales PCA Order</fullName>
+                <default>false</default>
+                <label>Sales PCA Order</label>
+            </value>
+            <value>
+                <fullName>Installation</fullName>
+                <default>false</default>
+                <label>Installation</label>
+            </value>
+            <value>
+                <fullName>Sales Appraisal Order</fullName>
+                <default>false</default>
+                <label>Sales Appraisal Order</label>
+            </value>
+            <value>
+                <fullName>Warranty Order</fullName>
+                <default>false</default>
+                <label>Warranty Order</label>
+            </value>
+            <value>
+                <fullName>Free Coupon Order</fullName>
+                <default>false</default>
+                <label>Free Coupon Order</label>
+            </value>
+            <value>
+                <fullName>Recall Service Order</fullName>
+                <default>false</default>
+                <label>Recall Service Order</label>
+            </value>
+            <value>
+                <fullName>Profomar Order</fullName>
+                <default>false</default>
+                <label>Profomar Order</label>
+            </value>
+            <value>
+                <fullName>Service Package Order</fullName>
+                <default>false</default>
+                <label>Service Package Order</label>
+            </value>
+            <value>
+                <fullName>Quick Service Order</fullName>
+                <default>false</default>
+                <label>Quick Service Order</label>
+            </value>
+            <value>
+                <fullName>Free Service Order</fullName>
+                <default>false</default>
+                <label>Free Service Order</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Email_and_Phone_when_convert</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(AND( TEXT( Status )=&apos;Converted&apos;, OR( ISBLANK( Email ) , ISBLANK( MobilePhone ) )), true, false)</errorConditionFormula>
+    <errorMessage>Please update phone and email before convert a lead.</errorMessage>
+</ValidationRule>

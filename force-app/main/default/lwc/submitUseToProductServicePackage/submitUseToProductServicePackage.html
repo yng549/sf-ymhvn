@@ -1,0 +1,245 @@
+<template>
+    <span class="slds-text-heading_small slds-truncate" style="margin-top:10px;margin-left:40%;font-weight: bold;">Apply Service Package</span>
+    <lightning-card>
+        <div if:true={isShowSpinner} class="slds-is-relative">
+            <lightning-spinner
+                alternative-text="Loading..." variant="brand">
+            </lightning-spinner>
+        </div>
+        <template if:true={flagHasProduct}>
+            <div class="slds-scrollable_x">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr style="background-color:#1797c0;" class="slds-line-height_reset">
+                            <th style="background-color:#1797c0;" class="" scope="col">
+                                <div class="slds-truncate" title="Name">Expand</div>
+                            </th>
+                            <th style="background-color:#1797c0;" class="" scope="col">
+                                <div class="slds-truncate">
+                                    Order Number
+                                </div>
+                            </th>
+                            <th style="background-color:#1797c0;" class="" scope="col">
+                                <div class="slds-truncate" title="Route Promotion">Product Name</div>
+                            </th>
+                            <th style="background-color:#1797c0;" class=""  scope="col">
+                                <div  class="slds-truncate" title="Route Name">List Price</div>
+                            </th>
+                            <th style="background-color:#1797c0;" class="" scope="col">
+                                <div class="slds-truncate" title="First Name">Unit Price</div>
+                            </th>
+                            <th style="background-color:#1797c0;" class="" scope="col">
+                                <div class="slds-truncate" title="To Date">Total Price</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <template for:each={productList} for:item="obj" for:index="index">
+                            <tr key={obj.Id}>
+                                
+                                <th  data-label={index}>
+                                    <lightning-button style="background-color:mediumspringgreen;"
+                                        variant="+" label="+" data-record-id={index}
+                                        onclick={hideAndShow} class="slds-m-left_x-small">
+                                    </lightning-button>
+                                </th>
+                                <th scope="col">
+                                    {obj.OrderBy}
+                                </th>
+                                <th scope="col">
+                                    <div>
+                                        {obj.ProductName}
+                                    </div>
+                                </th>
+                                <th title={obj.List_Price} scope="col" style="max-width: 350px;">
+                                    <lightning-formatted-number value={obj.List_Price} format-style="decimal" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </th>
+                                <th scope="col">
+                                    <lightning-formatted-number  value={obj.Unit_Price} format-style="decimal" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </th>
+                                <th scope="col">
+                                    <lightning-formatted-number  value={obj.Total_Price} format-style="decimal" maximum-fraction-digits="0">
+                                    </lightning-formatted-number>
+                                </th>
+                            </tr>
+    
+                             <!-- Children hiden -->
+                                                    
+                             <template if:false={obj.hideBool} key={obj.Id}>
+                                <tr key={obj.Id} style="cursor: pointer;">
+                                    <td scope="col">
+                                     </td>
+                                    <td scope="col">
+                                        <div>
+                                            <lightning-input type="checkbox"
+                                            data-checkboxall='checkall'
+                                            value={obj.Id}
+                                            checked={obj.selected}
+                                            onchange={handleSelectGroup}
+                                            id={obj.Id}></lightning-input>
+                                        </div>
+                                    </td>
+                                    <td scope="col"
+                                        style="font-weight: bold; background-color:#04AA6D;">
+                                        Order Detail Name
+                                    </td>
+                                    <td style="font-weight: bold; background-color:#04AA6D;
+                                    max-width: 200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis">
+                                        Product Name
+                                    </td>
+                                    <td style="max-width: 110px;font-weight: bold; background-color:#04AA6D;">
+                                        Quantity Product
+                                    </td>
+                                    <td style="font-weight: bold; max-width: 90px;background-color:#04AA6D;">
+                                        Remain
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <template for:each={obj.lstOrderLineDetail} for:item="item">
+                                    <tr key={item.Id}
+                                        style="cursor: pointer;">
+                                        <td scope="col">
+                                        </td>
+                                        <td scope="col">
+                                            <div>
+                                                <lightning-input name={item.Id} value={obj.Id} checked={item.selected} type="checkbox" onchange={selectedProduct}></lightning-input>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {item.Name}
+                                        </td>
+                                        <td scope="col">
+                                            <div>
+                                                {item.Product_Name}
+                                            </div>
+                                        </td>
+                                        <td title={item.Quantity_on_Product} >
+                                            <div>
+                                                {item.Quantity_on_Product}
+                                            </div>
+                                        </td>
+                                        <td style="max-width: 110px;">
+                                            <div style="max-width: 110px;">{item.Remain}</div>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr key={item.Id}
+                                        style="cursor: pointer; padding-left:100px;">
+    
+                                    </tr>
+                                </template>
+    
+                            </template>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+            <!-- modal footer start-->
+            <footer class="slds-modal__footer">
+                <template if:true={disabledButton}>
+                    <button style="background-color:#04AA6D;color:white"
+                    class="slds-button slds-button_neutral" onclick={confirmBeforeSave}>Save</button>
+                </template>
+                <template if:false={disabledButton}>
+                    <button
+                    disabled class="slds-button slds-button_neutral">Add Cart</button>
+                </template>
+                <button class="slds-button slds-button_neutral" onclick={closeQuickAction}>Cancel</button>
+            </footer>
+        </template>
+
+        <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+            <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+        </div>
+        <template if:true={bShowModal}>
+            <section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+                <div class="slds-modal__container" style="width: 1000px;">
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            onclick={closeModal} title="Close">
+                            <lightning-icon alternative-text="close" icon-name="utility:close" size="small"
+                                variant="inverse"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="modal-heading-01">
+                            Confirm Apply Product
+                        </h2>
+                    </header>
+                    <!-- modal body start -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-scrollable" style="height: 25rem;">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="First Name">Service Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="First Name">Product Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="First Name">Record Type Name</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={lstOrderDetails} for:item="item">
+                                        <tr key={item.Id}
+                                            style="cursor: pointer;">
+                                            <td style="font-weight:bold;">
+                                                {item.NameService}
+                                            </td>
+                                            <td>
+                                                {item.Name}
+                                            </td>
+                                            <td>
+                                                {item.RecordType}
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- modal footer start-->
+                    <footer class="slds-modal__footer">
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-input style="float:left;" type=checkbox onchange={checkConfirm}></lightning-input>
+                            <p style="float:left; font-weight:bold;">Please confirm before execute action save !</p>
+                        </div>
+                        <br/>
+                        <div class="slds-col slds-size_1-of-1">
+                            <template if:true={flagBeforeSave}>
+                                <template if:true={lstOrderDetails}>
+                                    <button style="background-color:#04AA6D;color:white"
+                                    class="slds-button slds-button_neutral" onclick={saveRecord}>Save</button>
+                                </template>
+                            </template>
+                            <template if:false={flagBeforeSave}>
+                                <button
+                                disabled class="slds-button slds-button_neutral">Save</button>
+                            </template>
+                            <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                        </div>
+                        
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+
+        <template if:false={flagHasProduct}>
+                <span>
+                    The Account hasn't any one service package.
+                </span>
+        </template>
+    </lightning-card>
+</template>

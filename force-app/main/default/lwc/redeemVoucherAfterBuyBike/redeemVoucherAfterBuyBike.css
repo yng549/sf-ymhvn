@@ -1,0 +1,7 @@
+.slds-input {
+    text-align: center;
+}
+.scrollable {
+    height: 400px;
+    overflow-y:auto;
+}

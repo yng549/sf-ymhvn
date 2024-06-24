@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copy_of_ALL_SG</fullName>
+    <columns>NAME</columns>
+    <columns>Last_Name__c</columns>
+    <columns>Mobile__c</columns>
+    <columns>Lead_Type__c</columns>
+    <columns>Lead__c</columns>
+    <columns>DODL__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>DODL__c</field>
+        <operation>equals</operation>
+        <value>REVZONE YAMAHA MOTOR HA NOI</value>
+    </filters>
+    <label>ALL HN</label>
+    <sharedTo>
+        <group>Group_User_DO_HN</group>
+    </sharedTo>
+</ListView>

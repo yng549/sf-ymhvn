@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X0km_Recall__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(RecordType.DeveloperName == &quot;Recall_Service&quot;, Mileage__c = 0), TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>0km Recall</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

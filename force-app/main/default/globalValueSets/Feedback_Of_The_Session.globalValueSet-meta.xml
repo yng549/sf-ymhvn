@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Not Good</fullName>
+        <default>false</default>
+        <label>Not Good</label>
+    </customValue>
+    <customValue>
+        <fullName>Good</fullName>
+        <default>false</default>
+        <label>Good</label>
+    </customValue>
+    <customValue>
+        <fullName>Extremely Great</fullName>
+        <default>false</default>
+        <label>Extremely Great</label>
+    </customValue>
+    <masterLabel>Feedback Of The Session</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

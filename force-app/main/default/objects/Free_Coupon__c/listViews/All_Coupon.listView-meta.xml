@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Coupon</fullName>
+    <columns>NAME</columns>
+    <columns>Asset__c</columns>
+    <columns>ApplicationDealerCode__c</columns>
+    <columns>ApplicationPointCode__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>WarrantyEffectiveDate__c</columns>
+    <columns>WarrantyExpiredDate__c</columns>
+    <columns>WarrantyMileage__c</columns>
+    <columns>Applied__c</columns>
+    <columns>FrameNoCouponCategoryLevel__c</columns>
+    <columns>CouponCategoryLevel__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Order__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Applied__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>CouponCategoryLevel__c</field>
+        <operation>equals</operation>
+        <value>3</value>
+    </filters>
+    <label>All Coupon</label>
+</ListView>

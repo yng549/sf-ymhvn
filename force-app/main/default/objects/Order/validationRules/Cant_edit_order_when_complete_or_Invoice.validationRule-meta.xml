@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cant_edit_order_when_complete_or_Invoice</fullName>
+    <active>true</active>
+    <description>Không edit được product và campaign khi đã complete hoặc invoice</description>
+    <errorConditionFormula>AND( 
+OR( 
+RecordType.DeveloperName == &apos;Quick_Service_Order&apos;, 
+RecordType.DeveloperName == &apos;Free_Service_Order&apos;, 
+RecordType.DeveloperName == &apos;External_Service&apos;, 
+RecordType.DeveloperName == &apos;Warranty&apos;, 
+RecordType.DeveloperName == &apos;PCA&apos;, 
+RecordType.DeveloperName == &apos;Free_Coupon&apos; 
+), 
+NOT( 
+OR( 
+$Profile.Name = &apos;System Administrator&apos;, 
+$Profile.Name = &apos;PCA &amp; Service Sup&apos;,
+$Profile.Name = &apos;Community PCA Sup&apos; 
+) 
+), or( 
+ISPICKVAL( Status, &apos;Completed&apos;), 
+Is_Created_Or_Sent_Invoice__c 
+), 
+or(ischanged(count_order_product__c), 
+ISCHANGED(Campaign__c)))</errorConditionFormula>
+    <errorMessage>Can&apos;t edit when the order is invoiced or completed.</errorMessage>
+</ValidationRule>

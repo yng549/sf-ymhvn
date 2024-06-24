@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Review__c</fullName>
+    <externalId>false</externalId>
+    <label>Customer Review</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>KH rất hài lòng</fullName>
+                <default>false</default>
+                <label>KH rất hài lòng</label>
+            </value>
+            <value>
+                <fullName>KH hài lòng</fullName>
+                <default>false</default>
+                <label>KH hài lòng</label>
+            </value>
+            <value>
+                <fullName>KH hoàn toàn chưa hài lòng</fullName>
+                <default>false</default>
+                <label>KH hoàn toàn chưa hài lòng</label>
+            </value>
+            <value>
+                <fullName>KH chưa hài lòng lắm</fullName>
+                <default>false</default>
+                <label>KH chưa hài lòng lắm</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

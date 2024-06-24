@@ -1,0 +1,278 @@
+<template>
+  <section
+    role="dialog"
+    tabindex="-1"
+    class="slds-modal slds-fade-in-open slds-modal_large"
+    aria-modal="true"
+  >
+    <div class="slds-modal__container">
+      <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+          <div
+            class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3"
+          >
+            <div class="slds-media__figure">
+              <span class="slds-icon_container slds-icon-utility-salesforce1">
+                <svg
+                  class="slds-icon slds-icon_small slds-icon-text-default"
+                  aria-hidden="true"
+                >
+                  <use
+                    xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"
+                  ></use>
+                </svg>
+              </span>
+            </div>
+            <div class="slds-media__body" style="padding-left: 50%">
+              <h2 class="slds-truncate" title="Einstein (10+)">
+                <span class="slds-text-heading_small">CLONE ORDER</span>
+              </h2>
+            </div>
+          </div>
+          <div
+            class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"
+          ></div>
+        </h1>
+      </div>
+
+      <div
+        class="slds-modal__content slds-p-around_medium"
+        id="modal-content-id-1"
+      >
+        <lightning-record-edit-form
+          object-api-name="Order"
+          record-id={recordId}
+        >
+          <lightning-card class="slds-scrollable_y">
+            <template if:true={orderDTO}>
+              <div>
+                <div if:true={isShowSpinner} class="slds-is-relative">
+                  <lightning-spinner
+                    alternative-text="Loading..."
+                    variant="brand"
+                  >
+                  </lightning-spinner>
+                </div>
+                <!-- <div if:true={isShowSpinner} class="slds-is-relative">
+                              <lightning-spinner alternative-text="Loading..." variant="brand">
+                              </lightning-spinner>
+                          </div> -->
+                <p style="font-weight: bold">ORDER INFORMATION</p>
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col">
+                    <table style="width: 80%">
+                      <tr>
+                        <th style="width: 4em"></th>
+                        <th style="width: 4em"></th>
+                      </tr>
+                      <tr>
+                        <td><span style="color: red;">*</span>
+                       
+                          Account:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="AccountId"
+                            data-field="AccountId"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mileage In:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Mileage__c"
+                            data-field="Mileage__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><span style="color: red;">*</span>Order Start Date:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            value={orderDTO.OrderStartDate}
+                            field-name="EffectiveDate"
+                            data-field="EffectiveDate"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td><span style="color: red;">*</span>Status:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Status"
+                            data-field="Status"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Asset:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Asset__c"
+                            data-field="Asset__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">Request Description:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Request_Description__c"
+                            data-field="Request_Description__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="slds-col">
+                    <table style="width: 80%">
+                      <tr>
+                        <th style="width: 4em"></th>
+                        <th style="width: 4em"></th>
+                      </tr>
+                      <!-- <tr>
+                        <td>DO/DL:</td>
+                        <td>
+                          <lightning-input-field
+                          variant="label-hidden"
+                          field-name="DO_DL__c"
+                          data-field="DO_DL__c"
+                        >
+                        </lightning-input-field>
+                        </td>
+                      </tr> -->
+                      <tr>
+                        <td>Mileage Out:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Mileage_Out__c"
+                            data-field="Mileage_Out__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Service Consultant:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Cashier__c"
+                            data-field="Cashier__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mechanic:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Mechanic__c"
+                            data-field="Mechanic__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Detailing Staff:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Detailing_Staff__c"
+                            data-field="Detailing_Staff__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Request From:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Request_From__c"
+                            data-field="Request_From__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Approval Status:</td>
+                        <td>
+                          <lightning-input-field
+                            variant="label-hidden"
+                            field-name="Approval_Status__c"
+                            data-field="Approval_Status__c"
+                          >
+                          </lightning-input-field>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <hr />
+                <p style="font-weight: bold">LIST JOBS/PARTS</p>
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col slds-size_1-of-1">
+                    <table>
+                      <tr>
+                        <th style="width: 12em"></th>
+                      </tr>
+                      <tr>
+                        <td valign="top">Order products:</td>
+                        <td>
+                          <template
+                            for:each={orderDTO.lstOrderItem}
+                            for:item="obj"
+                          >
+                            <span key={obj.Id}> {obj.Product2.Name} </span>
+                            <br key={obj.Id} />
+                          </template>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </lightning-card>
+        </lightning-record-edit-form>
+      </div>
+
+      <div class="slds-modal__footer">
+        <button
+          class="slds-button slds-button_neutral"
+          style="margin-right: 10px;"
+          onclick={closeQuickAction}
+        >
+          Cancel
+        </button>
+        <template if:false={isShowSpinner}>
+            <button
+              class="slds-button slds-button_brand"
+              onclick={saveOrder}
+            >
+              Save
+            </button>
+        </template>
+        <template if:true={isShowSpinner}>
+          <button class="slds-button slds-button_brand" disabled>Save</button>
+        </template>
+      </div>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

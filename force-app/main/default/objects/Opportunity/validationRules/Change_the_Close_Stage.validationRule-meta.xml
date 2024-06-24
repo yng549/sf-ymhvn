@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Change_the_Close_Stage</fullName>
+    <active>false</active>
+    <description>if the stage of close won already configured. If the sale staff want to change to close lose. They need to get approval from the manager. After that the stage will change to close lost.</description>
+    <errorConditionFormula>AND(If(NOT(TEXT(StageName)= &quot;Closed Won&quot;), (ISPICKVAL(StageName,&quot;Closed Lost&quot;)),false),
+ IsClosedLost__c = false
+)</errorConditionFormula>
+    <errorMessage>Please contact your manager to get the approval to change this stage and fill in the lost reason before sending the approval.</errorMessage>
+</ValidationRule>

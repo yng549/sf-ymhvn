@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Bike_List</fullName>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>Sales_Name__c</columns>
+    <columns>Bike_Type__c</columns>
+    <columns>Bike_cc__c</columns>
+    <columns>Model_Name__c</columns>
+    <columns>Model_Year__c</columns>
+    <columns>VAT__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>VAT__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>ExternalID_DMS__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>PRODUCT2.RECORD_TYPE</field>
+        <operation>equals</operation>
+        <value>Product2.Bike</value>
+    </filters>
+    <label>Check Bike List</label>
+    <sharedTo>
+        <portalRole>REVZONEYAMAHAMOTORSAIGONNEWPartnerManager</portalRole>
+        <role>Admin</role>
+    </sharedTo>
+</ListView>

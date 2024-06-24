@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TimeDriveEnd__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( TEXT(SpecifiedTimeTD__c) = &apos;Sáng&apos; , DATETIMEVALUE( TEXT(BookingDate__c) &amp;&quot; &quot;&amp; &quot;11:00:00&quot;) - 0.2916666667 , IF( TEXT(SpecifiedTimeTD__c) = &apos;Chiều&apos; , DATETIMEVALUE( TEXT( BookingDate__c) &amp;&quot; &quot;&amp; &quot;17:00:00&quot;) - 0.2916666667 , null))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Time Drive End</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

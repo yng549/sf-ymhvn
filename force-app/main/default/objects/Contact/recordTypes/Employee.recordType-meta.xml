@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Employee</fullName>
+    <active>true</active>
+    <label>Employee</label>
+    <picklistValues>
+        <picklist>Contact_Type__c</picklist>
+        <values>
+            <fullName>Cashier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Detailing Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Housekeeper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mechanic</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>DLS%2F DO walk-in customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landing Page</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead by Salesman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PPC ads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid social ads</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name</picklist>
+        <values>
+            <fullName>Dr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mrs%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ms%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prof%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Team__c</picklist>
+        <values>
+            <fullName>Bike</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Tech_Role__c</picklist>
+        <values>
+            <fullName>Advance technician</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chief technician %2F Detailing expert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technician %2F Detailing specialist</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

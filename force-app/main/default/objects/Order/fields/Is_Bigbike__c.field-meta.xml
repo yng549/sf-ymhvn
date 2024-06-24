@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Bigbike__c</fullName>
+    <externalId>false</externalId>
+    <formula>AND (NOT(ISNULL(Asset__c)),ISPICKVAL(Asset__r.Product2.Bike_cc__c, &apos;&gt;400cc&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Bigbike</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

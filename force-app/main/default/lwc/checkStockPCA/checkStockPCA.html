@@ -1,0 +1,91 @@
+<template>
+  <div >
+      <div class="slds-header">
+          <h1 id="heading-01" class="slds-hyphenate" style="text-align: center;">
+              <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3 slds-p-top_xx-large" style="margin:0 auto;">
+                  <div class="slds-media__figure">
+                      <span class="slds-icon_container slds-icon-utility-salesforce1">
+                        <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                          <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                        </svg>
+                      </span>
+                    </div>
+                  <div class="slds-media__body" >
+                      <h1 class="slds-truncate" title="Einstein (10+)">
+                          <span class="slds-text-heading_small">Check Stock PCA </span>
+                      </h1>
+                  </div>
+              </div>
+              <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+          </h1>
+      </div>
+      <div class="slds__content slds-p-around_medium slds-scrollable_y" id="content-id-1">
+          <lightning-layout multiple-rows="true" vertical-align="end">
+              <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="12"
+                  padding="around-small">
+                  <div class="slds-form-element">
+                      <div class="slds-form-element__control">
+                     
+                          <lightning-input type="text" onchange={handleFilter} data-name="searchProd" label="Enter Product Name" placeholder="Search Product"> </lightning-input>
+                       
+                      </div>
+                  </div>
+              </lightning-layout-item>
+          </lightning-layout><br />
+          <div if:true={isShowSpinner} class="slds-is-relative">
+              <lightning-spinner alternative-text="Loading..." variant="brand">
+              </lightning-spinner>
+          </div>
+          <table class="slds-scrollable_y" style="margin:5px;">
+              <thead>
+                  <tr>
+                      <th>Product Code</th>
+                      <th style="width: 30%;">Product Name VietNam</th>
+                      <th style="width: 30%;">Product Name Eng </th>
+                      <th>Size</th>
+                      <th>Unit Price</th>
+                      <th style="width: 15%;">QoH</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- <template if:true={allFilteredClients}> -->
+                      <template for:each={allFilteredClients} for:item="item" for:index="index">
+                          <tr key={item.Id}>
+                              <td>
+                                  <a style="color:rgba(6, 142, 233, 0.719)" title={item.URLProduct2}  href={item.URLProduct2} target="_blank">{item.ProductCode}</a>
+                              </td>
+                              <td>{item.ProductName}</td>
+                              <td>{item.ProductNameEng}</td>
+                              
+                              <td align="center">
+                                {item.Size}
+                              </td>
+                              <td>
+                                <lightning-input variant="label-hidden" type=number formatter="currency" read-only=true
+                                    value={item.UnitPrice} style="width:170px;">
+                        </lightning-input> 
+                            </td>
+                              <td >{item.QoH}</td>
+                          </tr>
+                      </template>   
+                  <!-- </template>     -->
+              </tbody>
+          </table>
+      </div>
+      
+      <!-- <div class="slds-modal__footer">
+          
+              <template if:true={isShowSpinner}>
+                  <lightning-button label="Searching" disabled="true">
+                  </lightning-button>
+              </template>
+              <template if:false={isShowSpinner}>
+                  <button class="slds-button slds-button_brand"  style="background-color:#2565AE;"
+                      onclick={handleFilter}>
+                      Searching
+                  </button>
+              </template>
+      </div> -->
+
+  </div>
+</template>

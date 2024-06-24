@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Einvoice_Location__c</fullName>
+    <externalId>false</externalId>
+    <label>Einvoice Location</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hồ Chí Minh</fullName>
+                <default>false</default>
+                <label>Hồ Chí Minh</label>
+            </value>
+            <value>
+                <fullName>Hà Nội</fullName>
+                <default>false</default>
+                <label>Hà Nội</label>
+            </value>
+            <value>
+                <fullName>Đà Nẵng</fullName>
+                <default>false</default>
+                <label>Đà Nẵng</label>
+            </value>
+            <value>
+                <fullName>Nha Trang</fullName>
+                <default>false</default>
+                <label>Nha Trang</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

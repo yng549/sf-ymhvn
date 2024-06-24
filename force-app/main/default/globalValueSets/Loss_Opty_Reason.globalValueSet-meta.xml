@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Date delivery</fullName>
+        <default>false</default>
+        <label>Date delivery</label>
+    </customValue>
+    <customValue>
+        <fullName>Products &amp; Chosen a competitor</fullName>
+        <default>false</default>
+        <label>Products &amp; Chosen a competitor</label>
+    </customValue>
+    <customValue>
+        <fullName>Pricing</fullName>
+        <default>false</default>
+        <label>Pricing</label>
+    </customValue>
+    <customValue>
+        <fullName>Financing</fullName>
+        <default>false</default>
+        <label>Financing</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Service</fullName>
+        <default>false</default>
+        <label>Customer Service</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <masterLabel>Loss Opty Reason</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

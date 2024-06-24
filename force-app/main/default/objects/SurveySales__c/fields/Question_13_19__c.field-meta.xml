@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Question_13_19__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>13.19 - When considering the purchase of your Yamaha Motorcycle which of the following were the most important sources of information? (Select 1)</inlineHelpText>
+    <label>Question 13.19</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>WOM (Friend, relative)</fullName>
+                <default>false</default>
+                <label>WOM (Friend, relative)</label>
+            </value>
+            <value>
+                <fullName>Social media</fullName>
+                <default>false</default>
+                <label>Social media</label>
+            </value>
+            <value>
+                <fullName>Promotion &amp; Products News</fullName>
+                <default>false</default>
+                <label>Promotion &amp; Products News</label>
+            </value>
+            <value>
+                <fullName>Event/Activities</fullName>
+                <default>false</default>
+                <label>Event/Activities</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Thông tin từ bạn bè</fullName>
+                <default>false</default>
+                <label>Thông tin từ bạn bè</label>
+            </value>
+            <value>
+                <fullName>Mạng xã hội</fullName>
+                <default>false</default>
+                <label>Mạng xã hội</label>
+            </value>
+            <value>
+                <fullName>Chương trình khuyến mãi và thông tin sản phẩm mới</fullName>
+                <default>false</default>
+                <label>Chương trình khuyến mãi và thông tin sản phẩm mới</label>
+            </value>
+            <value>
+                <fullName>Sự kiện và Hoạt động</fullName>
+                <default>false</default>
+                <label>Sự kiện và Hoạt động</label>
+            </value>
+            <value>
+                <fullName>Khác</fullName>
+                <default>false</default>
+                <label>Khác</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

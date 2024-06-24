@@ -1,0 +1,568 @@
+<apex:page applyBodyTag="false" renderAs="pdf" showHeader="false" standardStylesheets="false" applyHtmlTag="false" controller="OrderRepairPage">
+	<head> 
+	<!--  -->
+		<style>
+			body {
+				font-family : Arial Unicode MS;
+				font-size : 10px;
+			}
+			@page {
+				counter-increment: page;
+				size: A4 portrait;
+				margin-left : 10px;
+				margin-right : 10px;
+                page-break-inside: avoid;
+                tr {
+                    page-break-inside: avoid !important;
+                }
+                @bottom-center {
+                    content: "Page " counter(page) " / " counter(pages);
+                    font-family: Arial Unicode MS;
+                    font-size: 80%;
+                }
+			}
+            @page :first {
+                @top-center {
+					content: element(header);
+				}
+
+                
+            }
+
+            div.header {
+                padding-left:5px;
+                padding-right:5px;
+                position: running(header);
+                /* border: 1px solid rgb(5, 224, 206); */
+                width: 750px;
+
+            }		
+			
+			.companyInforColumn1 {
+                margin-top:10px;
+                margin-bottom:10px;
+				margin-left: 5px;
+				position : relative;
+				z-index: 1;
+			}
+	
+			.productTable {
+				/* -fs-table-paginate: paginate;  Dùng để hiển thị table td ở đầu mỗi trang*/
+				width : 100%;
+                border-collapse: collapse;
+			}
+            .productTable td, tr, th {
+                vertical-align:top;
+                border: 1.25px solid black;
+                text-align: center;
+                font-size:10px;
+                vertical-align: middle;
+            }
+            
+            .tableHeaderText td, tr, th {
+                vertical-align:top;
+            /*border: 1px solid black;*/
+            }
+            .productTable td {
+                padding-left:4px;
+            }
+            .productTable .productTableColumnEight {
+				border-right: 1.25 px solid black;
+			}
+			
+			.content .dataRow td {
+				padding: 0px 3px 0px 3px;
+				height: 31px;
+			}
+			.content th {
+				text-align: center;
+				padding: 0px 3px 0px 3px;
+				height: 27px;
+			}
+			.content {
+				padding : 0px;
+				height: 100%;
+			}
+			.pagenumber:before {
+				content: counter(page);
+			}
+			.pagecount:before {
+				content: counter(pages);
+			}
+			div.header {
+				margin : 20px 5px 0px 5px;
+				display: block;
+				position: running(header);
+			}
+			/* .page-break {
+				page-break-after:always;
+			}
+			.page-break td {
+				border-bottom : 1px solid black;
+			} */
+
+			.column1 {
+				float: left;
+				width: 33%;
+                margin-top: 10px;
+			}
+			.column1, .column2, .column3 {
+				flex: 1;
+            /*border: 1px solid rgb(110, 106, 106);
+            color: red;*/
+			}
+
+            /* .footer {
+                height: 25px;
+                position: running(footer);
+            } */
+            .pagenumber:before {
+                content: counter(page);
+            }
+            .pagecount:before {
+                content: counter(pages);
+            }
+            .flex {
+                display: inline-flex;
+            }
+            .header2{
+                color: rgb(0, 0, 255);
+                text-align: center;
+                font-size: 18px;
+                /* border: 1px solid rgb(52, 5, 224); */
+                width: 250px;
+                float: left;
+                padding-top: 50px;
+                padding-left: 10px;
+            }
+            
+            .header-3{
+                width: 200px;
+                float: right;
+            	font-size:10px;
+                padding-left: 40px;
+                margin-right: 0px;
+                text-align: right;
+                /* border: 1px solid rgb(250, 0, 21); */
+            }
+            .header1{
+                width: 33%; 
+                float: left;
+                /* border: 1px solid rgb(25, 243, 17); */
+            }
+            .header-all{
+                /* position: running(header); */
+                width: 100%;
+                /* border: 1px solid rgb(26, 27, 26); */
+            }
+            .header-rct{
+                font-size: 12px;
+            }
+		</style>
+	</head>
+	<body>
+        
+		<div class="header">
+            <!-- <apex:image style="margin-top:-24px;" id="theImage" value="{!$Resource.Revzone}" width="250" height="95"/> -->
+            <div class="header-all">
+                <div class="header1" >
+                    <apex:image value="{!$Resource.Revzone}" height="75"  />
+                </div>
+                <div class="header2">
+                    <div>
+                        PHIẾU SỬA CHỮA<br/>
+                        Repair Sheet<br/>
+                    </div>
+                    <div class="header-rct">
+                        Record Type:
+                        {!objOrder.RecordType.Name}
+                    </div>
+                    
+                </div>
+                <div class="header-3">
+                    Số Phiếu Sửa Chữa<br/>
+                    (Repair Order no.):&nbsp;RO-SO-
+                    <apex:outputText value="{0,date,yyMM}">
+                          <apex:param value="{!NOW()}" /> 
+                    </apex:outputText>-
+                    {!objOrder.FormNumber__c}<br/>
+                    Ngày (Date):&nbsp;
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                          <apex:param value="{!objOrder.Bike_Delivery_Date__c}" /> 
+                    </apex:outputText>
+                </div>
+            </div>
+                
+				<!-- Column1 -->
+				<div class="column1" style="word-wrap: break-word" >
+					<div class="companyInforColumn1">
+                        <div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Mã khách hàng (Customer No.):&nbsp;{!objOrder.Account.Name}</span>
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Tên khách hàng (Customer Name):&nbsp;{!objOrder.Account.Name}</span>
+                            </div>
+                            <apex:variable var="phone_gmail" value="{!IF(objOrder.Account.Phone != null, objOrder.Account.Phone, objOrder.Account.PersonMobilePhone)}" />
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">
+                                    Liên hệ (Contact):&nbsp;
+                                    <apex:outputText value="{0}">
+                            			<apex:param value="{!phone_gmail}"/>
+                   					</apex:outputText>
+                                </span>
+                                    
+                                    <!-- {!objOrder.Account.PersonMobilePhone} -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:6px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;padding-bottom:6px;">Địa chỉ (Address):&nbsp;{!objOrder.Account.Address_No__c}</span>
+                                    
+                                <!-- <span style="font-size:13px;">{!objOrder.Interested_In__r.Name}</span>  -->
+                            </div>
+                            
+                            
+                        </div>
+						<!-- <table class="companyDeli">
+							<tr class="colCompanyPaddingBot">
+								<td class="colum1quoteDataTable" style="width:150px;">
+                                    <span class="textRow" style="font-family: Arial Unicode MS;
+                                    font-weight: bold;"></span>
+								</td>
+								<td class="colum2quoteDataTable">
+                                    <p class="textRow">{!objOrder.Account.Name}</p>
+								</td>
+							</tr>
+							<tr class="colCompanyPaddingBot">
+								<td class="colum1quoteDataTable" style="vertical-align:top;">
+									<span class="textRow" style="font-family: Arial Unicode MS;
+                                    font-weight: bold;">Address:</span>
+								</td>
+								<td class="colum2quoteDataTable" style="width:250px;">
+									<p class="textRow">{!addressString}</p>
+								</td>
+							</tr>
+                            <tr class="colCompanyPaddingBot">
+								<td class="colum1quoteDataTable">
+									<span class="textRow" style="font-family: Arial Unicode MS;
+                                    font-weight: bold;">Interested In:</span>
+								</td>
+								<td class="colum2quoteDataTable" style="width:250px;">
+									<p class="textRow">{!objOrder.Interested_In__r.Name}</p>
+								</td>
+							</tr>
+							<tr class="colCompanyPaddingBot">
+								<td class="colum1quoteDataTable">
+									<span class="textRow" style="font-family: Arial Unicode MS;
+                                    font-weight: bold;">Year:</span>
+								</td>
+								<td class="colum2quoteDataTable">
+									<p class="textRow">{!objOrder.Year__c}</p>
+								</td>
+							</tr>
+							<tr class="colCompanyPaddingBot">
+								<td class="colum1quoteDataTable">
+									<span class="textRow" style="font-family: Arial Unicode MS;
+                                    font-weight: bold;">VIN#:</span>
+								</td>
+								<td class="colum2quoteDataTable">
+                                    <p class="textRow">
+                                        {!objOrder.Frame_No__c}
+                                    </p>
+								</td>
+							</tr>
+							<tr class="colCompanyPaddingBot" >
+								<td class="colum1quoteDataTable">
+									<span style="font-family: Arial Unicode MS;
+                                    font-weight: bold;" class="textRow">Titile No:</span>
+								</td>
+								<td class="colum2quoteDataTable">
+									<p class="textRow">
+                                        {!objOrder.Titile_No__c}
+                                    </p>
+								</td>
+							</tr>
+						</table> -->
+					</div>
+				</div>
+				<!-- Column2 -->
+				<!-- <div class="column2">
+					<div class="totalPriceCenter">
+						<div class="">
+							
+						</div>
+					</div>
+				</div> -->
+                <!-- Column2 -->
+                <div class="column1" >
+					<div class="companyInforColumn1" style="word-wrap: break-word">
+                        <div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Nhãn hiệu (Brand):&nbsp;{!objOrder.Asset__r.Product2.Model__c}</span>
+                                    
+                                    <!-- <span style="font-size:13px;">{!objOrder.Account.Name}</span> -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Số khung (Frame No.):&nbsp;{!objOrder.Asset__r.Frame_Number__c}</span>
+                                    
+                                    <!-- {!addressString} -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Số máy (Engine No.):&nbsp;{!objOrder.Asset__r.Engine_No__c}</span>
+                                    
+                                    <!-- {!objOrder.Account.PersonMobilePhone} -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Dòng xe (Model name):&nbsp;{!objOrder.Asset__r.Product2.Model_Bike__r.Name}</span>
+                                    
+                                    <!-- {!objOrder.Account.PersonMobilePhone} -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Số km vào (Mileage in):&nbsp;{!objOrder.Mileage__c}</span>
+            
+                                <!-- <span style="font-size:13px;">{!objOrder.Interested_In__r.Name}</span>     -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Số km ra (Mileage out):&nbsp;{!objOrder.Mileage_Out__c}</span>
+            
+                                <!-- <span style="font-size:13px;">{!objOrder.Interested_In__r.Name}</span>     -->
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- Column3 -->
+				<div class="column1" >
+					<div class="companyInforColumn1" style="word-wrap: break-word">
+                        <div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Tư vấn dịch vụ (Service Consultant):&nbsp;{!objOrder.Owner.Name}</span>
+                                    <!-- <span style="font-size:13px;">{!objOrder.Account.Name}</span> -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Kỹ thuật viên (Technician):&nbsp;{!objOrder.Mechanic__r.Name}</span>
+                                    <!-- {!addressString} -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px;">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Nhân viên detailing (Detailing staff):&nbsp;{!objOrder.Detailing_Staff__r.FirstName} {!objOrder.Detailing_Staff__r.LastName}</span>
+                                    <!-- {!objOrder.Account.PersonMobilePhone} -->
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Ngày nhận xe (Arrival date):&nbsp;</span>
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                  	                <apex:param value="{!objOrder.Bike_Receiving_Date__c}" /> 
+                                </apex:outputText>
+                            </div>
+                            <div class="textRow" style="margin-bottom:3px">
+                                <span style="font-family: Arial Unicode MS;font-weight: bold;">Ngày giao xe (Delivery date):&nbsp;</span>
+                                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                  	                <apex:param value="{!objOrder.Bike_Delivery_Date__c}" /> 
+                                </apex:outputText>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+				
+		</div>
+		<div style="padding-top:230px;">
+        
+            <!--  Table 1-->
+			<table class="productTable" style="border-collapse: collapse;" >
+				<tr class='tableHeaderText' style="background-color:rgb(219, 219, 219)">
+                    <td colspan="1" rowspan="1" >TT No.</td>
+                    <td colspan="3" rowspan="1" style="vertical-align:middle">Chi tiết công việc (Job detail)</td>
+                    <td colspan="1" rowspan="2" style="vertical-align:middle" >Giờ công (Labor hour)</td>
+                    <td colspan="2" rowspan="1" style="vertical-align:middle">Giờ thực hiện (Process time)</td>
+                </tr>
+                <tr style="background-color:rgb(219, 219, 219)">
+                    <td colspan="1" rowspan="1"></td>
+                    <td colspan="1" rowspan="1">Category</td>
+                    <td colspan="1" rowspan="1">Mã công việc <br/>(Job code)</td>
+                    <td colspan="1" rowspan="1">Tên công việc <br/>(Job name)</td>
+                    <td colspan="1" rowspan="1">Bắt đầu <br/>(Start)</td>
+                    <td colspan="1" rowspan="1">Kết thúc <br/>(Finish)</td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="background-color:rgb(219, 219, 219)">SERVICE</td>
+                    <td>
+                    	<apex:outputText value="{0,date,HH:mm-dd'/'MM'/'yyyy}">
+                        	<apex:param value="{!objOrder.Service_Job_Start_Date__c}" />
+                        </apex:outputText>
+                    </td>
+                    <td>
+                        <apex:outputText value="{0,date,HH:mm-dd'/'MM'/'yyyy}">
+                        	<apex:param value="{!objOrder.Service_Job_End_Date__c}" />
+                        </apex:outputText>
+                	</td>
+                </tr>
+                <!-- <tr>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)"></td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">Service_Type__c</td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">ProductCode</td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">Name</td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">Labor_HOUR__c</td>
+                    <td></td>
+                    <td></td>
+                </tr> -->
+                <apex:variable var="rowNum" value="{!1}" /> 
+                <apex:repeat var="orderItemService" value="{!lstOrderItemRepair}">
+                    <tr style="word-wrap: break-word">
+                        <td><apex:outputText value="{!rowNum}"/></td>
+                        <td>SỬA CHỮA (Repair)</td>
+                        <td>{!orderItemService.Product2.ProductCode}</td>
+                        <td>{!orderItemService.Product2.Name}</td>
+                        <td>
+                            <apex:outputText value="{0, number, ###,###,###.#}">
+                                <apex:param value="{!orderItemService.Product2.Labor_HOUR__c}"/>
+                            </apex:outputText>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                <apex:variable var="rowNum" value="{!rowNum+1}"/>
+            </apex:repeat>
+                <!-- <tr>
+                    <td colspan="1"></td>
+                    <td colspan="1">SỬA CHỮA (Repair)</td>
+                    <td colspan="1">Yaxxx1</td>
+                    <td colspan="1">Thay nhớt</td>
+                    <td colspan="1">0,5</td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="1">SỬA CHỮA (Repair)</td>
+                    <td colspan="1">Yaxxx2</td>
+                    <td colspan="1">Lắp bố thắng</td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="1">SỬA CHỮA (Repair)</td>
+                    <td colspan="1">Yaxxx3</td>
+                    <td colspan="1">Thay lọc gió</td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr> -->
+                <tr class='tableHeaderText'>
+                    <td colspan="7" style="background-color:rgb(219, 219, 219)">DETAILING</td>
+                </tr>
+				<!-- <tr class='tableHeaderText'>
+                    <td colspan="1"></td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">Service_Type__c</td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">ProductCode</td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">Name</td>
+                    <td colspan="1" style="background-color:rgb(219, 219, 219)">Labor_HOUR__c</td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr> -->
+                <apex:variable var="rowNum2" value="{!1}" /> 
+                <apex:repeat var="orderItemDetailing" value="{!lstOrderItemDetailing}">
+                    <tr style="word-wrap: break-word">
+                        <th><apex:outputText value="{!rowNum2}"/></th>
+                        <th>SỬA CHỮA (Repair)</th>
+                        <th>{!orderItemDetailing.Product2.ProductCode}</th>
+                        <th>{!orderItemDetailing.Product2.Name}</th>
+                        <th>
+                            <apex:outputText value="{0, number, ###,###,###.#}">
+                                <apex:param value="{!orderItemDetailing.Product2.Labor_HOUR__c}"/>
+                            </apex:outputText>
+                        </th>
+                        <td></td>  
+                        <td></td>
+                        
+                    </tr>
+                <apex:variable var="rowNum2" value="{!rowNum2 + 1}"/>
+                </apex:repeat> 
+                <!-- <tr>
+                    <td colspan="1"></td>
+                    <td colspan="1">&nbsp;</td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="1">&nbsp;</td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                    <td colspan="1"></td>
+                </tr> -->
+			</table>
+            <br/>
+            <!-- Table 2 -->
+            <table class="productTable" style="border-collapse: collapse;" >
+                    <tr class='tableHeaderText'>
+                        <td colspan="1" rowspan="2" style="background-color:rgb(219, 219, 219); vertical-align:middle">TT No.</td>
+                        <td colspan="2" rowspan="1" style="background-color:rgb(219, 219, 219)">Chi tiết phụ tùng thay thế (Spare part detail)</td>
+                        <td colspan="1" rowspan="2" style="background-color:rgb(219, 219, 219); vertical-align:middle">Số lượng (Quantity)</td>
+                    </tr>
+                    <tr class='tableHeaderText'>
+                        <td colspan="1" rowspan="1" style="background-color:rgb(219, 219, 219)">Mã phụ tùng (Part code)</td>
+                        <td colspan="1" rowspan="1" style="background-color:rgb(219, 219, 219)">Tên phụ tùng (Spart part name)</td>
+                    </tr>
+                    <tr class='tableHeaderText'>
+                        <td colspan="1"></td>
+                        <td colspan="1" rowspan="1" style="background-color:rgb(219, 219, 219)">ProductCode</td>
+                        <td colspan="1" rowspan="1">Name</td>
+                        <td colspan="1">Quantity</td>
+                    </tr>
+                    <apex:variable var="rowNum3" value="{!1}" /> 
+                    <apex:repeat var="orderSpare" value="{!lstOrderItemPCA}">
+                        <tr style="word-wrap: break-word">
+                            <th><apex:outputText value="{!rowNum3}"/></th>
+                            <th>{!orderSpare.Product2.ProductCode}</th>
+                            <th>{!orderSpare.Product2.Name}</th>
+                            <th>{!orderSpare.Quantity}</th>
+                        </tr>
+                        <apex:variable var="rowNum3" value="{!rowNum3 + 1}"/>
+                    </apex:repeat>
+                    <!-- <tr>
+                        <td colspan="1"></td>
+                        <td colspan="1">&nbsp;</td>
+                        <td colspan="1"></td>
+                        <td colspan="1"></td>
+                    </tr> -->
+            </table>
+            <br/>
+            <!-- Table 3 -->
+            <table class="productTable" style="border-collapse: collapse;" >
+                <tr class='tableHeaderText'>
+                    <td height="75px" colspan="1" rowspan="1" style='text-align:left' >Yêu cầu của KH (Customer request):</td>
+                </tr>
+                <tr class='tableHeaderText'>
+                    <td height="75px" colspan="1" rowspan="1" style='text-align:left'>Ghi chú của xưởng (Workshop note):</td>
+                </tr>
+            </table>
+            <br/>
+
+            <!-- Table 4 -->
+            <table class="productTable" style="border-collapse: collapse; border: 3px solid black" >
+                <tr class='tableHeaderText'>
+                    <td colspan="1" rowspan="1">Tổ trưởng <br/>(Chief Tech)</td>
+                    <td colspan="1" rowspan="1">KTV <br/>(Technical)</td>
+                    <td colspan="1" rowspan="1">Detailing staff <br/>(Detailing staff)</td>
+                    <td colspan="1" rowspan="1">Quản lí xưởng <br/>(Service Manager)</td>
+                    <td colspan="1" rowspan="1">Quản lý <br/>(Manager)</td>
+                </tr>
+                <tr class='tableHeaderText'>
+                    <td height="75px" colspan="1" rowspan="1">&nbsp;</td>
+                    <td height="75px" colspan="1" rowspan="1">&nbsp;</td>
+                    <td height="75px" colspan="1" rowspan="1">&nbsp;</td>
+                    <td height="75px" colspan="1" rowspan="1">&nbsp;</td>
+                    <td height="75px" colspan="1" rowspan="1">&nbsp;</td>
+                </tr>
+            </table>
+        
+		</div>
+       
+	</body>
+</apex:page>

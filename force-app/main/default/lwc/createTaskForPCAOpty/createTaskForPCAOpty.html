@@ -1,0 +1,32 @@
+<template>
+    <header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create Task PCA For Opportunity
+        </h2>
+    </header>
+    <div style="margin-bottom:10px;">
+        <div if:true={isShowSpinner} class="slds-modal slds-fade-in-open">
+            <lightning-spinner alternative-text="" variant="brand"></lightning-spinner>
+        </div>
+        <div class="slds-col">
+                <lightning-input data-id="numberRange" onchange={changeValue} style="margin-left:10px; width: 50%;" default="0" required=true type="number" name="input8" label="Range Date"></lightning-input>
+        </div>
+    </div>
+    
+      <footer>
+        
+        <div style="margin-right:10px;float:right;margin-bottom:5px;">
+            <template if:true={disabledButton}>
+                <button  class="slds-button slds-button_brand" variant="brand" disabled>Create Task PCA</button>
+            </template>
+            <template if:false={disabledButton}>
+                <template if:false={isShowSpinner}>
+                    <lightning-button   onclick={handleCreateTask} style="background-color: brown;" label="Create Task PCA"></lightning-button>
+                </template>
+                <template if:true={isShowSpinner}>
+                    <lightning-button disabled style="float:right;margin-right:10px;" label="Create Task PCA"></lightning-button>
+                </template>
+            </template>
+        </div>
+        
+      </footer>
+</template>

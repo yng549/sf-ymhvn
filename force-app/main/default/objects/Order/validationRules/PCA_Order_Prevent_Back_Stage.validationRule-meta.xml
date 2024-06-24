@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PCA_Order_Prevent_Back_Stage</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+(CASE(Status ,
+&quot;Draft&quot;,1,
+&quot;Back Order&quot;,2,
+&quot;Financing&quot;,3,
+&quot;Hand Over&quot;,4,
+&quot;Completed&quot;,5,
+&quot;Cancel&quot;,6,
+&quot;Closed&quot;,7,0)
+&lt;
+CASE(PRIORVALUE( Status ),
+&quot;Draft&quot;,1,
+&quot;Back Order&quot;,2,
+&quot;Financing&quot;,3,
+&quot;Hand Over&quot;,4,
+&quot;Completed&quot;,5,
+&quot;Cancel&quot;,6,
+&quot;Closed&quot;,7,0))
+,
+
+RecordType.DeveloperName = &quot;PCA&quot;,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+$Profile.Name &lt;&gt; &apos;PCA &amp; Service Sup&apos;,
+$Profile.Name &lt;&gt; &apos;Community PCA Sup&apos;
+
+)</errorConditionFormula>
+    <errorMessage>You can not back Stage. Please contact to Admin for support!</errorMessage>
+</ValidationRule>

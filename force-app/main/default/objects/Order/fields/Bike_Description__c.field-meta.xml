@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bike_Description__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(  Opportunity.SyncedQuote.Discount_Standard__c  &gt; 0  &amp;&amp;  Opportunity.SyncedQuote.Discount_Amount__c &gt; 0,
+ 
+
+&apos;Xe Mô Tô hai bánh nhãn hiệu YAMAHA &apos;
++ &apos;; Số Loại:&apos;+ Asset__r.Product2.Sales_Name__c  
++ &apos;; Mới 100%&apos;
++ &apos;; SK:&apos;+ Asset__r.Frame_Number__c 
++ &apos;; SM:&apos;+ Asset__r.Engine_No__c 
++ &apos;; Màu sơn:&apos; +  Asset__r.Product2.Color_Name__c
+
++ &apos;; (Giảm giá trực tiếp theo CTKM &apos; +  Opportunity.SyncedQuote.Promotion_Item__r.Promotion__r.Name + &apos; dành cho các dòng xe tại Revzone Yamaha Motor)&apos;
+
+,
+
+&apos;Xe Mô Tô hai bánh nhãn hiệu YAMAHA &apos;
++ &apos;; Số Loại:&apos;+ Asset__r.Product2.Sales_Name__c  
++ &apos;; Mới 100%&apos;
++ &apos;; SK:&apos;+ Asset__r.Frame_Number__c 
++ &apos;; SM:&apos;+ Asset__r.Engine_No__c 
++ &apos;; Màu sơn:&apos; +  Asset__r.Product2.Color_Name__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Bike Description</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

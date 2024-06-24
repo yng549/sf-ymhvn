@@ -1,0 +1,595 @@
+<apex:page applyBodyTag="false" applyHtmlTag="false" showHeader="false" standardStylesheets="false" renderAs="pdf" controller="OrderAppraisalPage">
+
+  <!-- Begin  -->
+
+  <head>
+    <style type="text/css">
+      @page {
+        counter-increment: page;
+        size: A4 portrait;
+        page-break-inside: avoid;
+        margin-top: 25px;
+        margin-left: 25px;
+        margin-right: 25px;
+
+        tr {
+          /* page-break-inside: avoid !important; */
+        }
+
+        @bottom-center {
+          /* content: element(footer); */
+          font-size: 80%;
+          content: "Page " counter(page) " / " counter(pages);
+        }
+      }
+
+      @page :first {
+        @top-center {
+          content: element(header);
+        }
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
+
+
+      .row {
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+      }
+
+
+      .row::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .col-1-of-2 {
+        float: left;
+        width: 50%;
+      }
+
+      .col-2-of-3 {
+        float: left;
+        width: 66.66%;
+      }
+
+      .col-1-of-3 {
+        float: left;
+        width: 33.33%;
+      }
+
+      .last-child {
+        margin-right: 0px;
+        margin-bottom: 0px;
+      }
+
+
+
+      body {
+        font-family: Arial Unicode MS;
+        font-size: 13px;
+        box-sizing: border-box;
+      }
+
+      .header {
+        position: relative;
+      }
+
+      .header__subtext-box {
+        margin-top: 2px;
+        text-align: left;
+        font-style: italic;
+      }
+
+      .header__small-text {
+        margin-top: -5px;
+        margin-left: 0px;
+        font-style: italic;
+        max-width: 200px;
+      }
+
+      .header__small-text span {
+        display: block;
+        font-size: 10px;
+        font-style: italic;
+      }
+
+      .header__text-box {
+        position: absolute;
+        top: 35px;
+        left: 27%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .heading-primary {
+        text-transform: uppercase;
+
+      }
+
+      .section-cusinfor {
+        margin-top: 10px;
+      }
+
+      th {
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 13px;
+        text-align: center;
+        background-color: #c0c0c0;
+        color: black;
+        /* padding: 8px; */
+        border-collapse: collapse;
+      }
+
+      td {
+        text-align: left;
+        padding: 1px 8px 5px;
+        overflow-wrap: break-word;
+        vertical-align: top;
+        line-height: 13px;
+      }
+
+      table {
+        width: 96%;
+        border-collapse: collapse;
+        -fs-table-paginate: paginate;
+        border-spacing: 0;
+      }
+
+      .table-last-child {
+        width: 98%;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        box-sizing: border-box;
+      }
+
+      table td:first-child {
+        width: 1%;
+        white-space: nowrap;
+      }
+
+      .section-datatable {
+        margin-top: 20px
+      }
+
+      table.table-sizing {
+        width: 99%;
+        table-layout: fixed;
+      }
+
+      table.table-sizing td {
+        width: 50%;
+      }
+
+
+      /* div.footer {
+        display: block;
+        padding: 5px;
+        position: running(footer);
+      } */
+
+      .pagenumber:before {
+        content: counter(page);
+      }
+
+      .pagecount:before {
+        content: counter(pages);
+      }
+
+      /* div.subfooter {
+        display: inline-block;
+      } */
+
+      /* div.right {
+        float: right;
+      } */
+
+      .column-check {
+        text-align: center;
+        width: 15%;
+        padding: 8px;
+      }
+
+      .u-m-top-small {
+        margin-top: 15px;
+      }
+
+      /* .u-m-top-medium {
+        margin-top: 25px;
+      } */
+
+      /* .u-m-top-large {
+        margin-top: 40px;
+      } */
+
+      .align-right {
+        text-align: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <apex:image id="logo" value="{!$Resource.logoAppraisalForm}" width="155" height="60" />
+      <div class="header__subtext-box">
+        <p class="header__small-text">
+          <span>Address: {!objOrder.DO_DL__r.Address_Full__c}</span>
+          <span> Phone: {!IF((objOrder.DO_DL__r.PersonMobilePhone != Null),objOrder.DO_DL__r.PersonMobilePhone,objOrder.DO_DL__r.Phone)}</span>
+        </p>
+      </div>
+      <div class="header__text-box">
+        <h1 class="heading-primary">appraisal form trade-in</h1>
+      </div>
+    </div>
+    <!-- End header -->
+
+    <div class="section-cusinfor">
+      <div class="last-child row">
+        <div class="col-2-of-3">
+          <p>Customer Name: {!objOrder.Account.Name}
+            <br/>Address: {!objOrder.Account.Address_Full__c}
+            <br/>Interested In: {!objOrder.Interested_In__r.Name}
+            <br/>Year:&nbsp;{!objOrder.Asset__r.Year_Tradein__c}
+
+            <!-- <apex:outputText value="{0,date,yyyy}">
+              <apex:param value="{!objOrder.Asset__r.Year_Tradein__c}" />
+            </apex:outputText> -->
+            <br/>Frame No: {!objOrder.Asset__r.VinID__c}
+            <br/>Make &#38; Model: {!objOrder.Asset__r.Make_Model__c}
+            <br/>Titile No: {!objOrder.Asset__r.Titile_No__c}
+          </p>
+        </div>
+        <div class="last-child col-1-of-3 ">
+          <p style="margin-left:18px;">Date:&nbsp;
+            <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+              <apex:param value="{!today}" />
+            </apex:outputText>
+            <br/>Phone: {!objOrder.Account.PersonMobilePhone}
+            <br/>Stock No: {!objOrder.Asset__r.Stock_No__c}
+            <br/>Mileage: {!objOrder.Asset__r.Mileage__c}
+            <br/>Crankcase No: {!objOrder.Asset__r.Crankcase_No__c}
+            <br/>Sales consultance: {!objOrder.Owner.Name}
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- section table -->
+    <div class="section-datatable">
+      <div class="row">
+        <!-- 1st table -->
+        <div class="col-1-of-2">
+          <table class="table-data">
+            <thead>
+              <tr>
+                <th>Engine</th>
+                <th>Check</th>
+                <th>General Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> Compression</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Compression__c}</td>
+              </tr>
+              <tr>
+                <td>Spark plugs</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Spark_plugs__c}</td>
+              </tr>
+              <tr>
+                <td>Clutch/Transmission</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Clutch_Transmission__c}</td>
+              </tr>
+              <tr>
+                <td>Cooling system</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Cooling_system__c}</td>
+              </tr>
+              <tr>
+                <td>Charging system</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Charging_system__c}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 2nd table -->
+        <div class="last-child col-1-of-2">
+          <table class="table-last-child">
+            <thead>
+              <tr>
+                <th>Chassis</th>
+                <th>Check</th>
+                <th>General Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Front forks</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Front_forks__c}</td>
+              </tr>
+              <tr>
+                <td>Rear shock(s)</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Rear_shock_s__c}</td>
+              </tr>
+              <tr>
+                <td>
+                  Front brake(s)
+                </td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Front_brake_s__c}</td>
+              </tr>
+              <tr>
+                <td>Rear brake</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Rear_brake__c}</td>
+              </tr>
+              <tr>
+                <td>Final Drive</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Final_Drive__c}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--End 1st row -->
+      <!-- 2nd row -->
+      <div class="row">
+        <!-- 3rd table -->
+        <div class="col-1-of-2">
+          <table class="table-data">
+            <thead>
+              <tr>
+                <th>Handling</th>
+                <th>Check</th>
+                <th>General Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Steering bearings</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Steering_bearings__c}</td>
+              </tr>
+              <tr>
+                <td>Handlebar(s)</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Handlebar_s__c}</td>
+              </tr>
+              <tr>
+                <td>Tyres</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Tyres__c}</td>
+              </tr>
+              <tr>
+                <td>Clutch/Throtttle cable</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Clutch_Throtttle_cable__c}</td>
+              </tr>
+              <tr>
+                <td>Brake/Clutch levers</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Brake_Clutch_levers__c}</td>
+              </tr>
+              <tr>
+                <td>Wheels</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Wheels__c}</td>
+              </tr>
+              <tr>
+                <td>Wheel bearings</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Wheel_bearings__c}</td>
+              </tr>
+              <tr>
+                <td>Swing arm bearings</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Swing_arm_bearings__c}</td>
+              </tr>
+              <tr>
+                <td>Switches/Housings</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Switches_Housings__c}</td>
+              </tr>
+              <tr>
+                <td>Rearsets/Footpegs</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Rearsets_Footpegs__c}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 4th table -->
+        <div class="last-child col-1-of-2">
+          <table class="table-last-child">
+            <thead>
+              <tr>
+                <th>Fairing/Lights</th>
+                <th>Check</th>
+                <th>General Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Indicators</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Indicators__c}</td>
+              </tr>
+              <tr>
+                <td>Headlight(s)</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Headlight_s__c}</td>
+              </tr>
+              <tr>
+                <td>Brake light</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Brake_light__c}</td>
+              </tr>
+              <tr>
+                <td>Tail light(s)</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Tail_light_s__c}</td>
+              </tr>
+              <tr>
+                <td>Main fairings</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Main_fairings__c}</td>
+              </tr>
+              <tr>
+                <td>Small covers</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Small_covers__c}</td>
+              </tr>
+              <tr>
+                <td>Rider seat</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Rider_seat__c}</td>
+              </tr>
+              <tr>
+                <td>Passenger seat</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Passenger_seat__c}</td>
+              </tr>
+              <tr>
+                <td>Fuel tank</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Fuel_tank__c}</td>
+              </tr>
+              <tr>
+                <td>Indicators</td>
+                <td class="column-check"></td>
+                <td>{!objOrder.Indicators__c}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- End 2nd row -->
+      <!-- 3rd row -->
+      <div class="last-child row">
+        <!-- 5th table -->
+        <div class="col-1-of-2">
+          <table class="table-data" >
+            <thead>
+              <tr>
+                <th>Items</th>
+                <th>Condition reports</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Engine</td>
+                <td>{!objOrder.Engine__c}</td>
+              </tr>
+              <tr>
+                <td>Chassis</td>
+                <td>{!objOrder.Chassis__c}</td>
+              </tr>
+              <tr>
+                <td>Handling</td>
+                <td>{!objOrder.Handling__c}</td>
+              </tr>
+              <tr>
+                <td>Fairings</td>
+                <td>{!objOrder.Fairings__c}</td>
+              </tr>
+              <tr>
+                <td>Accessories</td>
+                <td>{!objOrder.Accessories__c}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 6th table -->
+        <div class="last-child col-1-of-2">
+          <table class="table-last-child" >
+            <thead>
+              <tr>
+                <th>Items</th>
+                <th>Condition reports</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>General Condition </td>
+                <td>{!objOrder.General_Condition__c}</td>
+              </tr>
+              <tr>
+                <td>Clean up</td>
+                <td>{!objOrder.Clean_up__c}</td>
+              </tr>
+              <tr>
+                <td>Reconditioning Total</td>
+                <td>{!objOrder.Clean_up__c}</td>
+              </tr>
+              <tr>
+                <td>Reconditioning note</td>
+                <td>{!objOrder.Reconditioning_note__c}</td>
+              </tr>
+              <tr>
+                <td>Remaining value (%)</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- End 3rd row -->
+      <div class="u-m-top-small last-child row">
+        <table class="table-sizing" >
+          <thead>
+            <tr>
+              <th>Appraiser</th>
+              <th>Service consultance sign</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="height: 100px;">{!objOrder.Appraiser__r.Name}
+              </td>
+              <td style="height: 100px;">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Footer -->
+    <!-- <div class=" footer ">
+      <div>
+        <div class="subfooter ">{!NOW()}</div>
+        <div class="subfooter right ">
+          Page
+          <span class="pagenumber " /> of
+          <span class="pagecount " />
+        </div>
+      </div>
+    </div> -->
+    <!-- End footer -->
+  </body>
+  <!-- End  -->
+</apex:page>

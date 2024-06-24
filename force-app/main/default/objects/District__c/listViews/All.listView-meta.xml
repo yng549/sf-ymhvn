@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Province__c</columns>
+    <columns>Ownership_Tax__c</columns>
+    <columns>Number_Plate_Fee__c</columns>
+    <columns>District_Code__c</columns>
+    <columns>DistrictMapping__c</columns>
+    <columns>OBJECT_ID</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Number_Plate_Fee__c</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Monthly_KPI_Employee__c</fullName>
+    <externalId>false</externalId>
+    <label>Monthly KPI Employee</label>
+    <referenceTo>Monthly_KPI_Employee__c</referenceTo>
+    <relationshipLabel>Monthly KPI Employee Detail</relationshipLabel>
+    <relationshipName>Monthly_KPI_Employee_Detail</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

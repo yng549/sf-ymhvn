@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Department_Revenue__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Role__c = &apos;Sales AM/Manager&apos;,  KPI_Rule_2_Value__c / KPI_Rule_2_Target__c  ,  
+     IF( Role__c = &apos;PCA Supervisor&apos;,  KPI_Rule_1_Value__c /  KPI_Rule_1_Target__c ,
+          IF( Role__c = &apos;Service AM/Sup&apos;,  KPI_Rule_1_Service_Value__c /  KPI_Rule_1_Service_Target__c , 0) 
+
+ ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Dept KPI Achievement</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>
