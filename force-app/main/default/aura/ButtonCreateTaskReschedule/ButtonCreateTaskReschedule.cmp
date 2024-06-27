@@ -1,0 +1,49 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global"  controller="ButtonCreateTaskReschedule">
+  <aura:attribute name="reschedule" type="Object" />
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+      <aura:html tag="style">
+          .slds-modal__footer{
+      		display:none;
+      	}
+    </aura:html>
+       <div class="slds">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-p-horizontal--medium slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Note to next follow</label>
+                    <div class="slds-form-element__controller">
+                        <ui:inputText class="slds-input" value="{!v.reschedule.note}" aura:id="note"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="slds-grid slds-wrap">
+            <div class="slds-p-horizontal--medium slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">Due date </label>
+                    <div class="slds-form-element__controller">
+                        <lightning:input type="number"  messageWhenBadInput="Due date invalidation"  value="{!v.reschedule.dueDate}" aura:id="duedate" onchange="{!c.handleOnChange}"/>
+                    	<p><lightning:formattedText aura:id="fteError" class="error-text" value="Value must be between 1 and 300" /></p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="slds-grid slds-wrap">
+            <div class="slds-p-horizontal--medium slds-col slds-size_12-of-12 slds-m-bottom--medium">
+                <div class="slds-form-element">
+                     <label class="slds-form-element__label">Date Reschedule</label>
+                    <div class="slds-form-element__controller">
+                       <div class="slds-truncate" title="Date reschedule">{!v.reschedule.datereschedule}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+   		<hr class="line-color" />
+           <div class="slds-m-top_medium" style="text-align: center">
+           	 <lightning:button variant="brand" label="Submit" onclick="{!c.submitScoreAction}" />            
+           </div>
+    	<!--Component Start-->
+         
+    </div>
+</aura:component>

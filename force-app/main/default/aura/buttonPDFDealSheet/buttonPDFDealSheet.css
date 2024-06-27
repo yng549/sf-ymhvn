@@ -1,0 +1,10 @@
+.THIS .slds-form--stacked {
+  width: 100%;
+  height: 450px;
+}
+.THIS #modal-content-id-1 {
+  text-align: left;
+}
+.THIS .my-button {
+  --sds-c-button-brand-color-background: rgb(163, 12, 12);
+}

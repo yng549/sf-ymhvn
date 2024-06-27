@@ -1,0 +1,31 @@
+<aura:component controller='BtnSendSurveyOrderController' implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+	<aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="surveyName" type="String"  />
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    <div style='text-align:center;font-size:12px'>
+        <lightning:select name="select1" label="Choose survey to send" required="true" value="{!v.surveyName}">
+            <option value="">Choose one...</option>
+            <option value="1">Sales</option>
+            <option value="2">Service</option>
+            <option value="3">PCA</option>
+        </lightning:select>
+        <div class="slds-grid slds-gutters" >
+            <div class="slds-col" >
+                <lightning:button label="Yes"
+                              variant="brand" class="slds-m-top--medium slds-size_full"
+                              onclick="{!c.yesBtn}"
+                              />
+            </div>
+            <div class="slds-col" >
+                <lightning:button label="No"
+                              variant="brand" class="slds-m-top--medium slds-size_full"
+                              onclick="{!c.noBtn}"
+                              />
+            </div>          
+        </div>
+    </div>
+</aura:component>

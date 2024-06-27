@@ -1,0 +1,51 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"
+  controller="CreateVoucherController">
+  
+  <aura:attribute name="objPromotion" type="Object" />
+  <aura:attribute name="objOrder" type="Object" />
+  <aura:attribute name="flag" type="Boolean" default="false" />
+  <aura:attribute name="recordId" type="Id" />
+
+  <aura:handler name="init" value="{! this }" action="{! c.init }" />
+
+  <aura:handler event="aura:waiting" action="{!c.waiting}"></aura:handler>
+  <aura:handler event="aura:doneWaiting" action="{!c.doneWaiting}"></aura:handler>
+  <aura:attribute name="HideSpinner" type="Boolean" default="true"></aura:attribute>
+  <aura:renderif istrue="{!v.HideSpinner}">
+    <div class="slds-spinner_container">
+      <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+        <span class="slds-assistive-text">Loading, Please Wait...</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+  </aura:renderif>
+  <aura:if isTrue="{!v.objPromotion}">
+    <aura:if isTrue="{!v.objOrder.Created_Voucher__c}">
+      <div style="height: 80px;">
+        <br/>
+        <br/>
+        <p style="color:red; margin-left:10px;"><b>
+          The order has already created a coupon so it can't generate any more coupons.
+          </b>
+        </p>
+      </div>
+      
+      <aura:set attribute="else">
+          <c:createVoucherForOrderLWC onclose="{!c.closeQA}" recordId="{!v.recordId}" objPromotion="{!v.objPromotion}" />
+      </aura:set>
+    </aura:if>
+    
+    
+    <aura:set attribute="else">
+      <div class="slds-modal__content slds-p-around_medium"  style="height: 80px;" id="modal-content-id-1">
+        <br/>
+        <br/>
+        <p style="color:red; margin-left:10px;"><b>
+          There are no records that match the condition.
+          </b>
+        </p>
+      </div>
+    </aura:set>
+  </aura:if>
+</aura:component>

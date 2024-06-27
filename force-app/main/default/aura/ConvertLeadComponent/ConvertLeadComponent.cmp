@@ -1,0 +1,95 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" 
+               controller="ConvertLeadController">
+  <aura:html tag="style">
+        .cuf-content {
+            padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+            padding: 0.5rem !important;
+        }       
+        .slds-modal__content{
+            overflow-y:hidden !important;
+            height:unset !important;
+            max-height:unset !important;
+        }.slds-modal__footer{
+      		display:none;
+      	}
+    </aura:html>
+  <aura:attribute name="leadrecord" type="Object"/>
+  <lightning:navigation aura:id="navigate" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+  <div style="padding:0.5rem;">
+          <div class="stageContainer" style="width:100%">
+            <div class="slds-grid slds-grid_vertical">
+                <div class="slds-border_bottom slds-p-around_x-small">
+                    <div class="slds-media slds-no-space slds-media_center" style="">
+                        <div class="slds-media__body">
+                            <h1 class="slds-page-header__title slds-align-middle slds-truncate" title="">
+                                <strong data-aura-rendered-by="437:0">
+                                    <span style="font-size:16px; font-style:italic; display:inline-block; margin-right:5px;">
+                                        Lead info
+                                    </span>
+                                </strong>
+                            </h1>
+                        </div>
+                        <aura:if isTrue="{!v.leadrecord.editMode}">
+                            <a href="javascript:void(0);">
+                              <span class="saveSpan slds-m-left--small" title="Save" onclick="{!c.saveEditedTalent}" >
+                                  <lightning:icon iconName="utility:save" alternativeText="edit" size="x-small"/>
+                              </span>
+                            </a>
+                            <a class="slds-text-color--error" href="javascript:void(0);">
+                              <span style="font-size:18px; font-weight:bold;" 
+                                    class="slds-m-left--small" title="Cancel" onclick="{!c.cancelEdit}" 
+                                    data-sfid="" data-index="">X
+                              </span>
+                      		</a>
+                  <aura:set attribute="else">
+                      <a href="javascript:void(0);">
+                          <span class="editSpan slds-m-left--small" title="Edit" onclick="{!c.editTalent}" data-sfid="" id="" data-index="">
+                               <lightning:icon iconName="utility:edit" alternativeText="edit" size="x-small"/>
+                          </span>
+                      </a>
+                  </aura:set>
+              </aura:if>
+                    </div>
+                </div>
+            </div>
+              <article class="slds-tile slds-tile_board">
+                <div class="slds-grid" style="padding:0.5em">
+                      <div class="slds-col slds-size_1-of-2">Name: {!v.leadrecord.lead.Name}</div>
+                      <div class="slds-col slds-size_1-of-2">Product: {!v.leadrecord.lead.Product__r.Name}</div>
+
+    			</div>
+                  <div class="slds-grid" style="padding:0.5em">
+                      <div class="slds-col slds-size_1-of-2">
+                          <aura:if isTrue="{!v.leadrecord.editMode}"> 
+                            <td><lightning:input aura:id="field"  type="email" label="Email" required = "true" class="field" value="{!v.leadrecord.lead.Email}"/></td>
+                            <aura:set attribute="else">
+                                <td>Email: {!v.leadrecord.lead.Email}</td>
+                            </aura:set>
+                          </aura:if>
+                          
+                      </div>
+                      <div class="slds-col slds-size_1-of-2">
+                    	<aura:if isTrue="{!v.leadrecord.editMode}"> 
+                            <td><lightning:input aura:id="field" type="text" label="Phone" required = "true" class="field" value="{!v.leadrecord.lead.MobilePhone}"/></td>
+                            <aura:set attribute="else">
+                                <td>Phone: {!v.leadrecord.lead.MobilePhone}</td>
+                            </aura:set>
+                        </aura:if>
+                      </div>
+    			</div>
+              </article>
+              <hr class="line-color" />
+              <div class="slds-m-top_medium" style="text-align: center">
+                  <lightning:button label="Convert" 
+                                     iconName="utility:animal_and_nature" iconPosition="left"  
+                                     variant="brand"
+                                     disabled = "{!v.leadrecord.editMode}"
+                                     onclick="{! c.handlerconvertLead }"/>
+              </div><br/>
+        </div>
+    </div>
+ 
+</aura:component>

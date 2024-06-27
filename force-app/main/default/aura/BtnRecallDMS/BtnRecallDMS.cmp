@@ -1,0 +1,22 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" 
+                controller="RecallMCOrderDMS">
+    <aura:attribute name="isValid" type="Boolean" default="false"/>
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+         <aura:html tag="style">
+        .slds-modal__content {
+            height: auto !important;
+        }
+    </aura:html> 
+    <aura:renderIf  isTrue="{!v.isValid}">
+        <div class="showtoast" id="showtoast" style="height:auto">
+           <div class="slds-grid slds-gutters" >
+            <div class="slds-col" >
+                <lightning:button label="Yes" variant="brand" class="slds-m-top--medium slds-size_full" onclick="{!c.syncAction}" />
+            </div>
+            <div class="slds-col" >
+                <lightning:button label="No" variant="brand" class="slds-m-top--medium slds-size_full" onclick="{!c.closeAction}"/>
+            </div>          
+        </div>
+        </div>
+    </aura:renderIf>
+</aura:component>

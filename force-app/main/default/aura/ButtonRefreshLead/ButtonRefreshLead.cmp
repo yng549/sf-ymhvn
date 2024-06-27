@@ -1,0 +1,65 @@
+<aura:component
+  controller="RefreshLeadController"
+  implements="force:lightningQuickAction,force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+  access="global"
+>
+  <aura:html tag="style">
+    .cuf-content { padding: 0 0rem !important; } .slds-p-around--medium {
+    padding: 0.5rem !important; } .slds-modal__content{ overflow-y:hidden
+    !important; height:unset !important; max-height:unset !important;
+    }.slds-modal__footer{ display:none; } .slds-modal__container{ width: 30%
+    !important; max-width: 30% !important; }
+  </aura:html>
+  <aura:attribute name="Spinner" type="boolean" default="false" />
+
+  <force:recordData
+    recordId="{! v.recordId }"
+    targetFields="{! v.objLead}"
+    fields="RecordType.Name"
+  />
+
+  <aura:handler name="init" value="{! this }" action="{! c.init }" />
+
+  <div style="padding: 0.5rem">
+    <div class="stageContainer slds-is-relative" style="width: 100%; text-align: center">
+      <div class="slds-media__body">
+        <h1
+          class="slds-page-header__title slds-align-middle slds-truncate"
+          title=""
+        >
+          <strong data-aura-rendered-by="437:0">
+            <aura:if isTrue="{!v.Spinner}">
+              <div aura:id="spinnerId" class="slds-spinner_container">
+                <lightning:spinner
+                  alternativeText="Loading"
+                  size="medium"
+                  variant="brand"
+                />
+              </div>
+            </aura:if>
+            <span style="font-size: 16px">
+              <span>Do you want to refresh stock?</span>
+            </span>
+          </strong>
+        </h1>
+      </div>
+      <div class="slds-m-top_medium" style="text-align: center">
+        <lightning:button
+          label="Refresh"
+          iconName="utility:animal_and_nature"
+          onclick="{!c.refresh}"
+          iconPosition="left"
+          variant="brand"
+        />
+        <lightning:button
+          label="Cancel"
+          onclick="{!c.cancelQuickAction}"
+          iconName="utility:close"
+          iconPosition="left"
+          variant="neutral"
+        />
+      </div>
+      <br />
+    </div>
+  </div>
+</aura:component>

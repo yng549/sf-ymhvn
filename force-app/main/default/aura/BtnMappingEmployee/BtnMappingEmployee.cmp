@@ -1,0 +1,25 @@
+<aura:component controller='BtnMappingEmployeeController' implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" >
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    <div style='text-align:center;font-size:12px'>
+        <p>Are you sure want to mapping employee ?</p>
+        <div class="slds-grid slds-gutters" >
+            <div class="slds-col" >
+                <lightning:button label="Yes"
+                                  variant="brand" class="slds-m-top--medium slds-size_full"
+                                  onclick="{!c.yesBtn}"
+                                  />
+            </div>
+            <div class="slds-col" >
+                <lightning:button label="No"
+                                  variant="brand" class="slds-m-top--medium slds-size_full"
+                                  onclick="{!c.noBtn}"
+                                  />
+            </div>          
+        </div>
+    </div>
+</aura:component>

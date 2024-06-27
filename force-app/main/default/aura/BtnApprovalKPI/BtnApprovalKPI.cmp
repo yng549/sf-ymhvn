@@ -1,0 +1,693 @@
+<aura:component controller='BtnApprovalKPIController' implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    
+    <aura:attribute name="SaleAM" type="Object"/>
+    <aura:attribute name="SaleSuper" type="Object" default="[]"/>
+    <aura:attribute name="ServiceAM" type="Object" />
+    <aura:attribute name="ServiceCon" type="Object" default="[]"/>
+    <aura:attribute name="ServiceTech" type="Object" default="[]"/>
+    <aura:attribute name="PCASuper" type="Object"/>
+    
+    <aura:attribute name="currentYear" type="Integer"/>
+    <aura:attribute name="selectedMonth" type="Integer"/>
+    <aura:attribute name="selectedYear" type="Integer"/>
+    
+    <aura:attribute name="dataExist" type="Boolean" default="false" />
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    
+    <div style='witdh:30%'>
+        <lightning:select aura:id="selectMonth" name="selectMonth" label="Month" required="true" value='{!v.selectedMonth}'>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </lightning:select>
+        <lightning:select aura:id="selectYear" name="selectYear" label="Year" required="true" value='{!v.selectedYear}'>
+            <option value="{!v.currentYear -2}">{!v.currentYear -2} </option>
+            <option value="{!v.currentYear -1}">{!v.currentYear -1} </option>
+            <option value="{!v.currentYear}">{!v.currentYear}</option>
+            <option value="{!v.currentYear +1}">{!v.currentYear +1} </option>
+            <option value="{!v.currentYear +2}">{!v.currentYear +2} </option>
+        </lightning:select>
+    </div>
+    <div style='margin:10px'><lightning:button variant="brand" label="Get Data" title="GetData" onclick="{!c.startGetData}" /></div>
+    
+    
+    <aura:if isTrue="{!v.dataExist}">
+        <lightning:accordion
+                             allowMultipleSectionsOpen="true"
+                             >
+            <p style='font-size:20px;font-weight:bold'>Sales Supervisor/AM/Manager</p>                  
+            <lightning:accordionSection name="SaleAM" label="{!v.SaleAM.Employee__r.Name}">
+                <table class='slds-table slds-table--cell-buffer' border='1'>
+                    <thead class='tableHeader'>
+                        <tr class='slds-text-title_bold'>
+                            <td width='4%'>No</td>
+                            <td width='26%'>Criteria</td>
+                            <td width='20%'>%</td>
+                            <td width='25%'>Target</td>
+                            <td width='25%'>Actual</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width='4%'>1</td>
+                            <td width='26%'>{!v.SaleAM.KPI_Rule_1_Name__c}</td>
+                            <td width='20%'>{!v.SaleAM.KPI_Rule_1_Percent__c}</td>
+                            <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.SaleAM.KPI_Rule_1_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.SaleAM.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>{!v.SaleAM.KPI_Rule_2_Name__c}</td>
+                            <td>{!v.SaleAM.KPI_Rule_2_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.SaleAM.KPI_Rule_2_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.SaleAM.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>{!v.SaleAM.KPI_Rule_3_Name__c}</td>
+                            <td>{!v.SaleAM.KPI_Rule_3_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.SaleAM.KPI_Rule_3_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.SaleAM.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>{!v.SaleAM.KPI_Rule_4_Name__c}</td>
+                            <td>{!v.SaleAM.KPI_Rule_4_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.SaleAM.KPI_Rule_4_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.SaleAM.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>5</td>
+                            <td>{!v.SaleAM.KPI_Rule_5_Name__c}</td>
+                            <td>{!v.SaleAM.KPI_Rule_5_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.SaleAM.KPI_Rule_5_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.SaleAM.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>{!v.SaleAM.KPI_Rule_6_Name__c}</td>
+                            <td>{!v.SaleAM.KPI_Rule_6_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.SaleAM.KPI_Rule_6_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.SaleAM.KPI_Rule_6_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>                
+                    </tbody>
+                </table>
+                <lightning:accordion
+                                     allowMultipleSectionsOpen="true"
+                                     >
+                    <p style='font-size:20px;font-weight:bold'>Senior Sales Consultant</p>
+                    <aura:iteration items="{!v.SaleSuper}" var="item">                     
+                        <lightning:accordionSection name="item" label="{!item.superEmployee.Employee__r.Name}">
+                            <table class='slds-table slds-table--cell-buffer' border='1'>
+                                <thead>
+                                    <tr class='slds-text-title_bold'>
+                                        <td witdh='4%'>No</td>
+                                        <td width='26%'>Criteria</td>
+                                        <td width='20%'>%</td>
+                                        <td width='25%'>Target</td>
+                                        <td width='25%'>Actual</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td witdh='4%'>1</td>
+                                        <td width='26%'>{!item.superEmployee.KPI_Rule_1_Name__c}</td>
+                                        <td width='20%'>{!item.superEmployee.KPI_Rule_1_Percent__c}</td>
+                                        <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_1_Target__c}' /><br/>
+                                        </td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>{!item.superEmployee.KPI_Rule_2_Name__c}</td>
+                                        <td>{!item.superEmployee.KPI_Rule_2_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_2_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>{!item.superEmployee.KPI_Rule_3_Name__c}</td>
+                                        <td>{!item.superEmployee.KPI_Rule_3_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_3_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>{!item.superEmployee.KPI_Rule_4_Name__c}</td>
+                                        <td>{!item.superEmployee.KPI_Rule_4_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_4_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>{!item.superEmployee.KPI_Rule_5_Name__c}</td>
+                                        <td>{!item.superEmployee.KPI_Rule_5_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_5_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>{!item.superEmployee.KPI_Rule_6_Name__c}</td>
+                                        <td>{!item.superEmployee.KPI_Rule_6_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_6_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_6_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>  
+                                    <tr>
+                                        <td>7</td>
+                                        <td>{!item.superEmployee.KPI_Rule_7_Name__c}</td>
+                                        <td>{!item.superEmployee.KPI_Rule_7_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_7_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_7_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style='font-size:20px;font-weight:bold'>Sales Consultant</p>
+                            <lightning:accordion
+                                                 allowMultipleSectionsOpen="true"
+                                                 >
+                                <aura:iteration items="{!item.listChild}" var="itemChild">                                
+                                    <lightning:accordionSection name="itemChild" label="{!itemChild.Employee__r.Name}">
+                                        <table class='slds-table slds-table--cell-buffer' border='1'>
+                                            <thead>
+                                                <tr class='slds-text-title_bold'>
+                                                    <td witdh='4%'>No</td>
+                                                    <td width='26%'>Criteria</td>
+                                                    <td width='20%'>%</td>
+                                                    <td width='25%'>Target</td>
+                                                    <!--<td width='25%'>Actual</td>-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td witdh='4%'>1</td>
+                                                    <td width='26%'>{!itemChild.KPI_Rule_1_Name__c}</td>
+                                                    <td width='20%'>{!itemChild.KPI_Rule_1_Percent__c}</td>
+                                                    <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_1_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>{!itemChild.KPI_Rule_2_Name__c}</td>
+                                                    <td>{!itemChild.KPI_Rule_2_Percent__c}</td>
+                                                    <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_2_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>{!itemChild.KPI_Rule_3_Name__c}</td>
+                                                    <td>{!itemChild.KPI_Rule_3_Percent__c}</td>
+                                                    <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_3_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>{!itemChild.KPI_Rule_4_Name__c}</td>
+                                                    <td>{!itemChild.KPI_Rule_4_Percent__c}</td>
+                                                    <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_4_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>{!itemChild.KPI_Rule_5_Name__c}</td>
+                                                    <td>{!itemChild.KPI_Rule_5_Percent__c}</td>
+                                                    <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_5_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>{!itemChild.KPI_Rule_6_Name__c}</td>
+                                                    <td>{!itemChild.KPI_Rule_6_Percent__c}</td>
+                                                    <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_6_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_6_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7</td>
+                                                    <td>{!itemChild.KPI_Rule_7_Name__c}</td>
+                                                    <td>{!itemChild.KPI_Rule_7_Percent__c}</td>
+                                                    <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_7_Target__c}' /></td>
+                                                    <td>
+                                                        <lightning:formattedNumber value="{!itemChild.KPI_Rule_7_Value__c}" maximumFractionDigits="2"/>
+                                                    </td>
+                                                </tr>                   
+                                            </tbody>
+                                        </table>
+                                    </lightning:accordionSection>
+                                </aura:iteration>
+                            </lightning:accordion>
+                        </lightning:accordionSection>
+                    </aura:iteration>                   
+                </lightning:accordion>
+            </lightning:accordionSection>     
+        </lightning:accordion>  
+        
+        <lightning:accordion
+                             allowMultipleSectionsOpen="true"
+                             >
+            <p style='font-size:20px;font-weight:bold'>Service Supervisor/AM/Manager</p>                   
+            <lightning:accordionSection name="ServiceAM" label="{!v.ServiceAM.Employee__r.Name}">
+                <table class='slds-table slds-table--cell-buffer' border='1'>
+                    <thead>
+                        <tr class='slds-text-title_bold'>
+                            <td witdh='4%'>No</td>
+                            <td width='26%'>Criteria</td>
+                            <td width='20%'>%</td>
+                            <td width='25%'>Target</td>
+                            <td width='25%'>Actual</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td witdh='4%'>1</td>
+                            <td width='26%'>Monthly Revenue PCA</td>
+                            <td width='20%'>{!v.ServiceAM.KPI_Rule_1_Percent__c}
+                            </td>
+                            <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_1_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td witdh='4%'>1</td>
+                            <td width='26%'>Monthly Revenue Service</td>
+                            <td width='20%'>
+                                {!v.ServiceAM.KPI_Rule_1_Service_Percent__c}
+                            </td>
+                            <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_1_Service_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_1_Service_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>{!v.ServiceAM.KPI_Rule_2_Name__c}</td>
+                            <td>{!v.ServiceAM.KPI_Rule_2_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_2_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>{!v.ServiceAM.KPI_Rule_3_Name__c}</td>
+                            <td>{!v.ServiceAM.KPI_Rule_3_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_3_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>{!v.ServiceAM.KPI_Rule_4_Name__c}</td>
+                            <td>{!v.ServiceAM.KPI_Rule_4_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_4_Target__c}' /></td>
+                        	<td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>{!v.ServiceAM.KPI_Rule_5_Name__c}</td>
+                            <td>{!v.ServiceAM.KPI_Rule_5_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_5_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>{!v.ServiceAM.KPI_Rule_6_Name__c}</td>
+                            <td>{!v.ServiceAM.KPI_Rule_6_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_6_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_6_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>    
+                        <tr>
+                            <td>7</td>
+                            <td>{!v.ServiceAM.KPI_Rule_7_Name__c}</td>
+                            <td>{!v.ServiceAM.KPI_Rule_7_Percent__c}</td>
+                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!v.ServiceAM.KPI_Rule_76_Target__c}' /></td>
+                            <td>
+                                <lightning:formattedNumber value="{!v.ServiceAM.KPI_Rule_7_Value__c}" maximumFractionDigits="2"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>              
+                <lightning:accordion
+                                     allowMultipleSectionsOpen="true"
+                                     >
+                    <p style='font-size:20px;font-weight:bold'>Service Consultant</p>
+                    <aura:iteration items="{!v.ServiceCon}" var="item">                
+                        <lightning:accordionSection name="item" label="{!item.Employee__r.Name}">
+                            <table class='slds-table slds-table--cell-buffer' border='1'>
+                                <thead>
+                                    <tr class='slds-text-title_bold'>
+                                        <td witdh='4%'>No</td>
+                                        <td width='26%'>Criteria</td>
+                                        <td width='20%'>%</td>
+                                        <td width='25%'>Target</td>
+                                        <td width='25%'>Actual</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td witdh='4%'>1</td>
+                                        <td width='26%'>Monthly Revenue PCA</td>
+                                        <td width='20%'>{!item.KPI_Rule_1_Percent__c}
+                                        </td>
+                                        <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_1_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td witdh='4%'>1</td>
+                                        <td width='26%'>Monthly Revenue Service</td>
+                                        <td width='20%'>
+                                            {!item.KPI_Rule_1_Service_Percent__c}
+                                        </td>
+                                        <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_1_Service_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_Servince_1_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>{!item.KPI_Rule_2_Name__c}</td>
+                                        <td>{!item.KPI_Rule_2_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_2_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>{!item.KPI_Rule_3_Name__c}</td>
+                                        <td>{!item.KPI_Rule_3_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_3_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>{!item.KPI_Rule_4_Name__c}</td>
+                                        <td>{!item.KPI_Rule_4_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_4_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>{!item.KPI_Rule_5_Name__c}</td>
+                                        <td>{!item.KPI_Rule_5_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_5_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>{!item.KPI_Rule_6_Name__c}</td>
+                                        <td>{!item.KPI_Rule_6_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_6_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_6_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>{!item.KPI_Rule_7_Name__c}</td>
+                                        <td>{!item.KPI_Rule_7_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_7_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_7_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>                   
+                                </tbody>
+                            </table>                           
+                        </lightning:accordionSection>
+                    </aura:iteration>                   
+                </lightning:accordion>              
+                <lightning:accordion
+                                     allowMultipleSectionsOpen="true"
+                                     >
+                    <p style='font-size:20px;font-weight:bold'>ALL Technician</p>
+                    <aura:iteration items="{!v.ServiceTech}" var="item">    
+                        <lightning:accordionSection name="item" label="{!item.Employee__r.Name}">
+                            <table class='slds-table slds-table--cell-buffer' border='1'>
+                                <thead>
+                                    <tr class='slds-text-title_bold'>
+                                        <td witdh='4%'>No</td>
+                                        <td width='26%'>Criteria</td>
+                                        <td width='20%'>%</td>
+                                        <td width='25%'>Target</td>
+                                        <td width='25%'>Actual</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td witdh='4%'>1</td>
+                                        <td width='26%'>{!item.KPI_Rule_1_Name__c}</td>
+                                        <td width='20%'>{!item.KPI_Rule_1_Percent__c}</td>
+                                        <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_1_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>{!item.KPI_Rule_2_Name__c}</td>
+                                        <td>{!item.KPI_Rule_2_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_2_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>{!item.KPI_Rule_3_Name__c}</td>
+                                        <td>{!item.KPI_Rule_3_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_3_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>{!item.KPI_Rule_4_Name__c}</td>
+                                        <td>{!item.KPI_Rule_4_Percent__c}</td>
+                                        <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.KPI_Rule_4_Target__c}' /></td>
+                                        <td>
+                                            <lightning:formattedNumber value="{!item.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                                        </td>
+                                    </tr>                 
+                                </tbody>
+                            </table>
+                        </lightning:accordionSection>
+                    </aura:iteration>
+                </lightning:accordion>
+            </lightning:accordionSection>      
+        </lightning:accordion> 
+        
+        <lightning:accordion
+                             allowMultipleSectionsOpen="true"
+                             >
+            <aura:iteration items="{!v.PCASuper}" var="item">
+                <p style='font-size:20px;font-weight:bold'>PCA Supervisor/AM/Manager</p>
+                <lightning:accordionSection name="item" label="{!item.superEmployee.Employee__r.Name}">
+                    <table class='slds-table slds-table--cell-buffer' border='1'>
+                        <thead>
+                            <tr class='slds-text-title_bold'>
+                                <td witdh='4%'>No</td>
+                                <td width='26%'>Criteria</td>
+                                <td width='20%'>%</td>
+                                <td width='25%'>Target</td>
+                                <td width='25%'>Actual</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td witdh='4%'>1</td>
+                                <td width='26%'>{!item.superEmployee.KPI_Rule_1_Name__c}</td>
+                                <td width='20%'>{!item.superEmployee.KPI_Rule_1_Percent__c}</td>
+                                <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_1_Target__c}' /></td>
+                                <td>
+                                    <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>{!item.superEmployee.KPI_Rule_2_Name__c}</td>
+                                <td>{!item.superEmployee.KPI_Rule_2_Percent__c}</td>
+                                <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_2_Target__c}' /></td>
+                                <td>
+                                    <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>{!item.superEmployee.KPI_Rule_3_Name__c}</td>
+                                <td>{!item.superEmployee.KPI_Rule_3_Percent__c}</td>
+                                <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_3_Target__c}' /></td>
+                                <td>
+                                    <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>{!item.superEmployee.KPI_Rule_4_Name__c}</td>
+                                <td>{!item.superEmployee.KPI_Rule_4_Percent__c}</td>
+                                <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_4_Target__c}' /></td>
+                                <td>
+                                    <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                                </td>
+                            </tr>   
+                            <tr>
+                                <td>5</td>
+                                <td>{!item.superEmployee.KPI_Rule_5_Name__c}</td>
+                                <td>{!item.superEmployee.KPI_Rule_5_Percent__c}</td>
+                                <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!item.superEmployee.KPI_Rule_5_Target__c}' /></td>
+                                <td>
+                                    <lightning:formattedNumber value="{!item.superEmployee.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>                   
+                    <lightning:accordion
+                                         allowMultipleSectionsOpen="true"
+                                         >
+                        <aura:iteration items="{!item.listChild}" var="itemChild">    
+                            <p style='font-size:20px;font-weight:bold'>PCA Sales Consultant</p>
+                            <lightning:accordionSection name="item" label="{!itemChild.Employee__r.Name}">
+                                <table class='slds-table slds-table--cell-buffer' border='1'>
+                                    <thead>
+                                        <tr class='slds-text-title_bold'>
+                                            <td witdh='4%'>No</td>
+                                            <td width='26%'>Criteria</td>
+                                            <td width='20%'>%</td>
+                                            <td width='25%'>Target</td>
+                                            <td width='25%'>Actual</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td witdh='4%'>1</td>
+                                            <td width='26%'>{!itemChild.KPI_Rule_1_Name__c}</td>
+                                            <td width='20%'>{!itemChild.KPI_Rule_1_Percent__c}</td>
+                                            <td width='25%'><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_1_Target__c}' /></td>
+                                            <td>
+                                                <lightning:formattedNumber value="{!itemChild.KPI_Rule_1_Value__c}" maximumFractionDigits="2"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>{!itemChild.KPI_Rule_2_Name__c}</td>
+                                            <td>{!itemChild.KPI_Rule_2_Percent__c}</td>
+                                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_2_Target__c}' /></td>
+                                            <td>
+                                                <lightning:formattedNumber value="{!itemChild.KPI_Rule_2_Value__c}" maximumFractionDigits="2"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>{!itemChild.KPI_Rule_3_Name__c}</td>
+                                            <td>{!itemChild.KPI_Rule_3_Percent__c}</td>
+                                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_3_Target__c}' /></td>
+                                            <td>
+                                                <lightning:formattedNumber value="{!itemChild.KPI_Rule_3_Value__c}" maximumFractionDigits="2"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>{!itemChild.KPI_Rule_4_Name__c}</td>
+                                            <td>{!itemChild.KPI_Rule_4_Percent__c}</td>
+                                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_4_Target__c}' /></td>
+                                            <td>
+                                                <lightning:formattedNumber value="{!itemChild.KPI_Rule_4_Value__c}" maximumFractionDigits="2"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>{!itemChild.KPI_Rule_5_Name__c}</td>
+                                            <td>{!itemChild.KPI_Rule_5_Percent__c}</td>
+                                            <td><lightning:input type="number" name="input1" variant = "label-hidden" value='{!itemChild.KPI_Rule_5_Target__c}' /></td>
+                                            <td>
+                                                <lightning:formattedNumber value="{!itemChild.KPI_Rule_5_Value__c}" maximumFractionDigits="2"/>
+                                            </td>
+                                        </tr>              
+                                    </tbody>
+                                </table>
+                            </lightning:accordionSection>
+                        </aura:iteration>
+                    </lightning:accordion>
+                </lightning:accordionSection>
+            </aura:iteration>                   
+        </lightning:accordion> 
+        
+        
+        <div style='margin:10px'><lightning:button variant="brand" label="Save" title="Save" onclick="{! c.save }" /></div>
+    </aura:if>
+    
+    
+    
+    
+</aura:component>

@@ -1,0 +1,192 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" controller="CreateTestRideController">
+    <aura:attribute name="objectName" 		type="string" default="Product2" required="true" />
+    <aura:attribute name="fieldName" 		type="string" default="Name" required="true" />
+    <aura:attribute name="selectedRecords" 	type="List"   default="[]" description="selected Records Id Array" />
+    <aura:attribute name="recordCount" 		type="string" default="5" description="Records visible at once"/>
+    <aura:attribute name="label" 			type="string" default="" description="Label will be displayed above input Box" />
+    <aura:attribute name="placeholder" 		type="string" default="Search..." description="placeholder for input Box" />
+    <aura:attribute name="disabled" 		type="Boolean" default="false" description="To disable the combobox"/>
+    <aura:attribute name="iconName" 		type="string" default="standard:drafts" description="complete icon name eg. standard:account" />
+	<aura:attribute name="errorMessage" type="String" default="" />
+    <lightning:navigation aura:id="navService" />
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+    <!-- Internal Use Attributes -->
+    <aura:attribute name="message" 		   type="String" access="private" default="" />
+    <aura:attribute name="searchString"    type="string" access="private" default="" description="String to search"/>
+    <aura:attribute name="recordsList" 	   type="List"   access="private" description="List of Records having data" />
+    <aura:attribute name="selectedDataObj" type="List"   access="private" description="Selected Records Object List" />
+    <aura:attribute name="productId" 	   type="String"  description="Id when add product default"/>
+    <aura:attribute name="productName" 	   type="String"  description="Name when add product default"/>
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__container{
+            max-width: 55rem !important;
+            width:85% !important;
+        }
+        .customerSection{
+        	max-width: 100%;
+        	width:70% !important;
+        }
+        .btnSubmit {
+			color: white !important;
+			background: #3275a8 !important;
+			
+            margin-left: 1.2rem;
+            height: 35px;
+		}
+        fieldset {
+            border: 1px solid rgb(204, 204, 204) !important;
+            padding: 0.4em !important;
+            margin: 0 0 0 0 !important;
+            -webkit-box-shadow: 10px #000;
+            box-shadow: 10px #000;
+            border-radius: 15px 3px 15px 15px;
+        }
+        legend {
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width:auto;
+            padding:0px 10px 0px 10px;
+            margin: 0;
+            border-bottom:none;
+        }
+        .slds-form-element__control1{ display:inline-block; }
+    </aura:html>
+    <aura:attribute name="apirespone" type="Object"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- #endregion -->
+    <!-- NEW Campaing FORM -->
+    <div class="slds-col slds-col--padded slds-p-top--large">
+        <div aria-labelledby="newCustomerForm">
+             <aura:if isTrue="{! v.errorMessage }"> <p class="slds-text-color_error">{! v.errorMessage }</p> </aura:if>
+            <fieldset class="slds-box slds-theme--default slds-container--max-large">
+            <legend id="newCustomerForm" class="slds-text-heading--small slds-p-vertical--medium">
+                <Span class="labelStyle">Information customer</Span>
+                <lightning:button label="Print PDF" class="btnSubmit" 
+                                  variant="brand" onclick="{!c.doSaveRecords}"/>
+            </legend>
+            <div style="width:100%; height:3px; background:#3275a8;"></div>
+            <div class="slds-grid slds-wrap slds-grid--align-center">
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" disabled="true" label="Test Ride Customer Name" value="{!v.apirespone.customerInfor.FirstName + ' ' + v.apirespone.customerInfor.LastName}" />
+                </div>
+                <!-- <div class="slds-size-\-1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="Test Ride Customer First Name" value="{!v.apirespone.customerInfor.FirstName}" />
+                </div> -->
+                <!-- <div class="slds-size-\-1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="Test Ride Customer Last Name" value="{!v.apirespone.customerInfor.LastName}" />
+                </div> -->
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection"  disabled="true"  label="Account number" value="{!v.apirespone.customerInfor.AccountNumber}"/>
+                </div>
+              
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="ID Number"  value="{!v.apirespone.customerInfor.ID_No__c }" />
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection"  type="date" label="Issued date"  value="{!v.apirespone.customerInfor.ID_Issue_Date__c}" />
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="A2 license no"  value="{!v.apirespone.customerInfor.A2_License_No__c}" />
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" type="date" label="A2 Issue Date"  value="{!v.apirespone.customerInfor.A2_Issue_Date__c}"/>
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection"  label="Email"  value="{!v.apirespone.customerInfor.PersonEmail}" />
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="Phone no"  value="{!v.apirespone.customerInfor.PersonMobilePhone}"/>
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="Image A2" value="{!v.apirespone.customerInfor.A2__c}" />
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <Span>Date time collected</Span>
+                    <lightning:input aura:id="expenseform" type="datetime" variant="label-hidden"  class="customerSection"  value="{!v.apirespone.datetimepicked}"/>
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <lightning:input aura:id="expenseform" class="customerSection" label="Comments"  value="{!v.apirespone.comments}"/>
+                </div>
+                <div class="slds-size--1-of-2 ">
+                    <Span>Expected Return Date</Span>
+                    <lightning:input aura:id="expenseform" class="customerSection" type="datetime" variant="label-hidden"  value="{!v.apirespone.expectedReturn}"/>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+        <fieldset class="slds-box slds-theme--default slds-container--max-large">
+         	<legend id="newCustomerForm" class="slds-text-heading--small slds-p-vertical--medium">
+                 <Span class="labelStyle">Information products test ride</Span>
+            </legend>
+            <div style="width:100%; height:3px; background:#3275a8;"></div>
+             
+            	<p>{!if(!empty(v.label), v.label, '')}</p>
+            	<div class="slds-grid slds-wrap">
+                 
+                <div class="slds-size--1-of-2 ">
+                    <div class="" style="max-width: 70% !important;">
+                    <div  class="slds-input-has-icon slds-input-has-icon_right">
+                        <!-- Default product -->
+                        <lightning:input aura:id="expenseform" class="" label="Product default"  disabled="true" name="expensename" value="{!v.apirespone.product.Name}"/>
+                        <div class="slds-input__icon customIconRight" style="margin-top: 4px !important;" onclick="{!c.removeDefaultProduct}" >
+                            <aura:if isTrue="{!not(empty(v.apirespone.product.Name))}" >
+                            <lightning:icon class="slds-input__icon customIconRight" iconName="utility:close" size="x-small" alternativeText="remove" />
+                            <aura:set attribute="else">
+                                <lightning:icon class="slds-input__icon customIconRight" iconName="utility:add" size="x-small" alternativeText="add" />  
+                            </aura:set>
+                            </aura:if>    
+                        </div>
+                        <!-- <lightning:icon class="slds-input__icon" style="margin-top: 10px;" iconName="utility:close" size="x-small" alternativeText="Remove"/>  -->
+                    </div>
+                    </div>
+                
+                </div>
+                <div class="slds-size--1-of-2 " style="margin-top: 25px;">
+                	<div class="slds-combobox_container" style="max-width: 70% !important;">
+                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" aura:id="resultsDiv" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                        <div class="slds-input-has-icon slds-input-has-icon_right">
+                            <!-- Icon, Search Bar, Search Icon -->
+                            <lightning:icon class="slds-combobox__input-entity-icon" iconName="{!v.iconName}" size="large" alternativeText="icon"/>
+                            <lightning:input aura:id="inputLookup" class="inputBox" placeholder="{!v.placeholder}" onblur="{!c.blurEvent}" onclick="{!c.showRecords}" disabled="{!v.disabled}" onkeyup="{!c.searchRecords}" value="{!v.searchString}" autoComplete="off" variant="label-hidden" id="combobox-id-1" />
+                            <lightning:icon class="slds-input__icon" iconName="utility:search" size="x-small" alternativeText="search"/> 
+                            <lightning:spinner class="slds-hide" aura:id="Spinner" alternativeText="Loading" size="small" variant="brand"/>
+                        </div>
+                        <!-- Dropdown List -->
+                        <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" style="{! 'max-height:' + (8 + (v.recordCount * 40)) + 'px' }">
+                            <ul class="slds-listbox slds-listbox_vertical recordListBox">
+                                <aura:if isTrue="{!empty(v.message)}" >
+                                    <!-- To display Drop down List -->
+                                    <aura:iteration items="{!v.recordsList}" var="rec" >
+                                        <li id="{!rec.value}" class="slds-listbox__item eachItem" onmousedown="{!c.selectItem}">
+                                            <lightning:icon class="{!if(rec.isSelected,'','slds-hide')}" iconName="utility:check" size="x-small" alternativeText="icon" />
+                                            <span class="verticalAlign slds-truncate">{!rec.label}</span>
+                                        </li>
+                                    </aura:iteration>
+                                    <!-- To display Error Message -->
+                                    <aura:set attribute="else">
+                                        <span class="slds-media slds-listbox__option_entity">{!v.message}</span>
+                                    </aura:set>
+                                </aura:if>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                    <aura:iteration items="{!v.selectedDataObj}" var="data">
+                        <lightning:pill class="slds-m-around_xx-small" name="{!data.value}" label="{!data.label}" onremove="{!c.removePill}"/>
+                    </aura:iteration>
+                </div>
+            </div>
+            
+        </fieldset>
+        <lightning:spinner class="slds-hide" aura:id="Spinner2" alternativeText="Loading" size="small" variant="brand"/>
+    </div>
+</aura:component>

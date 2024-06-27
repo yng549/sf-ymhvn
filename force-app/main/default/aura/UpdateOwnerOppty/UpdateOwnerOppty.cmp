@@ -1,0 +1,81 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+controller="UpdateOwnerForOppty">
+    <aura:attribute name="objOppty" type="Object" />
+    <aura:attribute name="recordSaveError" type="String" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="recordIdUser" type="String" />
+    <aura:attribute name="existingExam" type="Object" />
+    <aura:attribute name="mapUserSale" type="Map" />
+    <aura:attribute name="hasDODLManager" type="Boolean" default="false"  />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-col modal-header slds-modal__header">
+        <h2 class="title slds-text-heading--medium">
+            Update Owner
+        </h2>
+    </div>
+
+    <!-- Display an editing form -->
+    <div class="slds-m-around_medium">
+        <lightning:card>
+            <div class="slds-p-horizontal--small">
+                <div class="slds-grid slds-gutters">
+                    <aura:if isTrue="{!v.objOppty.boolHasDODL}">
+                        <div class="slds-form-element" style="margin-top:-30px;">
+                            <lightning:select class="slds-combobox_container slds-size_small picklist" label="User Sale Sup"  onchange="{!c.handleSelected}">
+                                <option text="Vui lòng chọn Sale Sup để update" value="" ></option>
+                                <aura:iteration items="{!v.mapUserSale}" var="user">
+                                    <option text="{!user.value}" value="{!user.key}" ></option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                        <aura:set attribute="else">
+                            <div class="slds-col" style="margin-top:-30px;">
+                                <lightning:input  disabled="true" label="Opportunity Owner" style="color: #000000CC;" value="{!v.objOppty.strOwnerId}"/>
+                            </div>
+                        </aura:set>
+                    </aura:if> 
+                    
+                    
+                    
+                    <div class="slds-col" style="margin-left:40px;">
+                        <lightning:input  label="Review" disabled="true" style="color: #000000CC;" checked="{!v.objOppty.boolChecked}" type="checkbox" value="{!v.objOppty.boolChecked}" />
+                    </div>
+                  </div>
+            </div>
+        </lightning:card>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="slds-col modal-footer slds-modal__footer">
+        <lightning:button variant="neutral" label="Cancel" onclick="{!c.handleCancelBtn}" />
+        <aura:if isTrue="{!v.objOppty.boolHasDODL}">
+            <aura:if isTrue="{!v.recordIdUser}">
+                <lightning:button variant="brand" disabled="false" label="Save" onclick="{!c.handleConvertBtn}" />
+                <aura:set attribute="else">
+                    <lightning:button variant="brand" disabled="true" label="Save" onclick="{!c.handleConvertBtn}" />
+                </aura:set>
+            </aura:if>
+            
+            <aura:set attribute="else">
+                <lightning:button variant="brand" disabled="false" label="Save" onclick="{!c.handleConvertBtn}" />
+            </aura:set>
+        </aura:if>
+        
+    </div>
+
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content {
+        overflow-y: hidden !important;
+        height: unset !important;
+        height: unset !important;
+        max-height: unset !important;
+        }
+    </aura:html>
+</aura:component>

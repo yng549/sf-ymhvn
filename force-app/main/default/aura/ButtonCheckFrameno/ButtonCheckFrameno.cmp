@@ -1,0 +1,30 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global"
+                controller="CheckOrderWarrantyLastModified">
+	<aura:html tag="style">
+        .cuf-content {
+            padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+            padding: 0.5rem !important;
+        }       
+        .slds-modal__content{
+            overflow-y:hidden !important;
+            height:unset !important;
+            max-height:unset !important;
+        }.slds-modal__footer{
+      		display:none;
+      	}
+   </aura:html>
+  <aura:attribute name="message" type="string"/>
+  <aura:handler name="init" value="{!this}" action="{!c.promiseChaining}"/>
+    
+    <div class="stageContainer" style="width:100%">
+        <article class="slds-tile slds-tile_board">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-1">Message : {!v.message}</div>
+            </div>
+            <hr class="line-color" />
+        </article>
+        
+    </div>
+</aura:component>

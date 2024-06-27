@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader,force:hasSObjectName" >
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="recordId" type="Id" />
+
+    <c:lwcImportData onclose="{!c.closeQA}" onrecordChange="{!c.refreshView}" recordId="{!v.recordId}" objectApiName="{!v.sObjectName}" />
+</aura:component>

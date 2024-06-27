@@ -1,0 +1,54 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
+                access="global" controller="ButtonCreateOptyTeam">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="ShowSection" type="boolean" default="false" />
+    <aura:attribute name="Loading" type="boolean" default="false" />
+	<aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="zaloUserOrignal" default="{'sobjectType':'Opportunity'}" type="Object" /> 
+    <aura:attribute type="Object" default="{'sobjectType':'Opportunity'}" name="recordZaloUser"/>
+    <lightning:notificationsLibrary aura:id="notificationsLibrary" />
+    <aura:attribute name="newZaloUserSite" type="OpportunityTeamMember"  default="{'sobjectType':'OpportunityTeamMember'}" access="public"/>
+    <aura:attribute name="simpleZaloUserSite" type="OpportunityTeamMember" default="{'sobjectType':'OpportunityTeamMember'}" access="public"/>
+
+    
+    <force:recordData aura:id="zaloUserSiteRecordCreator"
+                      layoutType="FULL"
+                      targetRecord="{!v.newZaloUserSite}"
+                      targetFields="{!v.simpleZaloUserSite}"/>
+
+	
+    <lightning:card>
+        <div class="form-title">New Opportunity Team Member</div>
+        <aura:renderIf  isTrue="{!v.ShowSection == false}"> 
+        <lightning:input aura:id="zaloField" name="name" label="Team Member Role" disabled="true"
+                         value="{!v.simpleZaloUserSite.TeamMemberRole}" required="true"/>
+        
+        <lightning:input aura:id="zaloField" name="phone" label="Owner ID" disabled="true"
+                         value="{!v.simpleZaloUserSite.UserId}" required="true"/>
+            
+        <lightning:input aura:id="zaloField" value="{!v.simpleZaloUserSite.OpportunityAccessLevel}" name="dob" 
+                         label="Level Access" disabled="true" />
+    
+        <div class="btn-view"><lightning:button label="Confirm" onclick="{!c.handleSaveZaloUser}"
+                          variant="brand" class="slds-m-top_medium"/></div>   
+        
+        </aura:renderIf>
+    </lightning:card>
+    <force:recordData aura:id="recordLoader"
+                          recordId="{!v.recordId}"
+                          fields="Id, Name" 
+                          targetRecord="{!v.recordZaloUser}"
+                          targetFields="{!v.zaloUserOrignal}"
+                          recordUpdated="{!c.doInit}" />
+    	<aura:if  isTrue="{!v.Loading == true}"> 
+        <div class="loading-view">
+          <div class="slds-spinner_container">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+              <span class="slds-assistive-text">Loading</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+          </div>
+        </div>   
+        </aura:if>
+</aura:component>

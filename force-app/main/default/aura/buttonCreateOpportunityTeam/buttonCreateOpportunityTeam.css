@@ -1,0 +1,36 @@
+.THIS {
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgb(0 0 0 / 20%);
+    max-width:600px;
+    margin:auto;
+}
+.THIS .slds-card__header {
+    display:none;
+}
+.THIS .slds-modal__content {
+    height: 450px;
+    max-height: 450px;
+}
+.THIS .slds-form-element{
+    margin-top:15px;
+}
+.THIS .form-title {
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+}
+.THIS .note-view{
+    margin-top:10px;
+    margin-bottom:10px;
+    font-size:14px;
+    color:#a7a7a7;
+}
+.THIS .btn-view{
+    text-align:center;
+}
+.THIS .btn-view .slds-button{
+    background-color:#1745cf;
+    font-size:18px;
+    min-width:200px;
+}

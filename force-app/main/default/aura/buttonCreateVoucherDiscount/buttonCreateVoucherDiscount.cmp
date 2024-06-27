@@ -1,0 +1,57 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId"
+  controller="CreateVoucherController">
+  <aura:html tag="style">
+    .cuf-content {
+    padding: 0 0rem !important;
+    }
+    .slds-p-around--medium {
+    padding: 0rem !important;
+    }
+    .slds-modal__content {
+    overflow-y: hidden !important;
+    height: unset !important;
+    max-height: unset !important;
+    }
+  </aura:html>
+  <aura:attribute name="progress" type="Integer" default="0" />
+  <aura:attribute name="apexJob" type="AsyncApexJob" />
+  <aura:attribute name="recordId" type="Id" />
+  <aura:attribute name="truthy" type="Boolean" default="false" />
+  <aura:attribute name="strErrorInputNumber" type="String" default="" />
+  <aura:attribute name="quantityNumber" type="Integer" />
+
+  <lightning:card variant="Create Voucher" title="Create Voucher" iconName="standard:account">
+    <div class="slds-col modal-header slds-modal__header">
+      <h2 class="title slds-text-heading--medium">
+        <lightning:input  default="0" type="number" max="2000" name="input8" label="Quantity Voucher"
+          value="{!v.quantityNumber}" onchange="{!c.changeValueNumber}"></lightning:input>
+      </h2>
+      <br />
+      <p style="color:red;">{!v.strErrorInputNumber}</p>
+      <aura:if isTrue="{!v.apexJob != null}">
+        <aura:if isTrue="{!v.apexJob.JobItemsProcessed != v.apexJob.TotalJobItems}">
+          Processing {!v.apexJob.JobItemsProcessed} of {!v.apexJob.TotalJobItems}
+        </aura:if>
+        <aura:if isTrue="{!v.apexJob.Status == 'Completed'}">
+          <p style="color:green;">Completed with {!v.apexJob.NumberOfErrors} errors.</p>
+        </aura:if>
+        <lightning:progressBar value="{!v.progress}" size="large" variant="circular" />
+      </aura:if>
+    </div>
+    <div class="slds-col modal-footer slds-modal__footer">
+      <button   class="slds-button slds-button--neutral uiButton--default uiButton--default uiButton" type="button">
+        <lightning:button  variant="neutral" label="Cancel" onclick="{! c.closeModal }" />
+      </button>
+
+      <aura:if isTrue="{!v.truthy}">
+        <lightning:button variant="brand" label="Create Voucher" title="Create Voucher" onclick="{!c.executeBatch}" />
+        <aura:set attribute="else">
+          <lightning:button disabled="true" variant="brand" label="Create Voucher" title="Create Voucher" />
+        </aura:set>
+      </aura:if>
+
+    </div>
+  </lightning:card>
+
+
+</aura:component>

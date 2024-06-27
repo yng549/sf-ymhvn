@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global"
+                controller="ButtonSyncPromotionToCMS">
+      <aura:html tag="style">
+        .slds-modal__content {
+            height: auto !important;
+        }
+        .slds-modal__footer{
+      		display:none;
+      	}
+    </aura:html> 
+        <div class="showtoast" id="showtoast" style="height:auto">
+            <div style="padding-top: 15px; text-align: center;">
+                <lightning:button variant="Neutral" label="Sync CMS" title="Close" onclick="{!c.syncRecord}"/>
+            </div>
+        </div>
+</aura:component>

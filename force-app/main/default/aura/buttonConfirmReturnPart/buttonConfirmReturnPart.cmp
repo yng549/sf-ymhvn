@@ -1,0 +1,70 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="buttonConfirmReturnPart">
+  <aura:html tag="style">
+    .cuf-content {
+    padding: 0 0rem !important;
+    }
+    .slds-p-around--medium {
+    padding: 0rem !important;
+    }
+    .slds-modal__content {
+    overflow-y: hidden !important;
+    height: unset !important;
+    max-height: unset !important;
+    }
+  </aura:html>
+  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+  <aura:attribute name="recordId" type="Id" />
+  <aura:attribute name="fieldMap" type="Map"/>
+  <aura:attribute name="objCase" type="Object"/>
+  <aura:attribute name="userInfo" type="user"/> 
+  <aura:attribute name="flag" type="Boolean" default="true" />  
+  <aura:attribute name="profileName" type="string" default="Community Sales Admin"/>
+
+  <aura:if isTrue="{!v.userInfo.Profile.Name!=v.profileName}">
+    <div class="modal-header slds-modal__footer slds-size_1-of-1">
+        <h2 style="text-align:center;font-size:20px;font-weight:bold;">Confirm Return Part</h2>
+    </div>
+    <div class="slds-grid slds-gutters" style="margin:10px;">
+        
+        <div class="slds-col">
+            <span>
+                <lightning:recordEditForm recordId="{!v.recordId}" objectApiName="Case"> 
+                    <lightning:inputField fieldName="AssetId" readonly="true"/> 
+                    </lightning:recordEditForm> 
+            </span>
+        </div>
+        <div class="slds-col">
+        <span>
+            <lightning:select aura:id="industryPicklist" value="{!v.objCase.Asset.Inventory_Status__c}" 
+                 onchange="{!c.handleOnChange}" name="industryPicklist" label="Inventory Status" required="true">
+                    <option value="">--None--</option>
+                    <aura:iteration items="{!v.fieldMap}" var="i" indexVar="key">
+                        <option text="{!i.value}" value="{!i.key}" selected="{!i.key==v.objCase.Asset.Inventory_Status__c}" />
+                    </aura:iteration>
+            </lightning:select>
+        </span>
+        </div>
+  </div>
+  <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+    <div class="forceChangeRecordTypeFooter">
+        <ui:button class="slds-button slds-button_neutral" label="Cancel" press="{! c.cancel}" />
+        <aura:if isTrue="{!v.flag}">
+            <lightning:button variant="brand" label="Submit" onclick="{!c.CaseSave}" /> 
+            <aura:set attribute="else">
+                <lightning:button variant="brand" label="Submit" disabled="true"  /> 
+            </aura:set>
+        </aura:if>
+        
+    </div>
+</div>
+            <aura:set attribute="else">
+                <div class="modal-header slds-modal__footer slds-size_1-of-1">
+                    <h2 style="text-align:center;font-size:15px;font-weight:bold;">
+                        Your Profile is not "Sales Admin" so you dont access for this feature.
+                    </h2>
+                </div>
+             
+            </aura:set>
+        </aura:if> 
+  
+</aura:component>

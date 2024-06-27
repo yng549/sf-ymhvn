@@ -1,0 +1,12 @@
+.THIS.slds-modal__container{
+ max-width: 80% !important;
+ width:80% !important;
+}
+
+.THIS .td-padding {
+    padding:10px 15px 10px 10px;
+}
+
+.THIS .td-border{;
+    border-bottom: 1px solid #dcdee0;
+}

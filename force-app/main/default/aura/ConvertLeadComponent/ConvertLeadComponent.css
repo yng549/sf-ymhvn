@@ -1,0 +1,56 @@
+.THIS {
+}
+.THIS label.uiLabel {
+    padding-right: 12px;
+}
+
+.THIS .field{
+  padding: 5px;
+  border: 1px solid #dce4ec;
+  border-radius: 2px;
+}
+.THIS .slds-spinner_container  {
+    background-color: rgba(0, 0, 0, 0.10);
+    margin-top: 200px;
+    margin-bottom: 200px; 
+}
+.THIS .line-color {
+	background: #0070C0;
+	height: 3px;
+	margin-top: 3px;
+	margin-bottom: 15px;
+}
+.THIS .slds-item {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-clip: padding-box;
+    padding: 0.45rem;
+    margin: 0.25rem;
+}
+.THIS .stageContainer{
+    float:left;
+    border: 2px solid #d8dde6;
+    margin: 0.05rem;
+    border-radius: .25rem;
+}
+.THIS .cusFontStyle {
+    font-size: initial;
+    font-weight: bold;
+    color: #717171;
+}
+.THIS .slds-page-header__title {
+    padding: 0rem 0.5rem;
+    background: #f7f9fb;
+}
+
+.THIS .dropZone{
+    min-height:25rem;
+}
+.THIS .cusCursor {
+    cursor: all-scroll;
+}
+.THIS .editSpan:before{content:''; width:17px; height:17px; display:inline-block; cursor: pointer;}
+.THIS .saveSpan:before{content:''; width:17px; height:11px; display:inline-block; cursor: pointer;}
+.THIS .delSpan:before{content:''; width:17px; height:17px; display:inline-block; background:url(https://www.w3web.net/wp-content/uploads/2022/01/delete.png) no-repeat left top; background-size:cover; cursor: pointer;}
+.THIS .cancelSpan:before{content:''; width:17px; height:17px; display:inline-block; background:url(https://www.w3web.net/wp-content/uploads/2022/01/closeIcon.png) no-repeat left top; background-size:cover; cursor: pointer;}
+.THIS .createRecord:before{content:''; width:15px; height:17px; display:inline-block; background:url(https://www.w3web.net/wp-content/uploads/2022/01/createRecordIcon.png) no-repeat left top; background-size:cover; cursor: pointer;}

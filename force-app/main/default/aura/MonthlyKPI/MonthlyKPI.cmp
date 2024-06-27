@@ -1,0 +1,72 @@
+<aura:component controller='MonthlyKPIEmployeeController' implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="columns" type="List"/>
+    <aura:attribute name="data" type="List"/>
+    <aura:attribute name="selectedRows" type="List" />
+    
+    <aura:attribute name="currentMonth" type="Integer"/>
+    <aura:attribute name="currentYear" type="Integer"/>
+    <aura:attribute name="selectedMonth" type="Integer"/>
+    <aura:attribute name="selectedYear" type="Integer"/>
+    <aura:attribute name="selectedTeam" type="String"/>
+    <aura:attribute name="selectedDODL" type="String"/>
+    <aura:attribute name="listDodl" type="List"/>
+    
+    <aura:attribute name="dataExist" type="Boolean" default="false" />
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    <lightning:navigation aura:id="navService"/>
+    
+    <lightning:select aura:id="selectDodl" name="selectDodl" label="DODL" required="true" value='{!v.selectedDODL}'>
+        <aura:iteration items='{!v.listDodl}' var="dodl">
+            <option value="{!dodl.Id}">{!dodl.Name}</option>
+        </aura:iteration>
+    </lightning:select>
+    
+    <lightning:select aura:id="selectMonth" name="selectMonth" label="Month" required="true" value='{!v.selectedMonth}'>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+    </lightning:select>
+    <lightning:select aura:id="selectYear" name="selectYear" label="Year" required="true" value='{!v.selectedYear}'>
+        <option value="{!v.currentYear -2}">{!v.currentYear -2} </option>
+        <option value="{!v.currentYear -1}">{!v.currentYear -1} </option>
+        <option value="{!v.currentYear}">{!v.currentYear}</option>
+        <option value="{!v.currentYear +1}">{!v.currentYear +1} </option>
+        <option value="{!v.currentYear +2}">{!v.currentYear +2} </option>
+    </lightning:select>
+    <lightning:select aura:id="selectedTeam" name="selectedTeam" label="Team" required="true" value='{!v.selectedTeam}'>
+        <option value="All">All</option>
+        <option value="Sales">Sales</option>       
+        <option value="Services">Services</option>
+        <option value="PCA">PCA</option>
+    </lightning:select>
+    <div style='margin:10px'><lightning:button variant="brand" label="Get Data" title="GetData" onclick="{!c.startGetData}" /></div>
+    
+    <aura:if isTrue="{!v.dataExist}">
+        <lightning:datatable
+                             columns="{! v.columns }"
+                             data="{! v.data }"
+                             keyField="id"
+                             selectedRows="{! v.selectedRows }"
+                             showRowNumberColumn="true"
+                             hideCheckboxColumn="true"
+                             onrowaction="{! c.handleRowAction }"
+                             hideDefaultActions = "true"
+                             />
+    </aura:if>
+        
+</aura:component>

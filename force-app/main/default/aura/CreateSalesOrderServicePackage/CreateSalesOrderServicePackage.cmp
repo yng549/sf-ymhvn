@@ -1,0 +1,29 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+  <aura:html tag="style">
+    .cuf-content {
+    padding: 0 0rem !important;
+    }
+    .slds-p-around--medium {
+    padding: 0rem !important;
+    }
+    .slds-modal__content{
+    overflow-y:hidden !important;
+    height:unset !important;
+    max-height:unset !important;
+    overflow: visible;
+    min-height:60% !important;
+    }
+    .slds-modal__container{
+    max-width: 85rem !important;
+    width:85% !important;
+    overflow: visible;
+    min-height:60% !important;
+    }
+  </aura:html>
+
+  <aura:attribute name="recordId" type="Id" />
+
+
+  <c:addProductForOrderServicePakage onclose="{!c.closeQA}" recordId="{!v.recordId}" />
+  
+</aura:component>

@@ -1,0 +1,147 @@
+<aura:component controller ='MonthlyKPIEmployeeDetailController' implements="force:appHostable,force:lightningQuickAction,lightning:isUrlAddressable,force:hasRecordId" >
+	<aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="employee" type="Monthly_KPI_Employee__c"/>
+	<aura:attribute name="data" type="List"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="dataDetail" type="List"/>
+    <aura:attribute name="columnsDetail" type="List"/>
+    <aura:attribute name="dataCommission" type="Object"/>
+    <aura:attribute name="columnsCommission" type="List"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    
+    <aura:attribute name="dataExist" type="Boolean" default="false" />
+    <aura:attribute name="dataDetailExist" type="Boolean" default="false" />
+    <aura:attribute name="openModal" type="Boolean" default="false" />
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    
+    <aura:if isTrue="{!v.dataExist}">
+        <div  class="slds-grid slds-wrap" style='width:100%;font-size:16px'>
+            <div class="slds-col slds-size_1-of-2">
+                <span><b>Name : </b> {!v.employee.Name}</span>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <span><b>Team : </b> {!v.employee.Team__c}</span>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <span><b>Staff Code : </b> {!v.employee.Staff_Code__c}</span>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <span><b>KPI Category : </b> {!v.employee.KPI_Category_Management__r.Name}</span>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <span><b>KPI : </b> 
+                    <lightning:formattedNumber value="{!v.employee.KPI__c}" maximumFractionDigits="2" /> %
+                </span>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <span><b>KPI Rate : </b>
+                    <lightning:formattedNumber value="{!v.employee.KPI_Rate__c}" maximumFractionDigits="2"/> 
+                </span>
+            </div>
+            <div  class="slds-col slds-size_1-of-2">
+                <span><b>Total Commission : </b> 
+                    <lightning:formattedNumber value="{!v.employee.Commission__c}" maximumFractionDigits="0"/> VND
+                </span>
+            </div>
+            <div  class="slds-col slds-size_1-of-2">
+                <span><b>Actual Commission : </b> 
+                    <lightning:formattedNumber value="{!v.employee.Total_Commission__c}" maximumFractionDigits="0"/> VND
+                </span>
+            </div>
+        </div>
+        <br></br>
+        <b>Rule</b>
+        <div style ='height:370px'>
+            <lightning:datatable
+                                 columns="{! v.columns }"
+                                 data="{! v.data }"
+                                 keyField="Id"
+                                 showRowNumberColumn="true"
+                                 hideCheckboxColumn="true"
+                                 hideDefaultActions = "true"
+                                 onrowaction="{! c.handleRowAction }"
+                                 />
+        </div>
+        <b>Commission</b>
+        <div style ='height:260px'>
+            <lightning:datatable
+                                 columns="{! v.columnsCommission }"
+                                 data="{! v.dataCommission }"
+                                 keyField="Name"
+                                 showRowNumberColumn="true"
+                                 hideCheckboxColumn="true"
+                                 hideDefaultActions = "true"
+                                 onrowaction="{! c.handleCommissionRowAction }"
+                                 />
+        </div>
+        <b>TSI</b>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" style='width:100%;padding-bottom:30px;'>
+            <tr class='slds-line-height_reset '>
+                <td class='td-padding td-border'></td>
+                <td class='td-padding td-border' style='width:50%'><b>Type</b></td>
+                <td class='td-padding td-border' style='width:50%'><b>Actual</b></td>
+            </tr>
+            <tr class='slds-line-height_reset'>
+                <td class='td-padding td-border'>1</td>
+                <td class='td-padding td-border'>CSI</td>
+                <td class='td-padding td-border'><lightning:formattedNumber value="{!v.employee.CSI__c}" maximumFractionDigits="0"/> </td>
+            </tr>
+            <tr class='slds-line-height_reset'>
+                <td class='td-padding td-border'>2</td>
+                <td class='td-padding td-border'>NPS</td>
+                <td class='td-padding td-border'><lightning:formattedNumber value="{!v.employee.NPS__c}" maximumFractionDigits="0"/> </td>
+            </tr>
+            <tr class='slds-line-height_reset'>
+                <td class='td-padding td-border'>3</td>
+                <td class='td-padding td-border'>PSI</td>
+                <td class='td-padding td-border'><lightning:formattedNumber value="{!v.employee.PSI__c}" maximumFractionDigits="0"/> </td>
+            </tr>   
+        </table>
+        
+        <aura:if isTrue="{!v.dataDetailExist}">
+            <b>Detail</b>
+            <div style ='height:800px'>
+                <lightning:datatable
+                                     columns="{! v.columnsDetail }"
+                                     data="{! v.dataDetail }"
+                                     keyField="Id"
+                                     showRowNumberColumn="true"
+                                     hideDefaultActions = "true"
+                                     hideCheckboxColumn="true"                                 
+                                     />
+            </div>         
+        </aura:if>       
+    </aura:if>
+    
+    <aura:if isTrue="{!v.openModal}">
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Modal/PopUp Box</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium slds-modal__content_headless" id="modal-content-id-1">
+                    <lightning:datatable
+                                         columns="{! v.columnsDetail }"
+                                         data="{! v.dataDetail }"
+                                         keyField="Id"
+                                         showRowNumberColumn="true"
+                                         hideDefaultActions = "true"
+                                         hideCheckboxColumn="true"                                 
+                                         />
+                </div>
+            </div>
+        </section>
+        <div aura:id="modalBackground" class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </aura:if>   
+</aura:component>

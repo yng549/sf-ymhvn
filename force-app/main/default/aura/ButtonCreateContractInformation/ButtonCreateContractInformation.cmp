@@ -1,0 +1,92 @@
+<aura:component
+  controller="CreateContractInformationController"
+  implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+  access="global"
+>
+  <aura:html tag="style">
+    .cuf-content { padding: 0 0rem !important; } .slds-p-around--medium {
+    padding: 0.5rem !important; } .slds-modal__content{ overflow-y:hidden
+    !important; height:unset !important; max-height:unset !important;
+    }.slds-modal__footer{ display:none; } .slds-modal__container{ width: 30%
+    !important; max-width: 30% !important; }
+  </aura:html>
+  <aura:attribute name="lstOfRecordType" type="String[]" />
+  <aura:attribute name="objContract" type="Object" />
+  <aura:attribute name="mapOfRecordType" type="Map" />
+  <!-- Fetch all available record types after component construction but before rendering -->
+  <aura:handler
+    name="init"
+    value="{!this}"
+    action="{!c.fetchListOfRecordTypes}"
+  />
+
+  <lightning:layout multipleRows="true" horizontalAlign="center">
+    <lightning:layoutItem
+      flexibility="auto"
+      padding="around-small"
+      size="12"
+      largeDeviceSize="12"
+      mediumDeviceSize="12"
+      smallDeviceSize="12"
+    >
+      <lightning:formattedText
+        class="slds-text-heading_medium slds-align_absolute-center"
+        value="Select Contract Information Type"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      flexibility="auto"
+      padding="around-small"
+      size="12"
+      largeDeviceSize="12"
+      mediumDeviceSize="12"
+      smallDeviceSize="12"
+    >
+      <!-- select to hold all available record type names list -->
+      <lightning:select
+        aura:id="recordTypePickList"
+        name="selectRecordType"
+        label="Select a Record Type"
+      >
+        <option value="" text="Select Record Type" />
+        <aura:iteration items="{!v.lstOfRecordType}" var="item">
+          <option value="{!item}" text="{!item}" />
+        </aura:iteration>
+      </lightning:select>
+    </lightning:layoutItem>
+
+    <lightning:layoutItem
+      flexibility="auto"
+      padding="around-small"
+      size="3"
+      largeDeviceSize="3"
+      mediumDeviceSize="3"
+      smallDeviceSize="6"
+    >
+      <lightning:button
+        variant="neutral"
+        label="Cancel"
+        onclick="{!c.closeModal}"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem
+      flexibility="auto"
+      padding="around-small"
+      size="3"
+      largeDeviceSize="3"
+      mediumDeviceSize="3"
+      smallDeviceSize="6"
+    >
+      <lightning:button
+        variant="brand"
+        label="Next"
+        onclick="{!c.createRecord}"
+      />
+      <!-- <lightning:button
+        variant="neutral"
+        label="Cancel"
+        onclick="{!c.closeModal}"
+      /> -->
+    </lightning:layoutItem>
+  </lightning:layout>
+</aura:component>

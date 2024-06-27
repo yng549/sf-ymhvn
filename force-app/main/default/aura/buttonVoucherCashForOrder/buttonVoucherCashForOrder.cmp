@@ -1,0 +1,28 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+  <aura:html tag="style">
+    .cuf-content {
+    padding: 0 0rem !important;
+    }
+    .slds-p-around--medium {
+    padding: 0rem !important;
+    }
+    .slds-modal__content{
+    overflow-y:hidden !important;
+    height:unset !important;
+    max-height:unset !important;
+    overflow: visible; 
+    }
+    .slds-modal__container{
+    max-width: 85rem !important;
+    width:85% !important;
+    overflow: visible;
+    }
+  </aura:html>
+
+
+  <aura:attribute name="recordId" type="Id" />
+
+
+  <c:voucherDiscountForOrder onclose="{!c.closeQA}" onrecordChange="{!c.refreshView}" recordId="{!v.recordId}" />
+  
+</aura:component>

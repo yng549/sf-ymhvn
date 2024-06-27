@@ -1,0 +1,26 @@
+<aura:component controller='BtnSendEinvoiceController' implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+	<aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    <div style='text-align:center;font-size:12px'>
+        <p>Are you sure want to send E-Invoice ?</p>
+        <div class="slds-grid slds-gutters" >
+            <div class="slds-col" >
+                <lightning:button label="Yes"
+                              variant="brand" class="slds-m-top--medium slds-size_full"
+                              onclick="{!c.yesBtn}"
+                              />
+            </div>
+            <div class="slds-col" >
+                <lightning:button label="No"
+                              variant="brand" class="slds-m-top--medium slds-size_full"
+                              onclick="{!c.noBtn}"
+                              />
+            </div>          
+        </div>
+    </div>
+</aura:component>

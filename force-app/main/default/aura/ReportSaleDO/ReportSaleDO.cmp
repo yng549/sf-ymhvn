@@ -1,0 +1,191 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:lightningQuickAction" access="global" 
+                controller="CreateSaleReportDashboard">
+    <aura:attribute name="selectedYear" type="String" default="" />
+    <aura:attribute name="selectedDO" type="String" default="RY01A" />
+    <aura:attribute name="yearOptions" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="dateCollectFrom" type="String"/>
+    <aura:attribute name="salesResultMap" type="Map"/>
+    <aura:attribute name="progress" type="Integer" default="0"/>
+    <aura:attribute name="apexJob" type="AsyncApexJob"/>
+    <div class="slds-form">
+        <div class="div-title">SALES RESULT</div>
+        <hr class="line-color" />
+        <table id="tblConditionSearch">
+			<colgroup>
+				<col class="col1" />
+				<col class="col2" />
+				<col class="col3" />
+				<col class="col4" />
+				<col class="col5" />
+				<col class="col6" />
+				<col class="col7" />
+			</colgroup>
+            <tr>
+            	<td>
+                	 <lightning:select name="selectYear" label="Select Year" aura:id="yearSelector" value="{!v.selectedYear}">
+                        <aura:iteration items="{!v.yearOptions}" var="year">
+                            <option value="{!year}">{!year}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </td>
+                <td class="align-button">
+					<lightning:button class="button1" variant="brand" label="Search" title="Search" onclick="{!c.doSearch}" />
+                    <lightning:button variant="brand" label="Refresh" title="Refresh" onclick="{!c.refreshPage}" />
+                </td>
+            </tr>
+			 <tr>
+            	<td>
+                	 <lightning:select name="selectDO" label="Select DO" aura:id="dealer" value="{!v.selectedDO}">
+                         <option value="RY01A" checked="true">RY01A</option>
+        				 <option value="RY02A">RY02A</option>
+                    </lightning:select>
+                </td>
+            </tr>
+		</table>
+        <hr class="line-color" />
+        <aura:if isTrue="{!v.apexJob != null}">
+            <div class="slds-clearfix" style="width: 100%">
+                <aura:if isTrue="{!v.apexJob.JobItemsProcessed != v.apexJob.TotalJobItems}">
+                    Processing {!v.apexJob.JobItemsProcessed} of {!v.apexJob.TotalJobItems}
+                </aura:if>
+                <aura:if isTrue="{!v.apexJob.Status == 'Completed'}">
+                    Completed with {!v.apexJob.NumberOfErrors} errors.
+                </aura:if>
+                <lightning:progressBar value="{!v.progress}" size="large" variant="circular"/>
+            </div>
+        </aura:if>
+        <div class="slds">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered custom-table">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col" colspan="2" class="slds-text-align_center">Header</th>
+                    
+                    <th scope="col" class="slds-text-align_center">Jan</th>
+                    <th scope="col" class="slds-text-align_center">Feb</th>
+                    <th scope="col" class="slds-text-align_center">Mar</th>
+                    <th scope="col" class="slds-text-align_center">Apr</th>
+                    <th scope="col" class="slds-text-align_center">May</th>
+                    <th scope="col" class="slds-text-align_center">Jun</th>
+                    <th scope="col" class="slds-text-align_center">Jul</th>
+                    <th scope="col" class="slds-text-align_center">Aug</th>
+                    <th scope="col" class="slds-text-align_center">Sep</th>
+                    <th scope="col" class="slds-text-align_center">Oct</th>
+                    <th scope="col" class="slds-text-align_center">Nov</th>
+                    <th scope="col" class="slds-text-align_center">Dec</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="slds-line-height_reset">
+                    <td scope="col" rowspan="8">Year: {!v.selectedYear}</td>
+                </tr>
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Target</td>
+                    <td scope="col">{!v.salesResultMap.Target.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Target.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Target.Dec__c}</td>
+                </tr> 
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Acc Target</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Target.Dec__c}</td>
+                </tr> 
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Result</td>
+                    <td scope="col">{!v.salesResultMap.Result.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Result.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Result.Dec__c}</td>
+                </tr> 
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Acc Result</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Acc_Result.Dec__c}</td>
+                </tr> 
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Stock</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Stock.Dec__c}</td>
+                </tr> 
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Turn</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Turn.Dec__c}</td>
+                </tr>
+                <tr class="slds-line-height_reset">
+                    <td scope="col">Deposit</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Jan__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Feb__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Mar__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Apr__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.May__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Jun__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Jul__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Aug__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Sep__c }</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Oct__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Nov__c}</td>
+                    <td scope="col">{!v.salesResultMap.Deposit.Dec__c}</td>
+                </tr> 
+            </tbody>
+        </table>
+    </div>
+    </div>
+</aura:component>
