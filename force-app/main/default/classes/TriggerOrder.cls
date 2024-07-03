@@ -1112,55 +1112,60 @@ public without sharing class TriggerOrder {
     Pricebook2 stdpricebook2 = getStdPriceBook();
     Map<String, Pricebook2> activePricebooks = getActivePriceBooks();
     Map<String, Pricebook2> activeEmployeePricebooks = getActiveEmployeePriceBooks();
+    Pricebook2 pb;
     for (Order order : orders) {
-      switch on order.RecordTypeId {
-        // Bike
-        when RecordTypeHelper.ORDER_BIKE {
-          Pricebook2 pb = activePricebooks.get('Bike');
-          break;
+      if (order.RecordTypeId == RecordTypeHelper.ORDER_BIKE) {
+        pb = activePricebooks.get('Bike');
+        if (pb != null) {
+          order.Pricebook2Id = pb.Id;
         }
-        // Service Package
-        when RecordTypeHelper.ORDER_SERVICE_PACKAGE {
-          Pricebook2 pb = activePricebooks.get('Service Package');
-          break;
-        }
-        // Recall
-        when RecordTypeHelper.ORDER_RECALL {
-          Pricebook2 pb = activePricebooks.get('Recall');
-          break;
-        }
-        // Internal Service
-        when RecordTypeHelper.ORDER_APPRAISAL {
-          Pricebook2 pb = stdpricebook2;
-          break;
-        }
-        // Warranty
-        when RecordTypeHelper.ORDER_WARRANTY,
-          RecordTypeHelper.ORDER_FREE_COUPON {
-          Pricebook2 pb = activePricebooks.get('Warranty');
-          break;
-        }
-        // PCAService
-        when RecordTypeHelper.ORDER_PCA,
-          RecordTypeHelper.ORDER_SERVICE_ORDER,
-          RecordTypeHelper.ORDER_QUICK_SERVICE,
-          RecordTypeHelper.ORDER_FREE_SERVICE,
-          RecordTypeHelper.ORDER_INTERNAL_SERVICE,
-          RecordTypeHelper.ORDER_INSTALLATION {
-          if (order.is_Employee__c) {
-            Pricebook2 pb = activeEmployeePricebooks.get('PCAService');
-          } else {
-            Pricebook2 pb = activePricebooks.get('PCAService');
-          }
-          break;
-        }
-        when else {
-          pb = null;
-          break;
-        }
+        continue;
       }
-      if (pb != null) {
-        order.Pricebook2Id = pb.Id;
+      if (order.RecordTypeId == RecordTypeHelper.ORDER_SERVICE_PACKAGE) {
+        pb = activePricebooks.get('Service Package');
+        if (pb != null) {
+          order.Pricebook2Id = pb.Id;
+        }
+        continue;
+      }
+      if (order.RecordTypeId == RecordTypeHelper.ORDER_RECALL) {
+        pb = activePricebooks.get('Recall');
+        if (pb != null) {
+          order.Pricebook2Id = pb.Id;
+        }
+        continue;
+      }
+      if (order.RecordTypeId == RecordTypeHelper.ORDER_APPRAISAL) {
+        pb = stdpricebook2;
+        continue;
+      }
+      if (
+        order.RecordTypeId == RecordTypeHelper.ORDER_WARRANTY ||
+        order.RecordTypeId == RecordTypeHelper.ORDER_FREE_COUPON
+      ) {
+        pb = activePricebooks.get('Warranty');
+        if (pb != null) {
+          order.Pricebook2Id = pb.Id;
+        }
+        continue;
+      }
+      if (
+        order.RecordTypeId == RecordTypeHelper.ORDER_PCA ||
+        order.RecordTypeId == RecordTypeHelper.ORDER_SERVICE_ORDER ||
+        order.RecordTypeId == RecordTypeHelper.ORDER_QUICK_SERVICE ||
+        order.RecordTypeId == RecordTypeHelper.ORDER_FREE_SERVICE ||
+        order.RecordTypeId == RecordTypeHelper.ORDER_INTERNAL_SERVICE ||
+        order.RecordTypeId == RecordTypeHelper.ORDER_INSTALLATION
+      ) {
+        if (order.is_Employee__c) {
+          pb = activeEmployeePricebooks.get('PCAService');
+        } else {
+          pb = activePricebooks.get('PCAService');
+        }
+        if (pb != null) {
+          order.Pricebook2Id = pb.Id;
+        }
+        continue;
       }
     }
   }
