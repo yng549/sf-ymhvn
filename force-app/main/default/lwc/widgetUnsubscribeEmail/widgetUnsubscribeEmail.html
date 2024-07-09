@@ -1,0 +1,43 @@
+<template>
+  <div class="widget-unsubscribe-email">
+    <div
+      style="
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 120px;
+      "
+    >
+      <template lwc:if={processed}>
+        <p class="slds-text-align_center slds-m-bottom_medium">{message}</p>
+      </template>
+      <template lwc:elseif={processing}>
+        <lightning-spinner
+          alternative-text="Loading"
+          size="large"
+        ></lightning-spinner>
+      </template>
+      <template lwc:else>
+        <h3
+          class="slds-text-align_center slds-text-heading_medium slds-m-bottom_medium"
+        >
+          <b>Hủy đăng kí nhận tin?</b>
+        </h3>
+        <p class="slds-text-align_center slds-m-bottom_small">
+          Bạn có muốn hủy nhận thư của Revzone Yamaha Motor Việt Nam?
+        </p>
+        <p class="slds-text-align_center slds-m-bottom_medium">
+          (revzoneyamaha@yamaha-motor.com.vn)
+        </p>
+        <div class="slds-text-align_center">
+          <lightning-button
+            variant="brand"
+            label="Hủy đăng kí"
+            title="Hủy đăng kí"
+            onclick={handleUnsubscribe}
+          ></lightning-button>
+        </div>
+      </template>
+    </div>
+  </div>
+</template>
