@@ -65,9 +65,9 @@ public class TriggerHandlerProduct {
         Product2Id IN :productUpdateRetailPrice
         AND Pricebook2.Policy__c != NULL
     ]) {
+      Decimal productVAT = newMap.get(pbe.Product2Id).VAT__c;
       Decimal newRetailPrice = newMap.get(pbe.Product2Id).Retail_Price__c;
       Double policyPrice = pbe.Pricebook2.Policy__r.Price__c;
-      Double productVAT = newMap.get(pbe.Pricebook2Id).Vat__c;
       // (New Retail Price * % Policy) + (New Retail Price * % Policy * VAT__c)
       pbe.UnitPrice =
         ((newRetailPrice * policyPrice) / 100) +
