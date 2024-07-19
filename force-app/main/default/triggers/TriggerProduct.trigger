@@ -1,4 +1,4 @@
-trigger TriggerProduct on Product2(before insert, before update) {
+trigger TriggerProduct on Product2(before insert, before update, after update) {
   if (Trigger.isUpdate) {
     if (Trigger.isBefore) {
       TriggerHandlerProduct.onBeforeUpdate(
