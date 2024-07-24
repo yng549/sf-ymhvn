@@ -411,6 +411,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
     }
     return lstCoupons;
   }
+  @TestVisible
   private static Map<Integer, WarrantyDateValid> createDateLevelData(
     SObjectAPIDMSRespone.WarrantyItem unitWarranty
   ) {
@@ -435,9 +436,19 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
     }
     return mapLevelDateValid;
   }
+  @TestVisible
   private class WarrantyDateValid {
+    @TestVisible
     private Date dateFrom;
+    @TestVisible
     private Date dateTo;
+
+    public WarrantyDateValid(Date dateFrom, Date dateTo) {
+      this.dateFrom = dateFrom;
+      this.dateTo = dateTo;
+    }
+    public WarrantyDateValid() {
+    }
   }
 
   public static Date testCreateDateLevelData(
@@ -446,7 +457,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
     Map<Integer, WarrantyDateValid> mapLevelDateValid = createDateLevelData(
       unitWarranty
     );
-    System.debug(mapLevelDateValid);
 
     return mapLevelDateValid.get(9).dateTo;
   }
