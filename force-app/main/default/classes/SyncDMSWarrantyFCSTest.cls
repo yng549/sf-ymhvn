@@ -87,4 +87,63 @@ public class SyncDMSWarrantyFCSTest {
       'Date to is not correct'
     );
   }
+
+  @isTest
+  static void testCreateDateLevelDataWithIsTestVisible() {
+    SObjectAPIDMSRespone.WarrantyItem unitWarranty = new SObjectAPIDMSRespone.WarrantyItem();
+    unitWarranty.WarrantyEffectiveDate = '20210901';
+
+    Test.startTest();
+    Map<Integer, SyncDMSWarrantyFCS.WarrantyDateValid> actualDateLevelData = SyncDMSWarrantyFCS.createDateLevelData(
+      unitWarranty
+    );
+    Test.stopTest();
+
+    System.debug('Actual value' + actualDateLevelData);
+
+    Map<Integer, SyncDMSWarrantyFCS.WarrantyDateValid> expectedDateLevelData = new Map<Integer, SyncDMSWarrantyFCS.WarrantyDateValid>();
+    expectedDateLevelData.put(
+      1,
+      new SyncDMSWarrantyFCS.WarrantyDateValid(
+        SyncDMSHelper.convertFormatDate('20210901'),
+        SyncDMSHelper.convertFormatDate('20211231')
+      )
+    );
+    expectedDateLevelData.put(
+      2,
+      new SyncDMSWarrantyFCS.WarrantyDateValid(
+        SyncDMSHelper.convertFormatDate('20220101'),
+        SyncDMSHelper.convertFormatDate('20220630')
+      )
+    );
+    expectedDateLevelData.put(
+      8,
+      new SyncDMSWarrantyFCS.WarrantyDateValid(
+        SyncDMSHelper.convertFormatDate('20240301'),
+        SyncDMSHelper.convertFormatDate('20240630')
+      )
+    );
+    expectedDateLevelData.put(
+      9,
+      new SyncDMSWarrantyFCS.WarrantyDateValid(
+        SyncDMSHelper.convertFormatDate('20240701'),
+        SyncDMSHelper.convertFormatDate('20241031')
+      )
+    );
+
+    for (Integer dateKey : expectedDateLevelData.keySet()) {
+      if (actualDateLevelData.containsKey(dateKey)) {
+        Assert.areEqual(
+          expectedDateLevelData.get(dateKey).dateFrom,
+          actualDateLevelData.get(dateKey).dateFrom,
+          'From Date is not correct'
+        );
+        Assert.areEqual(
+          expectedDateLevelData.get(dateKey).dateTo,
+          actualDateLevelData.get(dateKey).dateTo,
+          'To date is not correct'
+        );
+      }
+    }
+  }
 }
