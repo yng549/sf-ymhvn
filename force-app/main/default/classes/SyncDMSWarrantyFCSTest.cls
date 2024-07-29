@@ -255,18 +255,7 @@ public class SyncDMSWarrantyFCSTest {
     Date dateTo = Date.today().addDays(-1);
 
     Test.startTest();
-    Set<String> result = new SyncDMSWarrantyFCS(
-        dateFrom,
-        dateTo,
-        200,
-        currentPage.isEmpty()
-          ? 0
-          : Integer.valueOf(currentPage[0].End_Index__c) + 1,
-        0,
-        0,
-        'RY01'
-      )
-      .getAllBigBikeModel();
+    Set<String> result = SyncDMSWarrantyFCS.getAllBigBikeModel('RY01');
     Test.stopTest();
 
     System.debug(result);
@@ -303,7 +292,7 @@ public class SyncDMSWarrantyFCSTest {
     Date dateTo = Date.today().addDays(-1);
 
     Test.startTest();
-    SyncDMSWarrantyFCS syncDMSWarrantyFCS = new SyncDMSWarrantyFCS(
+    SyncDMSWarrantyFCS dmsWarranty = new SyncDMSWarrantyFCS(
       dateFrom,
       dateTo,
       200,
@@ -314,8 +303,10 @@ public class SyncDMSWarrantyFCSTest {
       0,
       'RY01'
     );
-    Set<String> allModelCodesBigBike = syncDMSWarrantyFCS.getAllBigBikeModel();
-    System.enqueueJob(syncDMSWarrantyFCS);
+    Set<String> allModelCodesBigBike = SyncDMSWarrantyFCS.getAllBigBikeModel(
+      'RY01'
+    );
+    System.enqueueJob(dmsWarranty);
     Test.stopTest();
 
     System.debug(allModelCodesBigBike);
