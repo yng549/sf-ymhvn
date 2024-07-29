@@ -46,6 +46,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
     return pageAPI;
   }
   private static final string URLDMS = 'https://ymvnstreamapi.ymcapps.net/streamapi/ymvn1/api/v1/warranty';
+  private static final String URLBIGBIKE = 'https://ymvnstreamapi.ymcapps.net/streamapi/ymvn1/api/v1/bigbikemodel';
   // IV.18 - API Get warranty info
   public void execute(QueueableContext context) {
     try {
@@ -62,6 +63,8 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         startIndex,
         DealerCode
       );
+      Set<String> bigBikeModelCodes = getAllBigBikeModel();
+
       if (response.getStatusCode() == 200) {
         Map<String, Object> dataResult = (Map<String, Object>) JSON.deserializeUntyped(
           response.getBody()
@@ -101,9 +104,8 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             }
             insert pageAPI;
           }
-          handlerCreateFCSWarranty(warantyRequests);
+          handlerCreateFCSWarranty(warantyRequests, bigBikeModelCodes);
         }
-
         SyncDMSHelper.logError(
           'syncWarrantRequest' + DealerCode,
           message,
@@ -135,11 +137,66 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
       );
     }
   }
+  // IV.21 - API Get bigbikemodel info
+  public Set<String> getAllBigBikeModel() {
+    Set<String> bigBikeModelCode = new Set<String>();
+    try {
+      HttpResponse response = SyncDMSHelper.requestApiBigBikeModelDMS(
+        'bigbikemodel',
+        DealerCode
+      );
+      if (response.getStatusCode() == 200) {
+        Map<String, Object> dataResult = (Map<String, Object>) JSON.deserializeUntyped(
+          response.getBody()
+        );
+        if (dataResult.get('code') == 200) {
+          String jsonData = JSON.serialize(dataResult.get('data'));
+          List<SObjectAPIDMSRespone.CouponCategory> couponCategories = (List<SObjectAPIDMSRespone.CouponCategory>) JSON.deserialize(
+            jsonData,
+            List<SObjectAPIDMSRespone.CouponCategory>.class
+          );
+          bigBikeModelCode.addAll(
+            convertCouponCategoriesToBigBikeModelCodes(couponCategories)
+          );
+        }
+      }
+      return bigBikeModelCode;
+    } catch (Exception e) {
+      System.debug(e.getMessage() + e.getLineNumber());
+      SyncDMSHelper.logError(
+        'syncWarrantyRequest' + DealerCode,
+        e.getMessage() + e.getLineNumber(),
+        '',
+        '',
+        URLBIGBIKE
+      );
+      return bigBikeModelCode;
+    }
+  }
+  @TestVisible
+  private static Set<String> convertCouponCategoriesToBigBikeModelCodes(
+    List<SObjectAPIDMSRespone.CouponCategory> couponCategories
+  ) {
+    Set<String> bigBikeModelCode = new Set<String>();
+    for (
+      SObjectAPIDMSRespone.CouponCategory cp : (List<SObjectAPIDMSRespone.CouponCategory>) couponCategories
+    ) {
+      for (SObjectAPIDMSRespone.DetailItem item : cp.detail) {
+        if (item.ModelCodes != null) {
+          bigBikeModelCode.add(item.ModelCodes.ModelCode);
+        }
+      }
+    }
+    return bigBikeModelCode;
+  }
+
   public static void handlerCreateFCSWarranty(
-    List<SObjectAPIDMSRespone.WarrantyServiceRequest> warantyRequests
+    List<SObjectAPIDMSRespone.WarrantyServiceRequest> warantyRequests,
+    Set<String> bigBikeModelCodes
   ) {
     Map<String, SObjectAPIDMSRespone.WarrantyItem> mapFrameNo = new Map<String, SObjectAPIDMSRespone.WarrantyItem>();
     List<Free_Coupon__c> couponData = new List<Free_Coupon__c>();
+
     for (
       SObjectAPIDMSRespone.WarrantyServiceRequest warItem : warantyRequests
     ) {
@@ -156,6 +213,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         Id,
         Frame_Number__c,
         Product2.Bike_cc__c,
+        Product_Code__c,
         (
           SELECT Id, ServiceDate__c, CouponCategoryLevel__c
           FROM Free_Coupons__r
@@ -165,7 +223,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
       FROM Asset
       WHERE Frame_Number__c IN :mapFrameNo.keySet()
     ]) {
-      if (asset.Product2.Bike_cc__c == '<400cc') {
+      if (!bigBikeModelCodes.contains(asset.Product_Code__c)) {
         if (
           mapFrameNo.get(asset.Frame_Number__c).coupons.isEmpty() &&
           asset.Free_Coupons__r.isEmpty()
@@ -186,7 +244,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
           );
         }
       }
-      if (asset.Product2.Bike_cc__c == '>400cc') {
+      if (bigBikeModelCodes.contains(asset.Product_Code__c)) {
         if (
           mapFrameNo.get(asset.Frame_Number__c).coupons.isEmpty() &&
           asset.Free_Coupons__r.isEmpty()
