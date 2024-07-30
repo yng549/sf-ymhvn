@@ -1,7 +1,7 @@
 public without sharing class PurchaseOrderPDFController {
   private final static String MSG_EXCEPTION = 'Error System, Please Connect Admin.';
   private final static String DATE_TIME_FILE_FORMAT = 'yyyyMMddHHmm';
-  public String logo{get;set;}
+  public String logo { get; set; }
   // private final static String FILE_NAME = '{0}{1}-{2}-{3}-{4}.pdf';
   private final static String FILE_NAME = '{0} - {1}.pdf';
 
@@ -9,10 +9,48 @@ public without sharing class PurchaseOrderPDFController {
   }
   public Order objOrder { get; set; }
   public String strRecordId { get; set; }
-  public List<OrderItem> lstOrderProduct {get;set;}
+  public List<OrderItem> lstOrderProduct { get; set; }
+  public Purchase_Order_PDF__mdt apiPurchaseOrder {
+    get {
+      if (apiPurchaseOrder == null) {
+        Purchase_Order_PDF__mdt[] purchaseOrders = [
+          SELECT
+            Id,
+            MasterLabel,
+            DeveloperName,
+            Buyer_Name__c,
+            Represented_By__c,
+            Represented_Title__c,
+            Address_Full__c
+          FROM Purchase_Order_PDF__mdt
+          WHERE DeveloperName = 'Default'
+        ];
+        if (!purchaseOrders.isEmpty()) {
+          apiPurchaseOrder = purchaseOrders[0];
+        } else {
+          if (!Test.isRunningTest()) {
+            throw new SmsClass.SmsBrandNameException(
+              'Please setup a default Purchase Order API setting'
+            );
+          } else {
+            Purchase_Order_PDF__mdt purchaseOrder = new Purchase_Order_PDF__mdt();
+            purchaseOrder.DeveloperName = 'Default';
+            purchaseOrder.Buyer_Name__c = 'test';
+            purchaseOrder.Represented_By__c = 'test';
+            purchaseOrder.Represented_Title__c = 'test';
+            purchaseOrder.Address_Full__c = 'test';
+            apiPurchaseOrder = purchaseOrder;
+          }
+        }
+      }
+      return apiPurchaseOrder;
+    }
+    set {
+    }
+  }
   public PurchaseOrderPDFController() {
     // try {
-        
+
     objOrder = new Order();
     strRecordId = ApexPages.currentPage().getParameters().get('Id');
     if (String.isNotBlank(strRecordId)) {
@@ -22,17 +60,17 @@ public without sharing class PurchaseOrderPDFController {
       }
       lstOrderProduct = getListOrderProduct(objOrder.Id);
     }
-    
+
     logo = '';
     if (objOrder.DO_DL__r.Name != null) {
-            String doDlCreateName = objOrder.DO_DL__r.Name;
-            
-            if (doDlCreateName == 'REVZONE YAMAHA MOTOR HA NOI') {
-                logo = 'logoRevzoneYamahaMotorHN';
-            } else {
-                logo = 'logoRevzoneYamahaMotorSG';
-            }
-        }
+      String doDlCreateName = objOrder.DO_DL__r.Name;
+
+      if (doDlCreateName == 'REVZONE YAMAHA MOTOR HA NOI') {
+        logo = 'logoRevzoneYamahaMotorHN';
+      } else {
+        logo = 'logoRevzoneYamahaMotorSG';
+      }
+    }
     // } catch (Exception ex) {
     //   throw new CustomException(
     //     String.format(MSG_EXCEPTION, new List<Object>{ ex.getMessage() })
