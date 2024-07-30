@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomMetadata
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Default</label>
+    <protected>false</protected>
+    <values>
+        <field>Address_Full__c</field>
+        <value
+      xsi:type="xsd:string"
+    >Thôn Bình An, Xã Trung Giã, Huyện Sóc Sơn, Thành phố Hà Nội, Việt Nam</value>
+    </values>
+    <values>
+        <field>Buyer_Name__c</field>
+        <value xsi:type="xsd:string">CÔNG TY TNHH YAMAHA MOTOR VIỆT NAM</value>
+    </values>
+    <values>
+        <field>Represented_By__c</field>
+        <value xsi:type="xsd:string">Mr. Okutani Masahiro</value>
+    </values>
+    <values>
+        <field>Represented_Title__c</field>
+        <value xsi:type="xsd:string">Tổng giám đốc</value>
+    </values>
+</CustomMetadata>
