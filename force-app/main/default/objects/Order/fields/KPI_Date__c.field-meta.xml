@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>KPI_Date__c</fullName>
-    <externalId>false</externalId>
-    <formula>IF(  ISNULL(Invoice_Date__c),  Complete_Date__c ,Invoice_Date__c )</formula>
+    <formula
+  >IF(  ISNULL(Invoice_Date__c),  Complete_Date__c ,Invoice_Date__c )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>KPI Date</label>
     <required>false</required>

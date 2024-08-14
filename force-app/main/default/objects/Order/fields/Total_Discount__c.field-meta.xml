@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Discount__c</fullName>
-    <externalId>false</externalId>
-    <formula>IF(Total_Amount__c -  TotalAmount&lt;0,0,Total_Amount__c -  TotalAmount)</formula>
+    <formula
+  >IF(Total_Amount__c -  TotalAmount&lt;0,0,Total_Amount__c -  TotalAmount)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Discount</label>
     <precision>18</precision>

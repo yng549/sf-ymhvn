@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Survey_PCA__c</fullName>
-    <externalId>false</externalId>
     <label>Total Survey PCA</label>
     <summaryFilterItems>
         <field>SurveyPCA__c.Question_0__c</field>

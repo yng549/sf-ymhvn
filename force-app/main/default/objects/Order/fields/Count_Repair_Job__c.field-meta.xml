@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Count_Repair_Job__c</fullName>
-    <externalId>false</externalId>
     <label>Count Repair Job</label>
     <summarizedField>OrderItem.Count_Repair_Job__c</summarizedField>
     <summaryForeignKey>OrderItem.OrderId</summaryForeignKey>

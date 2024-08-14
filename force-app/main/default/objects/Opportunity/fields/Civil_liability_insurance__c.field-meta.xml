@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Civil_liability_insurance__c</fullName>
-    <externalId>false</externalId>
     <label>Civil liability insurance</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -18,14 +17,18 @@
                 <label>Civil liability insurance</label>
             </value>
             <value>
-                <fullName>Civil liability insurance + Accident Insurance for 2 person (10 millions/person)</fullName>
+                <fullName
+        >Civil liability insurance + Accident Insurance for 2 person (10 millions/person)</fullName>
                 <default>false</default>
-                <label>Civil liability insurance + Accident Insurance for 2 person (10 millions/person)</label>
+                <label
+        >Civil liability insurance + Accident Insurance for 2 person (10 millions/person)</label>
             </value>
             <value>
-                <fullName>Civil liability insurance + Accident Insurance for 2 person (20 millions/person)</fullName>
+                <fullName
+        >Civil liability insurance + Accident Insurance for 2 person (20 millions/person)</fullName>
                 <default>false</default>
-                <label>Civil liability insurance + Accident Insurance for 2 person (20 millions/person)</label>
+                <label
+        >Civil liability insurance + Accident Insurance for 2 person (20 millions/person)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Loan_insurrance__c</fullName>
-    <externalId>false</externalId>
-    <formula>Loan_insurrance_rate__c *(Amount - Down_payment__c) * Loan_period__c</formula>
+    <formula
+  >Loan_insurrance_rate__c *(Amount - Down_payment__c) * Loan_period__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Loan insurrance</label>
     <precision>18</precision>

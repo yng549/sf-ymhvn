@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Must_choose_stage_Waiting_for_Hand_over</fullName>
+    <active>true</active>
+    <description
+  >Must choose stage Waiting for Hand over before completing SO</description>
+    <errorConditionFormula>AND (
+RecordType.DeveloperName == &quot;Warranty&quot;,
+TEXT(Status ) = &quot;Completed&quot;,
+
+(CASE(PRIORVALUE( Status ),
+&quot;New&quot;,&quot;New&quot;,
+&quot;Waiting for Parts&quot;,&quot;Waiting for Parts&quot;,
+&quot;Waiting for Repair&quot;,&quot;Waiting for Repair&quot;,
+&quot;Waiting for Payment&quot;,&quot;Waiting for Payment&quot;,
+&quot;Waiting for Hand over&quot;,&quot;Waiting for Hand over&quot;,
+&quot;Closed&quot;,&quot;Closed&quot;,&quot;0&quot;)) != &quot;Waiting for Hand over&quot;)</errorConditionFormula>
+    <errorMessage
+  >You must choose stage Waiting for Hand over before completing SO</errorMessage>
+</ValidationRule>

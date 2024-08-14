@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount_PO__c</fullName>
     <description>Tổng thành tiền các line trong Order Profoma</description>
-    <externalId>false</externalId>
     <label>Amount PO</label>
     <summarizedField>OrderItem.Amount__c</summarizedField>
     <summaryForeignKey>OrderItem.OrderId</summaryForeignKey>

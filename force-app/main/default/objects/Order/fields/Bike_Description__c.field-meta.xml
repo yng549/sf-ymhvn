@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bike_Description__c</fullName>
     <externalId>false</externalId>
-    <formula>IF(  Opportunity.SyncedQuote.Discount_Standard__c  &gt; 0  &amp;&amp;  Opportunity.SyncedQuote.Discount_Amount__c &gt; 0,
+    <formula
+  >IF(  OR ( Opportunity.SyncedQuote.Promotion_Default__c != null, Opportunity.SyncedQuote.Discount_Standard__c  &gt; 0  &amp;&amp;  Opportunity.SyncedQuote.Discount_Amount__c &gt; 0),
  
 
 &apos;Xe Mô Tô hai bánh nhãn hiệu YAMAHA &apos;

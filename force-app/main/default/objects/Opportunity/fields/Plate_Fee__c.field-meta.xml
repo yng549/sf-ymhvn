@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Plate_Fee__c</fullName>
-    <externalId>false</externalId>
-    <formula>IF( Account.Province__r.Number_Plate_Fee__c &gt; 0 , Account.Province__r.Number_Plate_Fee__c ,  IF(Account.District__r.Number_Plate_Fee__c &gt; 0, Account.District__r.Number_Plate_Fee__c, 50000)  )</formula>
+    <formula
+  >IF( Account.Province__r.Number_Plate_Fee__c &gt; 0 , Account.Province__r.Number_Plate_Fee__c ,  IF(Account.District__r.Number_Plate_Fee__c &gt; 0, Account.District__r.Number_Plate_Fee__c, 50000)  )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Plate Fee</label>
     <precision>18</precision>
