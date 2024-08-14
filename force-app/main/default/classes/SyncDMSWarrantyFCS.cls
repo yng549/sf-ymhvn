@@ -63,7 +63,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                 startIndex,
                 DealerCode
             );
-            Set<String> bigBikeModelCodes = getAllBigBikeModel();
 
             if (response.getStatusCode() == 200) {
                 Map<String, Object> dataResult = (Map<String, Object>) JSON.deserializeUntyped(
@@ -108,10 +107,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                         }
                         insert pageAPI;
                     }
-                    handlerCreateFCSWarranty(
-                        warantyRequests,
-                        bigBikeModelCodes
-                    );
+                    handlerCreateFCSWarranty(warantyRequests, dealerCode);
                 }
                 SyncDMSHelper.logError(
                     'syncWarrantRequest' + DealerCode,
@@ -145,12 +141,12 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         }
     }
     // IV.21 - API Get bigbikemodel info
-    public Set<String> getAllBigBikeModel() {
+    public static Set<String> getAllBigBikeModel(String dealerCode) {
         Set<String> bigBikeModelCode = new Set<String>();
         try {
             HttpResponse response = SyncDMSHelper.requestApiBigBikeModelDMS(
                 'bigbikemodel',
-                DealerCode
+                dealerCode
             );
             if (response.getStatusCode() == 200) {
                 Map<String, Object> dataResult = (Map<String, Object>) JSON.deserializeUntyped(
@@ -201,10 +197,11 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
 
     public static void handlerCreateFCSWarranty(
         List<SObjectAPIDMSRespone.WarrantyServiceRequest> warantyRequests,
-        Set<String> bigBikeModelCodes
+        String dealerCode
     ) {
         Map<String, SObjectAPIDMSRespone.WarrantyItem> mapFrameNo = new Map<String, SObjectAPIDMSRespone.WarrantyItem>();
         List<Free_Coupon__c> couponData = new List<Free_Coupon__c>();
+        Set<String> bigBikeModelCodes = getAllBigBikeModel(dealerCode);
 
         for (
             SObjectAPIDMSRespone.WarrantyServiceRequest warItem : warantyRequests
