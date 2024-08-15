@@ -9,13 +9,13 @@ public class SObjectAPIDMSRespone {
         public string DealerCode;
         public string PointCode;
         public string LastName;
-		public string MiddleName;
-		public string FirstName;
-		public string CustomerType;
-		public string ConsumerType;
-		public string Mobile;
-		public string Mobile2;
-		public string Email;
+        public string MiddleName;
+        public string FirstName;
+        public string CustomerType;
+        public string ConsumerType;
+        public string Mobile;
+        public string Mobile2;
+        public string Email;
         public string Gender;
         public string Birthday;
         public string Age;
@@ -26,26 +26,26 @@ public class SObjectAPIDMSRespone {
         public string Address;
         public string IdNo;
         public string OrderId;
-		public string OrderType;
+        public string OrderType;
         public string nType;
         public string CreateDate;
         public string LastModify;
     }
     public class PartData {
         public string PartNo;
-		public string PartNameEng;
-		public string PartNameNative;
-		public string SupersedingPart;
-		public string ProductCategory;
-		public string PartSizeHigh;
-		public string PartSizeWidth;
-		public string PartSizeLong;
-		public string PartWeight;
-		public string PurchaseLot;
-		public string SalesLot;
+        public string PartNameEng;
+        public string PartNameNative;
+        public string SupersedingPart;
+        public string ProductCategory;
+        public string PartSizeHigh;
+        public string PartSizeWidth;
+        public string PartSizeLong;
+        public string PartWeight;
+        public string PurchaseLot;
+        public string SalesLot;
         public decimal RetailPrice;
-		public string NonSalesId;
-		public string RetailPriceRevisionDate;
+        public string NonSalesId;
+        public string RetailPriceRevisionDate;
         public string WholeSalesRevisionDate;
         public string SupersedingRevisionDate;
         public string OptionCode1;
@@ -59,18 +59,18 @@ public class SObjectAPIDMSRespone {
     }
     public class ModelData {
         public string ModelType;
-		public string ModelTypeName;
-		public string ModelCode;
-		public string ModelName;
-		public string EffectiveDate;
-		public string OutEffectiveDate;
-		public string ProductCode;
-		public string ProductSalesName;
-		public string ColorCode;
-		public string ColorName;
-		public string RegisteredModel;
-		public string ModelYear;
-		public string Displacement;
+        public string ModelTypeName;
+        public string ModelCode;
+        public string ModelName;
+        public string EffectiveDate;
+        public string OutEffectiveDate;
+        public string ProductCode;
+        public string ProductSalesName;
+        public string ColorCode;
+        public string ColorName;
+        public string RegisteredModel;
+        public string ModelYear;
+        public string Displacement;
         public string StdRetailPrice;
         public string DealerCode;
         public string PointCode;
@@ -80,12 +80,12 @@ public class SObjectAPIDMSRespone {
     public class ServiceJobData {
         public string hProductLineCode;
         public string dJobId;
-		public string dDealerCode;
-		public string dPointCode;
-		public string dJobCode;
-		public string dJobDescriptionEng;
-		public string dJobDescriptionLocal;
-		public string dJobDescriptionLocalForDo;
+        public string dDealerCode;
+        public string dPointCode;
+        public string dJobCode;
+        public string dJobDescriptionEng;
+        public string dJobDescriptionLocal;
+        public string dJobDescriptionLocalForDo;
         public string UpdateDate;
     }
     /*IV.6	mcinventoryData   Data start region*/
@@ -108,7 +108,7 @@ public class SObjectAPIDMSRespone {
         public Integer SalesVat;
     }
     /*IV.6	mcinventoryData end region*/
-    
+
     /*IV.7	mcpricing Data start region*/
     public class ModelPricingData {
         public string ModelCode;
@@ -117,9 +117,9 @@ public class SObjectAPIDMSRespone {
         public Decimal EmployeePrice;
         public Decimal RetailPrice;
     }
-    
+
     // IV.8	jobpricing Data
-    
+
     public class Productlinedate {
         public String ProductLineCode;
     }
@@ -139,23 +139,23 @@ public class SObjectAPIDMSRespone {
         public string totalCost;
     }
     // IV.8	jobpricing Data
-    
+
     /*IV.9	mcpricing Data end region*/
     public class PartManifestData {
         public string ManifestItemID;
         public string DealerCode;
         public string InvoiceNo;
-		public string YourOrderNo;
-		public string PartsNo;
-		public string PartsNoOrdered;
-		public integer Price;
-		public string CaseNo;
-		public integer PackingQty;
+        public string YourOrderNo;
+        public string PartsNo;
+        public string PartsNoOrdered;
+        public integer Price;
+        public string CaseNo;
+        public integer PackingQty;
         public string ShippedDate;
         public string InvoiceSeqNo;
         public string ShipmentNo;
     }
-    
+
     /*IV.10	proformaorder Data start region*/
     public class Proformaorder {
         public string DealerCode;
@@ -170,7 +170,7 @@ public class SObjectAPIDMSRespone {
         public string OrderQuantity;
     }
     /*IV.10	proformaorder Data end region*/
-    
+
     /*IV.11	partssalesorder Data start region*/
     public class Partssalesorder {
         public string CRMOrderId;
@@ -198,7 +198,7 @@ public class SObjectAPIDMSRespone {
         public string Amount;
     }
     /*IV.11	partssalesorder Data end region*/
-    
+
     /*IV.12	mcsalesorder Data start region start region*/
     public class Modelcsalesorder {
         public string CRMOrderId;
@@ -233,6 +233,7 @@ public class SObjectAPIDMSRespone {
         public string TaxAmount;
         public string DiscountAmount;
         public string Amount;
+        public string DmsOrderId;
     }
     /*IV.12	mcsalesorder Data start region end region*/
 
@@ -313,7 +314,7 @@ public class SObjectAPIDMSRespone {
         public string Qty;
     }
     /*IV.12	svwarrantyorder Data start region end region*/
-    
+
     /*IV.14	svfreecouponsorder  Data start region start region*/
     public class SVFreeCouponOrder {
         public string CRMOrderId;
@@ -353,7 +354,7 @@ public class SObjectAPIDMSRespone {
         public List<PartWarranty> PartsDetail;
     }
     /*IV.14	svfreecouponsorder Data start region end region*/
-    
+
     /*IV.16-17	0kmsvwarrantyorder Data start region start region*/
     public class SVOKMWarrantyRecallOrder {
         public string CRMOrderId;
@@ -379,7 +380,7 @@ public class SObjectAPIDMSRespone {
         public List<PartWarranty> PartsDetail;
     }
     /*IV.16	0kmsvwarrantyorder Data end region end region*/
-    
+
     /*IV.18 warranty Data (warranty service request) start region start region*/
     public class WarrantyServiceRequest {
         public WarrantyItem UnitWarranty;
@@ -394,15 +395,15 @@ public class SObjectAPIDMSRespone {
         public List<CouponItem> coupons;
     }
     public class CouponItem {
-		public coupondetail coupon;
+        public coupondetail coupon;
     }
-    public class coupondetail{
+    public class coupondetail {
         public string CouponCategoryLevel;
         public string ServiceDate;
         public string Mileage;
     }
     /*IV.18	warranty Data (warranty service request) end region end region*/
-    
+
     /*IV.19 svpayment Data start region start region*/
     public class Payment {
         public string PaymentControlNo;
@@ -411,16 +412,16 @@ public class SObjectAPIDMSRespone {
         public string AccountingMonth;
         public List<PaymentDetail> detaildatas;
     }
-    public class PaymentDetail{
+    public class PaymentDetail {
         public string ServiceRequestID;
         public decimal PaymentAmount;
         public string RequestDate;
         public string ServiceCategory;
     }
     /*IV.19	svpayment Data end region end region*/
-    
+
     /*IV.20	recallvalidationcheck start region start region*/
-    public class RecallBody{
+    public class RecallBody {
         public string frameNo;
     }
     public class RecallValidation {
@@ -430,5 +431,4 @@ public class SObjectAPIDMSRespone {
         public string Status;
     }
     /*IV.20	recallvalidationcheck end region end region*/
-    
 }
