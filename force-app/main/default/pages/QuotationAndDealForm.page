@@ -1,354 +1,356 @@
-<apex:page applyBodyTag="false" applyHtmlTag="false" showHeader="false" standardStylesheets="false" renderAs="pdf" controller="DealSheetFormPDF">
+<apex:page
+    applyBodyTag="false"
+    applyHtmlTag="false"
+    showHeader="false"
+    standardStylesheets="false"
+    renderAs="pdf"
+    controller="DealSheetFormPDF"
+>
+    <head>
+        <style type="text/css">
+            @page {
+                counter-increment: page;
+                size: A4 portrait;
+                page-break-inside: avoid;
+                margin-left: 25px;
+                margin-right: 25px;
+                margin-top: 87px;
+                margin-bottom: 120px;
+                tr {
+                    /* page-break-inside: avoid !important; */
+                }
 
-  <head>
-    <style type="text/css">
-      @page {
-        counter-increment: page;
-        size: A4 portrait;
-        page-break-inside: avoid;
-        margin-left: 25px;
-        margin-right: 25px;
-        margin-top: 87px;
-        margin-bottom: 120px;
-        tr {
-          /* page-break-inside: avoid !important; */
-        }
+                td {
+                    /* page-break-inside: avoid !important; */
+                }
+                @top-center {
+                    content: element(header);
+                }
 
-        td {
-          /* page-break-inside: avoid !important; */
-        }
-        @top-center {
-          content: element(header);
-        }
+                @bottom-left {
+                    content: element(footer);
+                }
+            }
 
-        @bottom-left {
-          content: element(footer);
-        }
-      }
-
-      /* @page :first {
+            /* @page :first {
         @top-center {
           content: element(header);
         }
       } */
 
-      *,
-      *::after,
-      *::before {
-        margin: 0;
-        padding: 0;
-        box-sizing: inherit;
-      }
+            *,
+            *::after,
+            *::before {
+                margin: 0;
+                padding: 0;
+                box-sizing: inherit;
+            }
 
-      .row {
-        width: 100%;
-        margin: 0 auto;
-        /* margin-bottom: 7px; */
-      }
+            .row {
+                width: 100%;
+                margin: 0 auto;
+                /* margin-bottom: 7px; */
+            }
 
+            .row::after {
+                content: "";
+                display: block;
+                clear: both;
+            }
 
-      .row::after {
-        content: "";
-        display: block;
-        clear: both;
-      }
+            .col-1-of-2 {
+                float: left;
+                width: 50%;
+            }
 
-      .col-1-of-2 {
-        float: left;
-        width: 50%;
-      }
+            .col-1-of-2-left {
+                float: left;
+                width: 61%;
+            }
 
-      .col-1-of-2-left {
-        float: left;
-        width: 61%;
-      }
+            .col-1-of-2-right {
+                float: left;
+                width: 39%;
+            }
 
-      .col-1-of-2-right {
-        float: left;
-        width: 39%;
-      }
+            .col-2-of-3 {
+                float: left;
+                width: 66.66%;
+            }
 
-      .col-2-of-3 {
-        float: left;
-        width: 66.66%;
-      }
+            .col-1-of-3 {
+                float: left;
+                width: 33.33%;
+            }
 
-      .col-1-of-3 {
-        float: left;
-        width: 33.33%;
-      }
+            .col-1-of-7 {
+                float: left;
+                width: 11%;
+            }
 
-      .col-1-of-7 {
-        float: left;
-        width: 11%;
-      }
+            .col-1-of-7-2 {
+                float: left;
+                width: 14%;
+            }
 
-      .col-1-of-7-2 {
-        float: left;
-        width: 14%;
-      }
+            .col-2-of-4 {
+                float: left;
+                width: 50%;
+            }
 
-      .col-2-of-4 {
-        float: left;
-        width: 50%;
-      }
+            .col-6-of-7 {
+                float: left;
+                width: 85.7%;
+            }
 
-      .col-6-of-7 {
-        float: left;
-        width: 85.7%;
-      }
+            .last-child {
+                margin-right: 0px;
+                margin-bottom: 0px;
+            }
 
-      .last-child {
-        margin-right: 0px;
-        margin-bottom: 0px; 
-      }
+            body {
+                font-family: Arial Unicode MS;
+                font-size: 10px;
+                box-sizing: border-box;
+            }
 
-      body {
-        font-family: Arial Unicode MS;
-        font-size: 10px;
-        box-sizing: border-box;
-      }
+            div.header {
+                position: running(header);
+            }
 
-      div.header {
-        position: running(header);
-      }
+            .header-logo-box {
+                margin-top: 5px;
+            }
 
-      .header-logo-box {
-        margin-top: 5px;
-      }
+            .header-logo-box::after {
+                content: "";
+                display: block;
+                clear: both;
+            }
 
-      .header-logo-box::after {
-        content: "";
-        display: block;
-        clear: both;
-      }
+            .logo {
+                float: left;
+                margin-top: 3px;
+            }
 
-      .logo {
-        float: left;
-        margin-top: 3px;
-      }
+            .header__subtext-box {
+                float: left;
+                text-align: left;
+                margin-left: 15px;
+                width: 62%;
+                /* margin-top: -8px; */
+            }
 
-      .header__subtext-box {
-        float: left;
-        text-align: left;
-        margin-left: 15px;
-        width: 62%;
-        /* margin-top: -8px; */
-      }
+            .box {
+                min-height: 36px;
+            }
 
-      .box {
-        min-height: 36px;
-      }
+            .header__small-text span {
+                display: block;
+                font-size: 8px;
+            }
 
-      .header__small-text span {
-        display: block;
-        font-size: 8px;
-      }
-
-      /* .header__text-box {
+            /* .header__text-box {
         text-align: center
       } */
 
-      .header__text-box {
-        position: absolute;
-        top: 37px;
-        left: 27%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-      }
+            .header__text-box {
+                position: absolute;
+                top: 37px;
+                left: 27%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
 
-      .heading-primary {
-        text-transform: uppercase;
-        font-size: 16px;
-      }
+            .heading-primary {
+                text-transform: uppercase;
+                font-size: 16px;
+            }
 
-      .heading-secondary {
-        text-transform: uppercase;
-        font-size: 13px;
-        font-family: sans-serif;
-        font-weight: bold;
-        font-style: italic;
-      }
+            .heading-secondary {
+                text-transform: uppercase;
+                font-size: 13px;
+                font-family: sans-serif;
+                font-weight: bold;
+                font-style: italic;
+            }
 
-      .header__info-box {
-        margin-top: 33px;
-        font-size: 8px;
-        text-align: left;
-      }
+            .header__info-box {
+                margin-top: 33px;
+                font-size: 8px;
+                text-align: left;
+            }
 
-      .header__info-box p {
-        margin-bottom: 5px;
-      }
+            .header__info-box p {
+                margin-bottom: 5px;
+            }
 
-      .section-datatable {
-    
-      }
+            .section-datatable {
+            }
 
-      table {
-        width: 100%;
-        height: 100%;
-        border-collapse: collapse;
-      }
+            table {
+                width: 100%;
+                height: 100%;
+                border-collapse: collapse;
+            }
 
-      th {
-        font-weight: bold;
-        font-size: 8px;
-        background-color: #c0c0c0;
-        color: black;
-        padding-left: 3px;
-        padding-bottom: 1px;
-      }
+            th {
+                font-weight: bold;
+                font-size: 8px;
+                background-color: #c0c0c0;
+                color: black;
+                padding-left: 3px;
+                padding-bottom: 1px;
+            }
 
-      td {
-        text-align: left;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        padding-left: 3px;
-        padding-right: 3px;
-        overflow-wrap: break-word;
-        vertical-align: middle;
-        line-height: 10px;
-        font-size: 8px;
-      }
+            td {
+                text-align: left;
+                padding-top: 1px;
+                padding-bottom: 1px;
+                padding-left: 3px;
+                padding-right: 3px;
+                overflow-wrap: break-word;
+                vertical-align: middle;
+                line-height: 10px;
+                font-size: 8px;
+            }
 
-      table,
-      th,
-      td {
-        border: 1px solid black;
-      }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
 
-      .datatable {
-        width: 97%;
-        border-collapse: collapse;
-        margin-bottom: 5px;
-        /* table-layout: fixed; */
-      }
+            .datatable {
+                width: 97%;
+                border-collapse: collapse;
+                margin-bottom: 5px;
+                /* table-layout: fixed; */
+            }
 
-      .col-2 td,
-      .col-2 th {
-        padding-top: 3px;
-        padding-bottom: 3px;
-        font-size: 8px;
-      }
+            .col-2 td,
+            .col-2 th {
+                padding-top: 3px;
+                padding-bottom: 3px;
+                font-size: 8px;
+            }
 
-      .col-2 td {
-        font-size: 8px;
-      }
+            .col-2 td {
+                font-size: 8px;
+            }
 
-      .datatable td {
-        width: 40%;
-      }
+            .datatable td {
+                width: 40%;
+            }
 
-      .datatable td>span,
-      .datatable th>span {
-        text-align: right;
-        padding-left: 3px;
-        padding-top: 20px;
-        margin-bottom: 20px;
-      }
+            .datatable td > span,
+            .datatable th > span {
+                text-align: right;
+                padding-left: 3px;
+                padding-top: 20px;
+                margin-bottom: 20px;
+            }
 
-      .datatable td b,
-      .datatable th b {
-        font-family: sans-serif;
-        font-weight: bold;
-        text-align: right;
-        vertical-align: middle;
-      }
+            .datatable td b,
+            .datatable th b {
+                font-family: sans-serif;
+                font-weight: bold;
+                text-align: right;
+                vertical-align: middle;
+            }
 
-      i {
-        font-family: sans-serif;
-        font-style: italic;
-      }
+            i {
+                font-family: sans-serif;
+                font-style: italic;
+            }
 
-      b {
-        font-family: sans-serif;
-        font-weight: bold;
-      }
+            b {
+                font-family: sans-serif;
+                font-weight: bold;
+            }
 
-      .datatable td i,
-      .datatable th i {
-        font-family: sans-serif;
-        font-style: italic;
-        font-weight: bold;
-        font-size: 8px;
-      }
+            .datatable td i,
+            .datatable th i {
+                font-family: sans-serif;
+                font-style: italic;
+                font-weight: bold;
+                font-size: 8px;
+            }
 
+            .datatable .promotion-pack {
+                line-height: 12px;
+            }
 
+            .datatable .promotion-pack i {
+                font-family: sans-serif;
+                font-style: italic;
+                font-weight: normal;
+                font-size: 8px;
+            }
 
-      .datatable .promotion-pack {
-        line-height: 12px;
-      }
+            .information-table td {
+                /* text-align: center; */
+            }
 
-      .datatable .promotion-pack i {
-        font-family: sans-serif;
-        font-style: italic;
-        font-weight: normal;
-        font-size: 8px;
-      }
+            .short {
+                width: 30%;
+            }
 
-      .information-table td {
-        /* text-align: center; */
-      }
+            .long {
+                width: 70%;
+            }
 
-      .short {
-        width: 30%
-      }
+            .table-cell-height-big td {
+                vertical-align: middle;
+                height: 50px;
+            }
 
-      .long {
-        width: 70%;
-      }
+            .split-3 td {
+                width: 33.33%;
+                text-align: center;
+                vertical-align: middle;
+                padding: 0;
+            }
 
-      .table-cell-height-big td {
-        vertical-align: middle;
-        height: 50px;
-      }
+            .paragraph-text {
+                margin: 4px 0px 0px 0px;
+                /* padding: 5px; */
+                width: 97%;
+                border: 1px solid #a7a7a7;
+                overflow-wrap: break-word;
+            }
 
-      .split-3 td {
-        width: 33.33%;
-        text-align: center;
-        vertical-align: middle;
-        padding: 0;
-      }
+            .paragraph-text > p {
+                font-size: 8px;
+                padding: 4px;
+                box-sizing: border-box;
+                line-height: 10px;
+                color: rgb(31, 30, 30);
+            }
 
-      .paragraph-text {
-        margin: 4px 0px 0px 0px;
-        /* padding: 5px; */
-        width: 97%;
-        border: 1px solid #a7a7a7;
-        overflow-wrap: break-word;
-      }
+            .paragraph-text > p > span {
+                color: black;
+            }
 
-      .paragraph-text>p {
-        font-size: 8px;
-        padding: 4px;
-        box-sizing: border-box;
-        line-height: 10px;
-        color: rgb(31, 30, 30);
-      }
+            .center-a-right {
+                padding-right: 15px;
+                text-align: right;
+                /* box-sizing: border-box; */
+            }
 
-      .paragraph-text>p>span {
-        color: black;
-      }
-
-      .center-a-right {
-        padding-right: 15px;
-        text-align: right;
-        /* box-sizing: border-box; */
-      }
-
-      /* footer {
+            /* footer {
         position: running(footer);
       } */
 
-      div.footer {
-        /* display: block; */
-        border: 1px solid #a7a7a7;
-        position: running(footer);
-        box-sizing: border-box;
-        /* margin-bottom: 50px; */
-      }
+            div.footer {
+                /* display: block; */
+                border: 1px solid #a7a7a7;
+                position: running(footer);
+                box-sizing: border-box;
+                /* margin-bottom: 50px; */
+            }
 
-      /* .pagenumber:before {
+            /* .pagenumber:before {
         content: counter(page);
       }
 
@@ -356,465 +358,565 @@
         content: counter(pages);
       } */
 
-      div.footer p {
-        padding: 4px;
-        font-size: 9px;
-        box-sizing: border-box;
-        line-height: 10px;
-        /* margin-bottom: 50px; */
-      }
+            div.footer p {
+                padding: 4px;
+                font-size: 9px;
+                box-sizing: border-box;
+                line-height: 10px;
+                /* margin-bottom: 50px; */
+            }
 
-      div.footer p>span {
-        font-family: sans-serif;
-        font-weight: bold;
-      }
+            div.footer p > span {
+                font-family: sans-serif;
+                font-weight: bold;
+            }
 
-      .u-height-medium {
-       
-      }
+            .u-height-medium {
+            }
 
-      .u-height-big {
-        height: 80px;
-      }
+            .u-height-big {
+                height: 80px;
+            }
 
-      .u-p-0 {
-        padding: 0;
-      }
+            .u-p-0 {
+                padding: 0;
+            }
 
-      .u-p-r-small {
-        padding-right: 4px;
-      }
+            .u-p-r-small {
+                padding-right: 4px;
+            }
 
-      .u-p-r-medium {
-        padding-right: 15px;
-      }
+            .u-p-r-medium {
+                padding-right: 15px;
+            }
 
-      .u-m-t-xsmall {
-        margin-top: 5px;
-      }
+            .u-m-t-xsmall {
+                margin-top: 5px;
+            }
 
-      .u-m-t-ssmall {
-        margin-top: 19px;
-      }
+            .u-m-t-ssmall {
+                margin-top: 19px;
+            }
 
-      .u-m-t-small {
-        margin-top: 6px;
-      }
+            .u-m-t-small {
+                margin-top: 6px;
+            }
 
-      .u-m-b-medium {
-        margin-bottom: 18px;
-      }
+            .u-m-b-medium {
+                margin-bottom: 18px;
+            }
 
-      .u-m-tb-small {
-        margin: 2px 0px;
-      }
+            .u-m-tb-small {
+                margin: 2px 0px;
+            }
 
-      .u-align-center {
-        text-align: center;
-      }
+            .u-align-center {
+                text-align: center;
+            }
 
-      .u-align-left {
-        text-align: left;
-      }
+            .u-align-left {
+                text-align: left;
+            }
 
-      .u-align-right {
-        text-align: right;
-      }
+            .u-align-right {
+                text-align: right;
+            }
 
-      .u-width-99 {
-        width: 99.5%;
-      }
+            .u-width-99 {
+                width: 99.5%;
+            }
 
-      .last-child {
-        margin-right: 0px;
-        margin-bottom: 0px;
-      }
+            .last-child {
+                margin-right: 0px;
+                margin-bottom: 0px;
+            }
 
-      .repeatTableHeader {
-        -fs-table-paginate: paginate;
-      }
+            .repeatTableHeader {
+                -fs-table-paginate: paginate;
+            }
 
-      .repeatTableHeader,
-      .repeatTableHeader>tr>td,
-      .repeatTableHeader>tr>th {
-        border: none;
-        border-spacing: 0
-      }
-    </style>
-  </head>
+            .repeatTableHeader,
+            .repeatTableHeader > tr > td,
+            .repeatTableHeader > tr > th {
+                border: none;
+                border-spacing: 0;
+            }
+        </style>
+    </head>
 
-  <body>
-    <!-- Header -->
-    <div class="header">
-      <div class="header-logo-box">
-        <div class="logo">
-          <apex:image id="logo" value="{!$Resource[logo]}" width="145" height="55" />
+    <body>
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo-box">
+                <div class="logo">
+                    <apex:image
+                        id="logo"
+                        value="{!$Resource[logo]}"
+                        width="145"
+                        height="55"
+                    />
+                </div>
+                <div class="header__subtext-box">
+                    <p class="header__small-text">
+                        <span
+                            >{!objOpportunity.Account.DO_DL_Create_Account__r.Name}
+                            - Đại lý chính hãng của Yamaha Big Bike tại Việt
+                            Nam</span
+                        >
+                        <span>
+                            <i>Official Dealer of Yamaha Big Bike in Vietnam</i>
+                        </span>
+                    </p>
+                </div>
+                <div class="header__info-box col-1-of-7-2 last-child">
+                    <p>
+                        No. {!objOpportunity.SyncedQuote.Quote_Number__c}
+                        <br /> Ngày: &nbsp;
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                            <apex:param
+                                value="{!objOpportunity.SyncedQuote.CreatedDate}"
+                            />
+                        </apex:outputText>
+                        <br /> Date:&nbsp;
+                        <apex:outputText value="{0,date,dd'-'MMM'-'yy}">
+                            <apex:param
+                                value="{!objOpportunity.SyncedQuote.CreatedDate}"
+                            />
+                        </apex:outputText>
+                    </p>
+                </div>
+            </div>
+            <div class="header__text-box">
+                <p class="heading-primary">
+                    Bảng báo giá và biên bản thỏa thuận
+                </p>
+                <p class="heading-secondary">QUOTATION &#38; DEAL SHEET</p>
+            </div>
+            <div class="row last-child">
+                <div class="col-6-of-7">
+                    <div class="box">
+                        <!-- <p>a text box </p> -->
+                    </div>
+                </div>
+                <div class="header__info-box col-1-of-7 last-child">
+                    <div class="box">
+                        <!-- <p>a text box </p> -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="header__subtext-box">
-          <p class="header__small-text">
-            <span>{!objOpportunity.Account.DO_DL_Create_Account__r.Name} - Đại lý chính hãng của Yamaha Big Bike tại Việt Nam</span>
-            <span>
-              <i>Official Dealer of Yamaha Big Bike in Vietnam</i>
-            </span>
-          </p>
+        <!-- End Header -->
+        <!-- Footer -->
+        <div class="footer u-m-t-small">
+            <div class="row last-child">
+                <div class="col-2-of-3">
+                    <p>
+                        <span
+                            >{!objOpportunity.Account.DO_DL_Create_Account__r.Name}</span
+                        >
+                        <br />Địa chỉ:
+                        {!objOpportunity.DODL_Create__r.Address__c}
+                        <br />Address:
+                        {!objOpportunity.DODL_Create__r.Address_Eng__c}
+                        <br />Website: www.revzoneyamaha-motor.com.vn
+                        <br />Facebook: www.facebook.com/revzoneyamahamotor
+                        <br />Email: revzoneyamaha@yamaha-motor.com.vn
+                        <br />Hotline: 0901.335.353 (Chăm sóc sau bán hàng/
+                        Customers service)
+                    </p>
+                </div>
+                <div class="col-1-of-3 u-align-right">
+                    <apex:image
+                        id="QR"
+                        value="{!$Resource.QRRevZone}"
+                        width="75"
+                        height="75"
+                    />
+                </div>
+            </div>
         </div>
-        <div class="header__info-box col-1-of-7-2 last-child">
-          <p>No. {!objOpportunity.SyncedQuote.Quote_Number__c}
-            <br/> Ngày: &nbsp;
-            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
-              <apex:param value="{!objOpportunity.SyncedQuote.CreatedDate}" />
-            </apex:outputText>
-            <br/> Date:&nbsp;
-            <apex:outputText value="{0,date,dd'-'MMM'-'yy}">
-              <apex:param value="{!objOpportunity.SyncedQuote.CreatedDate}" />
-            </apex:outputText>
-          </p>
-        </div>
-      </div>
-      <div class="header__text-box">
-        <p class="heading-primary">Bảng báo giá và biên bản thỏa thuận</p>
-        <p class="heading-secondary">QUOTATION &#38; DEAL SHEET</p>
-      </div>
-      <div class="row last-child">
-        <div class="col-6-of-7 ">
-          <div class="box">
-            <!-- <p>a text box </p> -->
-          </div>
-        </div>
-        <div class="header__info-box col-1-of-7 last-child">
-          <div class="box">
-            <!-- <p>a text box </p> -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Header -->
-    <!-- Footer -->
-    <div class="footer u-m-t-small">
-      <div class="row last-child">
-        <div class="col-2-of-3 ">
-          <p>
-            <span>{!objOpportunity.Account.DO_DL_Create_Account__r.Name}</span>
-            <br/>Địa chỉ: {!objOpportunity.DODL_Create__r.Address__c} 
-            <br/>Address: {!objOpportunity.DODL_Create__r.Address_Eng__c}
-            <br/>Website: www.revzoneyamaha-motor.com.vn
-            <br/>Facebook: www.facebook.com/revzoneyamahamotor
-            <br/>Email: revzoneyamaha@yamaha-motor.com.vn
-            <br/>Hotline: 0901.335.353 (Chăm sóc sau bán hàng/ Customers service)
-          </p>
-        </div>
-        <div class="col-1-of-3 u-align-right">
-          <apex:image id="QR" value="{!$Resource.QRRevZone}" width="75" height="75" />
-        </div>
-      </div>
-    </div>
-    <!-- End footer -->
-    <!-- Section table -->
-    <div class="section-datatable">
-      <div class="row">
-        <!-- Col 1 -->
-        <div class="col-1-of-2-left">
-          <!-- 1st table -->
-          <table class="datatable information-table">
-            <thead>
-              <tr>
-                <th colspan="2">
-                  THÔNG TIN KHÁCH HÀNG/
-                  <i>CUSTOMER PROFILE </i>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="width: 30%;">Khách hàng:
-                  <br/> Customer name:
-                </td>
-                <td style="width: 70%;text-transform: uppercase;" class="u-align-center">{!objOpportunity.Account.Name} </td>
-              </tr>
-              <tr>
-                <td class="u-height-medium">Địa chỉ hộ khẩu:
-                  <br/> Resident Address:
-                </td>
-                <td  class="u-align-center" >{!objOpportunity.Account.Address_Full__c}</td>
-              </tr>
-              <tr>
-                <td class="u-height-medium">Địa chỉ gửi thư:
-                  <br/> Mailing adress:
-                </td>
-                <td class="u-align-center">{!objOpportunity.Account.Address_Full__c}</td>
-              </tr>
-              <tr>
-                <td>Số CMND /ID number:
-                </td>
-                <td class="u-align-center">{!objOpportunity.Account.ID_No__c}</td>
-              </tr>
-              <tr>
-                <td>Mã số thuế /Tax code:
-                </td>
-                <td class="u-align-center">{!objOpportunity.Account.Tax_Code__c}</td>
-              </tr>
-              <tr>
-                <td>Điện thoại /Phone number:
-                </td>
-                <td class="u-align-center">{!objOpportunity.Account.PersonMobilePhone}
-                </td>
-              </tr>
-              <tr>
-                <td>Email:
-                </td>
-                <td class="u-align-center">{!objOpportunity.Account.PersonEmail} </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 1st table -->
+        <!-- End footer -->
+        <!-- Section table -->
+        <div class="section-datatable">
+            <div class="row">
+                <!-- Col 1 -->
+                <div class="col-1-of-2-left">
+                    <!-- 1st table -->
+                    <table class="datatable information-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    THÔNG TIN KHÁCH HÀNG/
+                                    <i>CUSTOMER PROFILE </i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%">
+                                    Khách hàng: <br /> Customer name:
+                                </td>
+                                <td
+                                    style="
+                                        width: 70%;
+                                        text-transform: uppercase;
+                                    "
+                                    class="u-align-center"
+                                >
+                                    {!objOpportunity.Account.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-height-medium">
+                                    Địa chỉ hộ khẩu: <br /> Resident Address:
+                                </td>
+                                <td class="u-align-center">
+                                    {!objOpportunity.Account.Address_Full__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="u-height-medium">
+                                    Địa chỉ gửi thư: <br /> Mailing adress:
+                                </td>
+                                <td class="u-align-center">
+                                    {!objOpportunity.Account.Address_Full__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số CMND /ID number:</td>
+                                <td class="u-align-center">
+                                    {!objOpportunity.Account.ID_No__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mã số thuế /Tax code:</td>
+                                <td class="u-align-center">
+                                    {!objOpportunity.Account.Tax_Code__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Điện thoại /Phone number:</td>
+                                <td class="u-align-center">
+                                    {!objOpportunity.Account.PersonMobilePhone}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td class="u-align-center">
+                                    {!objOpportunity.Account.PersonEmail}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 1st table -->
 
-          <!-- 2nd table -->
-          <table class="datatable last-child information-table">
-            <thead>
-              <tr>
-                <th colspan="2">
-                  THÔNG TIN XE/
-                  <i>BIKE INFORMATION</i>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="1">MODEL
-                </td>
+                    <!-- 2nd table -->
+                    <table class="datatable last-child information-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    THÔNG TIN XE/
+                                    <i>BIKE INFORMATION</i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1">MODEL</td>
 
-                <!-- <td colspan="1" class="u-p-0"> -->
-                <!-- <table class="split-3"> -->
-                <!-- <table> -->
-                <!-- <tr> -->
-                <td colspan="1" style="width: 100%;
-                  vertical-align: middle;" class="u-align-center">{!objQuoteLineItem.Product2.Sales_Name__c}</td>
-                <!-- <td>Đời xe
+                                <!-- <td colspan="1" class="u-p-0"> -->
+                                <!-- <table class="split-3"> -->
+                                <!-- <table> -->
+                                <!-- <tr> -->
+                                <td
+                                    colspan="1"
+                                    style="width: 100%; vertical-align: middle"
+                                    class="u-align-center"
+                                >
+                                    {!objQuoteLineItem.Product2.Sales_Name__c}
+                                </td>
+                                <!-- <td>Đời xe
                         <br/> Model year
                       </td> -->
-                <!-- <td>
+                                <!-- <td>
                         <apex:outputText value="{0,date,' 'yyyy}">
                           <apex:param value="{!objQuoteLineItem.Product2.Year__c}" />
                         </apex:outputText>
                       </td> -->
-                <!-- </tr> -->
-                <!-- </table> -->
-                <!-- </td> -->
-              </tr>
-              <tr>
-                <td colspan="1">Màu sắc /Color
-                </td>
-                <td colspan="1" class="u-align-center">{!objQuoteLineItem.Product2.Color_Name__c}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Dung tích /Capacity
-                </td>
-                <td colspan="1" class="u-align-center">{!objQuoteLineItem.Product2.Engince_cc__c}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Nguồn gốc /Origin
-                </td>
-                <td colspan="1" class="u-align-center">{!objQuoteLineItem.Product2.Origin__c}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Tình trạng /Condition
-                </td>
-                <td colspan="1" class="u-align-center">{!objQuoteLineItem.Product2.Bike_Type_2__c}</td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 2nd table -->
+                                <!-- </tr> -->
+                                <!-- </table> -->
+                                <!-- </td> -->
+                            </tr>
+                            <tr>
+                                <td colspan="1">Màu sắc /Color</td>
+                                <td colspan="1" class="u-align-center">
+                                    {!objQuoteLineItem.Product2.Color_Name__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Dung tích /Capacity</td>
+                                <td colspan="1" class="u-align-center">
+                                    {!objQuoteLineItem.Product2.Engince_cc__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Nguồn gốc /Origin</td>
+                                <td colspan="1" class="u-align-center">
+                                    {!objQuoteLineItem.Product2.Origin__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Tình trạng /Condition</td>
+                                <td colspan="1" class="u-align-center">
+                                    {!objQuoteLineItem.Product2.Bike_Type_2__c}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 2nd table -->
 
-          <!-- 3rd table -->
-          <!-- <div class="u-p-r-medium u-align-right u-m-tb-small">&nbsp;</div> -->
-          <table class="datatable u-m-t-xsmall last-child">
-            <tbody>
-              <tr>
-                <td colspan="1">Giá xe /Price
-                </td>
-                <td colspan="2" style="width:60%;">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objQuoteLineItem.ListPrice/ (1+(VAT))}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">VAT
-                </td>
-                <td colspan="2">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0,number,0 '%'} ">
-                      <apex:param value="{!(VAT*100)}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Giá xe bao gồm VAT
-                  <br/> Price including VAT
-                </td>
-                <td colspan="2">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objQuoteLineItem.ListPrice }" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Giảm giá /Discount
-                </td>
-                <td colspan="2">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!discount}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th colspan="1">Giá sau giảm giá
-                  <br/>Price after discount
-                  <span>
-                    <b>(A)</b>
-                  </span>
-                </th>
-                <th colspan="2">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objQuoteLineItem.UnitPrice}" />
-                    </apex:outputText>
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <td colspan="1">Thời gian dự kiến
-                </td>
-                <td colspan="2">
-                  <apex:outputText value="{0, date, dd'/'MM'/'yyyy}">
-                    <apex:param value="{!objOpportunity.SyncedQuote.Delivery_Date__c}" />
-                  </apex:outputText>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1" rowspan="2">Quà tặng
-                  <br/> Gift
-                </td>
-                <td style="width: 20%;">
-                  <apex:outputText value="{0, number, ###,### ' VND'}">
-                    <apex:param value="{!objOpportunity.SyncedQuote.Voucher_Amount__c}" />
-                  </apex:outputText>
-                </td>
-                <td>Phụ kiện &amp; Quần áo/
-                  <br/> Accessories &amp; Apparel</td>
-              </tr>
-              <tr>
-                <td colspan="2" rowspan="1" style="vertical-align: top;" class="u-height-big promotion-pack">
-                  <i>
-                    <apex:repeat value="{!lstPromotionPack}" var="val">
-                      - {!val.Promotion_Pack__r.Name}
-                      <br/>
-                    </apex:repeat>
-                  </i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 3rd table -->
+                    <!-- 3rd table -->
+                    <!-- <div class="u-p-r-medium u-align-right u-m-tb-small">&nbsp;</div> -->
+                    <table class="datatable u-m-t-xsmall last-child">
+                        <tbody>
+                            <tr>
+                                <td colspan="1">Giá xe /Price</td>
+                                <td colspan="2" style="width: 60%">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objQuoteLineItem.ListPrice/ (1+(VAT))}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">VAT</td>
+                                <td colspan="2">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0,number,0 '%'} "
+                                        >
+                                            <apex:param value="{!(VAT*100)}" />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Giá xe bao gồm VAT <br /> Price including
+                                    VAT
+                                </td>
+                                <td colspan="2">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objQuoteLineItem.ListPrice }"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Giảm giá /Discount</td>
+                                <td colspan="2">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param value="{!discount}" />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="1">
+                                    Giá sau giảm giá <br />Price after discount
+                                    <span>
+                                        <b>(A)</b>
+                                    </span>
+                                </th>
+                                <th colspan="2">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objQuoteLineItem.UnitPrice}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Thời gian dự kiến</td>
+                                <td colspan="2">
+                                    <apex:outputText
+                                        value="{0, date, dd'/'MM'/'yyyy}"
+                                    >
+                                        <apex:param
+                                            value="{!objOpportunity.SyncedQuote.Delivery_Date__c}"
+                                        />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="2">
+                                    Quà tặng <br /> Gift
+                                </td>
+                                <td style="width: 20%">
+                                    <apex:outputText
+                                        value="{0, number, ###,### ' VND'}"
+                                    >
+                                        <apex:param
+                                            value="{!objOpportunity.SyncedQuote.Voucher_Amount__c}"
+                                        />
+                                    </apex:outputText>
+                                </td>
+                                <td>
+                                    Phụ kiện &amp; Quần áo/ <br /> Accessories
+                                    &amp; Apparel
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    colspan="2"
+                                    rowspan="1"
+                                    style="vertical-align: top"
+                                    class="u-height-big promotion-pack"
+                                >
+                                    <i>
+                                        <apex:repeat
+                                            value="{!lstPromotionPack}"
+                                            var="val"
+                                        >
+                                            - {!val.Promotion_Pack__r.Name}
+                                            <br />
+                                        </apex:repeat>
+                                    </i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 3rd table -->
 
-          <!-- 1st paragraph -->
-          <div class="paragraph-text">
-            <p>
-              <span>Giá Sản Phẩm và giá trị Hợp Đồng không bao gồm phí chuyển nhượng quyền sở hữu, lệ phí đăng ký, Giấy phép lưu
-                hành, bảo hiểm và lệ phí khác có liên quan (nếu có).</span> The Price and Contract Value excludes fees for
-              the Transfer of Title, Registration Fee, Vehicle Circulation Permit, insurance and other related fees (if any).
-            </p>
-          </div>
-          <!-- 1st paragraph END HERE -->
-          <!--  table -->
-          <table class="datatable u-m-t-xsmall last-child">
-            <colgroup>
-              <col class="short" />
-              <col class="long" />
-            </colgroup>
-            <tbody>
-              <tr>
-                <th colspan="1">PHƯƠNG ÁN TÀI CHÍNH  <br/>FINANCING OPTION
-                </th>
-                <th class="u-align-center" colspan="1">JACCS
-                </th>
-              </tr>
-              <tr>
-                <td>Thời gian vay / Loan period 
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    {!objOpportunity.Loan_period__c}&nbsp;Tháng / Month
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Hạn mức cho vay / Loan limit
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    {!objOpportunity.Loan_limit__c} %
-                    <!-- <apex:outputText value="{0,number,0 '%'} ">
+                    <!-- 1st paragraph -->
+                    <div class="paragraph-text">
+                        <p>
+                            <span
+                                >Giá Sản Phẩm và giá trị Hợp Đồng không bao gồm
+                                phí chuyển nhượng quyền sở hữu, lệ phí đăng ký,
+                                Giấy phép lưu hành, bảo hiểm và lệ phí khác có
+                                liên quan (nếu có).</span
+                            >
+                            The Price and Contract Value excludes fees for the
+                            Transfer of Title, Registration Fee, Vehicle
+                            Circulation Permit, insurance and other related fees
+                            (if any).
+                        </p>
+                    </div>
+                    <!-- 1st paragraph END HERE -->
+                    <!--  table -->
+                    <table class="datatable u-m-t-xsmall last-child">
+                        <colgroup>
+                            <col class="short" />
+                            <col class="long" />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th colspan="1">
+                                    PHƯƠNG ÁN TÀI CHÍNH <br />FINANCING OPTION
+                                </th>
+                                <th class="u-align-center" colspan="1">
+                                    JACCS
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Thời gian vay / Loan period</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        {!objOpportunity.Loan_period__c}&nbsp;Tháng
+                                        / Month
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hạn mức cho vay / Loan limit</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        {!objOpportunity.Loan_limit__c} %
+                                        <!-- <apex:outputText value="{0,number,0 '%'} ">
                       <apex:param value="{!objOpportunity.Loan_limit__c}" />
                     </apex:outputText> -->
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Lãi suất năm / Yearly interest rate
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    {!objOpportunity.Yearly_Interest_Rate__c} %
-                    <!-- <apex:outputText value="{0,number, '%'} ">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lãi suất năm / Yearly interest rate</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        {!objOpportunity.Yearly_Interest_Rate__c}
+                                        %
+                                        <!-- <apex:outputText value="{0,number, '%'} ">
                       <apex:param value="{!objOpportunity.Yearly_Interest_Rate__c}" />
                     </apex:outputText> -->
-                  </div>
-                </td>
-              </tr>
-             
-              <tr>
-                <td>Số tiền vay / Loan amount
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Loan_amount__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Số tiền thanh toán ban đầu / Down payment  
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Down_payment__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>  
-              <tr>
-                <th>Thanh toán hàng tháng<br/>
-                  Total monthly payment 
-                </th>
-                <th>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Total_monthly_payment__c}" />
-                    </apex:outputText>
-                  </div>
-                </th>
-              </tr>
-              <!-- <tr>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Số tiền vay / Loan amount</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Loan_amount__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Số tiền thanh toán ban đầu / Down payment
+                                </td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Down_payment__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Thanh toán hàng tháng<br />
+                                    Total monthly payment
+                                </th>
+                                <th>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Total_monthly_payment__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </th>
+                            </tr>
+                            <!-- <tr>
                 <td>Số tiền còn lại<br/>
                   Remaining amount
                 </td>
@@ -826,45 +928,59 @@
                   </div>
                 </td>
               </tr> -->
-              <tr>
-                <td>Tổng số tiền lãi<br/>
-                  Total interest amount 
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Total_interest_amount__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Bảo hiểm khoản vay<br/>
-                  Loan insurrance 
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Loan_insurrance__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th>Tổng số tiền thanh toán trước<br/>
-                  Total down payment amount     
-                </th>
-                <th>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!Totalpaymentamount}" />
-                    </apex:outputText>
-                  </div>
-                </th>
-              </tr>
-              
-             
-              <!-- <tr>
+                            <tr>
+                                <td>
+                                    Tổng số tiền lãi<br />
+                                    Total interest amount
+                                </td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Total_interest_amount__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Bảo hiểm khoản vay<br />
+                                    Loan insurrance
+                                </td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Loan_insurrance__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Tổng số tiền thanh toán trước<br />
+                                    Total down payment amount
+                                </th>
+                                <th>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!Totalpaymentamount}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <!-- <tr>
                 <th>Tổng số tiền thanh toán<br/>
                   Total payment amount
                 </th>
@@ -876,372 +992,519 @@
                   </div>
                 </th>
               </tr> -->
-            </tbody>
-          </table>
-          <!-- End table -->
-          <!-- 4th table -->
-          <table class="datatable u-m-t-small last-child">
-            <colgroup>
-              <col class="short" />
-              <col class="long" />
-            </colgroup>
-            <tbody>
-              <tr>
-                <th colspan="2">Ước tính chi phí đăng ký /
-                  <i>Registration cost estimation</i> (VND)
-                </th>
-              </tr>
-              <tr>
-                <td>Thuế trước bạ /Ownership tax:
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.OwnerShip_Tax1__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Phí biển số /Number plate fee:
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Plate_Fee__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Dịch vụ đăng ký /Registration service:
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Registration_Fee_Province__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Bảo hiểm /Insurance:
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!insuranceMoney}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Vận chuyển /Transportation:
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Transportation__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Tổng chi phí đăng ký /Total
-                  <span>
-                    <b>(B)</b>
-                  </span>
-                </td>
-                <td>
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!totalRegister}" />
-                    </apex:outputText>
-                  </div>
-                  <!-- {!sum} -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 4th table -->
+                        </tbody>
+                    </table>
+                    <!-- End table -->
+                    <!-- 4th table -->
+                    <table class="datatable u-m-t-small last-child">
+                        <colgroup>
+                            <col class="short" />
+                            <col class="long" />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    Ước tính chi phí đăng ký /
+                                    <i>Registration cost estimation</i> (VND)
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Thuế trước bạ /Ownership tax:</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.OwnerShip_Tax1__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phí biển số /Number plate fee:</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Plate_Fee__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dịch vụ đăng ký /Registration service:</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Registration_Fee_Province__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bảo hiểm /Insurance:</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!insuranceMoney}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vận chuyển /Transportation:</td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Transportation__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tổng chi phí đăng ký /Total
+                                    <span>
+                                        <b>(B)</b>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!totalRegister}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                    <!-- {!sum} -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 4th table -->
 
-          <!-- 2nd paragraph -->
-          <div class="paragraph-text last-child">
-            <p>-
-              <span>Đối với khoản phí (A) quý khách hàng vui lòng chuyển khoản trực tiếp hoặc thanh toán cà thẻ, tiền mặt tại quầy
-                thu ngân, hóa đơn VAT sẽ được xuất từ công ty TNHH Yamaha Motor Việt Nam/</span> (A) Amount shall be paid
-              directly to Revzone Yamaha Motor Saigon via bank transfer, debit/credit card or cash at the cashier desk, VAT
-              invoice will be issued from Yamaha Motor Vietnam Co., Ltd.
-              <br/> -
-              <span>Khoản phí (B) chỉ là ước tính, quý khách có thể thực hiện việc đăng ký xe trực tiếp với các đơn vị cung cấp dịch vụ
-               thông qua sự giới thiệu và hỗ trợ của nhân viên kinh doanh hoặc tự tìm kiếm từ bên ngoài/</span>  (B) amount is only an estimation, customers can directly
-               do the bike registration with services via the introduction and support from salesmen or through other outside services.
-              <br/>
-              <br/>
-              <span>Thông tin chuyển khoản/ Bank transfer information:</span>
-              <br/>
-              <span>Tên chủ tài khoản/ Account Name: {!objOpportunity.Owner.Account.Bank_Account_Name__c}</span>
-              <br/>
-              <span> Số tài khoản/ Account Number : {!objOpportunity.Owner.Account.Bank_Number2__c}</span>
-              <br/>
-              <span>Tại/ At : {!objOpportunity.Owner.Account.Bank_Name__c}</span>
-            </p>
-          </div>
-          <!-- 2nd paragraph END HERE -->
+                    <!-- 2nd paragraph -->
+                    <div class="paragraph-text last-child">
+                        <p>
+                            -
+                            <span
+                                >Đối với khoản phí (A) quý khách hàng vui lòng
+                                chuyển khoản trực tiếp hoặc thanh toán cà thẻ,
+                                tiền mặt tại quầy thu ngân, hóa đơn VAT sẽ được
+                                xuất từ công ty TNHH Yamaha Motor Việt
+                                Nam/</span
+                            >
+                            (A) Amount shall be paid directly to Revzone Yamaha
+                            Motor Saigon via bank transfer, debit/credit card or
+                            cash at the cashier desk, VAT invoice will be issued
+                            from Yamaha Motor Vietnam Co., Ltd. <br /> -
+                            <span
+                                >Khoản phí (B) chỉ là ước tính, quý khách có thể
+                                thực hiện việc đăng ký xe trực tiếp với các đơn
+                                vị cung cấp dịch vụ thông qua sự giới thiệu và
+                                hỗ trợ của nhân viên kinh doanh hoặc tự tìm kiếm
+                                từ bên ngoài/</span
+                            >
+                            (B) amount is only an estimation, customers can
+                            directly do the bike registration with services via
+                            the introduction and support from salesmen or
+                            through other outside services.
+                            <br />
+                            <br />
+                            <span
+                                >Thông tin chuyển khoản/ Bank transfer
+                                information:</span
+                            >
+                            <br />
+                            <span
+                                >Tên chủ tài khoản/ Account Name:
+                                {!objOpportunity.Owner.Account.Bank_Account_Name__c}</span
+                            >
+                            <br />
+                            <span>
+                                Số tài khoản/ Account Number :
+                                {!objOpportunity.Owner.Account.Bank_Number2__c}</span
+                            >
+                            <br />
+                            <span
+                                >Tại/ At :
+                                {!objOpportunity.Owner.Account.Bank_Name__c}</span
+                            >
+                        </p>
+                    </div>
+                    <!-- 2nd paragraph END HERE -->
+                </div>
+                <!-- End col 1 -->
+                <!-- Col 2 -->
+                <div class="col-1-of-2-right">
+                    <!-- 1st table col 2-->
+                    <table class="datatable u-width-99 last-child col-2">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    BẢNG TÓM TẮT GIÁ/
+                                    <i>PRICE SUMMARY</i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1">
+                                    Giá xe sau khuyến mãi <br /> Price after
+                                    discount:
+                                </td>
+                                <td colspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objQuoteLineItem.UnitPrice}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Phí đăng ký/ Registration fee:
+                                </td>
+                                <td colspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!totalRegister}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    TỔNG GIÁ XE &amp; PHÍ ĐĂNG KÝ: <br /> Total
+                                    bike price and on the road cost
+                                </td>
+                                <td colspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param value="{!totalPrice}" />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 1st col 2 table -->
+                    <!-- 2nd col 2 table -->
+                    <!-- <div class="u-p-r-small u-align-right u-m-tb-small">&nbsp;</div> -->
+                    <table
+                        class="datatable u-width-99 u-m-t-small u-m-b-small col-2"
+                    >
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    THÔNG TIN THANH TOÁN/
+                                    <i>PAYMENT INFORMATION</i>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Đơn hàng TMDT/ E-commerce order:
+                                </td>
+
+                                <td colspan="1">
+                                    <div class="center-a-right">Yes/No</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Giá trị đổi xe/ Trade-in service:
+                                </td>
+                                <td colspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Opportunity_Tradein__r.Purchase_Price__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Giảm giá /Discount</td>
+                                <td colspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,### ' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!(objQuoteLineItem.ListPrice-objQuoteLineItem.UnitPrice)}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Thanh toán đợt 1/ First payment:
+                                </td>
+                                <td colspan="1">
+                                    <div class="center-a-right u-align-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,###' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.SyncedQuote.First_Payment__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    Thanh toán đợt 2/ Second payment:
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,###' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.SyncedQuote.Second_Payment__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    Thanh toán đợt 3/ Second payment:
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,###' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.SyncedQuote.Third_Payment__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    Vay/ Finance (Nếu có- If any):
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <div class="center-a-right">
+                                        <apex:outputText
+                                            value="{0, number, ###,###' VND'}"
+                                        >
+                                            <apex:param
+                                                value="{!objOpportunity.Finance__c}"
+                                            />
+                                        </apex:outputText>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 2nd 2 col table -->
+                    <!-- 3rd col 2 table -->
+                    <table
+                        class="datatable table-cell-height-big u-width-99 last-child col-2"
+                    >
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    XÁC NHẬN/
+                                    <i>CONFIRMATION</i>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Chữ ký Khách hàng <br /> Customer's
+                                    signature
+                                </td>
+                                <td colspan="1"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Chữ ký Nhân viên tư vấn
+                                    <br /> Sales consultant's signature
+                                </td>
+                                <td colspan="1"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Chữ ký Quản lý bán hàng <br />Sales
+                                    management position's signature
+                                </td>
+                                <td colspan="1"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 3rd col 2 table -->
+                    <!-- 1st paragraph col 2 -->
+                    <div
+                        class="paragraph-text u-width-99 col-2"
+                        style="margin-top: 25px"
+                    >
+                        <p>
+                            <span>Lưu ý/ Notice:</span>
+                            <br /> -
+                            <span
+                                >Báo giá và biên bản thoả thuận không có giá trị
+                                thay thế hợp đồng bán xe. Quý khách hàng vui
+                                lòng ký Hợp đồng mua bán xe với Revzone Yamaha
+                                Motor Saigon trong vòng 7 (bảy) ngày kể từ khi
+                                ký biên bản thoả thuận này Nếu sau 7 (bảy) ngày,
+                                quý khách hàng vẫn không ký Hợp đồng Mua Bán Xe
+                                thì xem như Khách hàng đơn phương chấm dứt thỏa
+                                thuận. Trong trường hợp này, Biên bản Thỏa thuận
+                                không còn hiệu lực và tiền cọc sẽ không được
+                                hoàn lại.
+                            </span>
+                            <br /> Quotation &amp; Deal Sheet does not supersede
+                            Vehicle Sales Contract. The Buyer has to sign
+                            Vehicle Sales Contract with Revzone Yamaha Motor
+                            Saigon within 7 (seven) days after Deal Sheet
+                            signing date. After 7 (seven) days, if The Buyer
+                            does not sign Vehicle Sales Contract, it is
+                            considered that The Buyer unilaterally cancels the
+                            deal. In this case, Deal Sheet is invalid and
+                            Revzone Yamaha Motor Saigon will not refund Deposit
+                            to The Buyer.
+
+                            <br /> -
+                            <span
+                                >Chương trình giảm giá không áp dụng cho xe
+                                không nằm trong kho hàng hiện tại.</span
+                            >
+                            <br />Discount will not be applied for stock which
+                            is not in the inventory.
+
+                            <br /> -
+                            <span
+                                >Trong trường hợp hàng đã được bán hết báo giá
+                                này trở nên vô hiệu.</span
+                            >
+                            <br />In case all stocks are sold out, this
+                            quotation will be invalid.
+
+                            <br /> -
+                            <span
+                                >Tất cả xe bán ra được bảo hành 02 năm không
+                                giới hạn số km theo tiêu chuẩn bảo hành toàn cầu
+                                của Yamaha Motor Vietnam.
+                            </span>
+                            <br /> All Yamaha bikes will be covered by 02 year
+                            and unlimited distance warranty according to Yamaha
+                            Motor Vietnam international warranty policy.
+
+                            <br /> -
+                            <span
+                                >Bằng cách ký vào Biên Bản này, Khách hàng/Bên
+                                Nhận đồng ý cho phép YMVN thu thập, sử dụng,
+                                chia sẻ và/hoặc xử lý dữ liệu cá nhân của Khách
+                                Hàng như quy định trong Chính sách quyền riêng
+                                tư của YMVN (Chi tiết tại link:
+                                https://yamaha-motor.com.vn/policy/).</span
+                            >
+                            <br />By signing this Minutes, Customers/Recipient
+                            agree to allow YMVN to collect, use, share and/or
+                            process Customer's personal data as specified in
+                            YMVN's Privacy Policy (Details at link:
+                            https://yamaha-motor.com.vn/policy/).
+                        </p>
+                    </div>
+                    <!-- END 1st paragraph col 2 -->
+                    <!-- 4th col 2 table -->
+                    <table
+                        class="datatable u-width-99 last-child u-m-t-ssmall col-2"
+                    >
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    Thông tin liên hệ/ Contact information
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Nhân viên kinh doanh: <br /> Sales
+                                    consultant:
+                                </td>
+                                <td colspan="1">
+                                    {!objOpportunity.Owner.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Điện thoại /Phone number:</td>
+                                <td colspan="1">
+                                    {!IF((objOpportunity.Owner.MobilePhone !=
+                                    Null),objOpportunity.Owner.MobilePhone,objOpportunity.Owner.Phone)}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Email:</td>
+                                <td colspan="1">
+                                    {!objOpportunity.Owner.Email}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Zalo &amp; Viber:</td>
+                                <td colspan="1">
+                                    {!objOpportunity.Owner.Zalo_Viber__c}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Quản lý kinh doanh: <br /> Sales management:
+                                </td>
+                                <td colspan="1">
+                                    {!objOpportunity.Owner.DODL_Manager__r.Name}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Điện thoại /Phone number:</td>
+                                <td colspan="1">
+                                    {!IF((objOpportunity.Owner.DODL_Manager__r.MobilePhone
+                                    !=
+                                    Null),objOpportunity.Owner.DODL_Manager__r.MobilePhone,objOpportunity.Owner.DODL_Manager__r.Phone)}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- End 4th col 2 table -->
+                </div>
+                <!-- End col 2 -->
+            </div>
         </div>
-        <!-- End col 1 -->
-        <!-- Col 2 -->
-        <div class="col-1-of-2-right">
-          <!-- 1st table col 2-->
-          <table class="datatable u-width-99 last-child col-2">
-            <thead>
-              <tr>
-                <th colspan="2">
-                  BẢNG TÓM TẮT GIÁ/
-                  <i>PRICE SUMMARY</i>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="1">Giá xe sau khuyến mãi
-                  <br/> Price after discount:
-                </td>
-                <td colspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objQuoteLineItem.UnitPrice}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Phí đăng ký/ Registration fee:
-                </td>
-                <td colspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!totalRegister}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">TỔNG GIÁ XE &amp; PHÍ ĐĂNG KÝ:
-                  <br/> Total bike price and on the road cost
-                </td>
-                <td colspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!totalPrice}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 1st col 2 table -->
-          <!-- 2nd col 2 table -->
-          <!-- <div class="u-p-r-small u-align-right u-m-tb-small">&nbsp;</div> -->
-          <table class="datatable u-width-99 u-m-t-ssmall u-m-b-medium col-2">
-            <tbody>
-              <tr>
-                <th colspan="2">THÔNG TIN THANH TOÁN/
-                  <i>PAYMENT INFORMATION</i>
-                </th>
-              </tr>
-              <tr>
-                <td colspan="1">Đơn hàng TMDT/ E-commerce order:
-                </td>
-
-                <td colspan="1">
-                  <div class="center-a-right">Yes/No</div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Giá trị đổi xe/ Trade-in service:
-                </td>
-                <td colspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!objOpportunity.Opportunity_Tradein__r.Purchase_Price__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Giảm giá /Discount
-                </td>
-                <td colspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,### ' VND'}">
-                      <apex:param value="{!(objQuoteLineItem.ListPrice-objQuoteLineItem.UnitPrice)}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Thanh toán đợt 1/ First payment:
-                </td>
-                <td colspan="1">
-                  <div class="center-a-right u-align-right">
-                    <apex:outputText value="{0, number, ###,###' VND'}">
-                      <apex:param value="{!objOpportunity.SyncedQuote.First_Payment__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1" rowspan="1">Thanh toán đợt 2/ Second payment:
-                </td>
-                <td colspan="1" rowspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,###' VND'}">
-                      <apex:param value="{!objOpportunity.SyncedQuote.Second_Payment__c}" />
-                    </apex:outputText>
-                  </div>
-
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1" rowspan="1">Thanh toán đợt 3/ Second payment:
-                </td>
-                <td colspan="1" rowspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,###' VND'}">
-                      <apex:param value="{!objOpportunity.SyncedQuote.Third_Payment__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1" rowspan="1">Vay/ Finance (Nếu có- If any):
-                </td>
-                <td colspan="1" rowspan="1">
-                  <div class="center-a-right">
-                    <apex:outputText value="{0, number, ###,###' VND'}">
-                      <apex:param value="{!objOpportunity.Finance__c}" />
-                    </apex:outputText>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 2nd 2 col table -->
-          <!-- 3rd col 2 table -->
-          <table class="datatable table-cell-height-big u-width-99 last-child col-2">
-            <tbody>
-              <tr>
-                <th colspan="2">XÁC NHẬN/
-                  <i>CONFIRMATION</i>
-                </th>
-              </tr>
-              <tr>
-                <td colspan="1">Chữ ký Khách hàng
-                  <br/> Customer's signature
-                </td>
-                <td colspan="1"></td>
-              </tr>
-              <tr>
-                <td>
-                  Chữ ký Nhân viên tư vấn
-                  <br/> Sales consultant's signature
-                </td>
-                <td colspan="1"></td>
-              </tr>
-              <tr>
-                <td colspan="1">Chữ ký Quản lý bán hàng
-                  <br/>Sales management position's signature
-                </td>
-                <td colspan="1"></td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 3rd col 2 table -->
-          <!-- 1st paragraph col 2 -->
-          <div class="paragraph-text u-width-99 col-2" style="margin-top: 25px;">
-            <p>
-              <span>Lưu ý/ Notice:</span>
-              <br/> -
-              <span>Báo giá và biên bản thoả thuận không có giá trị thay thế hợp đồng bán xe. Quý khách hàng vui lòng ký Hợp đồng
-                mua bán xe với Revzone Yamaha Motor Saigon trong vòng 7 (bảy) ngày kể từ khi ký biên bản thoả thuận này Nếu
-                sau 7 (bảy) ngày, quý khách hàng vẫn không ký Hợp đồng Mua Bán Xe thì xem như Khách hàng đơn phương chấm
-                dứt thỏa thuận. Trong trường hợp này, Biên bản Thỏa thuận không còn hiệu lực và tiền cọc sẽ không được hoàn
-                lại.
-              </span>
-              <br/> Quotation &amp; Deal Sheet does not supersede Vehicle Sales Contract. The Buyer has to sign Vehicle Sales
-              Contract with Revzone Yamaha Motor Saigon within 7 (seven) days after Deal Sheet signing date. After 7 (seven)
-              days, if The Buyer does not sign Vehicle Sales Contract, it is considered that The Buyer unilaterally cancels
-              the deal. In this case, Deal Sheet is invalid and Revzone Yamaha Motor Saigon will not refund Deposit to The
-              Buyer.
-
-              <br/> -
-              <span>Chương trình giảm giá không áp dụng cho xe không nằm trong kho hàng hiện tại.</span>
-              <br/>Discount will not be applied for stock which is not in the inventory.
-
-              <br/> -
-              <span>Trong trường hợp hàng đã được bán hết báo giá này trở nên vô hiệu.</span>
-              <br/>In case all stocks are sold out, this quotation will be invalid.
-
-              <br/> -
-              <span>Tất cả xe bán ra được bảo hành 02 năm không giới hạn số km theo tiêu chuẩn bảo hành toàn cầu của Yamaha Motor
-                Vietnam.
-              </span>
-              <br/> All Yamaha bikes will be covered by 02 year and unlimited distance warranty according to Yamaha Motor Vietnam
-              international warranty policy.
-            </p>
-          </div>
-          <!-- END 1st paragraph col 2 -->
-          <!-- 4th col 2 table -->
-          <table class="datatable u-width-99 last-child u-m-t-ssmall col-2">
-            <tbody>
-              <tr>
-                <th colspan="2">Thông tin liên hệ/ Contact information
-                </th>
-              </tr>
-              <tr>
-                <td colspan="1">Nhân viên kinh doanh:
-                  <br/> Sales consultant:
-                </td>
-                <td colspan="1">{!objOpportunity.Owner.Name} </td>
-              </tr>
-              <tr>
-                <td>
-                  Điện thoại /Phone number:
-                </td>
-                <td colspan="1">
-                  {!IF((objOpportunity.Owner.MobilePhone != Null),objOpportunity.Owner.MobilePhone,objOpportunity.Owner.Phone)}
-                </td>
-              </tr>
-              <tr>
-                <td colspan="1">Email:
-                </td>
-                <td colspan="1">{!objOpportunity.Owner.Email}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Zalo &amp; Viber:
-                </td>
-                <td colspan="1">{!objOpportunity.Owner.Zalo_Viber__c}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Quản lý kinh doanh:
-                  <br/> Sales management:
-                </td>
-                <td colspan="1">{!objOpportunity.Owner.DODL_Manager__r.Name}</td>
-              </tr>
-              <tr>
-                <td colspan="1">Điện thoại /Phone number:
-                </td>
-                <td colspan="1">{!IF((objOpportunity.Owner.DODL_Manager__r.MobilePhone != Null),objOpportunity.Owner.DODL_Manager__r.MobilePhone,objOpportunity.Owner.DODL_Manager__r.Phone)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End 4th col 2 table -->
-        </div>
-        <!-- End col 2 -->
-      </div>
-    </div>
-
-  </body>
+    </body>
 </apex:page>
