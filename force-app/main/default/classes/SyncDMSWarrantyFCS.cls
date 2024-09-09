@@ -146,6 +146,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         List<Free_Coupon__c> couponData = new List<Free_Coupon__c>();
         List<Asset> updatedAsset = new List<Asset>();
         Set<Id> assetWithMileagueLessThan1000 = new Set<Id>();
+        // TODO: Hỏi xem xe thường (<400cc) có cần cập nhật lại Warranty Expired Date không?
         for (
             SObjectAPIDMSRespone.WarrantyServiceRequest warItem : warantyRequests
         ) {
@@ -190,13 +191,16 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             );
             //Update Warranty_Effective_Date__c and Warrant_Expired_Date__c
             if (
-                String.isBlank(asset.Warranty_Effective_Date__c.toString()) ||
-                String.isBlank(asset.Warrant_Expired_Date__c.toString())
+                asset.Warranty_Effective_Date__c == null ||
+                asset.Warrant_Expired_Date__c == null
             ) {
+                System.debug(
+                    'I am in if ' + (asset.Warranty_Effective_Date__c == null)
+                );
                 asset.Warranty_Effective_Date__c = warrantyEffectiveDate;
                 asset.Warrant_Expired_Date__c = warrantyExpiredDate;
-                asset.Number_of_Month_Gar_del__c = warrantyExpiredDate.monthsBetween(
-                    warrantyEffectiveDate
+                asset.Number_of_Month_Gar_del__c = math.abs(
+                    warrantyExpiredDate.monthsBetween(warrantyEffectiveDate)
                 ); //Task: ymnv-1035
                 updatedAsset.add(asset);
             }
@@ -225,7 +229,8 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             }
             if (
                 asset.Product2.Bike_cc__c == '>400cc' &&
-                Date.today().monthsBetween(warrantyEffectiveDate) <= 12 &&
+                math.abs(Date.today().monthsBetween(warrantyEffectiveDate)) <=
+                12 &&
                 assetWithMileagueLessThan1000.contains(asset.Id)
             ) {
                 if (
