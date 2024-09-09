@@ -20,6 +20,15 @@ public class SyncDMSHelperTest {
         );
         insert testAccount;
 
+        // Create Pricebook Entry
+        Pricebook2 pb2 = new Pricebook2(
+            Type__c = 'PCAService',
+            IsActive = true,
+            is_Employee__c = true,
+            Name = 'Custom PB2'
+        );
+        insert pb2;
+
         Asset testAsset = new Asset(Name = 'Test Asset');
         insert testAsset;
 
@@ -79,6 +88,15 @@ public class SyncDMSHelperTest {
     static void testConvertModelSaleRequestDataWithNullValues() {
         Account testAccount = new Account(LastName = 'Test');
         insert testAccount;
+
+        // Create Pricebook Entry
+        Pricebook2 pb2 = new Pricebook2(
+            Type__c = 'PCAService',
+            IsActive = true,
+            is_Employee__c = true,
+            Name = 'Custom PB2'
+        );
+        insert pb2;
 
         Order testOrder = new Order(
             AccountId = testAccount.Id,

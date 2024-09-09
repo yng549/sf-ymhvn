@@ -47,6 +47,7 @@ public class SyncDMSHelper {
             Type__c = 'PCAService'
             AND Isactive = TRUE
             AND is_Employee__c = TRUE
+        LIMIT 1
     ];
     public static String trimErrorMessage(String errorMessage) {
         if (errorMessage.length() > 30000) {
