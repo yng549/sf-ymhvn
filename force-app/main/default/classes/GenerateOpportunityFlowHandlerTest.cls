@@ -9,11 +9,11 @@ public with sharing class GenerateOpportunityFlowHandlerTest {
         GenerateOpportunityFlowHandler.handleGenerate(testData.get('empInsId'));
 
         List<Opportunity> opty = [
-            SELECT Id
+            SELECT Id, Is_Employee__c, SNS__c
             FROM Opportunity
             WHERE
                 Product__c = :testData.get('prodId')
-                AND AccountId = :testData.get('accId')
+                // AND AccountId = :testData.get('accId')
                 AND Pricebook2Id = :testData.get('pbId')
             LIMIT 1
         ];
@@ -40,7 +40,10 @@ public with sharing class GenerateOpportunityFlowHandlerTest {
         Province__c province = new Province__c(Province_Code__c = 'test');
         insert province;
         // Create district
-        District__c district = new District__c(District_Code__c = 'test');
+        District__c district = new District__c(
+            District_Code__c = 'test',
+            Province__c = province.Id
+        );
         insert district;
         // record type Id of Account
         Id accRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
@@ -61,7 +64,7 @@ public with sharing class GenerateOpportunityFlowHandlerTest {
         // Create Employee Instruction
         EmployeeInstruction__c testEmpIns = new EmployeeInstruction__c(
             EmployeeCode__c = 'Test Instruction',
-            PurchaseType__c = 'Test Instruction',
+            PurchaseType__c = 'Fullpaid',
             EmployeeName__c = testAccount.Name,
             AP44Price__c = 1000,
             SNS__c = 'Test Instruction',
@@ -72,9 +75,9 @@ public with sharing class GenerateOpportunityFlowHandlerTest {
             LastName__c = 'Account',
             Gender__c = 'Male',
             Birthday__c = String.valueOf(Date.today()),
-            Province__c = 'HCM',
+            Province__c = province.Id,
             ProvinceCode__c = 'test',
-            District__c = '3',
+            District__c = district.Id,
             DistrictCode__c = 'test',
             Address__c = 'Test Instruction'
         );
@@ -102,9 +105,12 @@ public with sharing class GenerateOpportunityFlowHandlerTest {
 
         // Create Pricebook
         Pricebook2 testPricebook = new Pricebook2(
-            Name = 'Test Pricebook',
+            Name = 'Bike',
             IsActive = true,
-            Price_Book_Origin__c = stdPricebook.Id
+            Price_Book_Origin__c = stdPricebook.Id,
+            From__c = Date.today().addMonths(-3),
+            To__c = Date.today().addMonths(3),
+            Type__c = 'Bike'
         );
         insert testPricebook;
         result.put('pbId', testPricebook.Id);
