@@ -1,9 +1,9 @@
 @IsTest(SeeAllData=true)
 public class TriggerOrderTest {
-    private static testmethod void testMethod1(){
-    	test.startTest();
+    private static testMethod void testMethod1() {
+        test.startTest();
         TriggerOrder.cheatTemp();
+        TriggerHandlerInventoryTransactionItems.cheatTemp();
         test.stopTest();
     }
-    
 }
