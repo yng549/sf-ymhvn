@@ -73,7 +73,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                         jsonData,
                         List<SObjectAPIDMSRespone.WarrantyServiceRequest>.class
                     );
-
                     if (!warantyRequests.isEmpty()) {
                         PageSize_API__c pageAPI = createPageAPI(
                             startIndex,
@@ -145,7 +144,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         Map<String, SObjectAPIDMSRespone.WarrantyItem> mapFrameNo = new Map<String, SObjectAPIDMSRespone.WarrantyItem>();
         List<Free_Coupon__c> couponData = new List<Free_Coupon__c>();
         List<Asset> updatedAsset = new List<Asset>();
-        Set<Id> assetWithMileagueLessThan1000 = new Set<Id>();
+        Set<Id> assetWithMileagueMoreThan1000 = new Set<Id>();
         // TODO: Hỏi xem xe thường (<400cc) có cần cập nhật lại Warranty Expired Date không?
         for (
             SObjectAPIDMSRespone.WarrantyServiceRequest warItem : warantyRequests
@@ -162,10 +161,10 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             SELECT Id, Mileage__c, Asset__r.Frame_Number__c, Asset__r.Id
             FROM Order
             WHERE
-                Mileage__c < 1000
+                Mileage__c > 1000
                 AND Asset__r.Frame_Number__c IN :mapFrameNo.keySet()
         ]) {
-            assetWithMileagueLessThan1000.add(o.Asset__r.Id);
+            assetWithMileagueMoreThan1000.add(o.Asset__r.Id);
         }
         for (Asset asset : [
             SELECT
@@ -194,9 +193,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                 asset.Warranty_Effective_Date__c == null ||
                 asset.Warrant_Expired_Date__c == null
             ) {
-                System.debug(
-                    'I am in if ' + (asset.Warranty_Effective_Date__c == null)
-                );
                 asset.Warranty_Effective_Date__c = warrantyEffectiveDate;
                 asset.Warrant_Expired_Date__c = warrantyExpiredDate;
                 asset.Number_of_Month_Gar_del__c = math.abs(
@@ -229,9 +225,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             }
             if (
                 asset.Product2.Bike_cc__c == '>400cc' &&
-                math.abs(Date.today().monthsBetween(warrantyEffectiveDate)) <=
-                12 &&
-                assetWithMileagueLessThan1000.contains(asset.Id)
+                !assetWithMileagueMoreThan1000.contains(asset.Id)
             ) {
                 if (
                     mapFrameNo.get(asset.Frame_Number__c).coupons.isEmpty() &&
