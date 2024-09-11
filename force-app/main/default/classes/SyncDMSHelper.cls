@@ -28,7 +28,10 @@ public class SyncDMSHelper {
     private static final Id IDPBPCAService = [
         SELECT Id
         FROM Pricebook2
-        WHERE Type__c = 'PCAService' AND Isactive = TRUE
+        WHERE
+            Type__c = 'PCAService'
+            AND Isactive = TRUE
+            AND is_Employee__c = FALSE
     ]
     .Id;
     private static final Id IDPBPCAWARRANTY = [
@@ -37,6 +40,15 @@ public class SyncDMSHelper {
         WHERE Type__c = 'Warranty' AND Isactive = TRUE
     ]
     .Id;
+    private static final Pricebook2 PBPCAEmployee = [
+        SELECT Id, Policy__r.Price__c
+        FROM Pricebook2
+        WHERE
+            Type__c = 'PCAService'
+            AND Isactive = TRUE
+            AND is_Employee__c = TRUE
+        LIMIT 1
+    ];
     public static String trimErrorMessage(String errorMessage) {
         if (errorMessage.length() > 30000) {
             errorMessage = errorMessage.substring(0, 30000);
@@ -93,6 +105,35 @@ public class SyncDMSHelper {
             );
             pricePCAService.Id = mapExternalId.get(key);
             lstPBEParts.add(pricePCAService);
+        }
+        upsert lstPBEParts;
+    }
+    // YMHVN-996, New nethod to create pricebook entry for YMH's employees
+    public static void createPricebookEntirePartEmployee(
+        Map<String, Product2> productCodeMap,
+        Map<String, Integer> partNoRetailPriceMap
+    ) {
+        Map<String, Id> mapExternalId = new Map<String, Id>();
+        List<PricebookEntry> lstPBEParts = new List<PricebookEntry>();
+        for (PricebookEntry entry : [
+            SELECT Id, ServiceJob_Key__c
+            FROM PricebookEntry
+            WHERE
+                ServiceJob_Key__c IN :productCodeMap.keySet()
+                AND Pricebook2Id = :PBPCAEmployee.Id
+        ]) {
+            mapExternalId.put(entry.ServiceJob_Key__c, entry.Id);
+        }
+        for (String key : productCodeMap.keySet()) {
+            PricebookEntry pricePCAServiceEmployee = createPriceBookEntry(
+                PBPCAEmployee.Id,
+                productCodeMap.get(key).Id,
+                partNoRetailPriceMap.get(key) *
+                    (PBPCAEmployee?.Policy__r?.Price__c ?? 0) *
+                    (productCodeMap.get(key).VAT__c / 100 + 1)
+            );
+            pricePCAServiceEmployee.Id = mapExternalId.get(key);
+            lstPBEParts.add(pricePCAServiceEmployee);
         }
         upsert lstPBEParts;
     }
@@ -180,6 +221,7 @@ public class SyncDMSHelper {
         modelsales.SellingPrice = String.valueOf(ord.Total_Amount__c);
         modelsales.Amount = String.valueOf(ord.Total_Amount__c);
         modelsales.DiscountAmount = String.valueOf(ord.Total_Discount__c);
+        modelsales.DmsOrderId = String.valueOf(ord.DmsOrderId__c);
         return modelsales;
     }
     public static SObjectAPIDMSRespone.Partssalesorder convertPartOrderRequestData(
