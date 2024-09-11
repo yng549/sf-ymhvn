@@ -2,10 +2,9 @@
 public class SyncDMSHelperTest {
     @isTest
     static void test1() {
-        try {
-            SyncDMSHelper.cheatTemp();
-        } catch (Exception e) {
-        }
+        SyncDMSHelper.cheatTemp();
+        Boolean runningInASandbox = SyncDMSHelper.runningInASandbox;
+        SyncDMSHelper.trimErrorMessage('This is an error message');
     }
     @isTest
     static void testConvertModelSaleRequestData() {

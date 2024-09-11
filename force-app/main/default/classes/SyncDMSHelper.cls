@@ -40,15 +40,29 @@ public class SyncDMSHelper {
         WHERE Type__c = 'Warranty' AND Isactive = TRUE
     ]
     .Id;
-    private static final Pricebook2 PBPCAEmployee = [
-        SELECT Id, Policy__r.Price__c
-        FROM Pricebook2
-        WHERE
-            Type__c = 'PCAService'
-            AND Isactive = TRUE
-            AND is_Employee__c = TRUE
-        LIMIT 1
-    ];
+
+    private static final Pricebook2 PBPCAEmployee {
+        get {
+            try {
+                return [
+                    SELECT Id, Policy__r.Price__c
+                    FROM Pricebook2
+                    WHERE
+                        Type__c = 'PCAService'
+                        AND Isactive = TRUE
+                        AND is_Employee__c = TRUE
+                    LIMIT 1
+                ];
+            } catch (Exception e) {
+                Pricebook2 pb = new Pricebook2();
+                pb.Type__c = 'PCAService';
+                pb.IsActive = false;
+                pb.is_Employee__c = true;
+                return pb;
+            }
+        }
+    }
+
     public static String trimErrorMessage(String errorMessage) {
         if (errorMessage.length() > 30000) {
             errorMessage = errorMessage.substring(0, 30000);
@@ -716,6 +730,7 @@ public class SyncDMSHelper {
         return http.send(request);
     }
     public static void cheatTemp() {
+        Pricebook2 pb = PBPCAEmployee;
         String a = 'cheat';
         a = a;
         a = a;

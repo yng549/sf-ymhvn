@@ -2,12 +2,14 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>APIDMSPartInformation</members>
+        <members>APIDMSPartInformationTest</members>
         <members>EinvoiceHelper</members>
         <members>EmployeeInstructionManager</members>
         <members>EmployeeInstructionManagerTest</members>
         <members>GenerateOpportunityFlowHandler</members>
         <members>GenerateOpportunityFlowHandlerTest</members>
         <members>SObjectAPIDMSRespone</members>
+        <members>SObjectAPIDMSResponeTest</members>
         <members>SyncDMSHelper</members>
         <members>SyncDMSHelperTest</members>
         <members>SyncDMSOrderHelper</members>
@@ -16,10 +18,9 @@
         <members>TriggerHandlerProduct</members>
         <members>TriggerHandlerProductTest</members>
         <members>TriggerHandlerQuote</members>
+        <members>TriggerHandlerQuoteTest</members>
         <members>TriggerOrder</members>
         <members>TriggerOrderTest</members>
-        <members>SyncModelPricingDMS</members>
-        <members>SyncModelPricingDMSTest</members>
         <name>ApexClass</name>
     </types>
     <types>
