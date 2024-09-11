@@ -144,8 +144,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         Map<String, SObjectAPIDMSRespone.WarrantyItem> mapFrameNo = new Map<String, SObjectAPIDMSRespone.WarrantyItem>();
         List<Free_Coupon__c> couponData = new List<Free_Coupon__c>();
         List<Asset> updatedAsset = new List<Asset>();
-        Set<Id> assetWithMileagueMoreThan1000 = new Set<Id>();
-        // TODO: Hỏi xem xe thường (<400cc) có cần cập nhật lại Warranty Expired Date không?
         for (
             SObjectAPIDMSRespone.WarrantyServiceRequest warItem : warantyRequests
         ) {
@@ -157,15 +155,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                 continue;
             mapFrameNo.put(warItem.UnitWarranty.FrameNo, warItem.UnitWarranty);
         }
-        for (Order o : [
-            SELECT Id, Mileage__c, Asset__r.Frame_Number__c, Asset__r.Id
-            FROM Order
-            WHERE
-                Mileage__c > 1000
-                AND Asset__r.Frame_Number__c IN :mapFrameNo.keySet()
-        ]) {
-            assetWithMileagueMoreThan1000.add(o.Asset__r.Id);
-        }
         for (Asset asset : [
             SELECT
                 Id,
@@ -173,6 +162,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                 Product2.Bike_cc__c,
                 Warranty_Effective_Date__c,
                 Warrant_Expired_Date__c,
+                Warranty_Kilometers__c,
                 (
                     SELECT Id, ServiceDate__c, CouponCategoryLevel__c
                     FROM Free_Coupons__r
@@ -188,16 +178,21 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             Date warrantyExpiredDate = SyncDMSHelper.convertFormatDate(
                 mapFrameNo.get(asset.Frame_Number__c).WarrantyExpiredDate
             );
+            Double warrantyKilometers = Double.valueOf(
+                mapFrameNo.get(asset.Frame_Number__c).WarrantyMileage
+            );
             //Update Warranty_Effective_Date__c and Warrant_Expired_Date__c
             if (
-                asset.Warranty_Effective_Date__c == null ||
-                asset.Warrant_Expired_Date__c == null
+                asset.Warranty_Effective_Date__c != warrantyEffectiveDate ||
+                asset.Warrant_Expired_Date__c != warrantyExpiredDate ||
+                asset.Warranty_Kilometers__c != warrantyKilometers
             ) {
                 asset.Warranty_Effective_Date__c = warrantyEffectiveDate;
                 asset.Warrant_Expired_Date__c = warrantyExpiredDate;
                 asset.Number_of_Month_Gar_del__c = math.abs(
                     warrantyExpiredDate.monthsBetween(warrantyEffectiveDate)
                 ); //Task: ymnv-1035
+                asset.Warranty_Kilometers__c = warrantyKilometers;
                 updatedAsset.add(asset);
             }
             if (asset.Product2.Bike_cc__c == '<400cc') {
@@ -223,10 +218,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                     );
                 }
             }
-            if (
-                asset.Product2.Bike_cc__c == '>400cc' &&
-                !assetWithMileagueMoreThan1000.contains(asset.Id)
-            ) {
+            if (asset.Product2.Bike_cc__c == '>400cc') {
                 if (
                     mapFrameNo.get(asset.Frame_Number__c).coupons.isEmpty() &&
                     asset.Free_Coupons__r.isEmpty()
