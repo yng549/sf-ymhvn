@@ -285,69 +285,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         c.Sync_DMS__c = true;
         return c;
     }
-    public static void cheat() {
-        string a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-        a = '';
-    }
     private static Free_Coupon__c createCouponBigBike400cc(
         Id idAsset,
         SObjectAPIDMSRespone.WarrantyItem unitWarranty
@@ -465,6 +402,7 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         }
         return lstCoupons;
     }
+    @TestVisible
     private static Map<Integer, WarrantyDateValid> createDateLevelData(
         SObjectAPIDMSRespone.WarrantyItem unitWarranty
     ) {
@@ -472,27 +410,48 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
             unitWarranty.WarrantyEffectiveDate
         );
         Date dateTo = SyncDMSHelper.convertFormatDate(
-            unitWarranty.WarrantyExpiredDate
+            unitWarranty.WarrantyEffectiveDate
         );
         Map<Integer, WarrantyDateValid> mapLevelDateValid = new Map<Integer, WarrantyDateValid>();
-        for (Integer i = 1; i < 10; i++) {
-            WarrantyDateValid dateLevel = new WarrantyDateValid();
-            dateLevel.dateFrom = i == 1
-                ? dateFrom
-                : mapLevelDateValid.get(i - 1).dateFrom.addMonths(4);
+        WarrantyDateValid firstDate = new WarrantyDateValid();
 
+        firstDate.dateFrom = dateFrom;
+        firstDate.dateTo = dateFrom.addMonths(4).addDays(-1);
+        mapLevelDateValid.put(1, firstDate);
+
+        for (Integer i = 2; i < 10; i++) {
+            WarrantyDateValid dateLevel = new WarrantyDateValid();
+            dateLevel.dateFrom = mapLevelDateValid.get(i - 1).dateTo.addDays(1);
             dateLevel.dateTo = i == 2
-                ? mapLevelDateValid.get(i - 1).dateTo.addMonths(6)
-                : (i == 1
-                      ? dateLevel.dateFrom.addMonths(4).addDays(-1)
-                      : mapLevelDateValid.get(i - 1).dateTo.addMonths(4));
+                ? dateLevel.dateFrom.addMonths(6).addDays(-1)
+                : dateLevel.dateFrom.addMonths(4).addDays(-1);
+
             mapLevelDateValid.put(i, dateLevel);
         }
-        mapLevelDateValid.get(9).dateTo = dateTo;
         return mapLevelDateValid;
     }
+    @TestVisible
     private class WarrantyDateValid {
+        @TestVisible
         private Date dateFrom;
+        @TestVisible
         private Date dateTo;
+
+        public WarrantyDateValid(Date dateFrom, Date dateTo) {
+            this.dateFrom = dateFrom;
+            this.dateTo = dateTo;
+        }
+        public WarrantyDateValid() {
+        }
+    }
+
+    public static Date testCreateDateLevelData(
+        SObjectAPIDMSRespone.WarrantyItem unitWarranty
+    ) {
+        Map<Integer, WarrantyDateValid> mapLevelDateValid = createDateLevelData(
+            unitWarranty
+        );
+
+        return mapLevelDateValid.get(9).dateTo;
     }
 }
