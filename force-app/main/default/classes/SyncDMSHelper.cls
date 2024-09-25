@@ -438,7 +438,7 @@ public class SyncDMSHelper {
         freecouponOrder.CashierName = ord.Cashier__r.Name;
         freecouponOrder.ServiceTitle = 'title';
         freecouponOrder.Mechanic = ord.Mechanic__r.Staff_Code__c;
-        freecouponOrder.ServiceDemand = 'CJPSerDem0001';
+        freecouponOrder.ServiceDemand = ord.Free_Coupon__r.Service_Demand__c; // Task YMHVN-1017
         freecouponOrder.StartTime = String.valueOf(
             ord.Bike_Receiving_Date__c.format('yyyyMMddHHmmss')
         );
