@@ -72,6 +72,7 @@ public class SyncDMSWarrantyFCSTest {
         // Create mock data
         SObjectAPIDMSRespone.WarrantyItem unitWarranty = new SObjectAPIDMSRespone.WarrantyItem();
         unitWarranty.WarrantyEffectiveDate = '20210901';
+        unitWarranty.WarrantyExpiredDate = '20241231';
 
         Test.startTest();
         Date lastValidDateTo = SyncDMSWarrantyFCS.testCreateDateLevelData(
@@ -79,7 +80,7 @@ public class SyncDMSWarrantyFCSTest {
         );
         Test.stopTest();
 
-        Date expectedLastDate = SyncDMSHelper.convertFormatDate('20241031');
+        Date expectedLastDate = SyncDMSHelper.convertFormatDate('20241028');
 
         Assert.areEqual(
             expectedLastDate,
@@ -92,6 +93,7 @@ public class SyncDMSWarrantyFCSTest {
     static void testCreateDateLevelDataWithIsTestVisible() {
         SObjectAPIDMSRespone.WarrantyItem unitWarranty = new SObjectAPIDMSRespone.WarrantyItem();
         unitWarranty.WarrantyEffectiveDate = '20210901';
+        unitWarranty.WarrantyExpiredDate = '20241231';
 
         Test.startTest();
         Map<Integer, SyncDMSWarrantyFCS.WarrantyDateValid> actualDateLevelData = SyncDMSWarrantyFCS.createDateLevelData(
@@ -119,15 +121,15 @@ public class SyncDMSWarrantyFCSTest {
         expectedDateLevelData.put(
             8,
             new SyncDMSWarrantyFCS.WarrantyDateValid(
-                SyncDMSHelper.convertFormatDate('20240301'),
-                SyncDMSHelper.convertFormatDate('20240630')
+                SyncDMSHelper.convertFormatDate('20240101'),
+                SyncDMSHelper.convertFormatDate('20240628')
             )
         );
         expectedDateLevelData.put(
             9,
             new SyncDMSWarrantyFCS.WarrantyDateValid(
-                SyncDMSHelper.convertFormatDate('20240701'),
-                SyncDMSHelper.convertFormatDate('20241031')
+                SyncDMSHelper.convertFormatDate('20240501'),
+                SyncDMSHelper.convertFormatDate('20241028')
             )
         );
 
@@ -136,12 +138,12 @@ public class SyncDMSWarrantyFCSTest {
                 Assert.areEqual(
                     expectedDateLevelData.get(dateKey).dateFrom,
                     actualDateLevelData.get(dateKey).dateFrom,
-                    'From Date is not correct'
+                    'From Date is not correct with index = ' + dateKey
                 );
                 Assert.areEqual(
                     expectedDateLevelData.get(dateKey).dateTo,
                     actualDateLevelData.get(dateKey).dateTo,
-                    'To date is not correct'
+                    'To date is not correct with index = ' + dateKey
                 );
             }
         }
