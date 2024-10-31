@@ -203,6 +203,7 @@ public class SObjectAPIDMSRespone {
     public class Modelcsalesorder {
         public string CRMOrderId;
         public string CRMOrderNo;
+        public string DmsOrderId;
         public string DealerCode;
         public string PointCode;
         public string SalesDate;

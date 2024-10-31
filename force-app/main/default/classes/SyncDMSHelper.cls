@@ -598,6 +598,11 @@ public class SyncDMSHelper {
         Map<String, Id> mapPointCode,
         Map<Id, Id> idDOIdWarehouses
     ) {
+        // Task ymhvn-984
+        Map<String, SObjectAPIDMSRespone.WarrantyItem> mapFrameno = getWarrantyFrameNoDMSByDealerCode(
+            mcinventorys[0].DealerCode__c
+        );
+
         List<Warehouse_Inventory__c> lstWareInventory = new List<Warehouse_Inventory__c>();
         List<Asset> lstAssets = new List<Asset>();
         system.debug('mcinventorys ' + mcinventorys);
@@ -614,6 +619,28 @@ public class SyncDMSHelper {
             asset.PurchaseDate = item.ShippingDate__c;
             asset.Status = 'New';
             asset.Inventory_Status__c = 'Available';
+            if (mapFrameno.get(item.FrameNo__c) != null) {
+                asset.Warranty_Kilometers__c = Integer.valueOf(
+                    mapFrameno.get(item.FrameNo__c).WarrantyMileage
+                );
+                String strFrom = mapFrameno.get(item.FrameNo__c)
+                    .WarrantyEffectiveDate;
+                String strTo = mapFrameno.get(item.FrameNo__c)
+                    .WarrantyExpiredDate;
+                Date dateFrom = Date.newInstance(
+                    Integer.valueOf(strFrom.substring(0, 4)),
+                    Integer.valueOf(strFrom.substring(4, 6)),
+                    Integer.valueOf(strFrom.substring(6, 8))
+                );
+                Date dateTo = Date.newInstance(
+                    Integer.valueOf(strTo.substring(0, 4)),
+                    Integer.valueOf(strTo.substring(4, 6)),
+                    Integer.valueOf(strTo.substring(6, 8))
+                );
+                asset.Number_of_Month_Gar_del__c = dateTo.day() > dateFrom.day()
+                    ? dateFrom.monthsBetween(dateTo) + 1
+                    : dateFrom.monthsBetween(dateTo);
+            }
             lstAssets.add(asset);
         }
         insert lstAssets;
@@ -632,6 +659,81 @@ public class SyncDMSHelper {
             lstWareInventory.add(whi);
         }
         insert lstWareInventory;
+    }
+
+    private static Map<String, SObjectAPIDMSRespone.WarrantyItem> getWarrantyFrameNoDMSByDealerCode(
+        String DealerCode
+    ) {
+        Map<String, SObjectAPIDMSRespone.WarrantyItem> mapFrameNo = new Map<String, SObjectAPIDMSRespone.WarrantyItem>();
+        HttpResponse res = calloutWarrantyFrameno(
+            'framenowarranty',
+            '{}',
+            '',
+            DealerCode
+        );
+        List<SObjectAPIDMSRespone.WarrantyServiceRequest> warrantyReqs;
+        if (res.getStatusCode() == 200) {
+            Map<String, Object> dataResult = (Map<String, Object>) JSON.deserializeUntyped(
+                res.getBody()
+            );
+            if (dataResult.get('code') == 200) {
+                String jsonData = JSON.serialize(dataResult.get('data'));
+                warrantyReqs = (List<SObjectAPIDMSRespone.WarrantyServiceRequest>) JSON.deserialize(
+                    jsonData,
+                    List<SObjectAPIDMSRespone.WarrantyServiceRequest>.class
+                );
+            }
+        }
+        for (
+            SObjectAPIDMSRespone.WarrantyServiceRequest warrantyReq : warrantyReqs
+        ) {
+            if (
+                String.isBlank(warrantyReq.UnitWarranty.FrameNo) ||
+                String.isBlank(
+                    warrantyReq.UnitWarranty.WarrantyEffectiveDate
+                ) ||
+                String.isBlank(warrantyReq.UnitWarranty.WarrantyExpiredDate)
+            )
+                continue;
+            mapFrameNo.put(
+                warrantyReq.UnitWarranty.FrameNo,
+                warrantyReq.UnitWarranty
+            );
+        }
+        return mapFrameNo;
+    }
+
+    public static HttpResponse calloutWarrantyFrameno(
+        String apiname,
+        String reqBody,
+        String frameNo,
+        string DealerCode
+    ) {
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        string strURL = runningInASandbox
+            ? 'callout:Api_DMS/streamapi/ymvn1/api/v1/' +
+              apiname +
+              '?dealerCd=' +
+              settingAPIDMS.get(DealerCode).DealerCD__c +
+              '&accessToken=' +
+              settingAPIDMS.get(DealerCode).AccessToken__c
+            : 'callout:API_DMS_PROD/streamapi/ymvn1/api/v1/' +
+              apiname +
+              '?dealerCd=' +
+              settingAPIDMS.get(DealerCode + 'PROD').DealerCD__c +
+              '&accessToken=' +
+              settingAPIDMS.get(DealerCode + 'PROD').AccessToken__c;
+        if (Test.isRunningTest()) {
+            frameNo = 'RLCS1FC10DY028886';
+        }
+        strURL += '&frameNo=' + frameNo;
+        request.setEndpoint(strURL);
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json');
+        request.setBody(reqBody);
+        request.setTimeout(120000);
+        return http.send(request);
     }
 
     public static void logError(

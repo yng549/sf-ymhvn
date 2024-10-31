@@ -63,7 +63,6 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
                 startIndex,
                 DealerCode
             );
-
             if (response.getStatusCode() == 200) {
                 Map<String, Object> dataResult = (Map<String, Object>) JSON.deserializeUntyped(
                     response.getBody()
@@ -501,20 +500,21 @@ public class SyncDMSWarrantyFCS implements Queueable, Database.AllowsCallouts {
         Date dateFrom = SyncDMSHelper.convertFormatDate(
             unitWarranty.WarrantyEffectiveDate
         );
+        Date dateTo = SyncDMSHelper.convertFormatDate(
+            unitWarranty.WarrantyExpiredDate
+        );
         Map<Integer, WarrantyDateValid> mapLevelDateValid = new Map<Integer, WarrantyDateValid>();
-        WarrantyDateValid firstDate = new WarrantyDateValid();
-
-        firstDate.dateFrom = dateFrom;
-        firstDate.dateTo = dateFrom.addMonths(4).addDays(-1);
-        mapLevelDateValid.put(1, firstDate);
-
-        for (Integer i = 2; i < 10; i++) {
+        for (Integer i = 1; i < 10; i++) {
             WarrantyDateValid dateLevel = new WarrantyDateValid();
-            dateLevel.dateFrom = mapLevelDateValid.get(i - 1).dateTo.addDays(1);
-            dateLevel.dateTo = i == 2
-                ? dateLevel.dateFrom.addMonths(6).addDays(-1)
-                : dateLevel.dateFrom.addMonths(4).addDays(-1);
+            dateLevel.dateFrom = i == 1
+                ? dateFrom
+                : mapLevelDateValid.get(i - 1).dateFrom.addMonths(4);
 
+            dateLevel.dateTo = i == 2
+                ? mapLevelDateValid.get(i - 1).dateTo.addMonths(6)
+                : (i == 1
+                      ? dateLevel.dateFrom.addMonths(4).addDays(-1)
+                      : mapLevelDateValid.get(i - 1).dateTo.addMonths(4));
             mapLevelDateValid.put(i, dateLevel);
         }
         return mapLevelDateValid;
