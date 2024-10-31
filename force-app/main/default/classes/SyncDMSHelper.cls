@@ -439,6 +439,9 @@ public class SyncDMSHelper {
         freecouponOrder.ServiceTitle = 'title';
         freecouponOrder.Mechanic = ord.Mechanic__r.Staff_Code__c;
         freecouponOrder.ServiceDemand = ord.Free_Coupon__r.Service_Demand__c; // Task YMHVN-1017
+        System.debug(
+            'freecouponOrder.ServiceDemand: ' + freecouponOrder.ServiceDemand
+        );
         freecouponOrder.StartTime = String.valueOf(
             ord.Bike_Receiving_Date__c.format('yyyyMMddHHmmss')
         );
@@ -726,6 +729,34 @@ public class SyncDMSHelper {
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
         request.setBody(reqBody);
+        request.setTimeout(120000);
+        return http.send(request);
+    }
+    public static HttpResponse requestApiBigBikeModelDMS(
+        String apiname,
+        String dealerCode
+    ) {
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+
+        String strUrl = runningInASandbox
+            ? 'callout:Api_DMS/streamapi/ymvn1/api/v1/' +
+              apiname +
+              '?dealerCd=' +
+              settingAPIDMS.get(dealerCode).DealerCD__c +
+              '&accessToken=' +
+              settingAPIDMS.get(dealerCode).AccessToken__c
+            : 'callout:API_DMS_PROD/streamapi/ymvn1/api/v1/' +
+              apiname +
+              '?dealerCd=' +
+              settingAPIDMS.get(dealerCode + 'PROD').DealerCD__c +
+              '&accessToken=' +
+              settingAPIDMS.get(dealerCode + 'PROD').AccessToken__c;
+
+        request.setEndpoint(strUrl);
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json');
+        request.setBody(BODYEMPTY);
         request.setTimeout(120000);
         return http.send(request);
     }

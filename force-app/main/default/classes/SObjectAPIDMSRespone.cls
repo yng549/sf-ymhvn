@@ -233,7 +233,6 @@ public class SObjectAPIDMSRespone {
         public string TaxAmount;
         public string DiscountAmount;
         public string Amount;
-        public string DmsOrderId;
     }
     /*IV.12	mcsalesorder Data start region end region*/
 
@@ -431,4 +430,29 @@ public class SObjectAPIDMSRespone {
         public string Status;
     }
     /*IV.20	recallvalidationcheck end region end region*/
+    /*IV.21	Bigbike model Data  */
+
+    public class CouponCategory {
+        public String CoupCtgCode;
+        public String PlCd;
+        public List<DetailItem> detail;
+    }
+
+    public class DetailItem {
+        public CoupCtgLevels CoupCtgLevels;
+        public ModelCodes ModelCodes;
+    }
+
+    public class CoupCtgLevels {
+        public String CoupCtgLevel;
+        public String UsedMonthFrom;
+        public String UsedMonthTo;
+        public String MileageFrom;
+        public String MileageTo;
+    }
+
+    public class ModelCodes {
+        public String ModelCode;
+    }
+    /*IV.21 JSON Response end region*/
 }
