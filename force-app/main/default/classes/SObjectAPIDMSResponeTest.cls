@@ -1,0 +1,11 @@
+@isTest
+public class SObjectAPIDMSResponeTest {
+    // IV.2	dmscusinformation Data start
+    @isTest
+    static void testSyncCusInfoSuccess() {
+        Test.startTest();
+        string jsonreq = '{\"msg\":\"Requestsucceed.\",\"code\":200,\"data\":[{\"CustomerId\":\"1ad6f795-8173-4b5a-b339-162a93ff1261\",\"DealerCode\":\"YT09\",\"PointCode\":\"\",\"LastName\":\"yung\",\"MiddleName\":\"\",\"FirstName\":\"jessie\",\"CustomerType\":\"KHÁCHHÀNGKHÔNGLẤYHĐ\",\"ConsumerType\":\"C009BIKEPURCHASECUSTOMER\",\"Mobile\":\"12111012101\",\"Mobile2\":\"\",\"Email\":\"\",\"Gender\":\"C017FEMALE\",\"Birthday\":\"19900126\",\"Age\":\"\",\"JobTittle\":\"C093OTHERS\",\"ProvinceCode\":\"8412100\",\"ProvinceName\":\"TỉnhĐồngTháp\",\"DistrictCode\":\"8412103\",\"Address\":\"amoyiluoli\",\"IdNo\":\"110010\",\"OrderId\":\"\",\"OrderType\":\"\",\"Type\":\"\",\"CreateDate\":\"\",\"LastModify\":\"\"},{\"CustomerId\":\"bfecaae0-71ce-4922-83b6-1f3170304cf1\",\"DealerCode\":\"YT09\",\"PointCode\":\"\",\"LastName\":\"Xiao\",\"MiddleName\":\"TEST2\",\"FirstName\":\"ADMINSP\",\"CustomerType\":\"KHÁCHHÀNGKHÔNGLẤYHĐ\",\"ConsumerType\":\"C009BIKEPURCHASECUSTOMER\",\"Mobile\":\"0973647710\",\"Mobile2\":\"\",\"Email\":\"\",\"Gender\":\"C017FEMALE\",\"Birthday\":\"20150629\",\"Age\":\"\",\"JobTittle\":\"C093WORKER\",\"ProvinceCode\":\"8412500\",\"ProvinceName\":\"ThànhphốHàNội\",\"DistrictCode\":\"8412515\",\"Address\":\"KHÓM3,TTMỘCHÓA\",\"IdNo\":\"ID0001\",\"OrderId\":\"\",\"OrderType\":\"\",\"Type\":\"\",\"CreateDate\":\"\",\"LastModify\":\"\"},{\"CustomerId\":\"a4e4456d-fc80-4087-a6bb-3e1a98c3f016\",\"DealerCode\":\"YT09\",\"PointCode\":\"\",\"LastName\":\"Bùi\",\"MiddleName\":\"Thị\",\"FirstName\":\"Oanh\",\"CustomerType\":\"KHÁCHHÀNGKHÔNGLẤYHĐ\",\"ConsumerType\":null,\"Mobile\":null,\"Mobile2\":null,\"Email\":null,\"Gender\":\"C017MALE\",\"Birthday\":\"19000101\",\"Age\":\"\",\"JobTittle\":null,\"ProvinceCode\":\"8411100\",\"ProvinceName\":\"TỉnhBìnhPhước\",\"DistrictCode\":\"8411107\",\"Address\":\"Unknown\",\"IdNo\":null,\"OrderId\":\"\",\"OrderType\":\"\",\"Type\":\"\",\"CreateDate\":\"\",\"LastModify\":\"\"}]}';
+        MockDMSHelperResponse.setTestMockResponse(200, 'OK', jsonreq);
+        Test.stopTest();
+    }
+}
